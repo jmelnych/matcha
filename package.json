@@ -1,0 +1,23 @@
+{
+  "name": "matcha",
+  "version": "1.0.0",
+  "description": "dating website",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmelnich/matcha.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jmelnich/matcha/issues"
+  },
+  "homepage": "https://github.com/jmelnich/matcha#readme",
+  "dependencies": {
+    "create-react-app": "^1.5.2",
+    "express-generator": "^4.16.0"
+  }
+}
