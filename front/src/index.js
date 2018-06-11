@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import registerServiceWorker from './registerServiceWorker'
 //mport { ApolloProvider } from 'react-apollo'
 //import { ApolloClient, createNetworkInterface } from 'react-apollo'
+import { Layout, Header, Footer } from 'antd'
 import 'antd/dist/antd.css'
 import Routes from './routes'
 
@@ -15,7 +16,9 @@ import Routes from './routes'
 // })
 
 const App = () => (
+
 	 	<Routes />
+
 	);
 
 

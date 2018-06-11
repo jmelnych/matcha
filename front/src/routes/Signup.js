@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Input, Radio } from 'antd'
+import { Form, Input, Radio, Button } from 'antd'
 
-export default class Signup extends Component {
+class Signup extends Component {
 	state = {
 		email: '',
 		username: '',
@@ -20,12 +20,29 @@ export default class Signup extends Component {
 			[e.target.name]: e.target.value,
 		})
 	}
+
+	onSubmit = () => {
+		console.log(this.state);
+	}
+
 	render() {
 		return (
 			<div>
 				<h1>Signup</h1>
-				<Input name='email' placeholder='Email'
-				onChange={e => this.onChange(e)} value={this.state.email}/>
+				<Form>
+				{/*<Form.Item label='email'> {
+					getFieldDecorator('email', {
+						rules: [{
+							required: true, message: 'Please input your E-mail!',
+						}, {
+							validator: this.checkEmailFormat
+						}]
+					}) (
+						<Input name='email' placeholder='Email'
+						onChange={e => this.onChange(e)} value={this.state.email}/>
+
+					)}
+				</Form.Item> */}
 				<Input name='username' placeholder='Username'
 				onChange={e => this.onChange(e)} value={this.state.username}/>
 				<Input name='firstname' placeholder='Firstname'
@@ -41,7 +58,12 @@ export default class Signup extends Component {
 				onChange={e => this.onChange(e)} />
 				<Input name='repeat_password' placeholder='Repeat password' type='password'
 				onChange={e => this.onChange(e)} />
+				<Button onClick={() => this.onSubmit()}type='primary'>Sign up</Button>
+				</Form>
 			</div>
 			)
 	}
 }
+
+let FancyFormComponent = Form.create()(Signup);
+export { FancyFormComponent as default}
