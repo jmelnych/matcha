@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Input, Radio, Button } from 'antd'
-import { Layout} from 'antd'
-
+import { Layout } from 'antd'
+import Tabs from '../components/Tabs'
 
 const { Header, Content } = Layout;
 
@@ -69,8 +69,8 @@ class Signup extends Component {
 	    };
 		return (
 			<div>
-				<Header className="App-header"><h1>Signup</h1></Header>
 				<Content className="App-content">
+				<Tabs/>
 				<Form className="App-form" onSubmit={this.onSubmit}>
 				<Form.Item {...formItemLayout} label='E-mail'> {
 					getFieldDecorator('email', {

@@ -21,6 +21,7 @@ class App extends Component {
  render() {
  	return (
  		<Layout className="App">
+ 		<Layout.Header></Layout.Header>
 		<Routes />
 		<Layout.Footer>footer</Layout.Footer>
 		</Layout>
