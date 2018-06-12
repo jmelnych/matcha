@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import { Form, Input, Radio, Button } from 'antd'
+import { Layout} from 'antd'
+
+
+const { Header, Content } = Layout;
 
 class Signup extends Component {
 	state = {
@@ -9,61 +13,152 @@ class Signup extends Component {
 		lastname: '',
 		gender: '',
 		password: '',
-		repeat_password: ''
+		confirm_password: '',
+		conf_value: false
 	}
 
 	onChange = (e) => {
-		console.log(e.target.name);
-		//let field = e.target.name;
-		//let value = e.target.value;
 		this.setState({
 			[e.target.name]: e.target.value,
 		})
 	}
 
-	onSubmit = () => {
+	onSubmit = (e) => {
+		e.preventDefault();
+		this.props.form.validateFieldsAndScroll((err, values) => {
+		     if (!err) {
+		        console.log('Received values of form: ', values);
+		      }
+		    });
 		console.log(this.state);
 	}
 
+	validateToNextPassword = (rule, value, callback) => {
+		const form = this.props.form;
+	    if (value && this.state.conf_value) {
+	      form.validateFields(['confirm_password'], { force: true });
+	    }
+	    callback();
+	 }
+
+	 handleBlur = (e) => {
+	 	const value = e.target.value;
+	 	this.setState({ conf_value: this.state.conf_value || !!value});
+	 }
+
+	 compareToFirstPassword = (rule, value, callback) => {
+	 	const form = this.props.form;
+		    if (value && value !== form.getFieldValue('password')) {
+		      callback('Two passwords that you enter is inconsistent');
+		    } else {
+		      callback();
+		    }
+	 }
+
 	render() {
+		const { getFieldDecorator } = this.props.form;
+		const formItemLayout = {
+	      labelCol: {
+	        xs: { span: 24 },
+	        sm: { span: 8 },
+	      },
+	      wrapperCol: {
+	        xs: { span: 24 },
+	        sm: { span: 16 },
+	      },
+	    };
 		return (
 			<div>
-				<h1>Signup</h1>
-				<Form>
-				{/*<Form.Item label='email'> {
+				<Header className="App-header"><h1>Signup</h1></Header>
+				<Content className="App-content">
+				<Form className="App-form" onSubmit={this.onSubmit}>
+				<Form.Item {...formItemLayout} label='E-mail'> {
 					getFieldDecorator('email', {
 						rules: [{
-							required: true, message: 'Please input your E-mail!',
-						}, {
-							validator: this.checkEmailFormat
+							type: 'email',
+							message: 'e-mail is not valid',
+						},
+						{
+							required: true,
+							message: 'Please input your E-mail'
 						}]
-					}) (
-						<Input name='email' placeholder='Email'
-						onChange={e => this.onChange(e)} value={this.state.email}/>
+					})(<Input name='email'
+					onChange={e => this.onChange(e)}/>)
+				}
+				</Form.Item>
+				<Form.Item {...formItemLayout} label='Username'> {
+					getFieldDecorator('username', {
+						rules: [{
+							required: true,
+							message: 'Please input your Username'
+						}]
+					})(<Input name='username'
+						onChange={e => this.onChange(e)}/>)
+				}
+				</Form.Item>
+				<Form.Item {...formItemLayout} label='First name'> {
+					getFieldDecorator('firstname', {
+						rules: [{
+							required: true,
+							message: 'Please input your first name'
+						}]
+					})(<Input name='firstname'
+						onChange={e => this.onChange(e)}/>)
+				}
+				</Form.Item>
+				<Form.Item {...formItemLayout} label='Last name'> {
+					getFieldDecorator('lastname', {
+						rules: [{
+							required: true,
+							message: 'Please input your last name'
+						}]
+					})(<Input name='lastname'
+						onChange={e => this.onChange(e)}/>)
+				}
+				</Form.Item>
+				<Form.Item {...formItemLayout} label='Gender'> {
+					getFieldDecorator('gender', {
+						rules: [{
+							required: true,
+							message: 'Please select your gender'
+						}]
+					})(<Radio.Group name='gender' onChange={e => this.onChange(e)}>
+		                  <Radio value='male'>Male</Radio>
+		                  <Radio value='female'>Female</Radio>
+		                </Radio.Group>)
+				}
+				</Form.Item>
+				<Form.Item {...formItemLayout} label='Password'> {
+					getFieldDecorator('password', {
+						rules: [{
+				              required: true,
+				              message: 'Please input your password',
+				            }, {
+				              validator: this.validateToNextPassword,
+				            }],
+					})(<Input name='password' type='password'
+						onChange={e => this.onChange(e)} />)
+				}
+				</Form.Item>
+				<Form.Item {...formItemLayout} label="Confirm Password">{
+					getFieldDecorator('confirm_password', {
+			            rules: [{
+			              required: true, message: 'Please confirm your password',
+			            }, {
+			              validator: this.compareToFirstPassword,
+			            }],
+			          })(<Input name='confirm_password' type='password'
+			          	onBlur={this.handleBlur}
+						onChange={e => this.onChange(e)} />
+			          )}
+			        </Form.Item>
 
-					)}
-				</Form.Item> */}
-				<Input name='username' placeholder='Username'
-				onChange={e => this.onChange(e)} value={this.state.username}/>
-				<Input name='firstname' placeholder='Firstname'
-				onChange={e => this.onChange(e)} value={this.state.firstname}/>
-				<Input name='lastname' placeholder='Lastname'
-				onChange={e => this.onChange(e)} value={this.state.lastname}/>
-
-				<Radio.Group name='gender' onChange={e => this.onChange(e)} value={this.state.gender}>
-                  <Radio value='male'>Male</Radio>
-                  <Radio value='female'>Female</Radio>
-                </Radio.Group>
-				<Input name='password' placeholder='Password' type='password'
-				onChange={e => this.onChange(e)} />
-				<Input name='repeat_password' placeholder='Repeat password' type='password'
-				onChange={e => this.onChange(e)} />
-				<Button onClick={() => this.onSubmit()}type='primary'>Sign up</Button>
+				<Button className="App-button" type='primary' htmlType='submit'>Sign up</Button>
 				</Form>
+				</Content>
 			</div>
 			)
 	}
 }
 
-let FancyFormComponent = Form.create()(Signup);
-export { FancyFormComponent as default}
+export default Form.create()(Signup);
