@@ -46,6 +46,30 @@ class Signup extends Component {
 	 	this.setState({ conf_value: this.state.conf_value || !!value});
 	 }
 
+	 handleInputLength = (rule, value, callback) => {
+	 	if (value && value.length < 3) {
+	 		callback(`${rule.field} is too short`);
+	 	} else {
+	 		callback();
+	 	}
+
+	 }
+
+	 validateComplex = (rule, value, callback) => {
+	 	const pattern = /^(?=.*\d)(?=.*[a-z])\w{6,}$/;
+	 	console.log(pattern.test(value));
+	 	if (value) {
+	 		if (pattern.test(value)) {
+	 			callback();
+	 		} else {
+	 			callback(`${rule.field} must contain at least one number and
+	 				lowercase letter, and at least 6 or more characters`);
+	 		}
+	 	} else {
+	 		callback();
+	 	}
+	 }
+
 	 compareToFirstPassword = (rule, value, callback) => {
 	 	const form = this.props.form;
 		    if (value && value !== form.getFieldValue('password')) {
@@ -91,6 +115,8 @@ class Signup extends Component {
 						rules: [{
 							required: true,
 							message: 'Please input your Username'
+						},{
+							validator: this.handleInputLength,
 						}]
 					})(<Input name='username'
 						onChange={e => this.onChange(e)}/>)
@@ -101,6 +127,8 @@ class Signup extends Component {
 						rules: [{
 							required: true,
 							message: 'Please input your first name'
+						},{
+							validator: this.handleInputLength,
 						}]
 					})(<Input name='firstname'
 						onChange={e => this.onChange(e)}/>)
@@ -111,6 +139,8 @@ class Signup extends Component {
 						rules: [{
 							required: true,
 							message: 'Please input your last name'
+						},{
+							validator: this.handleInputLength,
 						}]
 					})(<Input name='lastname'
 						onChange={e => this.onChange(e)}/>)
@@ -134,6 +164,8 @@ class Signup extends Component {
 				              required: true,
 				              message: 'Please input your password',
 				            }, {
+				              validator: this.validateComplex,
+				            }, {
 				              validator: this.validateToNextPassword,
 				            }],
 					})(<Input name='password' type='password'
@@ -153,7 +185,8 @@ class Signup extends Component {
 			          )}
 			        </Form.Item>
 
-				<Button className="App-button" type='primary' htmlType='submit'>Sign up</Button>
+				<Button className="App-button" type='primary'
+				htmlType='submit'>Sign up</Button>
 				</Form>
 				</Content>
 			</div>
