@@ -1,0 +1,32 @@
+
+
+ - crate api file in utils
+- export fetch method to actions
+
+- test passing data
+
+create actions
+
+create constants:
+create actions:
+
+import * as API from '../utils/API'
+import {GET_POSTS, GET_POST_CATEGORY, GET_ONE_POST,
+	UPVOTE_POST, DOWNVOTE_POST, ADD_POST, EDIT_POST, DELETE_POST, CHANGE_SORT} from './constansts'
+
+
+export const upVotePost = (id) => dispatch => (
+	API.votePost(id, "upVote")
+	.then(post => dispatch({
+		type: UPVOTE_POST,
+		post
+	}))
+	)
+
+
+	use function mapDispatchToProps(dispatch){
+	return{
+		getCategories: () => dispatch(getCategories()),
+		addPostClick: (post) => dispatch(addPost(post))
+	}
+}

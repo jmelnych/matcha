@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Form, Input, Button } from 'antd'
 import { Layout} from 'antd'
-import Tabs from '../components/Tabs'
+import Tabs from './Tabs'
 
 
-const { Header, Content } = Layout;
+const { Content } = Layout;
 
 class Login extends Component {
 	state = {

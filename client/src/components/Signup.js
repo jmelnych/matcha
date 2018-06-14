@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Form, Input, Radio, Button } from 'antd'
 import { Layout } from 'antd'
-import Tabs from '../components/Tabs'
+import Tabs from './Tabs'
+import * as API from '../utils/API'
 
-const { Header, Content } = Layout;
+const { Content } = Layout;
 
 class Signup extends Component {
 	state = {
@@ -20,17 +21,22 @@ class Signup extends Component {
 	onChange = (e) => {
 		this.setState({
 			[e.target.name]: e.target.value,
-		})
+		});
+
+		API.createUser(this.state);
 	}
 
 	onSubmit = (e) => {
 		e.preventDefault();
-		this.props.form.validateFieldsAndScroll((err, values) => {
-		     if (!err) {
+		const form = this.props.form;
+		form.validateFieldsAndScroll((err, values) => {
+		    if (!err) {
 		        console.log('Received values of form: ', values);
-		      }
+
+		    }
 		    });
-		console.log(this.state);
+
+		//console.log(this.state);
 	}
 
 	validateToNextPassword = (rule, value, callback) => {
@@ -41,7 +47,7 @@ class Signup extends Component {
 	    callback();
 	 }
 
-	 handleBlur = (e) => {
+	handleBlur = (e) => {
 	 	const value = e.target.value;
 	 	this.setState({ conf_value: this.state.conf_value || !!value});
 	 }
@@ -57,7 +63,7 @@ class Signup extends Component {
 
 	 validateComplex = (rule, value, callback) => {
 	 	const pattern = /^(?=.*\d)(?=.*[a-z])\w{6,}$/;
-	 	console.log(pattern.test(value));
+	 	//console.log(pattern.test(value));
 	 	if (value) {
 	 		if (pattern.test(value)) {
 	 			callback();
@@ -96,7 +102,7 @@ class Signup extends Component {
 				<Content className="App-content">
 				<Tabs/>
 				<Form className="App-form" onSubmit={this.onSubmit}>
-				<Form.Item {...formItemLayout} label='E-mail'> {
+				<Form.Item {...formItemLayout} label='E-mail' > {
 					getFieldDecorator('email', {
 						rules: [{
 							type: 'email',
@@ -110,7 +116,7 @@ class Signup extends Component {
 					onChange={e => this.onChange(e)}/>)
 				}
 				</Form.Item>
-				<Form.Item {...formItemLayout} label='Username'> {
+				<Form.Item {...formItemLayout} label='Username' > {
 					getFieldDecorator('username', {
 						rules: [{
 							required: true,
@@ -185,7 +191,7 @@ class Signup extends Component {
 			          )}
 			        </Form.Item>
 
-				<Button className="App-button" type='primary'
+				<Button  className="App-button" type='primary'
 				htmlType='submit'>Sign up</Button>
 				</Form>
 				</Content>

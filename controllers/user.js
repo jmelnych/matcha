@@ -9,4 +9,4 @@ var user = new User();
 //user.update('username', 'tifany', 'id', 1);
 //user.delete(2);
 //user.getAll();
-user.getByUnique(2);
+//user.getByUnique(2);
