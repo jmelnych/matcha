@@ -1,7 +1,7 @@
 import { CREATE_USER } from './types'
 const URL = 'http://localhost:5000';
 
-export const createUser = (userData) => dispatch => {
+export const createUser = (data) => dispatch => {
 		fetch(`${URL}/users/`, {
 			method: 'POST',
 			headers: {
@@ -9,7 +9,7 @@ export const createUser = (userData) => dispatch => {
 	            'Accept': 'application/json'
 	        },
 	        body: JSON.stringify({
-	        	userData
+	        	data
 	        })
 		}).then(res => res.json())
 		.then(user => dispatch({

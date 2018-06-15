@@ -2,7 +2,7 @@ const sqlite = require('sqlite3').verbose();
 
 module.exports = class DB {
 	constructor() {
-		this.db = new sqlite.Database('../matcha.db', (err) => {
+		this.db = new sqlite.Database('./matcha.db', (err) => {
 			if(err) {
 				console.log(err);
 			} else {

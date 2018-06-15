@@ -1,21 +1,30 @@
 const User = require('../models/User');
 const express = require('express');
 const bodyParser = require('body-parser');
+const phash = require('password-hash');
 
 const router = express.Router();
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
 const user = new User();
+//user.createTbl();
 
 router.post('/', (req, res) => {
 	console.log('node is ok');
-    console.log(req.body);
+    let usr = req.body.data;
+    try {
+    	user.create(usr.email, usr.username, usr.firstname, usr.lastname, phash.generate(usr.password), usr.gender);
+    	console.log('add');
+    }
+    catch(error) {
+    	console.log(error);
+    }
+    //console.log(user.name);
     res.json({title: 'hello world'});
 });
 
 module.exports = router;
-//user.createTbl();
 /*test*/
 //user.create('enigma@gmail.com', 'abc', 'ab', 'ab', 'qwerty', 'female');
 //user.create('123@gmail.com', 'aaaaa', 'aaaa', 'aaaa', 'aa', 'female');
