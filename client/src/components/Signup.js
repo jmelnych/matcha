@@ -8,18 +8,8 @@ import { createUser } from '../actions/userActions'
 const { Content } = Layout;
 
 class Signup extends Component {
-	componentDidMount() {
-		this.props.createUser();
-	}
 
 	state = {
-		email: '',
-		username: '',
-		firstname: '',
-		lastname: '',
-		gender: '',
-		password: '',
-		confirm_password: '',
 		conf_value: false
 	}
 
@@ -114,8 +104,7 @@ class Signup extends Component {
 							required: true,
 							message: 'Please input your E-mail'
 						}]
-					})(<Input name='email'
-					onChange={e => this.onChange(e)}/>)
+					})(<Input name='email'/>)
 				}
 				</Form.Item>
 				<Form.Item {...formItemLayout} label='Username' > {
@@ -126,8 +115,7 @@ class Signup extends Component {
 						},{
 							validator: this.handleInputLength,
 						}]
-					})(<Input name='username'
-						onChange={e => this.onChange(e)}/>)
+					})(<Input name='username' />)
 				}
 				</Form.Item>
 				<Form.Item {...formItemLayout} label='First name'> {
@@ -138,8 +126,7 @@ class Signup extends Component {
 						},{
 							validator: this.handleInputLength,
 						}]
-					})(<Input name='firstname'
-						onChange={e => this.onChange(e)}/>)
+					})(<Input name='firstname'/>)
 				}
 				</Form.Item>
 				<Form.Item {...formItemLayout} label='Last name'> {
@@ -160,7 +147,7 @@ class Signup extends Component {
 							required: true,
 							message: 'Please select your gender'
 						}]
-					})(<Radio.Group name='gender' onChange={e => this.onChange(e)}>
+					})(<Radio.Group name='gender'>
 		                  <Radio value='male'>Male</Radio>
 		                  <Radio value='female'>Female</Radio>
 		                </Radio.Group>)
@@ -176,8 +163,7 @@ class Signup extends Component {
 				            }, {
 				              validator: this.validateToNextPassword,
 				            }],
-					})(<Input name='password' type='password'
-						onChange={e => this.onChange(e)} />)
+					})(<Input name='password' type='password'/>)
 				}
 				</Form.Item>
 				<Form.Item {...formItemLayout} label="Confirm Password">{
