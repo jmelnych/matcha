@@ -2,11 +2,16 @@ import React, { Component } from 'react'
 import { Form, Input, Radio, Button } from 'antd'
 import { Layout } from 'antd'
 import Tabs from './Tabs'
-import * as API from '../utils/API'
+import { connect } from 'react-redux'
+import { createUser } from '../actions/userActions'
 
 const { Content } = Layout;
 
 class Signup extends Component {
+	componentDidMount() {
+		this.props.createUser();
+	}
+
 	state = {
 		email: '',
 		username: '',
@@ -22,8 +27,6 @@ class Signup extends Component {
 		this.setState({
 			[e.target.name]: e.target.value,
 		});
-
-		API.createUser(this.state);
 	}
 
 	onSubmit = (e) => {
@@ -31,12 +34,10 @@ class Signup extends Component {
 		const form = this.props.form;
 		form.validateFieldsAndScroll((err, values) => {
 		    if (!err) {
-		        console.log('Received values of form: ', values);
-
+		        //console.log('Received values of form: ', values);
+		        this.props.createUser(values);
 		    }
 		    });
-
-		//console.log(this.state);
 	}
 
 	validateToNextPassword = (rule, value, callback) => {
@@ -200,4 +201,4 @@ class Signup extends Component {
 	}
 }
 
-export default Form.create()(Signup);
+export default connect(null, { createUser })(Form.create()(Signup));

@@ -1,28 +1,21 @@
 import React, { Component } from 'react'
+import { Provider } from 'react-redux'
 import registerServiceWorker from './registerServiceWorker'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-//mport { ApolloProvider } from 'react-apollo'
-//import { ApolloClient, createNetworkInterface } from 'react-apollo'
 import { Layout} from 'antd'
 import 'antd/dist/antd.css'
 import "./styles.css"
 import Signup from './components/Signup'
 import Login from './components/Login'
 import Auth from './components/Auth'
+import store from './store'
 
-
-// const networkInterface = createNetworkInterface({
-// 	uri: 'http://localhost:3001/graphql'
-// });
-
-// const client = new ApolloClient({
-// 	networkInterface: networkInterface
-// })
 
 class App extends Component {
  render() {
  	return (
+ 		<Provider store={store}>
  		<Layout className="App">
  		<Layout.Header></Layout.Header>
 		<BrowserRouter>
@@ -34,10 +27,9 @@ class App extends Component {
 		</BrowserRouter>
 		<Layout.Footer>footer</Layout.Footer>
 		</Layout>
+		</Provider>
  		)}
 }
-
-
 
 
 ReactDOM.render(<App/>, document.getElementById('root'));

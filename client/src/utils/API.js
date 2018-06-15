@@ -2,6 +2,7 @@ export const URL='http://localhost:5000';
 // export const header = {
 //   'Authorization': '12345'
 // }
+
 //POST method
 export const createUser = (data) => {
     return fetch(`${URL}/users/`, {

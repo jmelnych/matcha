@@ -10,7 +10,13 @@ app.use(bodyParser.json());
 app.post('/users', (req, res) => {
 	console.log('node is ok');
     console.log(req.body);
-    //console.log(res);
+    res.json({title: 'hello world'});
+  //   return new Promise((res) => {
+  //   user = {
+  //     id: 1,
+  //   }
+  //   res(user)
+  // })
 });
 
 
