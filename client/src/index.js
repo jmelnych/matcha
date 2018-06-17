@@ -8,7 +8,7 @@ import 'antd/dist/antd.css'
 import "./styles.css"
 import Signup from './components/Signup'
 import Login from './components/Login'
-import Auth from './components/Auth'
+import Profile from './components/Profile'
 import store from './store'
 
 
@@ -22,7 +22,7 @@ class App extends Component {
 			<Switch>
 				<Route exact path="/signup" render={ props => <Signup {...props}/>} />
 				<Route exact path="/login" render={ props => <Login {...props}/>} />
-				<Route exact path="/auth" render={ props => <Auth {...props}/>} />
+				<Route exact path="/profile" render={ props => <Profile {...props}/>} />
 			</Switch>
 		</BrowserRouter>
 		<Layout.Footer>footer</Layout.Footer>
