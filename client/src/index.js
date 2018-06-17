@@ -29,7 +29,7 @@ class App extends Component {
 		</Layout>
 		</Provider>
  		)}
-
+}
 
 ReactDOM.render(<App/>, document.getElementById('root'));
 registerServiceWorker();
