@@ -1,7 +1,9 @@
 .idea
+.gitignore
+.DS_Store
+
 # dependencies
 node_modules/
 jspm_packages/
 
 package-lock.json
-.gitignore

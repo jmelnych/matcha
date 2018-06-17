@@ -1,19 +1,19 @@
-import { CREATE_USER } from '../actions/types'
+import {CREATE_USER} from '../actions/types'
 
 const initialState = {
-	users: [],
-	user: {}
+    users: [],
+    user: {}
 };
 
-export default function(state = initialState, action) {
-	switch(action.type) {
-		case CREATE_USER:
-			console.log('in CREATE_USER reducer');
-			console.log (action.payload);
-			return {
-				...state
-			};
-		default:
-			return state;
-	}
+export default function (state = initialState, action) {
+    switch (action.type) {
+        case CREATE_USER:
+            console.log('in CREATE_USER reducer');
+            console.log(action.payload);
+            return {
+                ...state
+            };
+        default:
+            return state;
+    }
 }

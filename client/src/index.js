@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import { Provider } from 'react-redux'
+import React, {Component} from 'react'
+import {Provider} from 'react-redux'
 import registerServiceWorker from './registerServiceWorker'
 import ReactDOM from 'react-dom'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { Layout} from 'antd'
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import {Layout} from 'antd'
 import 'antd/dist/antd.css'
 import "./styles.css"
 import Signup from './components/Signup'
@@ -29,7 +29,6 @@ class App extends Component {
 		</Layout>
 		</Provider>
  		)}
-}
 
 
 ReactDOM.render(<App/>, document.getElementById('root'));

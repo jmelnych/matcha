@@ -1,27 +1,23 @@
-const User = require('../models/User');
-const express = require('express');
+const User       = require('../models/User');
+const express    = require('express');
 const bodyParser = require('body-parser');
-const phash = require('password-hash');
+const phash      = require('password-hash');
 
 const router = express.Router();
-router.use(bodyParser.urlencoded({ extended: true }));
+router.use(bodyParser.urlencoded({extended: true}));
 router.use(bodyParser.json());
 
 const user = new User();
 //user.createTbl();
 
-router.post('/', (req, res) => {
-	console.log('node is ok');
+router.post('/add', (req, res) => {
+    console.log('node is ok');
+
     let usr = req.body.data;
-    try {
-    	user.create(usr.email, usr.username, usr.firstname, usr.lastname, phash.generate(usr.password), usr.gender);
-    	console.log('add');
-    }
-    catch(error) {
-    	console.log(error);
-    }
+    let err = user.create(usr.email, usr.username, usr.firstname, usr.lastname, phash.generate(usr.password), usr.gender);
+    console.log(err);
+    res.send({responce: err});
     //console.log(user.name);
-    res.json({title: 'hello world'});
 });
 
 module.exports = router;

@@ -6,7 +6,7 @@ app.use(cors());
 
 /* import controllers here */
 const UserController = require('./controllers/UserController');
-app.use('/users', UserController);
+app.use('/user', UserController);
 
 
 const port = 5000;
