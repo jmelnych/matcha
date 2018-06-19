@@ -12,34 +12,38 @@ module.exports = class DB {
     }
 
     /* used to create or alter tables and to insert or update table data */
-    run(sql, params = []) {
+    run(sql, params = [], return_callback) {
         this.db.run(sql, params, function (err) {
             if (err) {
-                console.log('Error running your sql!\n');
+                console.log('Error running your sql!');
                 console.log(err);
+                return_callback(err);
             } else {
                 console.log('success executing ==>>\n' + sql);
+                return_callback('ok');
             }
-        })
+        });
     }
 
-    get(sql, params = []) {
+    get(sql, params = [], return_callback) {
         this.db.get(sql, params, (err, result) => {
             if (err) {
                 console.log('Error getting data from db\n');
                 console.log(err);
+                return_callback(err);
             } else {
                 console.log('success getting ==>>\n' + sql);
-                console.log(result);
+                return_callback(result);
             }
         })
     }
 
-    all(sql, params = []) {
+    all(sql, params = [], return_callback) {
         this.db.all(sql, params, (err, rows) => {
             if (err) {
                 console.log('Error getting data from db\n');
                 console.log(err);
+                return_callback(err);
             } else {
                 rows.forEach((row) => {
                     console.log(row);

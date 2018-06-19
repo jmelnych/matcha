@@ -9,15 +9,19 @@ router.use(bodyParser.json());
 
 const user = new User();
 //user.createTbl();
-
 router.post('/add', (req, res) => {
     console.log('node is ok');
 
     let usr = req.body.data;
-    let err = user.create(usr.email, usr.username, usr.firstname, usr.lastname, phash.generate(usr.password), usr.gender);
-    console.log(err);
-    res.send({responce: err});
-    //console.log(user.name);
+    user.create(
+        usr.email,
+        usr.username,
+        usr.firstname,
+        usr.lastname,
+        phash.generate(usr.password),
+        usr.gender,
+        err => res.json(err)
+    );
 });
 
 module.exports = router;
