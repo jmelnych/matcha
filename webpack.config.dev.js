@@ -1,11 +1,25 @@
 import path from 'path'
+import webpack from 'webpack'
 
 export default {
-    entry: path.join(__dirname, '/client/src/index.js'),
+    entry: [
+        'react-hot-loader/patch',
+        'webpack-hot-middleware/client',
+        path.join(__dirname, '/client/src/index.js'),
+    ],
+
+
     output: {
-     path: '/',
+        path: '/',
+        publicPath: '/',
         filename: 'bundle.js'
     },
+    mode: 'development',
+    plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoEmitOnErrorsPlugin(),
+        new webpack.optimize.OccurrenceOrderPlugin()
+    ],
     module: {
         rules: [
             {
@@ -14,6 +28,12 @@ export default {
                     path.join(__dirname, 'client/src')
                 ],
                 loaders: ['babel-loader']
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader!css-loader'
+                ]
             }
         ]
     },

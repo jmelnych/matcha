@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import avatar from '../img/avatars/default.png'
+//import avatar from '../img/avatars/default.png'
 
 export default class Profile extends Component {
   render() {
     return (
         <div>
           <div className="profile-main-header">
-            <img src={avatar} alt="profile-avatar"/>
+            <img src="" alt="profile-avatar"/>
               <figcaption>
                 <h2>Druid Wensleydale </h2>
                 <span>Accountant</span>

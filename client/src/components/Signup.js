@@ -8,7 +8,6 @@ import {createUser} from '../actions/userActions'
 const {Content} = Layout;
 
 class Signup extends Component {
-
     state = {
         conf_value: false
     };
