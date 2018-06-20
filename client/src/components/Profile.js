@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import styles from '../css/styles'
 //import avatar from '../img/avatars/default.png'
 
 export default class Profile extends Component {
@@ -22,7 +23,7 @@ export default class Profile extends Component {
               <div className="profile-main-suggest">
 <h2>About</h2>
               </div>
-              <a href="#"><i class="ios-pin-outline"></i></a>
+              <a href="#"><i className="ios-pin-outline"></i></a>
             </div>
         </div>
       )

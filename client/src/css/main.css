@@ -1,0 +1,46 @@
+body {
+    font-family: 'Open Sans', Arial, sans-serif;
+}
+
+.App {
+    text-align: center;
+}
+
+.App-header h1 {
+    color: whitesmoke;
+}
+
+.App-content {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.App-form {
+    max-width: 525px;
+    margin: 0 auto;
+    padding: 50px 50px;
+    min-height: 115px;
+    background: #fff;
+    border-left: 5px solid #5caef9;
+    box-shadow: 0 0 20px rgba(0,0,0,.15);
+}
+
+.App-button {
+    margin: 30px;
+}
+
+.tabs {
+    width: 500px;
+    margin: 0 auto;
+    display: flex;
+
+}
+.tabs li{
+    transition-duration: .25s;
+    list-style: none;
+    text-align: center;
+    padding: 20px 20px 25px 20px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
