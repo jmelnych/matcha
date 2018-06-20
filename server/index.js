@@ -15,6 +15,9 @@ app.use(webpackMiddleware(compiler, {
 }));
 app.use(webpackHotMiddleware(compiler));
 
+const UserController = require('./controllers/UserController');
+app.use('/user', UserController);
+
 app.get('/*', (req, res)=> {
     res.sendFile(path.join(__dirname, './index.html'));
 });
