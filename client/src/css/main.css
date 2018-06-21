@@ -11,8 +11,9 @@ body {
 }
 
 .App-content {
-    padding-top: 100px;
-    padding-bottom: 100px;
+    margin-top: 10%;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 .App-form {
@@ -30,17 +31,38 @@ body {
 }
 
 .tabs {
-    width: 500px;
+    width: 604px;
     margin: 0 auto;
     display: flex;
-
 }
 .tabs li{
+    font-size: 17px;
     transition-duration: .25s;
     list-style: none;
     text-align: center;
-    padding: 20px 20px 25px 20px;
+    padding: 20px 105px 25px 105px;
     position: relative;
     overflow: hidden;
     cursor: pointer;
+    color: white;
+    margin-bottom: -6px;
+    background: rgba(255,255,255, 0.3);
+    border-radius: 5px;
+}
+
+li.tabs-active {
+    background: white;
+    color:#50555a;
+    border-radius: 5px;
+}
+
+li.left-border{
+    border-left: 5px solid #5caef9;
+}
+
+.App-home {
+    width: 100%;
+    height: calc(100vh - 135px);
+    background: url("..//img/bedroom-couple-date-5302.jpg");
+    background-size: cover;
 }

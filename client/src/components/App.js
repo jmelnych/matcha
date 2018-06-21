@@ -5,6 +5,7 @@ import {Layout} from 'antd'
 import Profile from './Profile'
 import Signup from './Signup'
 import Login from './Login'
+import Home from './Home'
 import store from '../store'
 import '../../../node_modules/antd/dist/antd.css'
 import  '../css/styles'
@@ -17,8 +18,9 @@ class App extends Component {
             <Layout.Header>Header</Layout.Header>
             <BrowserRouter>
             <Switch>
-            <Route exact path="/signup" render={ props => <Signup {...props}/>} />
-        <Route exact path="/login" render={ props => <Login {...props}/>} />
+                <Route exact path="/" render={ props => <Home {...props}/>} />
+            {/*<Route exact path="/signup" render={ props => <Signup {...props}/>} />*/}
+        {/*<Route exact path="/login" render={ props => <Login {...props}/>} />*/}
         <Route exact path="/profile" render={ props => <Profile {...props}/>} />
         </Switch>
         </BrowserRouter>
@@ -29,12 +31,3 @@ class App extends Component {
 }
 
 export default App;
-
-// class App extends Component {
-//     render() {
-//         return (
-//             <h1>Hello from client</h1>
-//     )}
-// }
-//
-// export default App;

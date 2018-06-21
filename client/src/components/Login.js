@@ -1,11 +1,6 @@
 import React, {Component} from 'react'
 import {Form, Input, Button} from 'antd'
-import {Layout} from 'antd'
-import Tabs from './Tabs'
 
-
-
-const {Content} = Layout;
 
 class Login extends Component {
     state = {
@@ -43,8 +38,6 @@ class Login extends Component {
         };
         return (
             <div>
-                <Content className="App-content">
-                    <Tabs/>
                     <Form className="App-form" onSubmit={this.onSubmit}>
                         <Form.Item {...formItemLayout} label='E-mail'> {
                             getFieldDecorator('email', {
@@ -72,7 +65,6 @@ class Login extends Component {
                         </Form.Item>
                         <Button className="App-button" type='primary' htmlType='submit'>Login</Button>
                     </Form>
-                </Content>
             </div>
         )
     }

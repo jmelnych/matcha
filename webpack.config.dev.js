@@ -25,9 +25,15 @@ export default {
             {
                 test: /\.js$/,
                 include: [
-                    path.join(__dirname, 'client/src')
+                    path.join(__dirname, 'client/src/')
                 ],
                 loaders: ['babel-loader']
+            },
+            {
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                loaders: [
+                    'file-loader',
+                ]
             },
             {
                 test: /\.css$/,

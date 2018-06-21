@@ -1,11 +1,7 @@
 import React, {Component} from 'react'
 import {Form, Input, Radio, Button} from 'antd'
-import {Layout} from 'antd'
-import Tabs from './Tabs'
 import {connect} from 'react-redux'
 import {createUser} from '../actions/userActions'
-
-const {Content} = Layout;
 
 class Signup extends Component {
     state = {
@@ -89,8 +85,7 @@ class Signup extends Component {
         };
         return (
             <div>
-                <Content className="App-content">
-                    <Tabs/>
+
                     <Form className="App-form" onSubmit={this.onSubmit}>
                         <Form.Item {...formItemLayout} label='E-mail'> {
                             getFieldDecorator('email', {
@@ -180,7 +175,7 @@ class Signup extends Component {
                         <Button className="App-button" type='primary'
                                 htmlType='submit'>Sign up</Button>
                     </Form>
-                </Content>
+
             </div>
         )
     }
