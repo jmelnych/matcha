@@ -1,4 +1,4 @@
-let DB = require('../DB');
+let DB = require('../database/DB');
 
 module.exports = class User {
     constructor() {

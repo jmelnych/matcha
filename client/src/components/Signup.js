@@ -20,7 +20,8 @@ class Signup extends Component {
         form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 //console.log('Received values of form: ', values);
-                this.props.createUser(values);
+                this.props.createUser(values).then(
+                    () => console.log('success'));
             }
         });
     };

@@ -38,33 +38,33 @@ class Login extends Component {
         };
         return (
             <div>
-                    <Form className="App-form" onSubmit={this.onSubmit}>
-                        <Form.Item {...formItemLayout} label='E-mail'> {
-                            getFieldDecorator('email', {
-                                rules: [{
-                                    type: 'email',
-                                    message: 'e-mail is not valid'
-                                },
-                                    {
-                                        required: true,
-                                        message: 'Please input your E-mail'
-                                    }]
-                            })(<Input name='email'
-                                      onChange={e => this.onChange(e)}/>)
-                        }
-                        </Form.Item>
-                        <Form.Item {...formItemLayout} label='Password'> {
-                            getFieldDecorator('password', {
-                                rules: [{
+                <Form className="App-form" onSubmit={this.onSubmit}>
+                    <Form.Item {...formItemLayout} label='E-mail'> {
+                        getFieldDecorator('email', {
+                            rules: [{
+                                type: 'email',
+                                message: 'e-mail is not valid'
+                            },
+                                {
                                     required: true,
-                                    message: 'Please input your password'
+                                    message: 'Please input your E-mail'
                                 }]
-                            })(<Input name='password' type='password'
-                                      onChange={e => this.onChange(e)}/>)
-                        }
-                        </Form.Item>
-                        <Button className="App-button" type='primary' htmlType='submit'>Login</Button>
-                    </Form>
+                        })(<Input name='email'
+                                  onChange={e => this.onChange(e)}/>)
+                    }
+                    </Form.Item>
+                    <Form.Item {...formItemLayout} label='Password'> {
+                        getFieldDecorator('password', {
+                            rules: [{
+                                required: true,
+                                message: 'Please input your password'
+                            }]
+                        })(<Input name='password' type='password'
+                                  onChange={e => this.onChange(e)}/>)
+                    }
+                    </Form.Item>
+                    <Button className="App-button" type='primary' htmlType='submit'>Login</Button>
+                </Form>
             </div>
         )
     }
