@@ -6,7 +6,8 @@ import Profile from './Profile'
 import Signup from './Signup'
 import Login from './Login'
 import store from '../store'
-//import 'antd/dist/antd.css'
+import '../../../node_modules/antd/dist/antd.css'
+import  '../css/styles'
 
 class App extends Component {
     render() {
