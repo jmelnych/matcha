@@ -9,7 +9,6 @@ const user = new User();
 router.post('/', (req, res) => {
     console.log('node is ok');
     let usr = req.body;
-    //console.log(usr);
     let promise = user.create(
         usr.email,
         usr.username,
@@ -17,7 +16,15 @@ router.post('/', (req, res) => {
         usr.lastname,
         phash.generate(usr.password),
         usr.gender);
-    promise.then(response => res.send({id: response}))
+    promise.then(response => {
+        res.send({id: response});
+        })
+        .catch((e) => {
+        if (e.errno === 19) {
+            console.log('from js 24 userController');
+            res.send('email exists');
+        }
+    });
 });
 
 export default router;

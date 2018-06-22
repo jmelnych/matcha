@@ -21,7 +21,7 @@ class Signup extends Component {
             if (!err) {
                 //console.log('Received values of form: ', values);
                 this.props.createUser(values).then(
-                    () => console.log('success'));
+                    (res) => console.log(res.data));
             }
         });
     };

@@ -20,12 +20,12 @@ module.exports = class DB {
           .prepare(sql, params)
           .run(function (err, result) {
               if (err) {
-                  console.log('Error running your sql!\n');
+                  console.log('Error running your sql\n');
                   console.log(err);
                   reject(err);
               } else {
                 console.log('result from DB == ' + this.lastID);
-                  resolve(this.lastID);
+                resolve(this.lastID);
               }
           })
         })

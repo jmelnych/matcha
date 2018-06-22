@@ -1,13 +1,9 @@
 let DB = require('../database/DB');
+//console.log('DB in User Model' + DB);
 
 module.exports = class User {
     constructor() {
-        try {
-            this.db = new DB();
-
-        } catch (e) {
-            return e;
-        }
+        this.db = new DB();
     }
 
     createTbl() {
@@ -32,34 +28,31 @@ module.exports = class User {
     var user = new User();
     3) pass the data, like that:
     user.create('julyettka@gmail.com', 'julyettka', 'julia', 'meln', '123', 'female'); */
-    create(email, username, firstname, lastname, password, sex, return_callback) {
-
-        this.db.run(`INSERT INTO users
+    create(email, username, firstname, lastname, password, sex) {
+        return this.db.run(`INSERT INTO users
             (email, username, firstname, lastname, password, sex) VALUES (?, ?, ?, ?, ?, ?)`,
-            [email, username, firstname, lastname, password, sex],
-            return_callback);
+            [email, username, firstname, lastname, password, sex]);
     }
 
     /* usage:
     user.update('username', 'tifany', 'id', 1); */
-    update(column, value, key, data, return_callback) {
+    update(column, value, key, data) {
         return this.db.run(`UPDATE users SET ${column} = ? WHERE ${key} = ?`,
-            [value, data], return_callback);
+            [value, data]);
     }
 
-    delete(id, return_callback) {
-        return this.db.run(`DELETE FROM users WHERE id = ?`, [id], return_callback);
+    delete(id) {
+        return this.db.run(`DELETE FROM users WHERE id = ?`, [id]);
     }
 
     /* usage: can be get by id or email:
     user.getByUnique('id', 2), alternatively ('email', 'julyettka@gmail.com') */
-    getByUnique(column, value, return_callback) {
-        return this.db.get(`SELECT * FROM users WHERE ${column} = ?`, [value], return_callback);
+    getByUnique(column, value) {
+        return this.db.get(`SELECT * FROM users WHERE ${column} = ?`, [value]);
     }
 
-    getAll(return_callback) {
-        return this.db.all(`SELECT * FROM users`, return_callback);
+    getAll() {
+        return this.db.all(`SELECT * FROM users`);
     }
 
 };
-
