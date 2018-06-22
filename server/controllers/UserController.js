@@ -17,11 +17,10 @@ router.post('/', (req, res) => {
         phash.generate(usr.password),
         usr.gender);
     promise.then(response => {
-        res.send({id: response});
+        res.send('success');
         })
         .catch((e) => {
         if (e.errno === 19) {
-            console.log('from js 24 userController');
             res.send('email exists');
         }
     });
