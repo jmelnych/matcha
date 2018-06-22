@@ -7,6 +7,7 @@ import Home from './Home'
 import store from '../store'
 import '../../../node_modules/antd/dist/antd.css'
 import  '../css/styles'
+import FlashMessagesList from './flash/FlashMessagesList'
 
 class App extends Component {
     render() {
@@ -17,9 +18,10 @@ class App extends Component {
             <BrowserRouter>
             <Switch>
                 <Route exact path="/" render={ props => <Home {...props}/>} />
-        <Route exact path="/profile" render={ props => <Profile {...props}/>} />
+                <Route exact path="/profile" render={ props => <Profile {...props}/>} />
         </Switch>
         </BrowserRouter>
+                <FlashMessagesList/>
         <Layout.Footer>footer</Layout.Footer>
         </Layout>
         </Provider>

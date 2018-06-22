@@ -3,6 +3,7 @@ import {Form, Input, Radio, Button} from 'antd'
 import {connect} from 'react-redux'
 import {createUser} from '../actions/userActions'
 import {addFlashMessage} from "../actions/flashMessages";
+import PropTypes from 'prop-types';
 
 class Signup extends Component {
     state = {
@@ -13,6 +14,11 @@ class Signup extends Component {
         this.setState({
             [e.target.name]: e.target.value
         });
+        console.log('change');
+        const router = this.props;
+        console.log('router == ' + router);
+        console.log(router);
+        //this.context.router.history.push('/');
     };
 
     onSubmit = (e) => {
@@ -24,11 +30,11 @@ class Signup extends Component {
                 createUser(values).then(
                     (res) => {
                         if (res.data === 'success'){
-                            console.log('ey');
                             addFlashMessage({
                                 type: 'success',
                                 text: 'You sign up successfully'
-                            })
+                            });
+                            this.context.router.history.push('/');
                         }
                         else if(res.data === 'email exists') {
                             console.log('exist');
@@ -191,5 +197,9 @@ class Signup extends Component {
         )
     }
 }
+
+// Signup.contextTypes = {
+//     router: React.PropTypes.object.isRequired
+// }
 
 export default connect(null, {createUser, addFlashMessage})(Form.create()(Signup));
