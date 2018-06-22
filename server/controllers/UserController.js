@@ -1,14 +1,29 @@
-const User       = require('../models/User');
-const express    = require('express');
-const phash      = require('password-hash');
+const User    = require('../models/User');
+const express = require('express');
+const phash   = require('password-hash');
 
 const router = express.Router();
 
 const user = new User();
 
-router.post('/', (req, res) => {
+router.post('/get', (req, res) => {
+    console.log('get', req.body);
+    let usr     = req.body;
+    let promise = user.getByUnique(
+        'email',
+        usr.email
+    );
+
+    promise.then((resp) => {
+        res.send(resp);
+    }).catch((e) => {
+        res.send(e);
+    });
+});
+
+router.post('/add', (req, res) => {
     console.log('node is ok');
-    let usr = req.body;
+    let usr     = req.body;
     let promise = user.create(
         usr.email,
         usr.username,
@@ -16,10 +31,9 @@ router.post('/', (req, res) => {
         usr.lastname,
         phash.generate(usr.password),
         usr.gender);
-    promise.then(response => {
+    promise.then(() => {
         res.send('success');
-        })
-        .catch((e) => {
+    }).catch((e) => {
         if (e.errno === 19) {
             res.send('email exists');
         }
@@ -27,10 +41,3 @@ router.post('/', (req, res) => {
 });
 
 export default router;
-/*test*/
-//user.create('enigma@gmail.com', 'abc', 'ab', 'ab', 'qwerty', 'female');
-//user.create('123@gmail.com', 'aaaaa', 'aaaa', 'aaaa', 'aa', 'female');
-//user.update('username', 'tifany', 'id', 1);
-//user.delete(2);
-//user.getAll();
-//user.getByUnique(id, 2);
