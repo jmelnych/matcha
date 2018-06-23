@@ -16,9 +16,9 @@ render() {
     console.log(this.props);
     const {id, type, text} = this.props.message;
     return (
-        <Alert message="Success Tips" description={text}
+        <Alert message={type === 'success' ? 'Success Tips' : 'Error'} description={text}
                closable onClose={this.onClose}
-               type="success" showIcon />
+               type={type === 'success'? 'success' : 'error'} showIcon />
     );
   }
 }

@@ -36,7 +36,10 @@ class Signup extends Component {
                             toggle();
                         }
                         else if(res.data === 'email exists') {
-                            console.log('exist');
+                            addFlashMessage({
+                                type: 'error',
+                                text: 'User with this email already exists'
+                            });
                         }
                     })
             }
