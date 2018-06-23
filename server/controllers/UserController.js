@@ -7,15 +7,20 @@ const router = express.Router();
 const user = new User();
 
 router.post('/get', (req, res) => {
-    console.log('get', req.body);
     let usr     = req.body;
     let promise = user.getByUnique(
         'email',
         usr.email
     );
 
-    promise.then((resp) => {
-        res.send(resp);
+    promise.then((response) => {
+        if (response === undefined) {
+            res.send('no user');
+        } else if (!phash.verify(usr.password, response.password)) {
+            res.send('wrong password');
+        } else {
+            res.send(response);
+        }
     }).catch((e) => {
         res.send(e);
     });
