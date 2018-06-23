@@ -2,8 +2,9 @@ import React, {Component} from 'react'
 import {Form, Input, Radio, Button} from 'antd'
 import {connect} from 'react-redux'
 import {createUser} from '../actions/userActions'
-import {addFlashMessage} from "../actions/flashMessages";
-import PropTypes from 'prop-types';
+import {addFlashMessage} from '../actions/flashMessages'
+import PropTypes from 'prop-types'
+
 
 class Signup extends Component {
     state = {
@@ -14,16 +15,14 @@ class Signup extends Component {
         this.setState({
             [e.target.name]: e.target.value
         });
-        console.log('change');
-        const router = this.props;
-        console.log('router == ' + router);
-        console.log(router);
+        /* redirect to page there is a need to extreact contextTypes first*/
         //this.context.router.history.push('/');
+
     };
 
     onSubmit = (e) => {
         e.preventDefault();
-        const { form, addFlashMessage, createUser } = this.props;
+        const { form, addFlashMessage, createUser, toggle } = this.props;
         form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 //console.log('Received values of form: ', values);
@@ -32,9 +31,9 @@ class Signup extends Component {
                         if (res.data === 'success'){
                             addFlashMessage({
                                 type: 'success',
-                                text: 'You sign up successfully'
+                                text: 'You sign up successfully. Check your email for link activation'
                             });
-                            this.context.router.history.push('/');
+                            toggle();
                         }
                         else if(res.data === 'email exists') {
                             console.log('exist');
@@ -198,8 +197,14 @@ class Signup extends Component {
     }
 }
 
-// Signup.contextTypes = {
-//     router: React.PropTypes.object.isRequired
-// }
+Signup.propTypes = {
+    createUser: PropTypes.func.isRequired,
+    addFlashMessage: PropTypes.func.isRequired,
+    toggle: PropTypes.func.isRequired
+}
+
+Signup.contextTypes = {
+    router: PropTypes.object.isRequired
+}
 
 export default connect(null, {createUser, addFlashMessage})(Form.create()(Signup));
