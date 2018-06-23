@@ -20,8 +20,8 @@ class Login extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        const {getUser, addFlashMessage} = this.props;
-        this.props.form.validateFieldsAndScroll((err, values) => {
+        const {form, getUser, addFlashMessage, resend} = this.props;
+        form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 getUser(values).then(
                     (res) => {
@@ -41,6 +41,7 @@ class Login extends Component {
                                 type: 'error',
                                 text: "Please, activate your email"
                             });
+                            resend();
                         } else {
                             //TODO
                             console.log('redirect on success');
@@ -50,7 +51,6 @@ class Login extends Component {
                 );
             }
         });
-        console.log(this.state);
     };
 
     render() {
@@ -101,7 +101,7 @@ class Login extends Component {
 
 Login.propTypes = {
     getUser: PropTypes.func.isRequired,
-    addFlashMessage: PropTypes.func.isRequired
+    addFlashMessage: PropTypes.func.isRequired,
 };
 
 Login.contextTypes = {
