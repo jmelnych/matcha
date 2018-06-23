@@ -6,6 +6,7 @@ import webpackConfig from '../webpack.config.dev';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import users from './controllers/UserController';
 const bodyParser = require('body-parser');
+const config = require('./config');
 
 let app = express();
 const compiler = webpack(webpackConfig);
@@ -26,4 +27,4 @@ app.get('/*', (req, res)=> {
     res.sendFile(path.join(__dirname, './index.html'));
 });
 
-app.listen(5000, () => console.log('Running on localhost 5000'));
+app.listen(config.port, () => console.log(`Running on localhost ${config.port}`));

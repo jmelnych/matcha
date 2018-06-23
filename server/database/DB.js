@@ -18,7 +18,7 @@ module.exports = class DB {
         return new Promise((resolve, reject) => {
           this.db
           .prepare(sql, params)
-          .run(function (err, result) {
+          .run(function (err) {
               if (err) {
                   console.log('Error running your sql\n');
                   console.log(err);
