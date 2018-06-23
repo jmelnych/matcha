@@ -1,5 +1,8 @@
 import React, {Component} from 'react'
 import {Form, Input, Button} from 'antd'
+import {connect} from 'react-redux'
+import {getUser} from '../actions/userActions'
+import PropTypes from 'prop-types'
 
 
 class Login extends Component {
@@ -16,9 +19,14 @@ class Login extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
+        const {getUser} = this.props;
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                getUser(values).then(
+                    (res) => {
+                        console.log('Response from back', res);
+                    }
+                );
             }
         });
         console.log(this.state);
@@ -70,4 +78,8 @@ class Login extends Component {
     }
 }
 
-export default Form.create()(Login);
+Login.propTypes = {
+    getUser: PropTypes.func.isRequired
+};
+
+export default connect(null, {getUser})(Form.create()(Login));
