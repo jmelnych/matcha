@@ -63,6 +63,13 @@ li.left-border{
 .App-home {
     width: 100%;
     height: calc(100vh - 135px);
+    min-height: 900px;
     background: url("..//img/bedroom-couple-date-5302.jpg");
     background-size: cover;
+}
+
+.ant-alert{
+    position: absolute !important;
+    top: 8%;
+    left: 44%;
 }

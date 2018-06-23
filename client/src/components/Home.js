@@ -32,7 +32,7 @@ class Home extends Component {
                         Sign up
                     </li>
                 </ul>
-                {(this.state.show_login) ? <Login/> : <Signup/>}
+                {(this.state.show_login) ? <Login/> : <Signup toggle={this.toggleFormLogin}/>}
                 </Content>
             </div>
         )
