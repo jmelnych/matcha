@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Form, Input, Button} from 'antd'
 import {connect} from 'react-redux'
 import {getUser} from '../actions/userActions'
+import {addFlashMessage} from '../actions/flashMessages'
 import PropTypes from 'prop-types'
 
 
@@ -19,12 +20,32 @@ class Login extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        const {getUser} = this.props;
+        const {getUser, addFlashMessage} = this.props;
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 getUser(values).then(
                     (res) => {
-                        console.log('Response from back', res);
+                        if (res.data === 'no user') {
+                            addFlashMessage({
+                                type: 'error',
+                                text: "No such user exists"
+                            });
+                        }
+                        else if(res.data === 'wrong password'){
+                            addFlashMessage({
+                                type: 'error',
+                                text: "Wrong password"
+                            });
+                        } else if(res.data=== 'no activation') {
+                            addFlashMessage({
+                                type: 'error',
+                                text: "Please, activate your email"
+                            });
+                        } else {
+                            //TODO
+                            console.log('redirect on success');
+                            //this.context.router.history.push('/profile');
+                        }
                     }
                 );
             }
@@ -79,7 +100,12 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-    getUser: PropTypes.func.isRequired
+    getUser: PropTypes.func.isRequired,
+    addFlashMessage: PropTypes.func.isRequired
 };
 
-export default connect(null, {getUser})(Form.create()(Login));
+Login.contextTypes = {
+    router: PropTypes.object.isRequired
+}
+
+export default connect(null, {getUser, addFlashMessage})(Form.create()(Login));

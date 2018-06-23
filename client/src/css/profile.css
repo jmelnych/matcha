@@ -2,11 +2,10 @@
 .profile-main-header {
   position: relative;
   width: 100%;
-  background-color: #000224;
-  background-image: url("https://www.transparenttextures.com/patterns/shattered-dark.png");
-  border-bottom: 5px solid #5caef9;
+  background-color: rgba(0,2,36, 1);
+  background-image: url("https://www.transparenttextures.com/patterns/shattered.png");
+  border-bottom: 10px solid rgba(0,2,36, 1);
 }
-
 .profile-main-header img {
   width: 200px;
   height: 200px;
@@ -27,27 +26,39 @@ figcaption h2, figcaption span{
 }
 
 .profile-main {
-  display: flex;
-  justify-content: space-between;
-  position: relative;
   width: 100%;
-  background-color: #001529;
+  background-color: rgba(0,2,36, 1);
+  background-image: url("https://www.transparenttextures.com/patterns/shattered.png");
+  height: 900px;
 }
-
-.profile-deck {
-  max-width: 525px;
-    margin: 0 auto;
-    padding: 50px 50px;
-    min-height: 115px;
-    background: #fff;
-    -webkit-box-shadow: 0 0 20px rgba(0,0,0,.15);
-    box-shadow: 0 0 20px rgba(0,0,0,.15);
-}
-
 
 .profile-main h2 {
   color: white;
   padding: 10px;
+}
+
+.profile-main-info, .profile-main-feed{
+  margin: 2%;
+  padding: 20px 20px;
+  min-height: 115px;
+  background: rgba(0,21,41, 0.8);
+  box-shadow: 0 0 20px rgba(0,0,0,.15);
+  border-radius: 5px;
+}
+
+.container-flex {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.profile-main-info{
+  width: 20%;
+}
+.profile-main-feed{
+  width: 80%;
 }
 
 

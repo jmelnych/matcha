@@ -206,8 +206,5 @@ Signup.propTypes = {
     toggle: PropTypes.func.isRequired
 }
 
-Signup.contextTypes = {
-    router: PropTypes.object.isRequired
-}
 
 export default connect(null, {createUser, addFlashMessage})(Form.create()(Signup));

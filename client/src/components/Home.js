@@ -26,7 +26,7 @@ class Home extends Component {
                     <li className={(this.state.show_login) ? 'left-border tabs-active' : 'left-border'}
                         onClick={e => this.toggleFormLogin(e)}>
                         Login
-                        </li>
+                    </li>
                     <li className={(this.state.show_login) ? '' : 'tabs-active'}
                         onClick={e => this.toggleFormSignup(e)}>
                         Sign up
