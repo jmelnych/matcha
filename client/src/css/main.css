@@ -2,6 +2,10 @@ body {
     font-family: 'Open Sans', Arial, sans-serif;
 }
 
+.ant-layout-footer, .ant-layout-header {
+    color: white !important;
+}
+
 .App {
     text-align: center;
 }
@@ -32,16 +36,17 @@ body {
 }
 
 .tabs {
-    width: 604px;
+    width: 524px;
     margin: 0 auto;
     display: flex;
 }
 .tabs li{
+    width: 50%;
     font-size: 17px;
     transition-duration: .25s;
     list-style: none;
     text-align: center;
-    padding: 20px 105px 25px 105px;
+    padding: 20px;
     position: relative;
     overflow: hidden;
     cursor: pointer;
@@ -64,7 +69,7 @@ li.left-border{
     width: 100%;
     height: calc(100vh - 133px);
     min-height: 900px;
-    background: url("..//img/bedroom-couple-date-5302.jpg");
+    background: url("../img/bedroom-couple-date-5302.jpg");
     background-size: cover;
 }
 
@@ -77,3 +82,6 @@ li.left-border{
 .ant-layout-footer{
     background: #001529 !important;
 }
+
+
+

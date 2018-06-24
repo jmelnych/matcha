@@ -14,7 +14,7 @@ class App extends Component {
         return (
             <Provider store={store}>
             <Layout className="App">
-            <Layout.Header>Header</Layout.Header>
+            <Layout.Header></Layout.Header>
             <BrowserRouter>
             <Switch>
                 <Route exact path="/" render={ props => <Home {...props}/>} />
@@ -22,7 +22,7 @@ class App extends Component {
         </Switch>
         </BrowserRouter>
                 <FlashMessagesList/>
-        <Layout.Footer>footer</Layout.Footer>
+        <Layout.Footer></Layout.Footer>
         </Layout>
         </Provider>
     )}
