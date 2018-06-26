@@ -15,10 +15,22 @@ class FlashMessage extends Component {
 render() {
     console.log(this.props);
     const {id, type, text} = this.props.message;
+    let alertType;
+    switch (type) {
+        case 'success':
+            alertType = 'success';
+            break;
+        case 'error':
+            alertType = 'error';
+            break;
+        case 'warning':
+            alertType = 'warning';
+            break;
+    }
     return (
-        <Alert message={type === 'success' ? 'Success Tips' : 'Error'} description={text}
+        <Alert message={alertType} description={text}
                closable onClose={this.onClose}
-               type={type === 'success'? 'success' : 'error'} showIcon />
+               type={alertType}/>
     );
   }
 }

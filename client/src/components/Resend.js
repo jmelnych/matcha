@@ -1,27 +1,23 @@
 import React, { Component } from 'react'
 import {Form, Input, Button} from 'antd'
 import {resendActivation} from '../actions/userActions'
+import {addFlashMessage} from '../actions/flashMessages'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 
 class Resend extends Component {
-    state = {
-        email: ''
-    };
-
-    onChange = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    };
 
     onSubmit = (e) => {
         e.preventDefault();
-        const {form, resendActivation} = this.props;
+        const {form, resendActivation, toggle, addFlashMessage} = this.props;
         form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 resendActivation(values);
-                console.log('resending activation');
+                addFlashMessage({
+                    type: 'success',
+                    text: 'New link activation has been sent to your email'
+                });
+                toggle();
             }
         });
     };
@@ -42,7 +38,7 @@ class Resend extends Component {
           <div>
               <Form className="App-form" onSubmit={this.onSubmit}>
                   <Form.Item {...formItemLayout} label='E-mail'> {
-                      getFieldDecorator('email', {
+                      getFieldDecorator('email', {initialValue: this.props.emailValue},{
                           rules: [{
                               type: 'email',
                               message: 'e-mail is not valid'
@@ -51,8 +47,7 @@ class Resend extends Component {
                                   required: true,
                                   message: 'Please input your E-mail'
                               }]
-                      })(<Input name='email'
-                                onChange={e => this.onChange(e)}/>)
+                      })(<Input name='email'/>)
                   }
                   </Form.Item>
                   <Button className="App-button" type='primary' htmlType='submit'>Resend link activation</Button>
@@ -63,7 +58,9 @@ class Resend extends Component {
 }
 
 Resend.propTypes = {
-    resendActivation: PropTypes.func.isRequired
+    resendActivation: PropTypes.func.isRequired,
+    addFlashMessage: PropTypes.func.isRequired,
+    toggle: PropTypes.func.isRequired
 }
 
-export default connect(null, {resendActivation})(Form.create()(Resend));
+export default connect(null, {resendActivation, addFlashMessage})(Form.create()(Resend));

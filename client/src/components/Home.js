@@ -9,6 +9,7 @@ const {Content} = Layout;
 class Home extends Component {
     state = {
         show_login: true,
+        email: '',
         resend_activation: false
     }
 
@@ -18,11 +19,13 @@ class Home extends Component {
     }
     toggleFormLogin = () => {
         this.setState({show_login: true});
+        this.setState({resend_activation: false});
 
     }
 
-    toggleFormResend = () => {
-        this.setState({resend_activation: true})
+    toggleFormResend = (email) => {
+        this.setState({resend_activation: true});
+        this.setState({email})
     }
     render () {
         if (!this.state.resend_activation) {
@@ -38,7 +41,7 @@ class Home extends Component {
                             Sign up</li>
                         </ul>
                         {(this.state.show_login)?
-                            <Login resend={this.toggleFormResend}/> :
+                            <Login showResendForm={this.toggleFormResend}/> :
                             <Signup toggle={this.toggleFormLogin}/>}
                         </Content>
                 </div>
@@ -46,7 +49,7 @@ class Home extends Component {
         } else {
             return(<div className="App-home">
                 <Content className="App-content">
-                    <Resend />
+                    <Resend toggle={this.toggleFormLogin} emailValue={this.state.email}/>
                 </Content>
             </div>)
         }
