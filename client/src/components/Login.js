@@ -9,7 +9,8 @@ import PropTypes from 'prop-types'
 class Login extends Component {
     state = {
         email: '',
-        password: ''
+        password: '',
+        showResendLink: false
     };
 
     onChange = (e) => {
@@ -18,9 +19,14 @@ class Login extends Component {
         })
     };
 
+    toggleResend = () => {
+        const {showResendForm} = this.props;
+        showResendForm(this.state.email);
+    };
+
     onSubmit = (e) => {
         e.preventDefault();
-        const {form, getUser, addFlashMessage, resend} = this.props;
+        const {form, getUser, addFlashMessage} = this.props;
         form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 getUser(values).then(
@@ -36,16 +42,17 @@ class Login extends Component {
                                 type: 'error',
                                 text: "Wrong password"
                             });
-                        } else if(res.data=== 'no activation') {
+                        } else if(res.data === 'no activation') {
                             addFlashMessage({
-                                type: 'error',
+                                type: 'warning',
                                 text: "Please, activate your email"
                             });
-                            resend();
+                            this.setState({
+                                showResendLink: true
+                            })
                         } else {
-                            //TODO
                             console.log('redirect on success');
-                            //this.context.router.history.push('/profile');
+                            this.context.router.history.push('/profile');
                         }
                     }
                 );
@@ -92,6 +99,7 @@ class Login extends Component {
                                   onChange={e => this.onChange(e)}/>)
                     }
                     </Form.Item>
+                    {(this.state.showResendLink) ? <p>Didn't get a link? <a onClick={() => this.toggleResend()}>Get it once again</a></p>: ''}
                     <Button className="App-button" type='primary' htmlType='submit'>Login</Button>
                 </Form>
             </div>
@@ -102,6 +110,7 @@ class Login extends Component {
 Login.propTypes = {
     getUser: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
+    showResendForm: PropTypes.func.isRequired
 };
 
 Login.contextTypes = {

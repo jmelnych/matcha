@@ -5,15 +5,6 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 
 class Resend extends Component {
-    state = {
-        email: ''
-    };
-
-    onChange = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    };
 
     onSubmit = (e) => {
         e.preventDefault();
@@ -42,7 +33,7 @@ class Resend extends Component {
           <div>
               <Form className="App-form" onSubmit={this.onSubmit}>
                   <Form.Item {...formItemLayout} label='E-mail'> {
-                      getFieldDecorator('email', {
+                      getFieldDecorator('email', {initialValue: this.props.emailValue},{
                           rules: [{
                               type: 'email',
                               message: 'e-mail is not valid'
@@ -51,8 +42,7 @@ class Resend extends Component {
                                   required: true,
                                   message: 'Please input your E-mail'
                               }]
-                      })(<Input name='email'
-                                onChange={e => this.onChange(e)}/>)
+                      })(<Input name='email'/>)
                   }
                   </Form.Item>
                   <Button className="App-button" type='primary' htmlType='submit'>Resend link activation</Button>

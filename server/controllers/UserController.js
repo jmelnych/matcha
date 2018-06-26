@@ -28,7 +28,7 @@ router.get('/activate/:token', (req, res) => {
     }).catch(error);
 });
 
-router.get('/resend', (req, res) => {
+router.post('/resend', (req, res) => {
     let token = randomToken(16),
         usr   = req.body;
 
