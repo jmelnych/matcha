@@ -19,6 +19,7 @@ class Home extends Component {
     }
     toggleFormLogin = () => {
         this.setState({show_login: true});
+        this.setState({resend_activation: false});
 
     }
 
@@ -48,7 +49,7 @@ class Home extends Component {
         } else {
             return(<div className="App-home">
                 <Content className="App-content">
-                    <Resend emailValue={this.state.email}/>
+                    <Resend toggle={this.toggleFormLogin} emailValue={this.state.email}/>
                 </Content>
             </div>)
         }
