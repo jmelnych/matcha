@@ -19,7 +19,7 @@ module.exports = class User {
         orientation VARCHAR(30) NOT NULL DEFAULT 'bi',
         bio TEXT,
         location INTEGER,
-        avatar VARCHAR(255) DEFAULT '..//img/avatars/default.png'
+        avatar VARCHAR(255) DEFAULT '../img/avatars/default.png'
         )`;
         return this.db.run(sql);
     }

@@ -28,19 +28,21 @@ router.get('/activate/:token', (req, res) => {
     }).catch(error);
 });
 
-router.get('/resend', (req, res) => {
+router.post('/resend', (req, res) => {
     let token = randomToken(16),
         usr   = req.body;
 
     promise = user.getByUnique('email', usr.email);
 
     promise.then((response) => {
+
         if (!response || response.activation) {
             res.send('No');
         } else {
+            let username = response.username;
             promise = user.update('token', token, 'email', usr.email);
-            promise.then((response) => {
-                mail.resend(usr.email, response.username, token, (err, info) => {
+            promise.then(() => {
+                mail.resend(usr.email, username, token, (err, info) => {
                     if (err) {
                         console.log(info);
                     } else {
