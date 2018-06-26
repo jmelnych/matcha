@@ -6,14 +6,26 @@ import ProfileUserPhotos from './ProfileUserPhotos'
 
 export default class Profile extends Component {
   render() {
+      //TODO: change user to obj from backend
+    const user = {
+        username: 'Testuser',
+        gender: 'female',
+        firstname: 'Druid',
+        lastname: 'Wensleydale',
+        rating: 150,
+        occupancy: 'engineer',
+        preferences: 'Men and Women',
+        avatar: '../img/avatars/default.png',
+        joined: '10 June 2018'
 
+    }
     return (
         <div>
-          <ProfileHead/>
+          <ProfileHead user={user}/>
           <div className="profile-main">
             <div className="container-flex">
               <div className="profile-main-info">
-                  <ProfileUserInfo/>
+                  <ProfileUserInfo user={user}/>
                   <ProfileUserPhotos/>
 
                   <ul className="profile-main-info-list">

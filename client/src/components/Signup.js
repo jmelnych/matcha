@@ -17,7 +17,6 @@ class Signup extends Component {
         });
         /* redirect to page there is a need to extreact contextTypes first*/
         //this.context.router.history.push('/');
-
     };
 
     onSubmit = (e) => {
@@ -65,7 +64,6 @@ class Signup extends Component {
         } else {
             callback();
         }
-
     };
 
     validateComplex = (rule, value, callback) => {
@@ -150,8 +148,7 @@ class Signup extends Component {
                             }, {
                                 validator: this.handleInputLength
                             }]
-                        })(<Input name='lastname'
-                                  onChange={e => this.onChange(e)}/>)
+                        })(<Input name='lastname'/>)
                     }
                     </Form.Item>
                     <Form.Item {...formItemLayout} label='Gender'> {
