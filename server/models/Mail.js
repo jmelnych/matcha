@@ -16,8 +16,8 @@ module.exports = class Mail {
             to: email,
             subject: 'Activation',
             html: `
-<h2>Hi</h2> <strong>${username}</strong>, and welcome.
-Here is an activation link ${config.host}:${config.port}/api/users/activate/${token}
+<h3>Hi</h3> <strong>${username}</strong>, and welcome.<br>
+Here is an activation link <a href="${config.host}:${config.port}/api/users/activate/${token}">Link</a><br>
 Love, Matcha.
 `
         }, callback_func);
@@ -30,10 +30,11 @@ Love, Matcha.
             to: email,
             subject: 'New activation',
             html: `
-<h2>Hi</h2> <strong>${username}</strong> it seems you lost your activation link
-well, that's sad :(
-Here is your new activation link ${config.host}:${config.port}/api/users/activate/${token}
-Don't lose it too.
+<h3>Hi</h3> <strong>${username}</strong> it seems you lost your activation link<br>
+well, that's sad :(<br>
+Here is your new activation <a href="${config.host}:${config.port}/api/users/activate/${token}">Link</a><br>
+Don't lose it too.<br>
+>>>>>>> Fixed undefined in email, default avatar path in database, mail text
 Love, Matcha.
 `
         }, callback_func);
