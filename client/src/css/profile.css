@@ -138,5 +138,14 @@ figcaption h2, figcaption span, figcaption p{
   margin: 0 0 8px -7px;
 }
 
+.ant-popover-inner-content{
+  line-height: 1px;
+}
+
+.center-button {
+  display: block;
+  margin: 0 auto;
+}
+
 
 
