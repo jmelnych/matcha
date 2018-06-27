@@ -16,8 +16,8 @@ module.exports = class Mail {
             to: email,
             subject: 'Activation',
             html: `
-<h2>Hi</h2> <strong>${username}</strong>, and welcome.
-Here is an activation link ${config.host}:${config.port}/api/users/activate/${token}
+<h3>Hi</h3> <strong>${username}</strong>, and welcome.<br>
+Here is an activation <a href="${config.host}:${config.port}/api/users/activate/${token}">Link</a><br>
 Love, Matcha.
 `
         }, callback_func);
@@ -30,10 +30,10 @@ Love, Matcha.
             to: email,
             subject: 'New activation',
             html: `
-<h2>Hi</h2> <strong>${username}</strong> it seems you lost your activation link
-well, that's sad :(
-Here is your new activation link ${config.host}:${config.port}/api/users/activate/${token}
-Don't loose it too.
+<h3>Hi</h3> <strong>${username}</strong> it seems you lost your activation link<br>
+(ಠ︵ಠ)<br>
+Here is your new activation <a href="${config.host}:${config.port}/api/users/activate/${token}">Link</a><br>
+Don't loose it again.<br>
 Love, Matcha.
 `
         }, callback_func);
