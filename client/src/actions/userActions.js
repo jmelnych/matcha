@@ -11,4 +11,8 @@ export const getUser = (data) => dispatch => {
 
 export const resendActivation = (data) => dispatch => {
     return axios.post('api/users/resend', data)
-}
+};
+
+export  const sendLinkPassword = (data) => dispatch =>{
+    return axios.post('api/users/remind', data);
+};

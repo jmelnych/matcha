@@ -58,14 +58,6 @@ class Signup extends Component {
         this.setState({conf_value: this.state.conf_value || !!value});
     };
 
-    handleInputLength = (rule, value, callback) => {
-        if (value && value.length < 3) {
-            callback(`${rule.field} is too short`);
-        } else {
-            callback();
-        }
-    };
-
     validateComplex = (rule, value, callback) => {
         const pattern = /^(?=.*\d)(?=.*[a-z])\w{6,}$/;
         //console.log(pattern.test(value));
@@ -107,56 +99,40 @@ class Signup extends Component {
                 <Form className="App-form" onSubmit={this.onSubmit}>
                     <Form.Item {...formItemLayout} label='E-mail'> {
                         getFieldDecorator('email', {
-                            rules: [{
-                                type: 'email',
-                                message: 'e-mail is not valid'
-                            },
-                                {
-                                    required: true,
-                                    message: 'Please input your E-mail'
-                                }]
+                            validateTrigger: 'onBlur',
+                            rules: [{type: 'email', message: 'e-mail is not valid'},
+                                    {required: true, message: 'Please input your E-mail'}]
                         })(<Input name='email'/>)
                     }
                     </Form.Item>
                     <Form.Item {...formItemLayout} label='Username'> {
                         getFieldDecorator('username', {
-                            rules: [{
-                                required: true,
-                                message: 'Please input your Username'
-                            }, {
-                                validator: this.handleInputLength
-                            }]
+                            validateTrigger: 'onBlur',
+                            rules: [{required: true, message: 'Please input your Username'},
+                                {min: 2, message:'Username is too short'}]
                         })(<Input name='username'/>)
                     }
                     </Form.Item>
                     <Form.Item {...formItemLayout} label='First name'> {
                         getFieldDecorator('firstname', {
-                            rules: [{
-                                required: true,
-                                message: 'Please input your first name'
-                            }, {
-                                validator: this.handleInputLength
-                            }]
+                            validateTrigger: 'onBlur',
+                            rules: [{required: true, message: 'Please input your first name'},
+                                {min: 2, message:'Username is too short'}]
                         })(<Input name='firstname'/>)
                     }
                     </Form.Item>
                     <Form.Item {...formItemLayout} label='Last name'> {
                         getFieldDecorator('lastname', {
-                            rules: [{
-                                required: true,
-                                message: 'Please input your last name'
-                            }, {
-                                validator: this.handleInputLength
-                            }]
+                            validateTrigger: 'onBlur',
+                            rules: [{required: true, message: 'Please input your last name'},
+                                {min: 2, message:'Username is too short'}]
                         })(<Input name='lastname'/>)
                     }
                     </Form.Item>
                     <Form.Item {...formItemLayout} label='Gender'> {
                         getFieldDecorator('gender', {
-                            rules: [{
-                                required: true,
-                                message: 'Please select your gender'
-                            }]
+                            validateTrigger: 'onBlur',
+                            rules: [{required: true, message: 'Please select your gender'}]
                         })(<Radio.Group name='gender'>
                             <Radio value='male'>Male</Radio>
                             <Radio value='female'>Female</Radio>
@@ -165,24 +141,19 @@ class Signup extends Component {
                     </Form.Item>
                     <Form.Item {...formItemLayout} label='Password'> {
                         getFieldDecorator('password', {
+                            validateTrigger: 'onBlur',
                             rules: [{
-                                required: true,
-                                message: 'Please input your password'
-                            }, {
-                                validator: this.validateComplex
-                            }, {
-                                validator: this.validateToNextPassword
-                            }]
+                                required: true, message: 'Please input your password'},
+                                {validator: this.validateComplex},
+                                {validator: this.validateToNextPassword}]
                         })(<Input name='password' type='password'/>)
                     }
                     </Form.Item>
                     <Form.Item {...formItemLayout} label="Confirm Password">{
                         getFieldDecorator('confirm_password', {
-                            rules: [{
-                                required: true, message: 'Please confirm your password'
-                            }, {
-                                validator: this.compareToFirstPassword
-                            }]
+                            validateTrigger: 'onBlur',
+                            rules: [{required: true, message: 'Please confirm your password'},
+                                {validator: this.compareToFirstPassword}]
                         })(<Input name='confirm_password' type='password'
                                   onBlur={this.handleBlur}
                                   onChange={e => this.onChange(e)}/>

@@ -5,7 +5,7 @@ import {addFlashMessage} from '../actions/flashMessages'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 
-class Resend extends Component {
+class ResendActivation extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
@@ -57,10 +57,10 @@ class Resend extends Component {
       }
 }
 
-Resend.propTypes = {
+ResendActivation.propTypes = {
     resendActivation: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
     toggle: PropTypes.func.isRequired
 }
 
-export default connect(null, {resendActivation, addFlashMessage})(Form.create()(Resend));
+export default connect(null, {resendActivation, addFlashMessage})(Form.create()(ResendActivation));
