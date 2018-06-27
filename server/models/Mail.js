@@ -30,9 +30,8 @@ Love, Matcha.
             to: email,
             subject: 'New activation',
             html: `
-
 <h3>Hi</h3> <strong>${username}</strong> it seems you lost your activation link<br>
-well, that's sad :(<br>
+(ಠ︵ಠ)<br>
 Here is your new activation <a href="${config.host}:${config.port}/api/users/activate/${token}">Link</a><br>
 Don't lose it again.<br>
 Love, Matcha.
