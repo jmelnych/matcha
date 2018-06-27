@@ -33,7 +33,7 @@ Love, Matcha.
 <h2>Hi</h2> <strong>${username}</strong> it seems you lost your activation link
 well, that's sad :(
 Here is your new activation link ${config.host}:${config.port}/api/users/activate/${token}
-Don't loose it too.
+Don't lose it too.
 Love, Matcha.
 `
         }, callback_func);

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ProfileHead from './ProfileHead'
 import ProfileUserInfo from './ProfileUserInfo'
 import ProfileUserPhotos from './ProfileUserPhotos'
-
+import ProfileUserPost from './ProfileUserPost'
 
 export default class Profile extends Component {
   render() {
@@ -51,12 +51,14 @@ export default class Profile extends Component {
                       <h3>Suggestions</h3>
                       <li></li>
                   </ul>
-
               </div>
 
               <div className="profile-main-feed">
-                <h3>Feed</h3>
-                  No posts yet
+                  <ProfileUserPost/>
+                  <div className="profile-feed-area">
+                      <h3>Feed</h3>
+                      No posts yet
+                  </div>
               </div>
           </div>
         </div>

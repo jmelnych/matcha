@@ -68,10 +68,6 @@ figcaption h2, figcaption span, figcaption p{
   right: 0;
 }
 
-.editable-icon-avatar{
-
-}
-
 .editable-icon:hover, .editable-icon-avatar:hover{
   fill: #5caef9;
 }
@@ -92,14 +88,7 @@ figcaption h2, figcaption span, figcaption p{
   color: rgba(96,96,96,1);
 }
 
-.profile-main-info, .profile-main-feed{
-  margin: 2% 1%;
-  padding: 20px 20px;
-  min-height: 200px;
-  background: white;
-  box-shadow: 0 0 20px rgba(0,0,0,.15);
-  border-radius: 5px;
-}
+
 
 .container-flex {
   position: relative;
@@ -113,29 +102,8 @@ figcaption h2, figcaption span, figcaption p{
   width: 25%;
 }
 
-/* FEED */
-.profile-main-feed{
-  width: 75%;
-}
-
-.profile-main-feed {
-  color: white;
-}
-
-.profile-main-info ul:not(:last-child){
-  border-bottom: 1px solid rgba(0,2,36, 0.3);
-}
-
 .editable:hover {
   color: #5caef9;
-}
-
-.clickable-icon:hover {
-  fill: #5caef9;
-}
-
-.additional-icon{
-  margin: 0 0 8px -7px;
 }
 
 .ant-popover-inner-content{
@@ -146,6 +114,51 @@ figcaption h2, figcaption span, figcaption p{
   display: block;
   margin: 0 auto;
 }
+
+/* FEED */
+.profile-main-feed{
+  width: 75%;
+  color: white;
+}
+
+.profile-main-info, .profile-main-feed{
+  margin: 2% 1%;
+}
+
+.profile-main-info, .profile-post-area, .profile-feed-area{
+  padding: 20px 20px;
+  min-height: 200px;
+  background: white;
+  box-shadow: 0 0 20px rgba(0,0,0,.15);
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+.profile-post-area{
+  display: flex;
+  min-width: 100px;
+  justify-content: space-around;
+  align-items: center;
+
+}
+
+.profile-main-info ul:not(:last-child){
+  border-bottom: 1px solid rgba(0,2,36, 0.3);
+}
+
+.post-textarea {
+  width: 80%;
+  border: none;
+  border-bottom: 1px solid gainsboro;
+  font-size: 16px;
+}
+
+.post-button{
+  width: 90px;
+}
+
+
+
 
 
 
