@@ -82,7 +82,6 @@ router.post('/get', (req, res) => {
 });
 
 router.post('/add', (req, res) => {
-    console.log('node is ok');
     let usr   = req.body,
         token = randomToken(16);
     promise   = user.create(
@@ -108,6 +107,10 @@ router.post('/add', (req, res) => {
             res.send('email exists');
         }
     });
+});
+
+router.post('/remind', (req, res) => {
+    //TODO: get usr email, send link for password recovery. Decide with Julia on how to trigger form for pass recovery
 });
 
 export default router;

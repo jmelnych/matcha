@@ -10,7 +10,6 @@ class RemindPassword extends Component {
         e.preventDefault();
         const {form, sendLinkPassword, toggle, addFlashMessage} = this.props;
         form.validateFieldsAndScroll((err, values) => {
-            console.log(values);
             if (!err) {
                 sendLinkPassword(values);
                 addFlashMessage({

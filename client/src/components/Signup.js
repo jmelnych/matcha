@@ -97,7 +97,7 @@ class Signup extends Component {
         return (
             <div>
                 <Form className="App-form" onSubmit={this.onSubmit}>
-                    <Form.Item {...formItemLayout} label='E-mail'> {
+                    <Form.Item {...formItemLayout} label='E-mail' hasFeedback> {
                         getFieldDecorator('email', {
                             validateTrigger: 'onBlur',
                             rules: [{type: 'email', message: 'e-mail is not valid'},
@@ -105,7 +105,7 @@ class Signup extends Component {
                         })(<Input name='email'/>)
                     }
                     </Form.Item>
-                    <Form.Item {...formItemLayout} label='Username'> {
+                    <Form.Item {...formItemLayout} label='Username' hasFeedback> {
                         getFieldDecorator('username', {
                             validateTrigger: 'onBlur',
                             rules: [{required: true, message: 'Please input your Username'},
@@ -113,7 +113,7 @@ class Signup extends Component {
                         })(<Input name='username'/>)
                     }
                     </Form.Item>
-                    <Form.Item {...formItemLayout} label='First name'> {
+                    <Form.Item {...formItemLayout} label='First name' hasFeedback> {
                         getFieldDecorator('firstname', {
                             validateTrigger: 'onBlur',
                             rules: [{required: true, message: 'Please input your first name'},
@@ -121,7 +121,7 @@ class Signup extends Component {
                         })(<Input name='firstname'/>)
                     }
                     </Form.Item>
-                    <Form.Item {...formItemLayout} label='Last name'> {
+                    <Form.Item {...formItemLayout} label='Last name' hasFeedback> {
                         getFieldDecorator('lastname', {
                             validateTrigger: 'onBlur',
                             rules: [{required: true, message: 'Please input your last name'},
@@ -139,7 +139,7 @@ class Signup extends Component {
                         </Radio.Group>)
                     }
                     </Form.Item>
-                    <Form.Item {...formItemLayout} label='Password'> {
+                    <Form.Item {...formItemLayout} label='Password' hasFeedback> {
                         getFieldDecorator('password', {
                             validateTrigger: 'onBlur',
                             rules: [{
@@ -149,7 +149,7 @@ class Signup extends Component {
                         })(<Input name='password' type='password'/>)
                     }
                     </Form.Item>
-                    <Form.Item {...formItemLayout} label="Confirm Password">{
+                    <Form.Item {...formItemLayout} label="Confirm Password" hasFeedback>{
                         getFieldDecorator('confirm_password', {
                             validateTrigger: 'onBlur',
                             rules: [{required: true, message: 'Please confirm your password'},

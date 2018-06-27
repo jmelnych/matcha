@@ -15,13 +15,13 @@ class App extends Component {
             <Provider store={store}>
             <Layout className="App">
             <Layout.Header></Layout.Header>
+                <FlashMessagesList/>
             <BrowserRouter>
             <Switch>
                 <Route exact path="/" render={ props => <Home {...props}/>} />
                 <Route exact path="/profile" render={ props => <Profile {...props}/>} />
         </Switch>
         </BrowserRouter>
-                <FlashMessagesList/>
         <Layout.Footer></Layout.Footer>
         </Layout>
         </Provider>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Ionicon from 'react-ionicons'
-import {Modal, Button} from 'antd'
+import {Modal} from 'antd'
 import EditProfileUserInfo from './EditProfileUserInfo'
 
 class ProfileUserInfo extends Component {

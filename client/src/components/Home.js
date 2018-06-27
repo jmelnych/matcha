@@ -22,6 +22,7 @@ class Home extends Component {
     toggleFormLogin = () => {
         this.setState({show_login: true});
         this.setState({resend_activation: false});
+        this.setState({resend_password: false});
 
     };
 
