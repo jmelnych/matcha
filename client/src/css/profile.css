@@ -77,6 +77,7 @@ figcaption h2, figcaption span, figcaption p{
 }
 
 .profile-main-info-list li{
+  display: flex;
   position: relative;
   padding: 10px;
   color: rgba(0,21,41, 1);
@@ -100,6 +101,11 @@ figcaption h2, figcaption span, figcaption p{
 
 .profile-main-info{
   width: 25%;
+}
+
+.editable, .non-editable{
+  max-width: 210px;
+  padding-left: 7px;
 }
 
 .editable:hover {

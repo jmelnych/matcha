@@ -99,7 +99,6 @@ class Signup extends Component {
                 <Form className="App-form" onSubmit={this.onSubmit}>
                     <Form.Item {...formItemLayout} label='E-mail' hasFeedback> {
                         getFieldDecorator('email', {
-                            validateTrigger: 'onBlur',
                             rules: [{type: 'email', message: 'e-mail is not valid'},
                                     {required: true, message: 'Please input your E-mail'}]
                         })(<Input name='email'/>)
@@ -107,31 +106,27 @@ class Signup extends Component {
                     </Form.Item>
                     <Form.Item {...formItemLayout} label='Username' hasFeedback> {
                         getFieldDecorator('username', {
-                            validateTrigger: 'onBlur',
                             rules: [{required: true, message: 'Please input your Username'},
-                                {min: 2, message:'Username is too short'}]
+                                    {min: 2, message:'Username is too short'}]
                         })(<Input name='username'/>)
                     }
                     </Form.Item>
                     <Form.Item {...formItemLayout} label='First name' hasFeedback> {
                         getFieldDecorator('firstname', {
-                            validateTrigger: 'onBlur',
                             rules: [{required: true, message: 'Please input your first name'},
-                                {min: 2, message:'Username is too short'}]
+                                    {min: 2, message:'First name is too short'}]
                         })(<Input name='firstname'/>)
                     }
                     </Form.Item>
                     <Form.Item {...formItemLayout} label='Last name' hasFeedback> {
                         getFieldDecorator('lastname', {
-                            validateTrigger: 'onBlur',
                             rules: [{required: true, message: 'Please input your last name'},
-                                {min: 2, message:'Username is too short'}]
+                                    {min: 2, message:'Last name is too short'}]
                         })(<Input name='lastname'/>)
                     }
                     </Form.Item>
                     <Form.Item {...formItemLayout} label='Gender'> {
                         getFieldDecorator('gender', {
-                            validateTrigger: 'onBlur',
                             rules: [{required: true, message: 'Please select your gender'}]
                         })(<Radio.Group name='gender'>
                             <Radio value='male'>Male</Radio>
@@ -141,7 +136,6 @@ class Signup extends Component {
                     </Form.Item>
                     <Form.Item {...formItemLayout} label='Password' hasFeedback> {
                         getFieldDecorator('password', {
-                            validateTrigger: 'onBlur',
                             rules: [{
                                 required: true, message: 'Please input your password'},
                                 {validator: this.validateComplex},
@@ -149,9 +143,8 @@ class Signup extends Component {
                         })(<Input name='password' type='password'/>)
                     }
                     </Form.Item>
-                    <Form.Item {...formItemLayout} label="Confirm Password" hasFeedback>{
+                    <Form.Item {...formItemLayout} label="Confirm Password" >{
                         getFieldDecorator('confirm_password', {
-                            validateTrigger: 'onBlur',
                             rules: [{required: true, message: 'Please confirm your password'},
                                 {validator: this.compareToFirstPassword}]
                         })(<Input name='confirm_password' type='password'

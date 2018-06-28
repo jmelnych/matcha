@@ -32,7 +32,7 @@ class ProfileUserInfo extends Component {
                 visible: false,
                 confirmLoading: false,
             });
-        }, 2000);
+        }, 1200);
     };
 
     render() {
@@ -42,38 +42,42 @@ class ProfileUserInfo extends Component {
             marginBottom: '-5px',
             marginRight: '10px',
         };
-        const usr = this.props.user;
+        const {user} = this.props;
 
         return (
             <ul className="profile-main-info-list">
                 <h3>Info
                     <Ionicon onClick={this.showModal} className="editable-icon" icon="md-create"/>
                 </h3>
-
                 <Modal title="Edit your profile info"
                        visible={visible}
                        onCancel={this.handleCancel}
                        confirmLoading={confirmLoading}
                        footer={null}>
                     {ModalText ? <p>{ModalText}</p> :
-                        <EditProfileUserInfo user={usr} closeOnSubmit={this.handleOk}/>
+                        <EditProfileUserInfo user={user} closeOnSubmit={this.handleOk}/>
                     }
                 </Modal>
-
                 <li><Ionicon icon="ios-body-outline" style={ionicStyle}/>
                     <span className="text-secondary">Full Name: </span>
-                    <span className="editable">{usr.firstname} {usr.lastname}</span></li>
+                    <span className="editable">{user.firstname} {user.lastname}</span></li>
 
-                {(usr.occupancy) &&<li><Ionicon icon="ios-briefcase-outline" style={ionicStyle}/>
+                {(user.occupancy) &&<li><Ionicon icon="ios-briefcase-outline" style={ionicStyle}/>
                     <span className="text-secondary">Occupancy: </span>
-                    <span className="editable">{usr.occupancy}</span></li>
+                    <span className="editable">{user.occupancy}</span></li>
                 }
 
                 <li><Ionicon icon="ios-heart-outline" style={ionicStyle}/>
                     <span className="text-secondary">Preferences: </span>
-                    <span className="editable">{usr.preferences}</span></li>
+                    <span className="editable">{user.preferences}</span></li>
                 <li><Ionicon icon="ios-time-outline" style={ionicStyle}/>
-                    <span className="text-secondary">Joined: </span>{usr.joined}</li>
+                    <span className="text-secondary">Joined: </span>
+                    <span className="non-editable"> {user.joined}</span>
+                </li>
+                {(user.bio) &&<li><Ionicon icon="ios-book-outline" style={ionicStyle}/>
+                    <span className="text-secondary">Bio: </span>
+                    <span className="editable"> {user.bio}</span></li>
+                }
             </ul>
         );
   }

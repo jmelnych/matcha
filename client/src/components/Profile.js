@@ -8,14 +8,15 @@ export default class Profile extends Component {
   render() {
       //TODO: change user to obj from backend
     const user = {
+        avatar: '../img/avatars/default.png',
         username: 'Testuser',
+        rating: 150,
         gender: 'female',
         firstname: 'Druid',
         lastname: 'Wensleydale',
-        rating: 150,
         occupancy: 'engineer',
-        preferences: 'Men and Women',
-        avatar: '../img/avatars/default.png',
+        bio: 'Im super puper engieer blah blah blah blah blah',
+        preferences: 'both',
         joined: '10 June 2018'
 
     }
@@ -62,7 +63,6 @@ export default class Profile extends Component {
               </div>
           </div>
         </div>
-
         </div>
       )
   }

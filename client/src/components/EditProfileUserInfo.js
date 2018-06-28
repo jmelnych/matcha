@@ -2,17 +2,13 @@ import React, { Component } from 'react'
 import {Form, Input, Button, Select} from 'antd'
 
 class EditProfileUserInfo extends Component {
-    handleInputLength = (rule, value, callback) => {
-        if (value && value.length < 3) {
-            callback(`${rule.field} is too short`);
-        } else {
-            callback();
-        }
-    };
+    componentDidMount() {
+        this.setInitialValues();
+    }
 
     onSubmit = (e) => {
-        e.preventDefault();
         const { form, closeOnSubmit } = this.props;
+        e.preventDefault();
         form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 console.log('Received values of form editing: ', values);
@@ -22,8 +18,20 @@ class EditProfileUserInfo extends Component {
         })
     };
 
+    setInitialValues = () => {
+        const { form, user } = this.props;
+        form.setFieldsValue({
+            firstname: user.firstname,
+            lastname: user.lastname,
+            occupancy: user.occupancy,
+            bio: user.bio
+
+        });
+    };
+
 render() {
     const {getFieldDecorator} = this.props.form;
+    const { user } = this.props;
     const formItemLayout      = {
         labelCol: {
             xs: {span: 24},
@@ -35,48 +43,49 @@ render() {
         }
     };
 
-    const usr = this.props.user;
+
+    const { TextArea } = Input;
     return (
       <div>
           <Form onSubmit={this.onSubmit}>
               <Form.Item {...formItemLayout} label='First name'> {
-                  getFieldDecorator('firstname', { initialValue: usr.firstname },
-                      {
-                      rules: [{
-                          required: true,
-                          message: 'Please input your first name'
-                      }, {
-                          validator: this.handleInputLength
-                      }]
-                  })(<Input name='firstname'/>)
+                  getFieldDecorator('firstname', {
+                      rules: [{required: true, message: 'Please input your first name'},
+                          {min: 2, message:'First name is too short'}]
+                  })(<Input  name='firstname'/>)
               }
               </Form.Item>
               <Form.Item {...formItemLayout} label='Last name'> {
-                  getFieldDecorator('lastname', {initialValue: usr.lastname}, {
-                      rules: [{
-                          required: true,
-                          message: 'Please input your last name'
-                      }, {
-                          validator: this.handleInputLength
-                      }]
+                  getFieldDecorator('lastname', {
+                      rules: [{required: true, message: 'Please input your last name'},
+                             {min: 2, message:'Last name is too short'}]
                   })(<Input name='lastname'/>)
               }
               </Form.Item>
               <Form.Item {...formItemLayout} label='Occupancy'> {
-                  getFieldDecorator('occupancy', {initialValue: usr.occupancy})
+                  getFieldDecorator('occupancy', {
+                      rules: [{min: 2, message: 'Your occupation is too short, please, develop'}]
+                  })
                   (<Input name='occupancy'/>)
               }
               </Form.Item>
-              <Form.Item {...formItemLayout} label='Preferences'>
-                  <Select defaultValue="Option1">
-                      <Select.Option value="Option1">Men</Select.Option>
-                      <Select.Option value="Option2">Women</Select.Option>
-                      <Select.Option value="Option3">Men and Women</Select.Option>
+              <Form.Item {...formItemLayout} label='Preferences'> {
+                  <Select defaultValue={user.preferences}>
+                      <Select.Option value="male">Men</Select.Option>
+                      <Select.Option value="female">Women</Select.Option>
+                      <Select.Option value="both">Men and Women</Select.Option>
                   </Select>
+              }
               </Form.Item>
-              <div >
+              <Form.Item {...formItemLayout} label='Bio'> {
+                  getFieldDecorator('bio', {
+                      validateTrigger: 'onBlur',
+                      rules: [{max: 300, message: 'Biography description is too long'}]
+                  })(< TextArea rows={2} />)
+              }
+              </Form.Item>
               <Button className="center-button" type='primary'
-                      htmlType='submit'>Save changes</Button></div>
+                      htmlType='submit'>Save changes</Button>
           </Form>
       </div>
     );

@@ -6,6 +6,9 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 
 class ResendActivation extends Component {
+    componentDidMount() {
+        this.setInitialValues();
+    };
 
     onSubmit = (e) => {
         e.preventDefault();
@@ -19,6 +22,13 @@ class ResendActivation extends Component {
                 });
                 toggle();
             }
+        });
+    };
+
+    setInitialValues = () => {
+        const { form } = this.props;
+        form.setFieldsValue({
+            'email': this.props.emailValue
         });
     };
 
@@ -38,7 +48,7 @@ class ResendActivation extends Component {
           <div>
               <Form className="App-form" onSubmit={this.onSubmit}>
                   <Form.Item {...formItemLayout} label='E-mail'> {
-                      getFieldDecorator('email', {initialValue: this.props.emailValue},{
+                      getFieldDecorator('email', {
                           rules: [{
                               type: 'email',
                               message: 'e-mail is not valid'
