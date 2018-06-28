@@ -3,17 +3,18 @@ import { Alert } from 'antd'
 import PropTypes from 'prop-types'
 
 class FlashMessage extends Component {
-    constructor(props) {
-        super(props);
+    componentDidMount(){
         this.onClose = this.onClose.bind(this);
-    }
+        setTimeout(() => {this.onClose()}, 3000);
+    };
+
     onClose = () => {
         const {message, deleteFlashMessage} = this.props;
         deleteFlashMessage(message.id);
     };
 
+
 render() {
-    console.log(this.props);
     const {id, type, text} = this.props.message;
     let alertType;
     switch (type) {
@@ -34,6 +35,7 @@ render() {
     );
   }
 }
+
 FlashMessage.propTypes = {
     message: PropTypes.object.isRequired,
     deleteFlashMessage: PropTypes.func.isRequired

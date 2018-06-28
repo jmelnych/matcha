@@ -21,7 +21,6 @@ Here is an activation <a href="${config.host}:${config.port}/api/users/activate/
 Love, Matcha.
 `
         }, callback_func);
-
     }
 
     resend(email, username, token,  callback_func) {
@@ -37,6 +36,5 @@ Don't lose it again.<br>
 Love, Matcha.`
 
         }, callback_func);
-
     }
 };
