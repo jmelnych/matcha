@@ -115,4 +115,8 @@ router.post('/remind', (req, res) => {
     //TODO: get usr email, send link for password recovery. Decide with Julia on how to trigger form for pass recovery
 });
 
+router.post('/session', (req, res) => {
+    res.send(false);
+});
+
 export default router;
