@@ -8,8 +8,6 @@ router.post('/password', require('./password'));
 
 router.post('/remind', require('./remind'));
 
-router.post('/session', require('./session'));
-
 router.post('/resend', require('./resend'));
 
 router.post('/get', require('./get'));
