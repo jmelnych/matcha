@@ -3,23 +3,31 @@ import ProfileHead from './ProfileHead'
 import ProfileUserInfo from './ProfileUserInfo'
 import ProfileUserPhotos from './ProfileUserPhotos'
 import ProfileUserPost from './ProfileUserPost'
+import {connect} from 'react-redux'
+import {getUser} from '../actions/userActions'
 
-export default class Profile extends Component {
+class Profile extends Component {
+    componentDidMount() {
+        this.props.getUser();
+    }
+
   render() {
       //TODO: change user to obj from backend
-    const user = {
-        avatar: '../img/avatars/default.png',
-        username: 'Testuser',
-        rating: 150,
-        gender: 'female',
-        firstname: 'Druid',
-        lastname: 'Wensleydale',
-        occupancy: 'engineer',
-        bio: 'Im super puper engieer blah blah blah blah blah',
-        preferences: 'both',
-        joined: '10 June 2018'
+    // const user = {
+    //     avatar: '../img/avatars/default.png',
+    //     username: 'Testuser',
+    //     rating: 150,
+    //     gender: 'female',
+    //     firstname: 'Druid',
+    //     lastname: 'Wensleydale',
+    //     occupancy: 'engineer',
+    //     bio: 'Im super puper engieer blah blah blah blah blah',
+    //     preferences: 'both',
+    //     joined: '10 June 2018'
+    //
+    // }
+      let user = this.props.user;
 
-    }
     return (
         <div>
           <ProfileHead user={user}/>
@@ -68,3 +76,8 @@ export default class Profile extends Component {
   }
 }
 
+function mapStateToProps({user}) {
+    return user;
+}
+
+export default connect (mapStateToProps, {getUser})(Profile);

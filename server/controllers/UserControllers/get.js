@@ -1,4 +1,4 @@
-const hash = require('password-hash');
+    const hash = require('password-hash');
 
 module.exports = (req, res) => {
     let promise,
