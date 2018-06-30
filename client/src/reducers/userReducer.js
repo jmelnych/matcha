@@ -1,4 +1,4 @@
-import {CREATE_USER} from '../actions/types'
+import {GET_USER} from '../actions/types'
 
 const initialState = {
     users: [],
@@ -7,11 +7,9 @@ const initialState = {
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case CREATE_USER:
-            console.log('in CREATE_USER reducer');
-            console.log(action.payload);
+        case GET_USER:
             return {
-                ...state
+                user: action.payload
             };
         default:
             return state;

@@ -14,13 +14,15 @@ class App extends Component {
     componentWillMount() {
         checkSession().then((res) => {
             this.setState({
-                path: res.data
+                path: res.data,
             })
+                console.log(res.data);
         })
     };
     state = {
-        path: false
+        path: 'no session'
     };
+
 
     render() {
 
@@ -30,10 +32,10 @@ class App extends Component {
             <Layout.Header></Layout.Header>
                 <FlashMessagesList/>
             <BrowserRouter>
-
-                {this.state.path ?  <Route exact path="/" render={ props => <Profile {...props}/>} />
+                {typeof(this.state.path) === "object" || this.state.auth ?
+                    <Route exact path="/" render={ props => <Profile {...props}/>} />
                     :
-                <Route exact path="/" render={ props => <Home {...props}/>} />
+                    <Route exact path="/" component={Home} />
                 }
         </BrowserRouter>
         <Layout.Footer></Layout.Footer>

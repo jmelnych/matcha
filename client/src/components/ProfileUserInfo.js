@@ -69,7 +69,7 @@ class ProfileUserInfo extends Component {
 
                 <li><Ionicon icon="ios-heart-outline" style={ionicStyle}/>
                     <span className="text-secondary">Preferences: </span>
-                    <span className="editable">{user.preferences}</span></li>
+                    <span className="editable">{user.preference === 'both' ? 'Men and Women': user.preference}</span></li>
                 <li><Ionicon icon="ios-time-outline" style={ionicStyle}/>
                     <span className="text-secondary">Joined: </span>
                     <span className="non-editable"> {user.joined}</span>

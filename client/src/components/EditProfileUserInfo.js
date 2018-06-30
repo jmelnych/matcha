@@ -70,7 +70,7 @@ render() {
               }
               </Form.Item>
               <Form.Item {...formItemLayout} label='Preferences'> {
-                  <Select defaultValue={user.preferences}>
+                  <Select defaultValue={user.preference}>
                       <Select.Option value="male">Men</Select.Option>
                       <Select.Option value="female">Women</Select.Option>
                       <Select.Option value="both">Men and Women</Select.Option>

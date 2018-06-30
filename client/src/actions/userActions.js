@@ -1,11 +1,11 @@
-import {CREATE_USER} from './types';
-import axios from 'axios';
+import {GET_USER} from './types'
+import axios from 'axios'
 
 export const createUser = (data) => dispatch => {
     return axios.post('api/users/add', data)
 };
 
-export const getUser = (data) => dispatch => {
+export const loginUser = (data) => dispatch => {
     return axios.post('api/users/get', data)
 };
 
@@ -18,5 +18,14 @@ export  const sendLinkPassword = (data) => dispatch => {
 };
 
 export const checkSession = (() => {
-    return axios.post('api/users/session');
+    return axios.post('api/users/get');
 });
+
+export const getUser = (data) => dispatch => {
+    axios.post('api/users/get', data)
+        .then(res => res.data)
+        .then(user => dispatch({
+            type: GET_USER,
+            payload: user
+        }));
+}
