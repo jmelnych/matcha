@@ -1,4 +1,4 @@
-    const hash = require('password-hash');
+const hash = require('password-hash');
 
 module.exports = (req, res) => {
     let promise,
@@ -16,11 +16,11 @@ module.exports = (req, res) => {
 
     promise.then((response) => {
         if (response === undefined) {
-            res.send('no user');
+            res.send('No user');
         } else if (password && !hash.verify(password, response.password)) {
-            res.send('wrong password');
+            res.send('Wrong password');
         } else if (!response.activation) {
-            res.send('no activation');
+            res.send('No activation');
         } else {
             req.session.email = email;
             res.send(response);
