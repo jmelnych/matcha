@@ -14,20 +14,18 @@ module.exports = (req, res) => {
             lastname,
             hash.generate(password),
             token,
-            gender);
+            gender
+        );
 
     promise.then(() => {
-        mail.send(email, username, token, (err, info) => {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(info);
-            }
-        });
-        res.send('success');
+        mail.send(email, username, token,
+            (err, info) => console.log(err ? err : info));
+        res.send('Mail has been sent');
     }).catch((e) => {
         if (e.errno === 19) {
-            res.send('email exists');
+            res.send('Email exists');
+        } else {
+            res.send(e);
         }
     });
 };

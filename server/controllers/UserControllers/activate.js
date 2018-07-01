@@ -1,10 +1,10 @@
 module.exports = (req, res) => {
-    let token   = req.params.token,
+    let {token} = req.body,
         user    = req.app.get('user'),
         promise = user.getByUnique('token', token),
         error   = (e) => {
-            console.log(`activate/${token}`, e);
-            res.send('Something went wrong');
+            console.log(e);
+            res.send(e);
         };
 
     promise.then((response) => {

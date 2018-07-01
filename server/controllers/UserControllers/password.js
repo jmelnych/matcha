@@ -3,9 +3,9 @@ const hash = require('password-hash');
 module.exports = (req, res) => {
     let {token, password} = req.body,
         user              = req.app.get('user'),
-        error             = (e) => {
-            console.log(`password/${req.session.remind}`, e);
-            res.send('Something went wrong');
+        error   = (e) => {
+            console.log(e);
+            res.send(e);
         },
         promise;
 
@@ -16,23 +16,22 @@ module.exports = (req, res) => {
             if (!response || !response.activation) {
                 res.send('404');
             } else {
-                req.session.remind = response.email;
-                res.send('password form');
+                req.session.remind = response.id;
+                res.send('Password form');
             }
         }).catch(error);
     } else if (password) {
-        promise = user.getByUnique('email', req.session.remind);
+        promise = user.getByUnique('id', req.session.remind);
 
         promise.then((response) => {
             if (!response || !response.activation) {
                 res.send('404');
             } else {
                 promise = user.update(
-                    'password',
-                    hash.generate(password),
-                    'email',
-                    req.session.remind);
-                promise.then(() => res.send('success')).catch(error);
+                    'password', hash.generate(password),
+                    'id', req.session.remind
+                );
+                promise.then(() => res.send('Success')).catch(error);
             }
         }).catch(error);
 

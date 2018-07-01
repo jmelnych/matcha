@@ -12,23 +12,17 @@ module.exports = (req, res) => {
         };
 
     promise.then((response) => {
-        if (!response){
-            res.send('no user');
+        if (!response) {
+            res.send('No user');
         } else if (!response.activation) {
-            res.send('no activation');
+            res.send('No activation');
         } else {
             let username = response.username;
 
             promise = user.update('token', token, 'email', email);
             promise.then(() => {
-                mail.remind(email, username, token, (err, info) => {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        console.log(info);
-                    }
-                });
-                res.send('remind');
+                mail.remind(email, username, token, (err, info) => console.log(err ? err : info));
+                res.send('Mail has been sent');
             }).catch(error);
         }
     }).catch(error);
