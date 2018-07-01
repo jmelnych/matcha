@@ -13,7 +13,6 @@ class Profile extends Component {
 
   render() {
       let user = this.props.user;
-
     return (
         <div>
           <ProfileHead user={user}/>
