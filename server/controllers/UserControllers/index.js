@@ -5,7 +5,7 @@ const router = express.Router();
 /*
  Expected post params:
     {token: string}
- Response strings:
+ Responses:
     if error:
         error object
     else if (token valid) and (profile not activated):
@@ -18,14 +18,14 @@ router.post('/activate', require('./activate'));
 /*
  Expected post params:
     {token: string} or {password: string}
- Response strings for token:
+ Responses for token:
     if error:
         error object
     else if (token valid) and (profile activated):
         "Password form"
     else:
         "404"
- Response strings for password:
+ Responses for password:
     if error:
         error object
     else if (profile from cookie activated):
