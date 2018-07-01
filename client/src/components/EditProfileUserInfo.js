@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import {Form, Input, Button, Select} from 'antd'
+import {updateUser} from '../actions/userActions'
+import {connect} from 'react-redux'
+import isEmpty from 'lodash/isEmpty'
+import PropTypes from 'prop-types'
 
 class EditProfileUserInfo extends Component {
     componentDidMount() {
@@ -7,13 +11,33 @@ class EditProfileUserInfo extends Component {
     }
 
     onSubmit = (e) => {
-        const { form, closeOnSubmit } = this.props;
+        const { form, closeOnSubmit, user, updateUser } = this.props;
         e.preventDefault();
         form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('Received values of form editing: ', values);
+                //console.log('Received values of form editing: ', values);
                 closeOnSubmit();
-                //TODO: send obj to backend
+                let newUserInfo = new Object();
+                if (values.firstname !== user.firstname) {
+                    newUserInfo.firstname = values.firstname;
+                } if (values.lastname !== user.lastname){
+                    newUserInfo.lastname = values.lastname;
+                } if (values.preference !== user.preference) {
+                    newUserInfo.preference = values.preference;
+                } if (values.occupancy !== user.occupancy) {
+                    newUserInfo.occupancy = values.occupancy;
+                } if (values.bio !== user.bio) {
+                    newUserInfo.bio = values.bio;
+                }
+
+                if(!isEmpty(newUserInfo)) {
+                    newUserInfo.id = user.id;
+                    updateUser(newUserInfo);
+                } else {
+                    console.log('nothing has been changes');
+                }
+
+
             }
         })
     };
@@ -24,6 +48,7 @@ class EditProfileUserInfo extends Component {
             firstname: user.firstname,
             lastname: user.lastname,
             occupancy: user.occupancy,
+            preference: user.preference,
             bio: user.bio
 
         });
@@ -70,11 +95,12 @@ render() {
               }
               </Form.Item>
               <Form.Item {...formItemLayout} label='Preferences'> {
-                  <Select defaultValue={user.preference}>
+                  getFieldDecorator('preference')(
+                  <Select >
                       <Select.Option value="male">Men</Select.Option>
                       <Select.Option value="female">Women</Select.Option>
                       <Select.Option value="both">Men and Women</Select.Option>
-                  </Select>
+                  </Select>)
               }
               </Form.Item>
               <Form.Item {...formItemLayout} label='Bio'> {
@@ -91,4 +117,4 @@ render() {
     );
   }
 }
-export default Form.create()(EditProfileUserInfo);
+export default connect(null, {updateUser})(Form.create()(EditProfileUserInfo));

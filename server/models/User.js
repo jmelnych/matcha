@@ -30,6 +30,7 @@ module.exports = class User {
             [email, username, firstname, lastname, password, token, gender]);
     }
 
+    //TODO: one request to DB
     update(column, value, key, data) {
         return this.db.run(`UPDATE users SET ${column} = ? WHERE ${key} = ?`,
             [value, data]);

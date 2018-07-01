@@ -12,20 +12,6 @@ class Profile extends Component {
     }
 
   render() {
-      //TODO: change user to obj from backend
-    // const user = {
-    //     avatar: '../img/avatars/default.png',
-    //     username: 'Testuser',
-    //     rating: 150,
-    //     gender: 'female',
-    //     firstname: 'Druid',
-    //     lastname: 'Wensleydale',
-    //     occupancy: 'engineer',
-    //     bio: 'Im super puper engieer blah blah blah blah blah',
-    //     preferences: 'both',
-    //     joined: '10 June 2018'
-    //
-    // }
       let user = this.props.user;
 
     return (

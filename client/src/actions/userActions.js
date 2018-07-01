@@ -28,4 +28,13 @@ export const getUser = (data) => dispatch => {
             type: GET_USER,
             payload: user
         }));
+};
+
+export const updateUser = (data) => dispatch => {
+    axios.post('api/users/update', data)
+    // .then(res => res.data)
+    // .then(user => dispatch({
+    //     type: UPDATE_USER,
+    //     payload: user
+    // }))
 }

@@ -16,4 +16,6 @@ router.post('/get', require('./get'));
 
 router.post('/add', require('./add'));
 
+router.post('/update', require('./update'));
+
 export default router;

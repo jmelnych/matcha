@@ -36,7 +36,6 @@ app.set('user', new User());
 app.set('mail', new Mail());
 
 /*defining routes */
-
 app.use('/api/users/', users);
 
 app.get('/*', (req, res) => {
