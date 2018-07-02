@@ -95,4 +95,6 @@ router.post('/add', require('./add'));
 
 router.post('/update', require('./update'));
 
+router.post('/avatar', require('./avatar'));
+
 export default router;

@@ -1,4 +1,4 @@
-import {GET_USER, UPDATE_USER} from '../actions/types'
+import {GET_USER, UPDATE_USER, UPLOAD_AVATAR} from '../actions/types'
 
 const initialState = {
     users: [],
@@ -20,6 +20,8 @@ export default function (state = initialState, action) {
                 ...state,
                 user: updateUser
             };
+        case UPLOAD_AVATAR:
+            console.log(action.payload);
         default:
             return state;
     }

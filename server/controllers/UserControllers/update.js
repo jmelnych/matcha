@@ -1,5 +1,4 @@
 module.exports = (req, res) => {
-    console.log(req.body);
     const {id} = req.body;
     let user   = req.app.get('user');
     //TODO: optimize implementation by improving update func in user model - remove loop here

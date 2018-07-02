@@ -75,7 +75,7 @@ class ProfileHead extends Component {
           <div className="profile-main-header">
               <div className="profile-main-avatar">
                   <img src={avatar} alt="avatar"/>
-                  <EditProfileUserAvatar/>
+                  <EditProfileUserAvatar user={user}/>
               </div>
               <figcaption>
                   <h2>{user.username}

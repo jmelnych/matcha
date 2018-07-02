@@ -37,8 +37,6 @@ class Home extends Component {
     };
 
     render () {
-        console.log('props == ' + this.props);
-        console.log(this.props);
         if (this.state.resend_activation) {
             return(<div className="App-home">
                 <Content className="App-content">

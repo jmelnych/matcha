@@ -34,9 +34,9 @@ export default {
                 loaders: [
                     'file-loader',
                 ],
-                options: {
-                    name: '[path][name]-[hash:8].[ext]'
-                }
+                // options: {
+                //     name: '[path][name]-[hash:8].[ext]'
+                // }
             },
             {
                 test: /\.css$/,
