@@ -33,7 +33,10 @@ export default {
                 test: /\.(jpe?g|png|gif|svg)$/i,
                 loaders: [
                     'file-loader',
-                ]
+                ],
+                options: {
+                    name: '[path][name]-[hash:8].[ext]'
+                }
             },
             {
                 test: /\.css$/,

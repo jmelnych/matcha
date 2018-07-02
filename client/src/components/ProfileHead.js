@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-//import avatar from '../img/avatars/default.png'
 import Ionicon from 'react-ionicons'
 import {Popover} from 'antd'
 import PropTypes from 'prop-types'
 import {Modal} from 'antd'
 import EditProfileUserHead from './EditProfileUserHead'
+import EditProfileUserAvatar from './EditProfileUserAvatar'
 
 class ProfileHead extends Component {
     state = {
@@ -40,7 +40,6 @@ class ProfileHead extends Component {
     };
 
     render() {
-
     const content = (
         <div>
             <p>Rating is count based on your profile</p>
@@ -69,11 +68,14 @@ class ProfileHead extends Component {
         };
 
     const { visible, confirmLoading, ModalText } = this.state;
-    const user = this.props.user;
+    const {user} = this.props;
+    const av_name = user.avatar || 'default.png';
+    const avatar = require(`../img/avatars/${av_name}`);
     return (
           <div className="profile-main-header">
               <div className="profile-main-avatar">
-                  <img src={user.avatar} alt="avatar"/>
+                  <img src={avatar} alt="avatar"/>
+                  <EditProfileUserAvatar/>
               </div>
               <figcaption>
                   <h2>{user.username}

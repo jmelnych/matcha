@@ -16,7 +16,6 @@ class EditProfileUserHead extends Component {
         form.setFieldsValue({
             username: user.username,
             gender: user.gender,
-
         });
     };
 

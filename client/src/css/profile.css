@@ -22,12 +22,15 @@ ul {
 
 .profile-main-avatar{
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 figcaption {
   max-width: 400px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 0 0 20px 0;
 }
 
 figcaption h2, figcaption span, figcaption p{
@@ -158,6 +161,11 @@ figcaption h2, figcaption span, figcaption p{
 
 .post-button{
   width: 90px;
+}
+
+.ant-btn-circle.ant-btn-sm, .ant-btn-circle-outline.ant-btn-sm{
+  bottom: 32px;
+  left: 40px;
 }
 
 
