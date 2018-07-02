@@ -27,14 +27,14 @@ class Signup extends Component {
                 //console.log('Received values of form: ', values);
                 createUser(values).then(
                     (res) => {
-                        if (res.data === 'success'){
+                        if (res.data === 'Mail has been sent'){
                             addFlashMessage({
                                 type: 'success',
                                 text: 'You sign up successfully. Check your email for link activation'
                             });
                             toggle();
                         }
-                        else if(res.data === 'email exists') {
+                        else if(res.data === 'Email exists') {
                             addFlashMessage({
                                 type: 'error',
                                 text: 'User with this email already exists'

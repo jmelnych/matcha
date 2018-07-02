@@ -29,15 +29,11 @@ class EditProfileUserInfo extends Component {
                 } if (values.bio !== user.bio) {
                     newUserInfo.bio = values.bio;
                 }
-
                 if(!isEmpty(newUserInfo)) {
-                    newUserInfo.id = user.id;
-                    updateUser(newUserInfo);
+                    updateUser(user.id, newUserInfo);
                 } else {
                     console.log('nothing has been changes');
                 }
-
-
             }
         })
     };
@@ -56,7 +52,6 @@ class EditProfileUserInfo extends Component {
 
 render() {
     const {getFieldDecorator} = this.props.form;
-    const { user } = this.props;
     const formItemLayout      = {
         labelCol: {
             xs: {span: 24},
@@ -117,4 +112,11 @@ render() {
     );
   }
 }
+
+EditProfileUserInfo.propTypes = {
+    updateUser: PropTypes.func.isRequired,
+    closeOnSubmit: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired
+};
+
 export default connect(null, {updateUser})(Form.create()(EditProfileUserInfo));

@@ -15,12 +15,21 @@ class ResendActivation extends Component {
         const {form, resendActivation, toggle, addFlashMessage} = this.props;
         form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                resendActivation(values);
-                addFlashMessage({
-                    type: 'success',
-                    text: 'New link activation has been sent to your email'
-                });
-                toggle();
+                resendActivation(values).then((res) => {
+                    if (res.data === 'Mail has been sent'){
+                        addFlashMessage({
+                            type: 'success',
+                            text: 'New link activation has been sent to your email'
+                        });
+                        toggle();
+                    } else {
+                        addFlashMessage({
+                            type: 'error',
+                            text: 'No such user exists with this email'
+                        });
+                        toggle();
+                    }
+                })
             }
         });
     };
@@ -71,6 +80,6 @@ ResendActivation.propTypes = {
     resendActivation: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
     toggle: PropTypes.func.isRequired
-}
+};
 
 export default connect(null, {resendActivation, addFlashMessage})(Form.create()(ResendActivation));

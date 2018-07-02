@@ -1,4 +1,4 @@
-import {GET_USER} from './types'
+import {GET_USER, UPDATE_USER} from './types'
 import axios from 'axios'
 
 export const createUser = (data) => dispatch => {
@@ -30,11 +30,10 @@ export const getUser = (data) => dispatch => {
         }));
 };
 
-export const updateUser = (data) => dispatch => {
-    axios.post('api/users/update', data)
-    // .then(res => res.data)
-    // .then(user => dispatch({
-    //     type: UPDATE_USER,
-    //     payload: user
-    // }))
+export const updateUser = (id, data) => dispatch => {
+    axios.post('api/users/update', {id, data})
+    .then(() => dispatch({
+        type: UPDATE_USER,
+        payload: data
+    }))
 }

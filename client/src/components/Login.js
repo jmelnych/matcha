@@ -36,18 +36,18 @@ class Login extends Component {
             if (!err) {
                 loginUser(values).then(
                     (res) => {
-                        if (res.data === 'no user') {
+                        if (res.data === 'No user') {
                             addFlashMessage({
                                 type: 'error',
                                 text: "No such user exists"
                             });
                         }
-                        else if(res.data === 'wrong password'){
+                        else if(res.data === 'Wrong password'){
                             addFlashMessage({
                                 type: 'error',
                                 text: "Wrong password"
                             });
-                        } else if(res.data === 'no activation') {
+                        } else if(res.data === 'No activation') {
                             addFlashMessage({
                                 type: 'warning',
                                 text: "Please, activate your email"

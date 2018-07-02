@@ -15,12 +15,28 @@ class RemindPassword extends Component {
         const {form, sendLinkPassword, toggle, addFlashMessage} = this.props;
         form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                sendLinkPassword(values);
-                addFlashMessage({
-                    type: 'success',
-                    text: 'A link to restore your password has been send to your email'
-                });
-                toggle();
+                sendLinkPassword(values).then(
+                    (res) => {
+                        if (res.data === 'Mail has been sent'){
+                            addFlashMessage({
+                                type: 'success',
+                                text: 'A link to restore your password has been send to your email'
+                            });
+                            toggle();
+                        } else if (res.data === 'No user') {
+                            addFlashMessage({
+                                type: 'error',
+                                text: 'No user with such email'
+                            });
+                        } else if (res.data === 'No activation') {
+                            addFlashMessage({
+                                type: 'warning',
+                                text: 'You have not activated your email yet'
+                            });
+                            toggle();
+                        }
+                    }
+                );
             }
         });
     };
