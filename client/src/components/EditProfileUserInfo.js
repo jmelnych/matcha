@@ -62,8 +62,6 @@ render() {
             sm: {span: 16}
         }
     };
-
-
     const { TextArea } = Input;
     return (
       <div>

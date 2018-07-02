@@ -54,7 +54,7 @@ figcaption h2, figcaption span, figcaption p{
   padding: 10px;
 }
 
-.editable-icon, .editable-icon-avatar {
+.editable-icon {
   position: absolute;
   padding: 5px;
   width: 30px;
@@ -63,12 +63,9 @@ figcaption h2, figcaption span, figcaption p{
   fill: rgba(96,96,96,.3);
 }
 
-.editable-icon{
-  bottom: 15px;
-  right: 0;
-}
 
-.editable-icon:hover, .editable-icon-avatar:hover{
+.editable-icon:hover{
+  cursor: pointer;
   fill: #5caef9;
 }
 

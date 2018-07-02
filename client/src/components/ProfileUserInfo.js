@@ -31,8 +31,9 @@ class ProfileUserInfo extends Component {
             this.setState({
                 visible: false,
                 confirmLoading: false,
+                ModalText: ''
             });
-        }, 1200);
+        }, 1000);
     };
 
     render() {
@@ -42,12 +43,16 @@ class ProfileUserInfo extends Component {
             marginBottom: '-5px',
             marginRight: '10px',
         };
+        const editablePen = {
+            bottom: '15px',
+            right: '0'
+        };
         const {user} = this.props;
 
         return (
             <ul className="profile-main-info-list">
                 <h3>Info
-                    <Ionicon onClick={this.showModal} className="editable-icon" icon="md-create"/>
+                    <Ionicon onClick={this.showModal} className="editable-icon" style={editablePen} icon="md-create"/>
                 </h3>
                 <Modal title="Edit your profile info"
                        visible={visible}
