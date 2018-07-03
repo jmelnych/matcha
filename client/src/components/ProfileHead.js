@@ -69,12 +69,9 @@ class ProfileHead extends Component {
 
     const { visible, confirmLoading, ModalText } = this.state;
     const {user} = this.props;
-    const av_name = user.avatar || 'default.png';
-    const avatar = require(`../img/avatars/${av_name}`);
     return (
           <div className="profile-main-header">
               <div className="profile-main-avatar">
-                  <img src={avatar} alt="avatar"/>
                   <EditProfileUserAvatar user={user}/>
               </div>
               <figcaption>

@@ -1,33 +1,71 @@
 import React, { Component } from 'react'
-import {Upload, Button} from 'antd'
+import {Upload, Button, message} from 'antd'
 import {uploadAvatar} from '../actions/userActions'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 
+function getBase64(img, callback) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => callback(reader.result));
+    reader.readAsDataURL(img);
+}
+
+function checkTypeSize(file) {
+    const isJPG_PNG = file.type === 'image/jpeg' || 'image/png';
+    if (!isJPG_PNG) {
+        message.error('You can only upload JPG or PNG file');
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+        message.error('Image must smaller than 2MB');
+    }
+    return isJPG_PNG && isLt2M;
+}
+
 class EditProfileUserAvatar extends Component {
     state = {
-        file: null
+        loading: false,
+        imageUrl: null
     };
 
-    handleChange = (e) => {
-        const file = e.file;
-        this.setState({file});
-        this.fileUploadHandler();
+    handleChange = (info) => {
+        if (info.file.status === 'uploading') {
+            this.setState({ loading: true });
+            return;
+        }
+        if (info.file.status !== 'uploading') {
+            console.log(info.file);
+        }
+        if (info.file.status === 'done') {
+            message.success(`${info.file.name} file uploaded successfully`);
+            getBase64(info.file.originFileObj, imageUrl => this.setState({
+                imageUrl,
+                loading: false,
+            }));
+        } else if (info.file.status === 'error') {
+            message.error(`${info.file.name} file upload failed.`);
+        }
     };
-
-    fileUploadHandler = () => {
-        let id = this.props.user.id;
-        console.log('in fuh');
-        console.log(this.props);
-        this.props.uploadAvatar(id, {test: 123});
-    }
 
 render() {
-    console.log(this.state.file);
+    const imageUrl = this.state.imageUrl;
+    const {user} = this.props;
+    const av_name = user.avatar || 'default.png';
+    const avatar = require(`../img/avatars/${av_name}`);
+    const props = {
+        name: 'avatar',
+        action: 'api/users/avatar',
+        headers: {
+            authorization: 'authorization-text',
+        }
+    }
     return (
       <div>
-          <Upload showUploadList={false} onChange={this.handleChange}>
-              <Button type="primary" shape="circle" icon="upload" size="small" />
+          {imageUrl ? <img src={imageUrl} alt="avatar" /> : <img src={avatar} alt="avatar"/>}
+          <Upload {...props}
+                  showUploadList={false} beforeUpload={checkTypeSize}
+                  onChange={this.handleChange}>
+              <Button type="primary" shape="circle" icon={this.state.loading ? "loading" : "upload"} size="small" />
           </Upload>
       </div>
     );

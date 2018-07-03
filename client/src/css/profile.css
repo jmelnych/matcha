@@ -164,8 +164,8 @@ figcaption h2, figcaption span, figcaption p{
 }
 
 .ant-btn-circle.ant-btn-sm, .ant-btn-circle-outline.ant-btn-sm{
-  bottom: 32px;
-  left: 40px;
+  top: 62px;
+  right: 44px;
 }
 
 

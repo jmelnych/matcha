@@ -18,7 +18,6 @@ app.use(webpackMiddleware(compiler, {
     noInfo: true
 }));
 app.use(webpackHotMiddleware(compiler));
-
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
