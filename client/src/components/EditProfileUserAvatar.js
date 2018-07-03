@@ -33,15 +33,19 @@ class EditProfileUserAvatar extends Component {
             this.setState({ loading: true });
             return;
         }
-        if (info.file.status !== 'uploading') {
-            console.log(info.file);
-        }
         if (info.file.status === 'done') {
-            message.success(`${info.file.name} file uploaded successfully`);
-            getBase64(info.file.originFileObj, imageUrl => this.setState({
-                imageUrl,
-                loading: false,
-            }));
+            const {user} = this.props;
+            let filename = info.file.response;
+            this.props.uploadAvatar(user.id, filename).then((res) => {
+                if (res.data === 'Avatar updated') {
+                    message.success(`${info.file.name} file uploaded successfully`);
+                    getBase64(info.file.originFileObj, imageUrl => this.setState({
+                        imageUrl,
+                        loading: false,
+                    }));
+
+                }
+            });
         } else if (info.file.status === 'error') {
             message.error(`${info.file.name} file upload failed.`);
         }
@@ -54,11 +58,12 @@ render() {
     const avatar = require(`../img/avatars/${av_name}`);
     const props = {
         name: 'avatar',
-        action: 'api/users/avatar',
+        action: 'api/users/saveimg',
         headers: {
             authorization: 'authorization-text',
         }
-    }
+    };
+
     return (
       <div>
           {imageUrl ? <img src={imageUrl} alt="avatar" /> : <img src={avatar} alt="avatar"/>}

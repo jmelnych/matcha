@@ -38,10 +38,11 @@ export const updateUser = (id, data) => dispatch => {
     }))
 };
 
-export const uploadAvatar = (id, data) => dispatch => {
-    axios.post('api/users/avatar', {id, data})
-        .then(() => dispatch({
-            type: UPLOAD_AVATAR,
-            payload: data
-        }))
+export const uploadAvatar = (id, filename) => dispatch => {
+    return axios.post('api/users/avatar', {id, filename});
+        // .then(() => dispatch({
+        //     type: UPLOAD_AVATAR,
+        //     payload: filename
+        // }))
 };
+

@@ -95,6 +95,32 @@ router.post('/add', require('./add'));
 
 router.post('/update', require('./update'));
 
+const multer = require('multer');
+const multerConfig = {
+    storage: multer.diskStorage({
+        destination: function(req, file, next) {
+            next(null, './client/src/img/avatars');
+        },
+        filename: function(req, file, next) {
+            const ext = file.mimetype.split('/')[1];
+            next(null, `${file.fieldname}-${Date.now()}.${ext}`);
+        }
+    }),
+    fileFilter: function (req, file, next) {
+        if (!file) {
+            next();
+        }
+        const image = file.mimetype.startsWith('image/');
+        if (image) {
+            next(null, true);
+        } else {
+            next({message: "File not supported"}, false);
+        }
+    }
+};
+
+router.post('/saveimg', multer(multerConfig).single('avatar'), require('./saveimg'));
+
 router.post('/avatar', require('./avatar'));
 
 export default router;
