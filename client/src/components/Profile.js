@@ -22,6 +22,12 @@ class Profile extends Component {
               <ProfileUserInfo user={user}/>
               <ProfileUserPhotos user={user}/>
 
+
+              <ul className="profile-main-info-list">
+                  <h3>Personal Interests</h3>
+                  <li>#gambling</li>
+              </ul>
+
               <ul className="profile-main-info-list">
                   <h3>Friends</h3>
                   <li>
