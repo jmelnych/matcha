@@ -1,4 +1,4 @@
-import {GET_USER, UPDATE_USER, UPLOAD_AVATAR} from './types'
+import {GET_USER, UPDATE_USER} from './types'
 import axios from 'axios'
 
 export const createUser = (data) => dispatch => {
@@ -40,9 +40,9 @@ export const updateUser = (id, data) => dispatch => {
 
 export const uploadAvatar = (id, filename) => dispatch => {
     return axios.post('api/users/avatar', {id, filename});
-        // .then(() => dispatch({
-        //     type: UPLOAD_AVATAR,
-        //     payload: filename
-        // }))
+};
+
+export const uploadPhoto = (id, photo) => dispatch => {
+    return axios.post('api/users/photos', {id, photo});
 };
 

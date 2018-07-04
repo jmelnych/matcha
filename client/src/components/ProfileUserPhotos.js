@@ -1,20 +1,44 @@
 import React, { Component } from 'react'
-import { Upload, Icon, Modal, Popover } from 'antd'
+import { Upload, Icon, Modal, Popover, message } from 'antd'
+import {uploadPhoto} from '../actions/userActions'
+import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
 
 class ProfileUserPhotos extends Component {
+
     state = {
         previewVisible: false,
         previewImage: '',
-        fileList: [{
-            uid: -1,
-            name: 'xxx.png',
-            status: 'done',
-            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        }],
+        photos: []
     };
 
+    componentDidMount() {
+        /*TODO: write getUserPhotos method in userAction to fetch existing photos by current user,
+        import it,
+        call it this.props.getUserPhotos();
+        mapStateToProps ?
+        I'll get an array of objects like this:
+        {
+            uid,
+            status,
+            url (url is a path to photo, i need name only)
+        }
+        Map through each object, require photos
 
-    handleCancel = () => this.setState({ previewVisible: false })
+        in cycle, require each photo
+        then somehow set state to images i got*/
+        const photo = require(`../img/photos/photo-1530712711950.png`);
+        this.setState({
+            photos: [{
+                uid: 1530712711950,
+                status: 'done',
+                url: photo
+            }]
+        });
+    }
+
+
+    handleCancel = () => this.setState({ previewVisible: false });
 
     handlePreview = (file) => {
         this.setState({
@@ -23,10 +47,23 @@ class ProfileUserPhotos extends Component {
         });
     }
 
-    handleChange = ({ fileList }) => this.setState({ fileList })
+    handleChange = ( photo ) => {
+        let photoArray = photo.fileList;
+        this.setState({photos: photoArray});
+
+        if (photo.file.status === 'done') {
+            const {user, uploadPhoto} = this.props;
+            let filename = photo.file.response;
+            uploadPhoto(user.id, filename).then((res) => {
+                if (res.data === 'Photo saved') {
+                    message.success(`${photo.file.name} file uploaded successfully`);
+                }
+            })
+        }
+        };
 
     render() {
-        const { previewVisible, previewImage, fileList } = this.state;
+        const { previewVisible, previewImage, photos } = this.state;
         const uploadButton = (
             <div>
                 <Icon type="plus" />
@@ -35,21 +72,31 @@ class ProfileUserPhotos extends Component {
         );
         const content = (
             <div>
-                <p>You can upload up to 6 photos</p>
+                <p>You can upload up to 4 photos</p>
             </div>
         );
+
+        const props = {
+            name: 'photo',
+            action: 'api/users/savephoto',
+            headers: {
+                authorization: 'authorization-text',
+            }
+        };
+
+
+
         return (
             <ul className="profile-main-info-list">
             <div className="clearfix">
                 <Popover placement="rightTop" title="Photo info" content={content}
                          trigger="hover"><h3>Photos</h3></Popover>
-                <Upload
-                    action="//jsonplaceholder.typicode.com/posts/"
+                <Upload {...props}
                     listType="picture-card"
-                    fileList={fileList}
+                    fileList={photos}
                     onPreview={this.handlePreview}
                     onChange={this.handleChange}>
-                    {fileList.length >= 6 ? null : uploadButton}
+                    {photos.length >= 4 ? null : uploadButton}
                 </Upload>
                 <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
                     <img alt="example" style={{ width: '100%' }} src={previewImage} />
@@ -58,6 +105,11 @@ class ProfileUserPhotos extends Component {
             </ul>
         );
     }
-}
+};
 
-export default ProfileUserPhotos;
+ProfileUserPhotos.propTypes = {
+    user: PropTypes.object.isRequired,
+    uploadPhoto: PropTypes.func.isRequired
+};
+
+export default connect(null, {uploadPhoto})(ProfileUserPhotos);

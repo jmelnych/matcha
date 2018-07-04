@@ -34,9 +34,9 @@ class EditProfileUserAvatar extends Component {
             return;
         }
         if (info.file.status === 'done') {
-            const {user} = this.props;
+            const {user, uploadAvatar} = this.props;
             let filename = info.file.response;
-            this.props.uploadAvatar(user.id, filename).then((res) => {
+            uploadAvatar(user.id, filename).then((res) => {
                 if (res.data === 'Avatar updated') {
                     message.success(`${info.file.name} file uploaded successfully`);
                     getBase64(info.file.originFileObj, imageUrl => this.setState({
