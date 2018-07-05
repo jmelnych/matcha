@@ -5,27 +5,36 @@ import {Layout} from 'antd'
 import FlashMessagesList from './flash/FlashMessagesList'
 import Profile from './Profile'
 import Home from './Home'
-import {checkSession} from '../actions/userActions'
+import {getUser} from '../actions/userActions'
 import {connect} from 'react-redux'
 
 class Root extends Component {
-render() {
-    return (
-        <Layout className="App">
-            <Layout.Header>header</Layout.Header>
-            <FlashMessagesList/>
-            {this.props.user ? <Home/> : <Profile/>}
-            <Layout.Footer></Layout.Footer>
-        </Layout>
-    );
-  }
+    componentDidMount() {
+        this.props.getUser();
+    }
+    render() {
+        return (
+            <Layout className="App">
+                <Layout.Header>header</Layout.Header>
+                <FlashMessagesList/>
+                {!this.props.auth ? <Home/> : <Profile/>}
+                <Layout.Footer></Layout.Footer>
+            </Layout>
+        );
+      }
 };
 
 function mapStateToProps({user}) {
     return user;
 }
 
-export default connect(mapStateToProps)(Root);
+function mapDispatchToProps(dispatch) {
+    return {
+        getUser: () => dispatch(getUser())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Root);
 
 //<Route exact path="/password/:token"render={ props => <Profile {...props}/>} />
     {/*<Route exact path="/" component={Root}/>*/}

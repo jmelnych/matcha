@@ -8,10 +8,14 @@ const initialState = {
 export default function (state = initialState, action) {
     switch (action.type) {
         case GET_USER:
-            return {
-                user: action.payload,
-                auth: true
-            };
+            if (action.payload.id) {
+                return {
+                    user: action.payload,
+                    auth: true
+                }
+            } else {
+                return state;
+            }
         case UPDATE_USER:
             let updateUser = Object.assign({}, state.user);
             for (let prop in action.payload){

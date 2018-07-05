@@ -57,7 +57,7 @@ class Login extends Component {
                             })
                         } else {
                             this.props.getUser();
-                            window.location.href = '/';
+                            //window.location.href = '/';
                             //this.context.router.history.push('/');
                         }
                     }

@@ -17,10 +17,6 @@ export  const sendLinkPassword = (data) => dispatch => {
     return axios.post('api/users/remind', data);
 };
 
-export const checkSession = (() => {
-    return axios.post('api/users/get');
-});
-
 export const getUser = () => dispatch => {
     axios.post('api/users/get')
         .then(res => res.data)
