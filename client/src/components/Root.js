@@ -2,23 +2,29 @@ import React, { Component } from 'react'
 import '../../../node_modules/antd/dist/antd.css'
 import  '../css/styles'
 import {Layout} from 'antd'
-import FlashMessagesList from './flash/FlashMessagesList'
 import Profile from './Profile'
 import Home from './Home'
 import {getUser} from '../actions/userActions'
 import {connect} from 'react-redux'
+import HeaderNav from './HeaderNav'
+import {Route, Switch} from 'react-router-dom'
+import Search from './Search'
+import PropTypes from 'prop-types'
 
 class Root extends Component {
     componentDidMount() {
-        this.props.getUser();
+        this.props.isAuth();
     }
     render() {
+        const {Footer} = Layout;
         return (
             <Layout className="App">
-                <Layout.Header>header</Layout.Header>
-                <FlashMessagesList/>
-                {!this.props.auth ? <Home/> : <Profile/>}
-                <Layout.Footer></Layout.Footer>
+                <HeaderNav/>
+                <Switch>
+                    <Route exact path='/' component={!this.props.auth ? Home : Profile}/>
+                    <Route path='/search' component={Search}/>
+                </Switch>
+                <Footer>&copy; by imelnych & pkolomiy</Footer>
             </Layout>
         );
       }
@@ -30,9 +36,14 @@ function mapStateToProps({user}) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        getUser: () => dispatch(getUser())
+        isAuth: () => dispatch(getUser())
     }
-}
+};
+
+Root.propTypes = {
+    getUser: PropTypes.func,
+    user: PropTypes.object
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Root);
 

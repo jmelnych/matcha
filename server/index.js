@@ -5,6 +5,7 @@ import webpackMiddleware from 'webpack-dev-middleware';
 import webpackConfig from '../webpack.config.dev';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import users from './controllers/UserControllers';
+import search from './controllers/SearchControllers'
 
 const session = require('cookie-session');
 const bodyParser = require('body-parser');
@@ -36,6 +37,7 @@ app.set('mail', new Mail());
 
 /*defining routes */
 app.use('/api/users/', users);
+app.use('/api/search/', search);
 
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, './index.html'));
