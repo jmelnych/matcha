@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Form, Input, Button} from 'antd'
 import {connect} from 'react-redux'
-import {loginUser} from '../actions/userActions'
+import {tryLoginUser, getUser} from '../actions/userActions'
 import {addFlashMessage} from '../actions/flashMessages'
 import PropTypes from 'prop-types'
 
@@ -31,10 +31,10 @@ class Login extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        const {form, loginUser, addFlashMessage} = this.props;
+        const {form, tryLoginUser, addFlashMessage} = this.props;
         form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                loginUser(values).then(
+                tryLoginUser(values).then(
                     (res) => {
                         if (res.data === 'No user') {
                             addFlashMessage({
@@ -56,7 +56,7 @@ class Login extends Component {
                                 showResendLink: true
                             })
                         } else {
-                            console.log('redirect on success');
+                            this.props.getUser();
                             window.location.href = '/';
                             //this.context.router.history.push('/');
                         }
@@ -106,14 +106,15 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-    loginUser: PropTypes.func.isRequired,
+    tryLoginUser: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
     showResendForm: PropTypes.func.isRequired,
-    showResendPasswordForm: PropTypes.func.isRequired
+    showResendPasswordForm: PropTypes.func.isRequired,
+    getUser: PropTypes.func.isRequired
 };
 
 Login.contextTypes = {
     router: PropTypes.object.isRequired
 }
 
-export default connect(null, {loginUser, addFlashMessage})(Form.create()(Login));
+export default connect(null, {tryLoginUser, getUser, addFlashMessage})(Form.create()(Login));

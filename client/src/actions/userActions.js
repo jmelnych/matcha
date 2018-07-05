@@ -5,7 +5,7 @@ export const createUser = (data) => dispatch => {
     return axios.post('api/users/add', data)
 };
 
-export const loginUser = (data) => dispatch => {
+export const tryLoginUser = (data) => dispatch => {
     return axios.post('api/users/get', data)
 };
 

@@ -1,7 +1,7 @@
 import {GET_USER, UPDATE_USER} from '../actions/types'
 
 const initialState = {
-    users: [],
+    auth: false,
     user: {}
 };
 
@@ -9,7 +9,8 @@ export default function (state = initialState, action) {
     switch (action.type) {
         case GET_USER:
             return {
-                user: action.payload
+                user: action.payload,
+                auth: true
             };
         case UPDATE_USER:
             let updateUser = Object.assign({}, state.user);
