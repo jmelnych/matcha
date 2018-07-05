@@ -81,10 +81,20 @@ render() {
   }
 };
 
+function mapStateToProps({user}){
+    return user;
+};
+
+function mapDispatchToProps(dispatch) {
+    return {
+        updateUser: (id, newUserInfo) => dispatch(updateUser(id, newUserInfo))
+    }
+};
+
 EditProfileUserHead.propTypes = {
     updateUser: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
     closeOnSubmit: PropTypes.func.isRequired
 };
 
-export default connect(null, {updateUser})(Form.create()(EditProfileUserHead));
+export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(EditProfileUserHead));

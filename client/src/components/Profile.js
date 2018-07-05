@@ -5,6 +5,7 @@ import ProfileUserPhotos from './ProfileUserPhotos'
 import ProfileUserPost from './ProfileUserPost'
 import {connect} from 'react-redux'
 import {getUser} from '../actions/userActions'
+import PropTypes from 'prop-types'
 
 class Profile extends Component {
     componentDidMount() {
@@ -12,15 +13,15 @@ class Profile extends Component {
     }
 
   render() {
-    let user = this.props.user;
+    let {user} = this.props;
     return (
     <div>
-      <ProfileHead user={user}/>
+      <ProfileHead />
       <div className="profile-main">
         <div className="container-flex">
           <div className="profile-main-info">
-              <ProfileUserInfo user={user}/>
-              <ProfileUserPhotos user={user}/>
+              <ProfileUserInfo/>
+              <ProfileUserPhotos/>
 
 
               <ul className="profile-main-info-list">
@@ -69,6 +70,16 @@ class Profile extends Component {
 
 function mapStateToProps({user}) {
     return user;
-}
+};
 
-export default connect (mapStateToProps, {getUser})(Profile);
+function mapDispatchToProps(dispatch) {
+    return {
+        getUser: () => dispatch(getUser())
+    }
+};
+
+Profile.propTypes = {
+    user: PropTypes.object.isRequired
+};
+
+export default connect (mapStateToProps, mapDispatchToProps)(Profile);

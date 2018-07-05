@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import {Modal} from 'antd'
 import EditProfileUserHead from './EditProfileUserHead'
 import EditProfileUserAvatar from './EditProfileUserAvatar'
+import {connect} from 'react-redux'
 
 class ProfileHead extends Component {
     state = {
@@ -72,7 +73,7 @@ class ProfileHead extends Component {
     return (
           <div className="profile-main-header">
               <div className="profile-main-avatar">
-                  <EditProfileUserAvatar user={user}/>
+                  <EditProfileUserAvatar/>
               </div>
               <figcaption>
                   <h2>{user.username}
@@ -90,7 +91,7 @@ class ProfileHead extends Component {
                      confirmLoading={confirmLoading}
                      footer={null}>
                   {ModalText ? <p>{ModalText}</p> :
-                      <EditProfileUserHead user={user} closeOnSubmit={this.handleOk}/>
+                      <EditProfileUserHead closeOnSubmit={this.handleOk}/>
                   }
               </Modal>
           </div>
@@ -101,7 +102,11 @@ class ProfileHead extends Component {
 
 ProfileHead.propTypes = {
     user: PropTypes.object.isRequired
+};
+
+function mapStateToProps({user}){
+    return user;
 }
 
 
-export default ProfileHead;
+export default connect(mapStateToProps)(ProfileHead);

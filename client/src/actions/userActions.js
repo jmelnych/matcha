@@ -21,8 +21,8 @@ export const checkSession = (() => {
     return axios.post('api/users/get');
 });
 
-export const getUser = (data) => dispatch => {
-    axios.post('api/users/get', data)
+export const getUser = () => dispatch => {
+    axios.post('api/users/get')
         .then(res => res.data)
         .then(user => dispatch({
             type: GET_USER,

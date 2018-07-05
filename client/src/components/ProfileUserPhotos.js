@@ -107,9 +107,22 @@ class ProfileUserPhotos extends Component {
     }
 };
 
+function mapStateToProps({user}) {
+    return user;
+};
+
+function mapDispatchToProps(dispatch) {
+    return {
+        uploadPhoto: (id, filename) => dispatch(uploadPhoto(id, filename)),
+        //getPhotos: (id) => ...
+    }
+};
+
+
+
 ProfileUserPhotos.propTypes = {
     user: PropTypes.object.isRequired,
     uploadPhoto: PropTypes.func.isRequired
 };
 
-export default connect(null, {uploadPhoto})(ProfileUserPhotos);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileUserPhotos);

@@ -77,9 +77,19 @@ render() {
   }
 };
 
+function mapStateToProps({user}) {
+    return user;
+};
+
+function mapDispatchToProps(dispatch) {
+    return {
+        uploadAvatar: (id, filename) => dispatch(uploadAvatar(id, filename))
+    }
+};
+
 EditProfileUserAvatar.propTypes = {
     user: PropTypes.object.isRequired,
     uploadAvatar: PropTypes.func.isRequired
 }
 
-export default connect(null, {uploadAvatar})(EditProfileUserAvatar);
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfileUserAvatar);

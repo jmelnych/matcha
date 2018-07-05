@@ -90,8 +90,8 @@ render() {
               <Form.Item {...formItemLayout} label='Preferences'> {
                   getFieldDecorator('preference')(
                   <Select >
-                      <Select.Option value="male">Men</Select.Option>
-                      <Select.Option value="female">Women</Select.Option>
+                      <Select.Option value="men">Men</Select.Option>
+                      <Select.Option value="women">Women</Select.Option>
                       <Select.Option value="both">Men and Women</Select.Option>
                   </Select>)
               }
@@ -117,4 +117,14 @@ EditProfileUserInfo.propTypes = {
     user: PropTypes.object.isRequired
 };
 
-export default connect(null, {updateUser})(Form.create()(EditProfileUserInfo));
+function mapStateToProps({user}){
+    return user;
+};
+
+function dispatchMapStateToProps(dispatch) {
+    return {
+        updateUser: (id, newUserInfo) => dispatch(updateUser(id, newUserInfo))
+    }
+}
+
+export default connect(mapStateToProps, dispatchMapStateToProps)(Form.create()(EditProfileUserInfo));

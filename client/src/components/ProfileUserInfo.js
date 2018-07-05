@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Ionicon from 'react-ionicons'
 import {Modal} from 'antd'
 import EditProfileUserInfo from './EditProfileUserInfo'
+import {connect} from 'react-redux'
+import PropTypes from 'prop-types'
 
 class ProfileUserInfo extends Component {
     state = {
@@ -60,7 +62,7 @@ class ProfileUserInfo extends Component {
                        confirmLoading={confirmLoading}
                        footer={null}>
                     {ModalText ? <p>{ModalText}</p> :
-                        <EditProfileUserInfo user={user} closeOnSubmit={this.handleOk}/>
+                        <EditProfileUserInfo closeOnSubmit={this.handleOk}/>
                     }
                 </Modal>
                 <li><Ionicon icon="ios-body-outline" style={ionicStyle}/>
@@ -86,5 +88,14 @@ class ProfileUserInfo extends Component {
             </ul>
         );
   }
-}
-export default ProfileUserInfo;
+};
+
+ProfileUserInfo.propTypes = {
+    user: PropTypes.object.isRequired
+};
+
+function mapStateToProps({user}){
+    return user;
+};
+
+export default connect(mapStateToProps)(ProfileUserInfo);

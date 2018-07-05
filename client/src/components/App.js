@@ -11,21 +11,20 @@ import FlashMessagesList from './flash/FlashMessagesList'
 import {checkSession} from '../actions/userActions'
 
 class App extends Component {
-    componentWillMount() {
-        checkSession().then((res) => {
-            this.setState({
-                path: res.data,
-            })
-                //console.log(res.data);
-        })
-    };
     state = {
         path: 'no session'
     };
 
+    componentDidMount() {
+        checkSession().then((res) => {
+            this.setState({
+                path: res.data,
+            })
+        })
+    };
+
 
     render() {
-
         return (
             <Provider store={store}>
             <Layout className="App">
