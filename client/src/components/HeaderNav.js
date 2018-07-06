@@ -10,8 +10,16 @@ render() {
     const {auth} = this.props;
     const linkStyle = {
         textDecoration: 'none'
-    }
+    };
 
+    let tab;
+    const _urlArr = (window.location.href).split('/');
+    const _curl = _urlArr[_urlArr.length - 1];
+    if (_curl === '') {
+        tab = '1';
+    } else if (_curl === 'search') {
+        tab = '2';
+    };
     return (
       <div>
           <Header>
@@ -19,7 +27,7 @@ render() {
               <Menu
                   theme="dark"
                   mode="horizontal"
-                  defaultSelectedKeys={['1']}
+                  defaultSelectedKeys={[tab]}
                   style={{ lineHeight: '64px' }}>
                   <Menu.Item key="1"><Link to='/' style={linkStyle}>Profile</Link></Menu.Item>
                   <Menu.Item key="2"><Link to='/search' style={linkStyle}>Search</Link></Menu.Item>
