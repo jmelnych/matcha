@@ -1,11 +1,32 @@
+.container-nav{
+    width: 390px;
+    padding: 20px 20px;
+    min-height: 200px;
+    background: white;
+    box-shadow: 0 0 20px rgba(0,0,0,.15);
+    border-radius: 5px;
+    margin: 30px;
+}
+
+.container-results{
+    width: 1100px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.container-nav h3 {
+    padding: 10px;
+    font-size: 19px;
+}
+
+
+
 .user-snippet {
     position: relative;
-    float: left;
+    height: 270px;
     overflow: hidden;
-    margin: 10px 1%;
-    min-width: 230px;
-    max-width: 315px;
-    width: 100%;
+    margin: 25px 25px;
+    width: 230px;
     color: #ffffff;
     text-align: center;
     line-height: 1.4em;
@@ -13,7 +34,7 @@
     background-color: white;
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(0,0,0,.15);
-    margin-bottom: 30px;
+
 }
 .user-snippet * {
     -webkit-box-sizing: border-box;
@@ -21,8 +42,13 @@
     -webkit-transition: all 0.25s ease;
     transition: all 0.25s ease;
 }
+
+.user-snippet p {
+    position: absolute;
+}
 .user-snippet .background {
     width: 100%;
+    height: 100%;
     vertical-align: top;
     opacity: 0.7;
     -webkit-filter: grayscale(100%) blur(4px);
@@ -32,17 +58,18 @@
 }
 .user-snippet figcaption {
     width: 100%;
-    padding: 20px 25px;
+    padding: 35px 25px;
     position: absolute;
     left: 0;
     top: 50%;
 }
 .user-snippet .profile {
     border-radius: 50%;
-    position: absolute;
-    bottom: 50%;
-    left: 50%;
-    max-width: 100px;
+    position: relative;
+    bottom: 91%;
+    left: 27%;
+    width: 120px;
+    height: 120px;
     opacity: 1;
     box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.5);
     border: 2px solid rgba(255, 255, 255, 0.5);
@@ -52,11 +79,13 @@
 .user-snippet h3 {
     margin: 0 0 5px;
     font-weight: 400;
+
 }
 .user-snippet h3 span {
     display: block;
-    font-size: 0.6em;
+    font-size: 0.8em;
     color: #5caef9;
+    text-shadow: 1px 1px 4px white;
     opacity: 0.75;
 }
 

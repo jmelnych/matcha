@@ -44,6 +44,10 @@ module.exports = class User {
         return this.db.get(`SELECT * FROM users WHERE ${column} = ?`, [value]);
     }
 
+    getAllByUnique(column, value) {
+        return this.db.all(`SELECT * FROM users WHERE ${column} = ?`, [value]);
+    }
+
     getAll() {
         return this.db.all(`SELECT * FROM users`);
     }
