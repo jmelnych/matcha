@@ -85,6 +85,10 @@ class ProfileUserInfo extends Component {
                     <span className="text-secondary">Bio: </span>
                     <span className="editable"> {user.bio}</span></li>
                 }
+                {(user.age) && <li>< Ionicon icon="ios-planet-outline" style={ionicStyle}/>
+                    <span className="text-secondary">Age: </span>
+                    <span className="editable">33</span></li>
+                }
             </ul>
         );
   }

@@ -45,6 +45,7 @@ class EditProfileUserInfo extends Component {
             lastname: user.lastname,
             occupancy: user.occupancy,
             preference: user.preference,
+            age: user.age,
             bio: user.bio
 
         });
@@ -94,6 +95,13 @@ render() {
                       <Select.Option value="women">Women</Select.Option>
                       <Select.Option value="both">Men and Women</Select.Option>
                   </Select>)
+              }
+              </Form.Item>
+              <Form.Item {...formItemLayout} label='Age'> {
+                  getFieldDecorator('age', {
+                      rules: [{min: 2, message: 'Your age cant be lower than 17'}]
+                  })
+                  (<Input name='age'/>)
               }
               </Form.Item>
               <Form.Item {...formItemLayout} label='Bio'> {
