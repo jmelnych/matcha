@@ -39,7 +39,7 @@ app.set('mail', new Mail());
 app.use('/api/users/', users);
 app.use('/api/search/', search);
 
-app.get('/*', (req, res) => {
+app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, './index.html'));
 });
 

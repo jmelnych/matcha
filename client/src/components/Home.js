@@ -1,18 +1,29 @@
 import React, {Component} from 'react'
 import Login from './Login'
 import Signup from './Signup'
-import {Layout} from 'antd'
+import {Layout, Spin} from 'antd'
 import ResendActivation from './ResendActivation'
 import RemindPassword from './RemindPassword'
 
 const {Content} = Layout;
 
 class Home extends Component {
+    componentDidMount() {
+        setTimeout(() => {this.setState({
+            loading: false
+        })}, 1500)
+    };
+
+    componentWillUnmount() {
+        //TODO: unsibscribe
+    }
+
     state = {
         show_login: true,
         email: '',
         resend_activation: false,
-        resend_password: false
+        resend_password: false,
+        loading: true
     };
 
     toggleFormSignup = () => {
@@ -36,6 +47,7 @@ class Home extends Component {
         this.setState({email})
     };
 
+
     render () {
         if (this.state.resend_activation) {
             return(<div className="App-home">
@@ -50,6 +62,8 @@ class Home extends Component {
                 </Content>
             </div>)
 
+        } else if (this.state.loading) {
+            return (<Spin size="large" className="loading"/>)
         } else {
             return(
                 <div className="App-home">

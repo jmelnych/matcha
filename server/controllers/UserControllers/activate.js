@@ -6,7 +6,7 @@ module.exports = (req, res) => {
             console.log(e);
             res.send(e);
         };
-
+        console.log(token);
     promise.then((response) => {
         if (!response || response.activation) {
             res.send('404');

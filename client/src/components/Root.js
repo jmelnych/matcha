@@ -10,10 +10,17 @@ import HeaderNav from './HeaderNav'
 import {Route, Switch} from 'react-router-dom'
 import Search from './Search'
 import PropTypes from 'prop-types'
+import Activation from './Activation'
 
 class Root extends Component {
     componentDidMount() {
-        this.props.isAuth();
+        const _curl = (window.location.href).split('/');
+        if (_curl[3] === '') {
+            console.log(_curl[_curl.length - 1]);
+            console.log(_curl);
+            console.log('requesting auth');
+            this.props.isAuth();
+        }
     }
     render() {
         const {Footer} = Layout;
@@ -22,7 +29,8 @@ class Root extends Component {
                 <HeaderNav/>
                 <Switch>
                     <Route exact path='/' component={!this.props.auth ? Home : Profile}/>
-                    <Route path='/search' component={Search}/>
+                    <Route exact path='/search' component={Search}/> //TODO: handle /search/
+                    <Route exact path='/activate/:token' component={Activation} />
                 </Switch>
                 <Footer>&copy; by imelnych & pkolomiy</Footer>
             </Layout>

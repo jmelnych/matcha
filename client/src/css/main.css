@@ -89,4 +89,12 @@ li.left-border{
 
 
 
+.loading{
+    height: calc(100vh - 100px - 64px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
 

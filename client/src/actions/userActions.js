@@ -1,6 +1,8 @@
 import {GET_USER, UPDATE_USER} from './types'
 import axios from 'axios'
 
+axios.defaults.baseURL = 'http://localhost:5000';
+
 export const createUser = (data) => dispatch => {
     return axios.post('api/users/add', data)
 };
@@ -41,4 +43,8 @@ export const uploadAvatar = (id, filename) => dispatch => {
 export const uploadPhoto = (id, photo) => dispatch => {
     return axios.post('api/users/photos', {id, photo});
 };
+
+export const tryActivate = (token) => dispatch => {
+    return axios.post('api/users/activate', token)
+}
 
