@@ -1,5 +1,4 @@
 const express = require('express');
-const multer = require('multer');
 const router = express.Router();
 
 /*
@@ -81,7 +80,7 @@ router.post('/resend', require('./resend'));
 router.post('/get', require('./get'));
 
 /*
- Expected post params or cookie:
+ Expected post params:
     {email: string, password: string}
  Responses:
     if error:
@@ -94,14 +93,5 @@ router.post('/get', require('./get'));
 router.post('/add', require('./add'));
 
 router.post('/update', require('./update'));
-
-
-const multerConfig  = require('../../multerConfig');
-
-router.post('/saveimg', multer(multerConfig.avatarMulterConfig).single('avatar'), require('./saveimg'));
-router.post('/savephoto', multer(multerConfig.photoMulterConfig).single('photo'), require('./saveimg'));
-
-router.post('/avatar', require('./avatar'));
-router.post('/photos', require('./photos'));
 
 export default router;

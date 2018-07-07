@@ -23,6 +23,9 @@ module.exports = (req, res) => {
             res.send('No activation');
         } else {
             req.session.email = email;
+            delete response.activation;
+            delete response.password;
+            delete response.token;
             res.send(response);
         }
     }).catch((e) => {

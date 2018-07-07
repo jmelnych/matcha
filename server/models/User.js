@@ -1,10 +1,6 @@
 let DB = require('../database/DB');
 
-module.exports = class User {
-    constructor() {
-        this.db = new DB();
-    }
-
+module.exports = class User extends DB {
     createTbl() {
         const sql = `CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -21,35 +17,35 @@ module.exports = class User {
         location INTEGER,
         avatar VARCHAR(255) DEFAULT '../img/avatars/default.png'
         )`;
-        return this.db.run(sql);
+        return this.run(sql);
     }
 
     create(email, username, firstname, lastname, password, token, gender) {
-        return this.db.run(`INSERT INTO users
+        return this.run(`INSERT INTO users
             (email, username, firstname, lastname, password, token, gender) VALUES (?, ?, ?, ?, ?, ?, ?)`,
             [email, username, firstname, lastname, password, token, gender]);
     }
 
     //TODO: one request to DB
     update(column, value, key, data) {
-        return this.db.run(`UPDATE users SET ${column} = ? WHERE ${key} = ?`,
+        return this.run(`UPDATE users SET ${column} = ? WHERE ${key} = ?`,
             [value, data]);
     }
 
     delete(id) {
-        return this.db.run(`DELETE FROM users WHERE id = ?`, [id]);
+        return this.run(`DELETE FROM users WHERE id = ?`, [id]);
     }
 
     getByUnique(column, value) {
-        return this.db.get(`SELECT * FROM users WHERE ${column} = ?`, [value]);
+        return this.get(`SELECT * FROM users WHERE ${column} = ?`, [value]);
     }
 
     getAllByUnique(column, value) {
-        return this.db.all(`SELECT * FROM users WHERE ${column} = ?`, [value]);
+        return this.all(`SELECT * FROM users WHERE ${column} = ?`, [value]);
     }
 
     getAll() {
-        return this.db.all(`SELECT * FROM users`);
+        return this.all(`SELECT * FROM users`);
     }
 
 };

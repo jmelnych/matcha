@@ -4,8 +4,9 @@ import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackConfig from '../webpack.config.dev';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-import users from './controllers/UserControllers';
-import search from './controllers/SearchControllers'
+import users from './controllers/UserController';
+import search from './controllers/SearchController'
+import image from './controllers/ImageController'
 
 const session = require('cookie-session');
 const bodyParser = require('body-parser');
@@ -30,13 +31,19 @@ app.use(session({
 
 /* Set Models */
 const User = require('./models/User');
+const Tag = require('./models/Tag');
 const Mail = require('./models/Mail');
 
 app.set('user', new User());
+app.set('tag', new Tag());
 app.set('mail', new Mail());
+
+/* Set multer saveImage */
+app.set('save', require('./saveImage'));
 
 /*defining routes */
 app.use('/api/users/', users);
+app.use('/api/image/', image);
 app.use('/api/search/', search);
 
 app.get('*', (req, res) => {
