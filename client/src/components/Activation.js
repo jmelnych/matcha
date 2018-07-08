@@ -12,17 +12,18 @@ class Activation extends Component {
         this.props.tryActivate({'token': token})
             .then((res) => {
             if (res.data === 'Your email has been confirmed'){
-            window.location.href = '/';
                 this.props.addFlashMessage({
                     type: 'success',
                     text: "Your email has been activated"
                 });
+                setTimeout(() => {window.location.href = '/'}, 2000);
+
             } else {
-                window.location.href = '/';
                 this.props.addFlashMessage({
                     type: 'error',
-                    text: "Error"
+                    text: "Looks like your activation link is not vaild"
                 });
+                setTimeout(() => {window.location.href = '/'}, 2000);
             }
         });
     }

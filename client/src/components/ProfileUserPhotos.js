@@ -78,7 +78,7 @@ class ProfileUserPhotos extends Component {
 
         const props = {
             name: 'photo',
-            action: 'api/users/savephoto',
+            action: 'api/image/save',
             headers: {
                 authorization: 'authorization-text',
             }

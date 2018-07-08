@@ -58,7 +58,7 @@ render() {
     const avatar = require(`../img/avatars/${av_name}`);
     const props = {
         name: 'avatar',
-        action: 'api/users/saveimg',
+        action: 'api/image/save',
         headers: {
             authorization: 'authorization-text',
         }

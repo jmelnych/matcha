@@ -3,7 +3,7 @@ const router = express.Router();
 
 /*
  Expected post params:
-    {type: string} - string must be only 'avatar' or 'photo'
+    {name: string} - string must be only 'avatar' or 'photo'
     and picture
  Responses:
     if error:

@@ -2,8 +2,8 @@ const multer = require('multer');
 
 module.exports = (req, res) => {
     let save     = req.app.get('save'),
-        {type}   = req.body,
-        response = multer(save.image).single(type);
+        {name}   = req.body,
+        response = multer(save.image).single(name);
     response(req, res, (err) => {
         if (err) {
             res.send(err);

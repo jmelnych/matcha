@@ -37,11 +37,11 @@ export const updateUser = (id, data) => dispatch => {
 };
 
 export const uploadAvatar = (id, filename) => dispatch => {
-    return axios.post('api/users/avatar', {id, filename});
+    return axios.post('api/image/save', {id, filename});
 };
 
 export const uploadPhoto = (id, photo) => dispatch => {
-    return axios.post('api/users/photos', {id, photo});
+    return axios.post('api/image/save', {id, photo});
 };
 
 export const tryActivate = (token) => dispatch => {
