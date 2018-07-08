@@ -42,5 +42,9 @@ export const uploadPhoto = (id, photo) => dispatch => {
 
 export const tryActivate = (token) => dispatch => {
     return axios.post('api/users/activate', token)
+};
+
+export const updatePassword = (password, token) => dispatch => {
+    return axios.post('api/users/password', {password, token})
 }
 

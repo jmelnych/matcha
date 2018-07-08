@@ -21,7 +21,7 @@ body {
 }
 
 .App-form {
-    max-width: 524px;
+    width: 524px;
     margin: 0 auto !important;
     padding: 50px 50px !important;
     min-height: 115px;

@@ -11,6 +11,7 @@ import {Route, Switch} from 'react-router-dom'
 import Search from './Search'
 import PropTypes from 'prop-types'
 import Activation from './Activation'
+import SetPassword from './SetPassword'
 
 class Root extends Component {
     componentDidMount() {
@@ -31,6 +32,7 @@ class Root extends Component {
                     <Route exact path='/' component={!this.props.auth ? Home : Profile}/>
                     <Route exact path='/search' component={Search}/> //TODO: handle /search/
                     <Route exact path='/activate/:token' component={Activation} />
+                    <Route exact path='/password/:token' component={SetPassword} />
                 </Switch>
                 <Footer>&copy; by imelnych & pkolomiy</Footer>
             </Layout>

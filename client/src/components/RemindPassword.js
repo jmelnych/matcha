@@ -76,9 +76,9 @@ render() {
                     })(<Input name='email'/>)
                 }
                 </Form.Item>
+                <a onClick={this.props.toggle}>I just reacalled my password!</a>
                 <Button className="App-button" type='primary' htmlType='submit'>Send link for new password</Button>
             </Form>
-
         </div>
     );
   }
