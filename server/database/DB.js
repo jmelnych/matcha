@@ -74,9 +74,7 @@ module.exports = class DB {
                 !(Array.isArray(data[key]))) {
                 filters += `AND users.${key} = ? `;
             }
-            if ((Array.isArray(data[key]) && data[key].length) || !(Array.isArray(data[key]))) {
-                values = values.concat(data[key]);
-            }
+            values = values.concat(data[key]);
         });
         columns.forEach((value, key, arr) => {
             arr[key] = `users.${value}`;
