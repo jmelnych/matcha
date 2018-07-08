@@ -1,15 +1,15 @@
 module.exports = (req, res) => {
     let promise,
-        users     = req.app.get('user');
+        db = req.app.get('db');
 
-        promise = users.getAll();
-        promise.then((response) => {
-            if (response === undefined) {
-                res.send('No users');
-            } else {
-                res.send(response);
-            }
-        }).catch((e) => {
-            res.send(e);
-        });
+    promise = db.getAll('users');
+    promise.then((response) => {
+        if (response === undefined) {
+            res.send('No users');
+        } else {
+            res.send(response);
+        }
+    }).catch((e) => {
+        res.send(e);
+    });
 };

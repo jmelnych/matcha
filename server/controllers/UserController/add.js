@@ -2,23 +2,20 @@ const hash        = require('password-hash');
 const randomToken = require('random-token');
 
 module.exports = (req, res) => {
-    const {email, username, firstname, lastname, password, gender} = req.body;
+    let token = randomToken(16),
+        db  = req.app.get('db'),
+        mail  = req.app.get('mail'),
+        data  = (({email, username, firstname, lastname, password, gender}) =>
+            ({email, username, firstname, lastname, password, gender}))(req.body);
 
-    let token   = randomToken(16),
-        user    = req.app.get('user'),
-        mail    = req.app.get('mail'),
-        promise = user.create(
-            email,
-            username,
-            firstname,
-            lastname,
-            hash.generate(password),
-            token,
-            gender
-        );
+    data.password = hash.generate(data.password);
+
+    let columns = Object.keys(data).join(', '),
+        values  = Object.values(data),
+        promise = db.create('users', columns, values);
 
     promise.then(() => {
-        mail.send(email, username, token,
+        mail.send(data.email, data.username, token,
             (err, info) => console.log(err ? err : info));
         res.send('Mail has been sent');
     }).catch((e) => {

@@ -1,44 +1,21 @@
 module.exports = (req, res) => {
-    let promise,
-        users     = req.app.get('user'),
-        {gender, rating} = req.body;
+    let db           = req.app.get('db'),
+        filterObject = req.app.get('filterObject'),
+        data         = filterObject(req.body, [
+            'gender', 'preference', 'age', 'rating', 'tags', 'location'
+        ]),
+        promise      = db.getAllByFilter([
+            'id', 'username', 'firstname', 'lastname', 'gender', 'preference',
+            'occupancy', 'age', 'rating', 'bio', 'location', 'avatar', 'added'
+        ], data);
 
-    //TODO: handle request by several params
-    if (gender){
-        console.log(gender);
-        if (gender.length === 2) {
-            promise = users.getAll();
-            promise.then((response) => {
-                if (response === undefined) {
-                    res.send('No users');
-                } else {
-                    res.send(response);
-                }
-            }).catch((e) => {
-                res.send(e);
-            });
-        } else if (gender.toString() === 'Men') {
-            promise = users.getAllByUnique('gender', 'male');
-            promise.then((response) => {
-                if (response === undefined) {
-                    res.send('No users');
-                } else {
-                    res.send(response);
-                }
-            }).catch((e) => {
-                res.send(e);
-            });
-        } else if (gender.toString() === 'Women') {
-            promise = users.getAllByUnique('gender', 'female');
-            promise.then((response) => {
-                if (response === undefined) {
-                    res.send('No users');
-                } else {
-                    res.send(response);
-                }
-            }).catch((e) => {
-                res.send(e);
-            })
+    promise.then((response) => {
+        if (response === undefined) {
+            res.send('No users');
+        } else {
+            res.send(response);
         }
-    }
+    }).catch((e) => {
+        res.send(e);
+    });
 };

@@ -3,9 +3,9 @@ const randomToken = require('random-token');
 module.exports = (req, res) => {
     let token   = randomToken(16),
         {email} = req.body,
-        user    = req.app.get('user'),
+        db      = req.app.get('db'),
         mail    = req.app.get('mail'),
-        promise = user.getByUnique('email', email),
+        promise = db.getByUnique('users', 'email', email),
         error   = (e) => {
             console.log(e);
             res.send(e);
@@ -19,7 +19,7 @@ module.exports = (req, res) => {
         } else {
             let username = response.username;
 
-            promise = user.update('token', token, 'email', email);
+            promise = db.update('users', 'token', token, 'email', email);
             promise.then(() => {
                 mail.remind(email, username, token, (err, info) => console.log(err ? err : info));
                 res.send('Mail has been sent');

@@ -1,16 +1,14 @@
 module.exports = (req, res) => {
-    const {id} = req.body;
-    let user   = req.app.get('user');
-    //TODO: optimize implementation by improving update func in user model - remove loop here
-    //EXPECTED RESULT: one request to DB instead loop requesting
-    //see User.js update func
-    for (let prop in req.body.data) {
-        let promise = user.update(prop, req.body.data[prop], 'id', id);
-        promise.then(() => {
-            console.log('success');
-        }).catch((e) => {
-            console.log(e);
-        });
-    }
-    res.send('success');
-}
+    let filterObject = req.app.get('filterObject'),
+        db           = req.app.get('db'),
+        data     = filterObject(req.body.data, [
+            'username', 'firstname', 'lastname', 'gender', 'preference',
+            'occupancy', 'age', 'rating', 'bio', 'location'
+        ]),
+        promise      = db.updateMultiple('users', data, 'id', req.session.id);
+    promise.then(() => {
+        res.send('success');
+    }).catch((e) => {
+        res.send(e);
+    });
+};

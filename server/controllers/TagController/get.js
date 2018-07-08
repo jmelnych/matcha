@@ -1,6 +1,6 @@
 module.exports = (req, res) => {
-    let tag = req.app.get('tag'),
-        promise = tag.getAll(),
+    let db = req.app.get('db'),
+        promise = db.getAll('tags'),
         error   = (e) => {
             console.log(e);
             res.send(e);

@@ -4,7 +4,7 @@ module.exports = (req, res) => {
     let promise,
         email,
         password = 0,
-        user     = req.app.get('user');
+        db     = req.app.get('db');
 
     if (req.session.email) {
         email = req.session.email;
@@ -12,7 +12,7 @@ module.exports = (req, res) => {
         email    = req.body.email;
         password = req.body.password;
     }
-    promise = user.getByUnique('email', email);
+    promise = db.getByUnique('users', 'email', email);
 
     promise.then((response) => {
         if (response === undefined) {
@@ -23,6 +23,7 @@ module.exports = (req, res) => {
             res.send('No activation');
         } else {
             req.session.email = email;
+            req.session.id = response.id;
             delete response.activation;
             delete response.password;
             delete response.token;

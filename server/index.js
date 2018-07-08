@@ -30,16 +30,17 @@ app.use(session({
 }));
 
 /* Set Models */
-const User = require('./models/User');
-const Tag = require('./models/Tag');
+const DB = require('./database/DB');
 const Mail = require('./models/Mail');
 
-app.set('user', new User());
-app.set('tag', new Tag());
+app.set('db', new DB());
 app.set('mail', new Mail());
 
 /* Set multer saveImage */
-app.set('save', require('./saveImage'));
+app.set('save', require('./models/saveImage'));
+
+/* Additional models helpers */
+app.set('filterObject', require('./models/filterObject'));
 
 /*defining routes */
 app.use('/api/users/', users);

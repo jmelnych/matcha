@@ -1,7 +1,7 @@
 module.exports = (req, res) => {
-    let tag = req.app.get('tag'),
+    let db = req.app.get('db'),
         {name} = req.body,
-        promise = tag.add(name),
+        promise = db.create('tags', 'tag', [name]),
         error   = (e) => {
             console.log(e);
             res.send(e);
