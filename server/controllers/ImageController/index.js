@@ -17,3 +17,5 @@ router.post('/avatar', require('./avatar'));
 
 router.post('/photos', require('./photos'));
 
+export default router;
+
