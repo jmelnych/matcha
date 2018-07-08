@@ -57,8 +57,6 @@ class Login extends Component {
                             })
                         } else {
                             this.props.getUser();
-                            //window.location.href = '/';
-                            //this.context.router.history.push('/');
                         }
                     }
                 );
@@ -115,6 +113,6 @@ Login.propTypes = {
 
 Login.contextTypes = {
     router: PropTypes.object.isRequired
-}
+};
 
 export default connect(null, {tryLoginUser, getUser, addFlashMessage})(Form.create()(Login));

@@ -78,6 +78,7 @@ render() {
                 </Form.Item>
                 <Button className="App-button" type='primary' htmlType='submit'>Send link for new password</Button>
             </Form>
+
         </div>
     );
   }

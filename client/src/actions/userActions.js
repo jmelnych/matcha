@@ -36,10 +36,6 @@ export const updateUser = (id, data) => dispatch => {
     }))
 };
 
-export const uploadAvatar = (id, filename) => dispatch => {
-    return axios.post('api/image/save', {id, filename});
-};
-
 export const uploadPhoto = (id, photo) => dispatch => {
     return axios.post('api/image/save', {id, photo});
 };
