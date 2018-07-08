@@ -30,7 +30,6 @@ render() {
                   <h3>{user.username}
                           <span>{user.occupancy}</span></h3>
                   <div className="icons">
-
                   </div>
               </figcaption>
           </figure>

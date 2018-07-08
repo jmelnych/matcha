@@ -20,8 +20,15 @@ class Filter extends Component {
 
     filterUsers = () => {
         //TODO: request in no gender selected?
-        console.log(this.state.filters);
-        this.props.getUsersFiltered(this.state.filters);
+        let filteredValues = this.state.filters;
+        if (filteredValues.gender.length === 2) {
+            filteredValues.gender = ['male', 'female'];
+        } else if (filteredValues.gender[0] === 'Men') {
+            filteredValues.gender = ['male'];
+        } else if (filteredValues.gender[0] === 'Women') {
+            filteredValues.gender = ['female'];
+        }
+        this.props.getUsersFiltered(filteredValues);
     };
 
     onChangeGender = (gender) => {
