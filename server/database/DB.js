@@ -70,8 +70,9 @@ module.exports = class DB {
             } else if (key === 'tags' &&
                 Array.isArray(data[key]) && data[key].length) {
                 filters += 'AND tags.tag = ? ';
-            } else if ((Array.isArray(data[key]) && data[key].length) ||
-                !(Array.isArray(data[key]))) {
+            } else if (Array.isArray(data[key]) && data[key].length) {
+                data[key].forEach(elem => filters += `AND users.${key} = ? `);
+            } else if (!Array.isArray(data[key])) {
                 filters += `AND users.${key} = ? `;
             }
             values = values.concat(data[key]);
