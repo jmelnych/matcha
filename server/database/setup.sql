@@ -12,7 +12,7 @@ CREATE TABLE users
   lastname   VARCHAR(255) NOT NULL,
   password   VARCHAR(255) NOT NULL,
   activation TINYINT(1)          DEFAULT 0 NOT NULL,
-  token      VARCHAR(255) NOT NULL,
+  token      VARCHAR(255),
   gender     VARCHAR(10)  NOT NULL,
   preference VARCHAR(10)         DEFAULT 'both' NOT NULL,
   occupancy  VARCHAR(255),
@@ -21,7 +21,7 @@ CREATE TABLE users
   bio        TEXT,
   location   TEXT,
   avatar     VARCHAR(255)        DEFAULT 'default.png',
-  added      DATETIME            DEFAULT CURRENT_TIMESTAMP,
+  added      DATETIME            DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE pictures
@@ -46,3 +46,7 @@ CREATE TABLE users_tags
   FOREIGN KEY (user_id) REFERENCES users (id),
   FOREIGN KEY (tag_id) REFERENCES tags (id)
 );
+
+INSERT INTO tags (tag) VALUES ('zombie');
+INSERT INTO tags (tag) VALUES ('pizza');
+INSERT INTO tags (tag) VALUES ('javascript');

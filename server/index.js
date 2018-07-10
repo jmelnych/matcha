@@ -5,8 +5,9 @@ import webpackMiddleware from 'webpack-dev-middleware';
 import webpackConfig from '../webpack.config.dev';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import users from './controllers/UserController';
-import search from './controllers/SearchController'
-import image from './controllers/ImageController'
+import search from './controllers/SearchController';
+import tags from './controllers/TagController';
+import image from './controllers/ImageController';
 
 const session = require('cookie-session');
 const bodyParser = require('body-parser');
@@ -46,6 +47,7 @@ app.set('filterObject', require('./models/filterObject'));
 app.use('/api/users/', users);
 app.use('/api/image/', image);
 app.use('/api/search/', search);
+app.use('/api/tags/', tags);
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, './index.html'));

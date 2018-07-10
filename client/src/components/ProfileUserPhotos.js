@@ -87,7 +87,7 @@ class ProfileUserPhotos extends Component {
 
 
         return (
-            <ul className="profile-main-info-list">
+            <div className="profile-main-info-list">
             <div className="clearfix">
                 <Popover placement="rightTop" title="Photo info" content={content}
                          trigger="hover"><h3>Photos</h3></Popover>
@@ -102,7 +102,7 @@ class ProfileUserPhotos extends Component {
                     <img alt="example" style={{ width: '100%' }} src={previewImage} />
                 </Modal>
             </div>
-            </ul>
+            </div>
         );
     }
 };

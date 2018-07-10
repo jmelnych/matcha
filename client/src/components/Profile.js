@@ -6,6 +6,7 @@ import ProfileUserPost from './ProfileUserPost'
 import {connect} from 'react-redux'
 import {getUser} from '../actions/userActions'
 import PropTypes from 'prop-types'
+import ProfileUserInterests from './ProfileUserInterests'
 
 class Profile extends Component {
     componentDidMount() {
@@ -22,36 +23,35 @@ class Profile extends Component {
           <div className="profile-main-info">
               <ProfileUserInfo/>
               <ProfileUserPhotos/>
+              <ProfileUserInterests/>
 
-
-              <ul className="profile-main-info-list">
-                  <h3>Personal Interests</h3>
-                  <li>#gambling</li>
-              </ul>
-
-              <ul className="profile-main-info-list">
+              <div className="profile-main-info-list">
                   <h3>Friends</h3>
-                  <li>
-                      <p>friend</p>
-                  </li>
-                  <li>
-                      <p>friend</p>
-                  </li>
-                  <li>
-                      <p>friend</p>
-                  </li>
-                  <li>
-                      <p>friend</p>
-                  </li>
-                  <li>
-                      <p>friend</p>
-                  </li>
-              </ul>
+                  <ul>
+                      <li>
+                          <p>friend</p>
+                      </li>
+                      <li>
+                          <p>friend</p>
+                      </li>
+                      <li>
+                          <p>friend</p>
+                      </li>
+                      <li>
+                          <p>friend</p>
+                      </li>
+                      <li>
+                          <p>friend</p>
+                      </li>
+                  </ul>
+              </div>
 
-              <ul className="profile-main-info-list">
+              <div className="profile-main-info-list">
                   <h3>Suggestions</h3>
-                  <li></li>
-              </ul>
+                  <ul>
+                      <li></li>
+                  </ul>
+              </div>
           </div>
 
           <div className="profile-main-feed">

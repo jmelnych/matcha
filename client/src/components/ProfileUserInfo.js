@@ -52,7 +52,7 @@ class ProfileUserInfo extends Component {
         const {user} = this.props;
 
         return (
-            <ul className="profile-main-info-list">
+            <div className="profile-main-info-list">
                 <h3>Info
                     <Ionicon onClick={this.showModal} className="editable-icon" style={editablePen} icon="md-create"/>
                 </h3>
@@ -65,6 +65,7 @@ class ProfileUserInfo extends Component {
                         <EditProfileUserInfo closeOnSubmit={this.handleOk}/>
                     }
                 </Modal>
+                <ul>
                 <li><Ionicon icon="ios-body-outline" style={ionicStyle}/>
                     <span className="text-secondary">Full Name: </span>
                     <span className="editable">{user.firstname} {user.lastname}</span></li>
@@ -90,7 +91,8 @@ class ProfileUserInfo extends Component {
                     <span className="text-secondary">Age: </span>
                     <span className="editable">33</span></li>
                 }
-            </ul>
+                </ul>
+            </div>
         );
   }
 };

@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Checkbox, Slider, Tag, Input, Tooltip, Icon } from 'antd'
+import { Checkbox, Slider, Tag, Input, Tooltip, Icon, Switch } from 'antd'
 import {connect} from 'react-redux'
 import {getUsers, getUsersFiltered} from '../actions/searchActions'
 
-const plainOptions = ['Men', 'Women'];
+const plainOptions = ['male', 'female'];
 
 class Filter extends Component {
     state = {
+        ageSliderDisabled: true,
         filters : {
-            gender: ['Men', 'Women'],
+            gender: ['male', 'female'],
             rating: [0, 42],
             tags: [],
             age: [17, 100]
@@ -19,15 +20,15 @@ class Filter extends Component {
     };
 
     filterUsers = () => {
-        //TODO: request in no gender selected?
+        //TODO: request if no gender selected?
         let filteredValues = this.state.filters;
-        if (filteredValues.gender.length === 2) {
-            filteredValues.gender = ['male', 'female'];
-        } else if (filteredValues.gender[0] === 'Men') {
-            filteredValues.gender = ['male'];
-        } else if (filteredValues.gender[0] === 'Women') {
-            filteredValues.gender = ['female'];
+        if (this.state.ageSliderDisabled) {
+            delete filteredValues['age'];
         }
+        if (filteredValues.gender.length === 2) {
+            filteredValues.gender = ['both'];
+        }
+        //console.log(filteredValues);
         this.props.getUsersFiltered(filteredValues);
     };
 
@@ -50,9 +51,12 @@ class Filter extends Component {
     };
 
     onChangeAge = (value) => {
-        this.setState({
-            age: value
-        }, () => this.filterUsers());
+        this.setState(prevState => ({
+            filters: {
+                ...prevState.filters,
+                age: value
+            },
+        }), () => this.filterUsers());
     };
 
     showInput = () => {
@@ -95,8 +99,12 @@ class Filter extends Component {
 
     saveInputRef = input => this.input = input;
 
+    handleDisabledChange = (value) => {
+        this.setState({ ageSliderDisabled: value });
+    }
+
 render() {
-    // console.log(this.state);
+
     const CheckboxGroup = Checkbox.Group;
     const { inputVisible, inputValue } = this.state;
     const { tags } = this.state.filters;
@@ -148,8 +156,10 @@ render() {
             <div className="filter-block">
                 <span className="filter-title">Age</span>
                 <Slider range step={1} defaultValue={[17, 100]}
-                        min={17} max={100}
+                        min={17} max={100} disabled={this.state.ageSliderDisabled}
                         onChange={this.onChangeAge}/>
+                Disabled: <Switch size="small" checked={this.state.ageSliderDisabled}
+                                  onChange={this.handleDisabledChange} />
             </div>
         </div>
     );
