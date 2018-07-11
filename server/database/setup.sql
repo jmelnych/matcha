@@ -16,7 +16,7 @@ CREATE TABLE users
   gender     VARCHAR(10)  NOT NULL,
   preference VARCHAR(10)         DEFAULT 'both' NOT NULL,
   occupancy  VARCHAR(255),
-  age        INTEGER,
+  age        INTEGER      NOT NULL,
   rating     INTEGER             DEFAULT 0 NOT NULL,
   bio        TEXT,
   location   TEXT,

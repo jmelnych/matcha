@@ -5,8 +5,8 @@ module.exports = (req, res) => {
     let token = randomToken(16),
         db  = req.app.get('db'),
         mail  = req.app.get('mail'),
-        data  = (({email, username, firstname, lastname, password, gender}) =>
-            ({email, username, firstname, lastname, password, gender}))(req.body);
+        data  = (({email, username, firstname, lastname, password, gender, age}) =>
+                 ({email, username, firstname, lastname, password, gender, age}))(req.body);
 
     data.password = hash.generate(data.password);
 
