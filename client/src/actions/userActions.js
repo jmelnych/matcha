@@ -36,9 +36,9 @@ export const updateUser = (id, data) => dispatch => {
     }))
 };
 
-export const uploadPhoto = (id, photo) => dispatch => {
-    return axios.post('api/image/save', {id, photo});
-};
+// export const uploadPhoto = (id, photo) => dispatch => {
+//     return axios.post('api/image/save', {id, photo});
+// };
 
 export const tryActivate = (token) => dispatch => {
     return axios.post('api/users/activate', token)

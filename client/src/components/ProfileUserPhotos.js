@@ -52,13 +52,13 @@ class ProfileUserPhotos extends Component {
         this.setState({photos: photoArray});
 
         if (photo.file.status === 'done') {
-            const {user, uploadPhoto} = this.props;
-            let filename = photo.file.response;
-            uploadPhoto(user.id, filename).then((res) => {
-                if (res.data === 'Photo saved') {
-                    message.success(`${photo.file.name} file uploaded successfully`);
-                }
-            })
+            const {user} = this.props;
+            // let filename = photo.file.response;
+            // uploadPhoto(user.id, filename).then((res) => {
+            //     if (res.data === 'Photo saved') {
+            //         message.success(`${photo.file.name} file uploaded successfully`);
+            //     }
+            // })
         }
         };
 
@@ -78,7 +78,7 @@ class ProfileUserPhotos extends Component {
 
         const props = {
             name: 'photo',
-            action: 'api/image/save',
+            action: 'api/image/savephoto',
             headers: {
                 authorization: 'authorization-text',
             }
@@ -113,7 +113,7 @@ function mapStateToProps({user}) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        uploadPhoto: (id, filename) => dispatch(uploadPhoto(id, filename)),
+        // uploadPhoto: (id, filename) => dispatch(uploadPhoto(id, filename)),
         //getPhotos: (id) => ...
     }
 };

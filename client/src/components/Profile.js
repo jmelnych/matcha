@@ -9,8 +9,15 @@ import PropTypes from 'prop-types'
 import ProfileUserInterests from './ProfileUserInterests'
 
 class Profile extends Component {
+    state = {
+        x: null,
+        y: null
+    }
     componentDidMount() {
         this.props.getUser();
+        navigator.geolocation.getCurrentPosition((position) => {
+            console.log(position.coords.latitude, position.coords.longitude);
+        });
     }
 
   render() {
