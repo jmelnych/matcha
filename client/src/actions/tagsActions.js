@@ -1,4 +1,4 @@
-import {GET_TAGS} from './types'
+import {GET_TAGS, ADD_TAGS} from './types'
 import axios from 'axios'
 
 export const getTags = () => dispatch => {
@@ -9,4 +9,8 @@ export const getTags = () => dispatch => {
             payload: tags
         }))
 };
+
+export const addTags = (tags) => dispatch => {
+    return axios.post('api/tags/add', tags);
+}
 

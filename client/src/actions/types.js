@@ -4,3 +4,4 @@ export const GET_USER = 'GET_USER';
 export const UPDATE_USER = 'UPDATE_USER';
 export const GET_USERS = 'GET_USERS';
 export const GET_TAGS = 'GET_TAGS';
+export const ADD_TAGS = 'ADD_TAGS';

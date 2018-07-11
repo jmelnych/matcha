@@ -8,6 +8,7 @@ module.exports = class DB {
 
     /* used to create or alter tables and to insert or update table data, or delete data */
     run(sql, params = []) {
+        console.log(sql);
         return new Promise((resolve, reject) => {
             DB.db.prepare(sql, params).run(function (err) {
                 if (err) {
@@ -49,6 +50,10 @@ module.exports = class DB {
 
     create(table, columns, values) {
         return this.run(`INSERT INTO ${table} (${columns}) VALUES (${'?, '.repeat(values.length - 1) + '?'})`, values);
+    }
+
+    createMultiple(table, columns, values) {
+        return this.run(`INSERT INTO ${table} (${columns}) VALUES ${'(?), '.repeat(values.length - 1) + '(?)'}`, values);
     }
 
     getByUnique(table, column, value) {

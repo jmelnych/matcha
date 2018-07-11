@@ -47,6 +47,4 @@ CREATE TABLE users_tags
   FOREIGN KEY (tag_id) REFERENCES tags (id)
 );
 
-INSERT INTO tags (tag) VALUES ('zombie');
-INSERT INTO tags (tag) VALUES ('pizza');
-INSERT INTO tags (tag) VALUES ('javascript');
+INSERT INTO tags (tag) VALUES ('zombie'), ('pizza'), ('javascript');

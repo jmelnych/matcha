@@ -1,13 +1,13 @@
 module.exports = (req, res) => {
     let db = req.app.get('db'),
-        {name} = req.body,
-        promise = db.create('tags', 'tag', [name]),
+        {names} = req.body,
+        promise = db.createMultiple('tags', 'tag', names),
         error   = (e) => {
-            console.log(e);
+            console.log('error: ', e);
             res.send(e);
         };
 
-    promise.then((response) => {
-        res.send(response);
+    promise.then(() => {
+        res.send('Tags added');
     }).catch(error);
 };

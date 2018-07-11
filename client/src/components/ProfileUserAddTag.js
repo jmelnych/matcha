@@ -1,10 +1,16 @@
 import React, { Component } from 'react'
-import { Form, Input, Icon, Button } from 'antd'
+import { Form, Input, Icon, Button, message } from 'antd'
+import {addTags} from '../actions/tagsActions'
+import {connect} from 'react-redux'
+
 
 const FormItem = Form.Item;
 
 let uuid = 0;
 class ProfileUserAddTag extends Component {
+    state = {
+        values: []
+    }
     remove = (k) => {
         const { form } = this.props;
         // can use data-binding to get
@@ -37,39 +43,29 @@ class ProfileUserAddTag extends Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                //console.log('Received values of form: ', values);
+                const newTags = {names: values.names};
+                this.props.addTags(newTags).then((res) => {
+                    if (res.data === 'Tags added') {
+                        message.success(`Tags uploaded successfully`);
+                        this.setState({
+                            values: []
+                        })
+                    }
+                });
             }
         });
     };
 
     render() {
         const { getFieldDecorator, getFieldValue } = this.props.form;
-        const formItemLayout = {
-            labelCol: {
-                xs: { span: 24 },
-                sm: { span: 4 },
-            },
-            wrapperCol: {
-                xs: { span: 24 },
-                sm: { span: 20 },
-            },
-        };
-        const formItemLayoutWithOutLabel = {
-            wrapperCol: {
-                xs: { span: 24, offset: 0 },
-                sm: { span: 20, offset: 4 },
-            },
-        };
-        getFieldDecorator('keys', { initialValue: [] });
+        getFieldDecorator('keys', { initialValue: this.state.values });
         const keys = getFieldValue('keys');
         const formItems = keys.map((k, index) => {
             return (
                 <FormItem
-                    {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
-                    label={index === 0 ? 'Interest' : ''}
                     required={false}
-                    key={k}
-                >
+                    key={k}>
                     {getFieldDecorator(`names[${k}]`, {
                         validateTrigger: ['onChange', 'onBlur'],
                         rules: [{
@@ -96,18 +92,25 @@ class ProfileUserAddTag extends Component {
                 <h4>Not in list? Add your own</h4>
             <Form onSubmit={this.handleSubmit}>
                 {formItems}
-                <FormItem {...formItemLayoutWithOutLabel}>
+                <FormItem>
                     <Button type="dashed" onClick={this.add} >
                         <Icon type="plus" /> Add
                     </Button>
                 </FormItem>
-                <FormItem {...formItemLayoutWithOutLabel}>
+                <FormItem>
                     <Button type="primary" htmlType="submit">Submit</Button>
                 </FormItem>
             </Form>
             </div>
         );
     }
+};
+
+function mapDispatchToProps(dispatch){
+    return {
+        addTags: (tags) => dispatch(addTags(tags))
+    }
 }
 
-export default Form.create()(ProfileUserAddTag);
+
+export default connect(null, mapDispatchToProps)(Form.create()(ProfileUserAddTag));
