@@ -1,10 +1,9 @@
 import React, {Component} from 'react'
-import {Form, Input, Radio, Button} from 'antd'
+import {Form, Input, Radio, Button, DatePicker} from 'antd'
 import {connect} from 'react-redux'
 import {createUser} from '../actions/userActions'
 import {addFlashMessage} from '../actions/flashMessages'
 import PropTypes from 'prop-types'
-
 
 class Signup extends Component {
     state = {
@@ -94,6 +93,7 @@ class Signup extends Component {
                 sm: {span: 16}
             }
         };
+        const dateFormat = 'YYYY/MM/DD';
         return (
             <div>
                 <Form className="App-form" onSubmit={this.onSubmit}>
@@ -132,6 +132,14 @@ class Signup extends Component {
                             <Radio value='male'>Male</Radio>
                             <Radio value='female'>Female</Radio>
                         </Radio.Group>)
+                    }
+                    </Form.Item>
+                    <Form.Item {...formItemLayout} label='Birth day'> {
+                        getFieldDecorator('bday', {
+                            rules:[{required: true, message: 'Please indicate your birth day'}]
+                        })(
+                            <DatePicker format={dateFormat} />
+                        )
                     }
                     </Form.Item>
                     <Form.Item {...formItemLayout} label='Password' hasFeedback> {

@@ -4,6 +4,7 @@ import {updateUser} from '../actions/userActions'
 import {connect} from 'react-redux'
 import isEmpty from 'lodash/isEmpty'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 
 class EditProfileUserInfo extends Component {
     componentDidMount() {
@@ -45,7 +46,7 @@ class EditProfileUserInfo extends Component {
             lastname: user.lastname,
             occupancy: user.occupancy,
             preference: user.preference,
-            age: user.age,
+            bday: user.bday,
             bio: user.bio
 
         });
@@ -64,6 +65,9 @@ render() {
         }
     };
     const { TextArea } = Input;
+    const {user} = this.props;
+    const dateFormat = 'YYYY/MM/DD';
+
     return (
       <div>
           <Form onSubmit={this.onSubmit}>
@@ -97,11 +101,13 @@ render() {
                   </Select>)
               }
               </Form.Item>
-              <Form.Item {...formItemLayout} label='Age'> {
-                  getFieldDecorator('age', {
-                      rules: [{min: 2, message: 'Your age cant be lower than 17'}]
-                  })
-                  (<Input name='age'/>)
+              <Form.Item {...formItemLayout} label='Birth day'> {
+                  getFieldDecorator('bday', {
+                      rules:[{required: true, message: 'Please indicate your birth day'}]
+                  })(
+                      <DatePicker defaultValue={moment(user.bday, dateFormat)}
+                                  format={dateFormat} />
+                  )
               }
               </Form.Item>
               <Form.Item {...formItemLayout} label='Bio'> {
