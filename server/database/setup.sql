@@ -16,7 +16,7 @@ CREATE TABLE users
   gender     VARCHAR(10)  NOT NULL,
   preference VARCHAR(10)         DEFAULT 'both' NOT NULL,
   occupancy  VARCHAR(255),
-  age        INTEGER      NOT NULL,
+  bday       DATETIME     NOT NULL,
   rating     INTEGER             DEFAULT 0 NOT NULL,
   bio        TEXT,
   location   TEXT,
@@ -24,12 +24,12 @@ CREATE TABLE users
   added      DATETIME            DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE pictures
+CREATE TABLE photos
 (
-  id      INTEGER PRIMARY KEY AUTOINCREMENT,
-  user_id INTEGER,
-  path    VARCHAR(255) NOT NULL UNIQUE,
-  added   DATETIME            DEFAULT CURRENT_TIMESTAMP,
+  id       INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id  INTEGER,
+  filename VARCHAR(255) NOT NULL UNIQUE,
+  added    DATETIME            DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users (id)
 );
 

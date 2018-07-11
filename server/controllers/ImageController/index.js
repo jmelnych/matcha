@@ -11,11 +11,13 @@ const router  = express.Router();
     else:
         filename string
  */
-router.post('/save', require('./save'));
+//router.post('/save', require('./save'));
 
-router.post('/avatar', require('./avatar'));
+router.post('/saveavatar', require('./saveavatar'));
 
-router.post('/photos', require('./photos'));
+router.post('/savephoto', require('./savephoto'));
+
+router.post('/getphotos', require('./getphotos'));
 
 export default router;
 

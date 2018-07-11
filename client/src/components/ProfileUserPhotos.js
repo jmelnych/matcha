@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Upload, Icon, Modal, Popover, message } from 'antd'
-import {uploadPhoto} from '../actions/userActions'
+//import {uploadPhoto} from '../actions/userActions'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 

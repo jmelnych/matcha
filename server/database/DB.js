@@ -8,7 +8,6 @@ module.exports = class DB {
 
     /* used to create or alter tables and to insert or update table data, or delete data */
     run(sql, params = []) {
-        console.log(sql);
         return new Promise((resolve, reject) => {
             DB.db.prepare(sql, params).run(function (err) {
                 if (err) {
@@ -75,6 +74,9 @@ module.exports = class DB {
             } else if (key === 'tags' &&
                 Array.isArray(data[key]) && data[key].length) {
                 filters += 'AND tags.tag = ? ';
+            } else if (key === 'gender' &&
+                Array.isArray(data[key]) && data[key].length) {
+                filters += 'AND tags.tag = ? ';
             } else if (Array.isArray(data[key]) && data[key].length) {
                 data[key].forEach(elem => filters += `AND users.${key} = ? `);
             } else if (!Array.isArray(data[key])) {
@@ -85,6 +87,8 @@ module.exports = class DB {
         columns.forEach((value, key, arr) => {
             arr[key] = `users.${value}`;
         });
+        console.log(`[${filters}]`);
+        console.log(`[${values}]`);
         return this.all(`SELECT ${columns}, tags.tag FROM users
             LEFT JOIN  users_tags ON users.id = users_tags.user_id
             LEFT JOIN  tags ON users_tags.tag_id = tags.id
