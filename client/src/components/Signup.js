@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {createUser} from '../actions/userActions'
 import {addFlashMessage} from '../actions/flashMessages'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 
 class Signup extends Component {
     state = {
@@ -135,11 +136,9 @@ class Signup extends Component {
                     }
                     </Form.Item>
                     <Form.Item {...formItemLayout} label='Birth day'> {
-                        getFieldDecorator('bday', {
+                        getFieldDecorator('bday', {initialValue: moment('1999/01/01', dateFormat)},{
                             rules:[{required: true, message: 'Please indicate your birth day'}]
-                        })(
-                            <DatePicker format={dateFormat} />
-                        )
+                        })(<DatePicker format={dateFormat} />)
                     }
                     </Form.Item>
                     <Form.Item {...formItemLayout} label='Password' hasFeedback> {
@@ -151,7 +150,7 @@ class Signup extends Component {
                         })(<Input name='password' type='password'/>)
                     }
                     </Form.Item>
-                    <Form.Item {...formItemLayout} label="Confirm Password" >{
+                    <Form.Item {...formItemLayout} label="Confirm Password">{
                         getFieldDecorator('confirm_password', {
                             rules: [{required: true, message: 'Please confirm your password'},
                                 {validator: this.compareToFirstPassword}]
@@ -160,7 +159,6 @@ class Signup extends Component {
                                   onChange={e => this.onChange(e)}/>
                         )}
                     </Form.Item>
-
                     <Button className="App-button" type='primary'
                             htmlType='submit'>Sign up</Button>
                 </Form>
