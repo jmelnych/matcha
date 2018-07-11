@@ -8,9 +8,10 @@ const FormItem = Form.Item;
 
 let uuid = 0;
 class ProfileUserAddTag extends Component {
-    state = {
-        values: []
-    }
+    componentDidMount() {
+        this.setInitialValues();
+    };
+
     remove = (k) => {
         const { form } = this.props;
         // can use data-binding to get
@@ -37,7 +38,15 @@ class ProfileUserAddTag extends Component {
         form.setFieldsValue({
             keys: nextKeys,
         });
-    }
+    };
+
+    setInitialValues = () => {
+        const { form } = this.props;
+        form.setFieldsValue({
+            keys: [],
+
+        });
+    };
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -45,23 +54,30 @@ class ProfileUserAddTag extends Component {
             if (!err) {
                 //console.log('Received values of form: ', values);
                 const newTags = {names: values.names};
-                this.props.addTags(newTags).then((res) => {
+                this.props.addTags(newTags)
+                    .then((res) => {
                     if (res.data === 'Tags added') {
                         message.success(`Tags uploaded successfully`);
-                        this.setState({
-                            values: []
-                        })
+                        //TODO: update tags in store
+                    } else {
+                        message.error(`Tag already exists. Please, choose from the list`);
                     }
                 });
+                this.setInitialValues();
+
+
+
+
             }
         });
     };
 
+
     render() {
         const { getFieldDecorator, getFieldValue } = this.props.form;
-        getFieldDecorator('keys', { initialValue: this.state.values });
-        const keys = getFieldValue('keys');
-        const formItems = keys.map((k, index) => {
+        getFieldDecorator('keys');
+        let keys = getFieldValue('keys') || [];
+        const formItems = keys.map((k) => {
             return (
                 <FormItem
                     required={false}
@@ -74,7 +90,7 @@ class ProfileUserAddTag extends Component {
                             message: "Please input interest name or delete this field.",
                         }],
                     })(
-                        <Input placeholder="interest" style={{ width: '50%', marginRight: 8 }} />
+                        <Input placeholder="interest"/>
                     )}
                     {keys.length > 1 ? (
                         <Icon
