@@ -6,7 +6,7 @@ module.exports = (data, filterArray) => {
         type: val => Object.prototype.toString.call(val).split(' ')[1].slice(0, -1).toLowerCase()
     };
 
-    let having = '';
+    let having = '', result = [], util = require('util');
 
     const queryBuilder = {
         or: (table, key, values) => values.length ?
@@ -22,25 +22,18 @@ module.exports = (data, filterArray) => {
         }
     };
 
-    let result = [];
-
-    let tables = Object.keys(filterArray);
-    tables.forEach((table) => {
-        let methods = Object.keys(filterArray[table]);
-        methods.forEach((method) => {
-            let keys = Object.keys(filterArray[table][method]);
-            keys.forEach((key) => {
-                if (data[key]) {
-                    if (validator[filterArray[table][method][key]](data[key])) {
-                        result.push({
-                            key: queryBuilder[method](table, key, data[key]),
-                            value: data[key]
-                        });
-                    } else {
-                        throw `api/search/getbyfilter -> prepareQuery\n` +
-                        `'${key}' => ${util.inspect(data[key])} is ${validator['type'](data[key])}, ` +
-                        `expected to be ${filterArray[table][method][key]}\n`;
-                    }
+    Object.keys(filterArray).forEach((table) => {
+        Object.keys(filterArray[table]).forEach((method) => {
+            Object.keys(filterArray[table][method]).forEach((key) => {
+                if (data[key] && validator[filterArray[table][method][key]](data[key])) {
+                    result.push({
+                        key: queryBuilder[method](table, key, data[key]),
+                        value: data[key]
+                    });
+                } else if (data[key]) {
+                    throw `api/search/getbyfilter -> prepareQuery\n` +
+                    `'${key}' => ${util.inspect(data[key])} is ${validator['type'](data[key])}, ` +
+                    `expected to be ${filterArray[table][method][key]}\n`;
                 }
             });
         });
