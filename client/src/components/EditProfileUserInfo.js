@@ -6,6 +6,8 @@ import isEmpty from 'lodash/isEmpty'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 
+const dateFormat = 'MM/DD/YYYY';
+
 class EditProfileUserInfo extends Component {
     componentDidMount() {
         this.setInitialValues();
@@ -46,7 +48,7 @@ class EditProfileUserInfo extends Component {
             lastname: user.lastname,
             occupancy: user.occupancy,
             preference: user.preference,
-            bday: moment(user.bday, 'MM/DD/YYYY'),
+            bday: moment(user.bday, dateFormat),
             bio: user.bio
 
         });
@@ -66,8 +68,7 @@ render() {
     };
     const { TextArea } = Input;
     const {user} = this.props;
-    const dateFormat = 'MM/DD/YYYY';
-    console.log(user.bday);
+
     return (
       <div>
           <Form onSubmit={this.onSubmit}>

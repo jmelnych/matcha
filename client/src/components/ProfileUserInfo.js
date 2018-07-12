@@ -79,6 +79,10 @@ class ProfileUserInfo extends Component {
                     <span className="text-secondary">Preferences: </span>
                     <span className="editable">{user.preference === 'both' ? 'Men and Women':
                         user.preference.charAt(0).toUpperCase() + user.preference.substr(1)}</span></li>
+                <li><Ionicon icon="ios-wine-outline" style={ionicStyle}/>
+                    <span className="text-secondary">Birthday: </span>
+                    <span className="editable"> {moment(user.bday).format('ll')}</span>
+                </li>
                 <li><Ionicon icon="ios-time-outline" style={ionicStyle}/>
                     <span className="text-secondary">Joined: </span>
                     <span className="non-editable"> {moment(user.added).format('ll')}</span>
@@ -86,10 +90,6 @@ class ProfileUserInfo extends Component {
                 {(user.bio) &&<li><Ionicon icon="ios-book-outline" style={ionicStyle}/>
                     <span className="text-secondary">Bio: </span>
                     <span className="editable"> {user.bio}</span></li>
-                }
-                {(user.age) && <li>< Ionicon icon="ios-planet-outline" style={ionicStyle}/>
-                    <span className="text-secondary">Age: </span>
-                    <span className="editable">33</span></li>
                 }
                 </ul>
             </div>

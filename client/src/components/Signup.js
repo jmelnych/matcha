@@ -6,16 +6,28 @@ import {addFlashMessage} from '../actions/flashMessages'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 
+const dateFormat = 'MM/DD/YYYY';
+
 class Signup extends Component {
+    componentDidMount(){
+        this.setInitialValues();
+    }
     state = {
         conf_value: false
+    };
+
+    setInitialValues = () => {
+        const { form } = this.props;
+        form.setFieldsValue({
+            bday: moment('01/30/1996', dateFormat),
+        });
     };
 
     onChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
         });
-        /* redirect to page there is a need to extreact contextTypes first*/
+        /* redirect to page there is a need to extract contextTypes first*/
         //this.context.router.history.push('/');
     };
 
@@ -83,6 +95,19 @@ class Signup extends Component {
         }
     };
 
+    validateAge = (rule, value, callback) => {
+        if (value) {
+            const date = moment(value._d);
+            const age = moment().diff(date, 'years');
+            if (age < 17) {
+                callback('You must be at least 17 years old to register');
+            } else {
+                callback();
+            }
+        }
+
+    }
+
     render() {
         const {getFieldDecorator} = this.props.form;
         const formItemLayout      = {
@@ -95,7 +120,7 @@ class Signup extends Component {
                 sm: {span: 16}
             }
         };
-        const dateFormat = 'MM/DD/YYYY';
+
         return (
             <div>
                 <Form className="App-form" onSubmit={this.onSubmit}>
@@ -137,8 +162,9 @@ class Signup extends Component {
                     }
                     </Form.Item>
                     <Form.Item {...formItemLayout} label='Birth day'> {
-                        getFieldDecorator('bday', {initialValue: moment('01/30/1996', dateFormat)},{
-                            rules:[{required: true, message: 'Please indicate your birth day'}]
+                        getFieldDecorator('bday',{
+                            rules:[{required: true, message: 'Please indicate your birth day'},
+                                {validator: this.validateAge}]
                         })(<DatePicker format={dateFormat} />)
                     }
                     </Form.Item>
