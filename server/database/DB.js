@@ -63,37 +63,12 @@ module.exports = class DB {
         return this.all(`SELECT * FROM ${table} WHERE ${column} = ?`, [value]);
     }
 
-    getAllByFilter(columns, data) {
-        let filters = '',
-            keys    = Object.keys(data),
-            values  = [];
-        keys.forEach((key) => {
-            if ((key === 'age' || key === 'rating') &&
-                Array.isArray(data[key]) && data[key].length) {
-                filters += `AND (users.${key} BETWEEN ? AND ?) `;
-            } else if (key === 'tags' &&
-                Array.isArray(data[key]) && data[key].length) {
-                filters += 'AND tags.tag = ? ';
-            } else if (key === 'gender' &&
-                Array.isArray(data[key]) && data[key].length) {
-                filters += 'AND tags.tag = ? ';
-            } else if (Array.isArray(data[key]) && data[key].length) {
-                data[key].forEach(elem => filters += `AND users.${key} = ? `);
-            } else if (!Array.isArray(data[key])) {
-                filters += `AND users.${key} = ? `;
-            }
-            values = values.concat(data[key]);
-        });
-        columns.forEach((value, key, arr) => {
-            arr[key] = `users.${value}`;
-        });
-        console.log(`[${filters}]`);
-        console.log(`[${values}]`);
-        return this.all(`SELECT ${columns}, tags.tag FROM users
+    getAllByFilter(columns, filters, values, having) {
+        return this.all(`SELECT ${columns.map(value => `users.${value}`).join(', ')} FROM users
             LEFT JOIN  users_tags ON users.id = users_tags.user_id
             LEFT JOIN  tags ON users_tags.tag_id = tags.id
          WHERE users.activation = 1 ${filters}
-         GROUP BY users.id`, values);
+         GROUP BY users.id ${having}`, values);
     }
 
     getAll(table) {

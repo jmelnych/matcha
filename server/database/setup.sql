@@ -19,7 +19,7 @@ CREATE TABLE users
   gender     VARCHAR(10)  NOT NULL,
   preference VARCHAR(10)         DEFAULT 'both' NOT NULL,
   occupancy  VARCHAR(255),
-  bday       VARCHAR(12)  NOT NULL,
+  bday       DATETIME     NOT NULL,
   rating     INTEGER             DEFAULT 0 NOT NULL,
   bio        TEXT,
   location   TEXT,
@@ -54,17 +54,15 @@ INSERT INTO tags (tag) VALUES ('zombie'), ('pizza'), ('javascript');
 
 CREATE TABLE posts
 (
-  id     INTEGER PRIMARY KEY AUTOINCREMENT,
-  post   TEXT    NOT NULL,
-  author_id INTEGER,
-  FOREIGN KEY (author_id) REFERENCES users (id),
-  added DATETIME        DEFAULT CURRENT_TIMESTAMP
+  id    INTEGER PRIMARY KEY AUTOINCREMENT,
+  post  TEXT NOT NULL,
+  added DATETIME            DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE users_posts
 (
   user_id INTEGER,
-  post_id  INTEGER,
+  post_id INTEGER,
   FOREIGN KEY (user_id) REFERENCES users (id),
   FOREIGN KEY (post_id) REFERENCES posts (id)
 );

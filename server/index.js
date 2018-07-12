@@ -43,6 +43,7 @@ app.set('save', require('./models/saveImage'));
 
 /* Additional models helpers */
 app.set('filterObject', require('./models/filterObject'));
+app.set('prepareQuery', require('./models/prepareQuery'));
 
 /*defining routes */
 app.use('/api/users/', users);

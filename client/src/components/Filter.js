@@ -25,9 +25,9 @@ class Filter extends Component {
         if (this.state.ageSliderDisabled) {
             delete filteredValues['age'];
         }
-        if (filteredValues.gender.length === 2) {
-            filteredValues.gender = ['both'];
-        }
+        //if (filteredValues.gender.length === 2) {
+        //    filteredValues.gender = ['both'];
+        //}
         //console.log(filteredValues);
         this.props.getUsersFiltered(filteredValues);
     };
