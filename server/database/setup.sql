@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS pictures;
 DROP TABLE IF EXISTS tags;
 DROP TABLE IF EXISTS users_tags;
+DROP TABLE IF EXISTS photos;
 
 CREATE TABLE users
 (
@@ -16,7 +17,7 @@ CREATE TABLE users
   gender     VARCHAR(10)  NOT NULL,
   preference VARCHAR(10)         DEFAULT 'both' NOT NULL,
   occupancy  VARCHAR(255),
-  bday       DATETIME     NOT NULL,
+  bday       VARCHAR(12)     NOT NULL,
   rating     INTEGER             DEFAULT 0 NOT NULL,
   bio        TEXT,
   location   TEXT,

@@ -4,6 +4,7 @@ import {Modal} from 'antd'
 import EditProfileUserInfo from './EditProfileUserInfo'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 
 class ProfileUserInfo extends Component {
     state = {
@@ -50,7 +51,6 @@ class ProfileUserInfo extends Component {
             right: '0'
         };
         const {user} = this.props;
-
         return (
             <div className="profile-main-info-list">
                 <h3>Info
@@ -81,7 +81,7 @@ class ProfileUserInfo extends Component {
                         user.preference.charAt(0).toUpperCase() + user.preference.substr(1)}</span></li>
                 <li><Ionicon icon="ios-time-outline" style={ionicStyle}/>
                     <span className="text-secondary">Joined: </span>
-                    <span className="non-editable"> {user.joined}</span>
+                    <span className="non-editable"> {moment(user.added).format('ll')}</span>
                 </li>
                 {(user.bio) &&<li><Ionicon icon="ios-book-outline" style={ionicStyle}/>
                     <span className="text-secondary">Bio: </span>

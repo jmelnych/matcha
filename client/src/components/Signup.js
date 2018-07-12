@@ -24,6 +24,7 @@ class Signup extends Component {
         const { form, addFlashMessage, createUser, toggle } = this.props;
         form.validateFieldsAndScroll((err, values) => {
             if (!err) {
+                values.bday = moment(values.bday._d).format('L');
                 //console.log('Received values of form: ', values);
                 createUser(values).then(
                     (res) => {
@@ -94,7 +95,7 @@ class Signup extends Component {
                 sm: {span: 16}
             }
         };
-        const dateFormat = 'YYYY/MM/DD';
+        const dateFormat = 'MM/DD/YYYY';
         return (
             <div>
                 <Form className="App-form" onSubmit={this.onSubmit}>
@@ -136,7 +137,7 @@ class Signup extends Component {
                     }
                     </Form.Item>
                     <Form.Item {...formItemLayout} label='Birth day'> {
-                        getFieldDecorator('bday', {initialValue: moment('1999/01/01', dateFormat)},{
+                        getFieldDecorator('bday', {initialValue: moment('01/30/1996', dateFormat)},{
                             rules:[{required: true, message: 'Please indicate your birth day'}]
                         })(<DatePicker format={dateFormat} />)
                     }

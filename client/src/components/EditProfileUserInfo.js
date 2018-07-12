@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Form, Input, Button, Select} from 'antd'
+import {Form, Input, Button, Select, DatePicker} from 'antd'
 import {updateUser} from '../actions/userActions'
 import {connect} from 'react-redux'
 import isEmpty from 'lodash/isEmpty'
@@ -46,7 +46,7 @@ class EditProfileUserInfo extends Component {
             lastname: user.lastname,
             occupancy: user.occupancy,
             preference: user.preference,
-            bday: user.bday,
+            bday: moment(user.bday, 'MM/DD/YYYY'),
             bio: user.bio
 
         });
@@ -66,8 +66,8 @@ render() {
     };
     const { TextArea } = Input;
     const {user} = this.props;
-    const dateFormat = 'YYYY/MM/DD';
-
+    const dateFormat = 'MM/DD/YYYY';
+    console.log(user.bday);
     return (
       <div>
           <Form onSubmit={this.onSubmit}>
@@ -102,11 +102,10 @@ render() {
               }
               </Form.Item>
               <Form.Item {...formItemLayout} label='Birth day'> {
-                  getFieldDecorator('bday', {
+                  getFieldDecorator('bday',  {
                       rules:[{required: true, message: 'Please indicate your birth day'}]
                   })(
-                      <DatePicker defaultValue={moment(user.bday, dateFormat)}
-                                  format={dateFormat} />
+                      <DatePicker format={dateFormat} />
                   )
               }
               </Form.Item>
