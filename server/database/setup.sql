@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS tags;
 DROP TABLE IF EXISTS users_tags;
 DROP TABLE IF EXISTS photos;
 DROP TABLE IF EXISTS posts;
+DROP TABLE IF EXISTS users_posts;
 
 CREATE TABLE users
 (
@@ -50,3 +51,20 @@ CREATE TABLE users_tags
 );
 
 INSERT INTO tags (tag) VALUES ('zombie'), ('pizza'), ('javascript');
+
+CREATE TABLE posts
+(
+  id     INTEGER PRIMARY KEY AUTOINCREMENT,
+  post   TEXT    NOT NULL,
+  author_id INTEGER,
+  FOREIGN KEY (author_id) REFERENCES users (id),
+  added DATETIME        DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE users_posts
+(
+  user_id INTEGER,
+  post_id  INTEGER,
+  FOREIGN KEY (user_id) REFERENCES users (id),
+  FOREIGN KEY (post_id) REFERENCES posts (id)
+);

@@ -8,6 +8,7 @@ import users from './controllers/UserController';
 import search from './controllers/SearchController';
 import tags from './controllers/TagController';
 import image from './controllers/ImageController';
+import posts from './controllers/PostController';
 
 const session = require('cookie-session');
 const bodyParser = require('body-parser');
@@ -48,6 +49,7 @@ app.use('/api/users/', users);
 app.use('/api/image/', image);
 app.use('/api/search/', search);
 app.use('/api/tags/', tags);
+app.use('/api/posts/', posts);
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, './index.html'));

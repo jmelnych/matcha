@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ProfileHead from './ProfileHead'
 import ProfileUserInfo from './ProfileUserInfo'
 import ProfileUserPhotos from './ProfileUserPhotos'
-import ProfileUserPost from './ProfileUserPost'
+import ProfileWritePost from './ProfileWritePost'
 import {connect} from 'react-redux'
 import {getUser} from '../actions/userActions'
 import PropTypes from 'prop-types'
@@ -62,7 +62,7 @@ class Profile extends Component {
           </div>
 
           <div className="profile-main-feed">
-              <ProfileUserPost/>
+              <ProfileWritePost/>
               <div className="profile-feed-area">
                   <h3>Feed</h3>
                   No posts yet

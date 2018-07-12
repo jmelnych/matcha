@@ -1,5 +1,7 @@
-import {GET_TAGS, ADD_TAGS} from './types'
+import {GET_TAGS} from './types'
 import axios from 'axios'
+
+axios.defaults.baseURL = 'http://localhost:5000';
 
 export const getTags = () => dispatch => {
     axios.post('api/tags/get')
