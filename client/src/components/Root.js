@@ -17,10 +17,8 @@ class Root extends Component {
     componentDidMount() {
         const _curl = (window.location.href).split('/');
         if (_curl[3] === '') {
-            console.log(_curl[_curl.length - 1]);
-            console.log(_curl);
-            console.log('requesting auth');
             this.props.isAuth();
+
         }
     }
     render() {
