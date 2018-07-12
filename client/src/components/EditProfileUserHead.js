@@ -16,6 +16,7 @@ class EditProfileUserHead extends Component {
         form.setFieldsValue({
             username: user.username,
             gender: user.gender,
+            email: user.email
         });
     };
 
@@ -57,6 +58,13 @@ render() {
     return (
       <div>
           <Form onSubmit={this.onSubmit}>
+              <Form.Item {...formItemLayout} label='E-mail'> {
+                  getFieldDecorator('email', {
+                      rules: [{type: 'email', message: 'e-mail is not valid'},
+                          {required: true, message: 'Please input your E-mail'}]
+                  })(<Input name='email'/>)
+              }
+              </Form.Item>
               <Form.Item {...formItemLayout} label='Username'> {
                   getFieldDecorator('username', {
                       rules: [{required: true, message: 'Please input your username'},

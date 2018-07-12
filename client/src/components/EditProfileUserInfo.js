@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Form, Input, Button, Select, DatePicker} from 'antd'
+import {Form, Input, Button, Select, DatePicker, Tabs} from 'antd'
 import {updateUser} from '../actions/userActions'
 import {connect} from 'react-redux'
 import isEmpty from 'lodash/isEmpty'
@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 
 const dateFormat = 'MM/DD/YYYY';
+
 
 class EditProfileUserInfo extends Component {
     componentDidMount() {
@@ -67,7 +68,6 @@ render() {
         }
     };
     const { TextArea } = Input;
-    const {user} = this.props;
 
     return (
       <div>

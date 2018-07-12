@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Ionicon from 'react-ionicons'
 import {Modal} from 'antd'
-import EditProfileUserInfo from './EditProfileUserInfo'
+import EditProfileUserTabs from './EditProfileUserTabs'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import moment from 'moment'
@@ -62,7 +62,7 @@ class ProfileUserInfo extends Component {
                        confirmLoading={confirmLoading}
                        footer={null}>
                     {ModalText ? <p>{ModalText}</p> :
-                        <EditProfileUserInfo closeOnSubmit={this.handleOk}/>
+                        <EditProfileUserTabs closeOnSubmit={this.handleOk}/>
                     }
                 </Modal>
                 <ul>
