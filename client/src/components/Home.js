@@ -9,14 +9,14 @@ const {Content} = Layout;
 
 class Home extends Component {
     componentDidMount() {
-        setTimeout(() => {this.setState({
+        this._timer = setTimeout(() => {this.setState({
             loading: false
         })}, 1500)
     };
 
     componentWillUnmount() {
-        //TODO: unsibscribe
-    }
+        clearTimeout(this._timer);
+    };
 
     state = {
         show_login: true,
@@ -63,7 +63,7 @@ class Home extends Component {
             </div>)
 
         } else if (this.state.loading) {
-            return (<Spin size="large" className="loading"/>)
+            return (<Spin size="large" className="loading"/>);
         } else {
             return(
                 <div className="App-home">
@@ -86,4 +86,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default (Home);

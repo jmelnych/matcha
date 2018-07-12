@@ -81,7 +81,7 @@ class ProfileUserInfo extends Component {
                         user.preference.charAt(0).toUpperCase() + user.preference.substr(1)}</span></li>
                 <li><Ionicon icon="ios-wine-outline" style={ionicStyle}/>
                     <span className="text-secondary">Birthday: </span>
-                    <span className="editable"> {moment(user.bday).format('ll')}</span>
+                    <span className="editable"> {moment(user.bday, 'MM/DD/YYYY').format('ll')}</span>
                 </li>
                 <li><Ionicon icon="ios-time-outline" style={ionicStyle}/>
                     <span className="text-secondary">Joined: </span>
