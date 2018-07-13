@@ -20,12 +20,11 @@ class ProfileUserAddTag extends Component {
         if (keys.length === 1) {
             return;
         }
-
         // can use data-binding to set
         form.setFieldsValue({
             keys: keys.filter(key => key !== k),
         });
-    }
+    };
 
     add = () => {
         const { form } = this.props;
@@ -64,10 +63,7 @@ class ProfileUserAddTag extends Component {
                     }
                 });
                 this.setInitialValues();
-
-
-
-
+                this.props.closeOnSubmit();
             }
         });
     };
@@ -105,7 +101,6 @@ class ProfileUserAddTag extends Component {
         });
         return (
             <div>
-                <h4>Not in list? Add your own</h4>
             <Form onSubmit={this.handleSubmit}>
                 {formItems}
                 <FormItem>

@@ -16,7 +16,12 @@ export const addTags = (tags) => dispatch => {
     return axios.post('api/tags/add', tags);
 };
 
-export const saveUserTags = (tags) => dispatch => {
-    return axios.post('api/tags/addtouser', tags)
-}
+export const saveUserTag = (tag) => dispatch => {
+    return axios.post('api/tags/addtouser', {name: tag})
+};
+
+export const deleteUserTag = (tag) => dispatch => {
+    return axios.post('api/tags/deletefromuser', {name: tag})
+};
+
 
