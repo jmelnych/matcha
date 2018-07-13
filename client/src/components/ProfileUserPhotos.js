@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
-import { Upload, Icon, Modal, Popover, message } from 'antd'
+import { Upload, Icon, Modal, Popover } from 'antd'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {getPhotos} from '../actions/photosAction'
+import {getPhotos, removePhoto} from '../actions/photosAction'
 
 class ProfileUserPhotos extends Component {
-
     state = {
         previewVisible: false,
         previewImage: '',
-        photos: []
+        photos: [],
+        ts:[]
     };
 
     componentDidMount() {
@@ -25,7 +25,8 @@ class ProfileUserPhotos extends Component {
                 let photoObj = {
                     uid: index,
                     status: 'done',
-                    url: src
+                    url: src,
+                    name: photo
                 };
                 generatedPhotos.push(photoObj);
             });
@@ -44,19 +45,18 @@ class ProfileUserPhotos extends Component {
         });
     }
 
-    handleChange = ( photo ) => {
-        let photoArray = photo.fileList;
-        this.setState({photos: photoArray});
-
-        if (photo.file.status === 'done') {
-
-            // let filename = photo.file.response;
-
+    handleChange = (photo) => {
+        console.log(photo);
+        if(photo.file.status === 'removed') {
+            this.props.removePhoto(photo.file.name);
         }
-        };
+        this.setState(prevState => ({
+            photos:
+            prevState.photos})
+        );
+    };
 
     render() {
-        console.log(this.state.photos);
         const { previewVisible, previewImage } = this.state;
         const uploadButton = (
             <div>
@@ -78,6 +78,9 @@ class ProfileUserPhotos extends Component {
             }
         };
 
+        let photos = this.state.photos || [];
+        let photosRender = photos.filter(photo => photo.status === 'done');
+
         return (
             <div className="profile-main-info-list">
             <div className="clearfix">
@@ -85,10 +88,10 @@ class ProfileUserPhotos extends Component {
                          trigger="hover"><h3>Photos</h3></Popover>
                 <Upload {...props}
                     listType="picture-card"
-                    fileList={this.state.photos}
+                    fileList={photosRender}
                     onPreview={this.handlePreview}
                     onChange={this.handleChange}>
-                    {this.state.photos.length >= 4 ? null : uploadButton}
+                    {photosRender.length >= 4 ? null : uploadButton}
                 </Upload>
                 <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
                     <img alt="example" style={{ width: '100%' }} src={previewImage} />
@@ -107,11 +110,15 @@ function mapStateToProps({photos}) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        getPhotos: () => dispatch(getPhotos())
+        getPhotos: () => dispatch(getPhotos()),
+        removePhoto: (name) => dispatch(removePhoto(name))
     }
 };
 
-
+ProfileUserPhotos.propTypes = {
+    getPhotos: PropTypes.func.isRequired,
+    removePhoto: PropTypes.func.isRequired
+}
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileUserPhotos);

@@ -123,7 +123,7 @@ render() {
             </div>
             <div className="filter-block">
                 <span className="filter-title">Interests</span>
-                {tags.map((tag, index) => {
+                {tags.map((tag) => {
                     const isLongTag = tag.length > 20;
                     const tagElem = (
                         <Tag color="#2db7f5"

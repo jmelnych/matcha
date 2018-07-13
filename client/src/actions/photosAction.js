@@ -9,3 +9,7 @@ export const getPhotos = () => dispatch => {
             payload: photos
         }))
 };
+
+export const removePhoto = (name) => dispatch => {
+    return axios.post('api/image/delete')
+}
