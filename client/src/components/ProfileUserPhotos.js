@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Upload, Icon, Modal, Popover, message } from 'antd'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import {getPhotos} from '../actions/photosAction'
 
 class ProfileUserPhotos extends Component {
 
@@ -12,30 +13,27 @@ class ProfileUserPhotos extends Component {
     };
 
     componentDidMount() {
-        /*TODO: write getUserPhotos method in userAction to fetch existing photos by current user,
-        import it,
-        call it this.props.getUserPhotos();
-        mapStateToProps ?
-        I'll get an array of objects like this:
-        {
-            uid,
-            status,
-            url (url is a path to photo, i need name only)
+        this.props.getPhotos();
+    };
+
+    componentDidUpdate(){
+        const photos = this.props.photos;
+        const generatedPhotos = [];
+        if (photos.length > this.state.photos.length) {
+            photos.map((photo, index) => {
+                let src = require(`../img/photos/${photo}`);
+                let photoObj = {
+                    uid: index,
+                    status: 'done',
+                    url: src
+                };
+                generatedPhotos.push(photoObj);
+            });
+            this.setState({
+                photos: generatedPhotos
+            })
         }
-        Map through each object, require photos
-
-        in cycle, require each photo
-        then somehow set state to images i got*/
-        const photo = require(`../img/photos/photo-1530712711950.png`);
-        this.setState({
-            photos: [{
-                uid: 1530712711950,
-                status: 'done',
-                url: photo
-            }]
-        });
-    }
-
+    };
 
     handleCancel = () => this.setState({ previewVisible: false });
 
@@ -51,14 +49,15 @@ class ProfileUserPhotos extends Component {
         this.setState({photos: photoArray});
 
         if (photo.file.status === 'done') {
-            const {user} = this.props;
+
             // let filename = photo.file.response;
 
         }
         };
 
     render() {
-        const { previewVisible, previewImage, photos } = this.state;
+        console.log(this.state.photos);
+        const { previewVisible, previewImage } = this.state;
         const uploadButton = (
             <div>
                 <Icon type="plus" />
@@ -86,10 +85,10 @@ class ProfileUserPhotos extends Component {
                          trigger="hover"><h3>Photos</h3></Popover>
                 <Upload {...props}
                     listType="picture-card"
-                    fileList={photos}
+                    fileList={this.state.photos}
                     onPreview={this.handlePreview}
                     onChange={this.handleChange}>
-                    {photos.length >= 4 ? null : uploadButton}
+                    {this.state.photos.length >= 4 ? null : uploadButton}
                 </Upload>
                 <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
                     <img alt="example" style={{ width: '100%' }} src={previewImage} />
@@ -100,21 +99,19 @@ class ProfileUserPhotos extends Component {
     }
 };
 
-function mapStateToProps({user}) {
-    return user;
+function mapStateToProps({photos}) {
+    return {
+        photos: photos.map((photo) => photo.filename)
+    }
 };
 
 function mapDispatchToProps(dispatch) {
     return {
-        // uploadPhoto: (id, filename) => dispatch(uploadPhoto(id, filename)),
-        //getPhotos: (id) => ...
+        getPhotos: () => dispatch(getPhotos())
     }
 };
 
 
 
-ProfileUserPhotos.propTypes = {
-    user: PropTypes.object.isRequired,
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileUserPhotos);

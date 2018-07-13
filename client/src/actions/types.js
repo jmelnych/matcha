@@ -5,3 +5,4 @@ export const UPDATE_USER = 'UPDATE_USER';
 export const GET_USERS = 'GET_USERS';
 export const GET_TAGS = 'GET_TAGS';
 export const ADD_POST = 'ADD_POST';
+export const GET_PHOTOS = 'GET_PHOTOS';
