@@ -14,5 +14,9 @@ export const getTags = () => dispatch => {
 
 export const addTags = (tags) => dispatch => {
     return axios.post('api/tags/add', tags);
+};
+
+export const saveUserTags = (tags) => dispatch => {
+    return axios.post('api/tags/addtouser', tags)
 }
 

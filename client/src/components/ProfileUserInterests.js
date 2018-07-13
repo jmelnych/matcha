@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Select } from 'antd'
-import { getTags } from '../actions/tagsActions'
+import { Select, Button } from 'antd'
+import { getTags, saveUserTags } from '../actions/tagsActions'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import ProfileUserAddTag from './ProfileUserAddTag'
@@ -8,12 +8,21 @@ import ProfileUserAddTag from './ProfileUserAddTag'
 const Option = Select.Option;
 
 class ProfileUserInterests extends Component {
+    state = {
+        tags: []
+    }
     componentDidMount(){
         this.props.getTags();
     };
 
-    handleChange = (value) => {
-        console.log(`selected ${value}`);
+    handleChange = (tags) => {
+        this.setState({tags})
+    };
+
+    handleSave = () => {
+        console.log(this.state.tags);
+        this.props.saveUserTags(this.state.tags);
+
     };
 
 render() {
@@ -36,6 +45,7 @@ render() {
                 >
                 {children}
             </Select>
+            <Button onClick={this.handleSave}>Save</Button>
             <ProfileUserAddTag/>
         </div>
     );
@@ -50,13 +60,15 @@ function mapStateToProps({tags}) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        getTags: () => dispatch(getTags())
+        getTags: () => dispatch(getTags()),
+        saveUserTags: (tagname) => dispatch(saveUserTags(tagname))
     }
 
 };
 
 ProfileUserInterests.propTypes = {
-    getTags: PropTypes.func.isRequired
+    getTags: PropTypes.func.isRequired,
+    saveUserTags: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileUserInterests);
