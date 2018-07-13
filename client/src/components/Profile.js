@@ -7,6 +7,7 @@ import {connect} from 'react-redux'
 import {getUser} from '../actions/userActions'
 import PropTypes from 'prop-types'
 import ProfileUserInterests from './ProfileUserInterests'
+import ProfileFeedPosts from './ProfileFeedPosts'
 
 class Profile extends Component {
     state = {
@@ -63,10 +64,8 @@ class Profile extends Component {
 
           <div className="profile-main-feed">
               <ProfileWritePost/>
-              <div className="profile-feed-area">
-                  <h3>Feed</h3>
-                  No posts yet
-              </div>
+              <h3>Feed</h3>
+              <ProfileFeedPosts/>
           </div>
       </div>
     </div>

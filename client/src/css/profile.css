@@ -98,7 +98,7 @@ figcaption h2, figcaption span, figcaption p{
 }
 
 .profile-main-info{
-  width: 25%;
+  width: 27%;
 }
 
 .editable, .non-editable{
@@ -121,7 +121,7 @@ figcaption h2, figcaption span, figcaption p{
 
 /* FEED */
 .profile-main-feed{
-  width: 75%;
+  width: 73%;
   color: white;
 }
 
@@ -129,7 +129,7 @@ figcaption h2, figcaption span, figcaption p{
   margin: 2% 1%;
 }
 
-.profile-main-info, .profile-post-area, .profile-feed-area{
+.profile-main-info, .profile-post-area, .profile-feed-snippet{
   padding: 20px 20px;
   min-height: 200px;
   background: white;
@@ -138,6 +138,14 @@ figcaption h2, figcaption span, figcaption p{
   margin-bottom: 30px;
 }
 
+.profile-feed-snippet{
+  color: black;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.38;
+  font-family: Helvetica Neue;
+  text-align: left;
+}
 .profile-post-area{
   display: flex;
   min-width: 100px;
@@ -173,6 +181,18 @@ h4{
 .ant-select-selection{
   border: none;
   margin-bottom: 20px;
+}
+
+/* Posts */
+.hidden{
+  display: none;
+}
+
+.feed-snippet-head-avatar{
+  height: 45px;
+  width: 45px;
+  cursor: pointer;
+  border-radius: 50%;
 }
 
 

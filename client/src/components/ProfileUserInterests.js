@@ -33,7 +33,7 @@ class ProfileUserInterests extends Component {
 
     handleOk = () => {
         this.setState({
-            ModalText: 'Updating your profile... Please, wait',
+            ModalText: 'Updating... Please, wait',
             confirmLoading: true,
         });
         setTimeout(() => {
@@ -59,9 +59,6 @@ class ProfileUserInterests extends Component {
             tags
         })
     };
-
-
-
 
 render() {
     const { visible, confirmLoading, ModalText } = this.state;

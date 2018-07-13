@@ -104,12 +104,12 @@ class ProfileUserAddTag extends Component {
             <Form onSubmit={this.handleSubmit}>
                 {formItems}
                 <FormItem>
-                    <Button type="dashed" onClick={this.add} >
+                    <Button className="center-button" type="dashed" onClick={this.add} >
                         <Icon type="plus" /> Add
                     </Button>
                 </FormItem>
                 <FormItem>
-                    <Button type="primary" htmlType="submit">Submit</Button>
+                    <Button className="center-button" type="primary" htmlType="submit">Submit</Button>
                 </FormItem>
             </Form>
             </div>

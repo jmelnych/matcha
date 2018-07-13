@@ -12,7 +12,7 @@ class ProfileWritePost extends Component {
 
     updateText = (text) => {
         this.setState({text: text.trim()})
-    }
+    };
 
     savePost = () => {
         console.log('saving post');
@@ -20,7 +20,8 @@ class ProfileWritePost extends Component {
             text: this.state.text
         }
         this.props.addPost(newPost);
-    }
+    };
+
 render() {
     return (
         <div className="profile-post-area">
@@ -34,9 +35,13 @@ render() {
   }
 };
 
+
+
 function mapDispatchToProps(dispatch) {
     return {
         addPost: (post) => dispatch(addPost(post))
     }
-}
+};
+
+
 export default connect(null, mapDispatchToProps)(ProfileWritePost);
