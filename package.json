@@ -47,6 +47,7 @@
     "random-token": "0.0.8",
     "react-dom": "^16.4.1",
     "react-ionicons": "^2.1.6",
+    "react-redux": "^5.0.7",
     "shortid": "^2.2.8",
     "sqlite3": "^4.0.0"
   }

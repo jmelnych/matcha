@@ -53,11 +53,7 @@ class ProfileUserPhotos extends Component {
         if (photo.file.status === 'done') {
             const {user} = this.props;
             // let filename = photo.file.response;
-            // uploadPhoto(user.id, filename).then((res) => {
-            //     if (res.data === 'Photo saved') {
-            //         message.success(`${photo.file.name} file uploaded successfully`);
-            //     }
-            // })
+
         }
         };
 
@@ -82,8 +78,6 @@ class ProfileUserPhotos extends Component {
                 authorization: 'authorization-text',
             }
         };
-
-
 
         return (
             <div className="profile-main-info-list">

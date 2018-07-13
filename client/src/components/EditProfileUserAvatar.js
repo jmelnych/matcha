@@ -30,11 +30,10 @@ class EditProfileUserAvatar extends Component {
     handleChange = (info) => {
         if (info.file.status === 'uploading') {
             this.setState({ loading: true });
-            return;
+            setTimeout(() => console.log(info.file.status), 2000);
         }
         if (info.file.status === 'done') {
-            console.log(info.file.response);
-            if (info.file.response === 'Avatar saved') {
+            if (info.file.response === 'Avatar updated') {
                 message.success(`${info.file.name} file uploaded successfully`);
                 getBase64(info.file.originFileObj, imageUrl => this.setState({
                     imageUrl,
