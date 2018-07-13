@@ -33,10 +33,6 @@ module.exports = (req, res) => {
                 data = data.concat(value['value']);
             }
         });
-    } catch (e) {
-        console.log(e);
-        res.send(e);
-    }
     let promise = db.getAllByFilter([
         'id', 'username', 'firstname', 'lastname', 'gender', 'preference',
         'occupancy', 'bday', 'rating', 'bio', 'location', 'avatar', 'added'
@@ -50,4 +46,8 @@ module.exports = (req, res) => {
     }).catch((e) => {
         res.send(e);
     });
+    } catch (e) {
+        console.log(e);
+        res.send(e);
+    }
 };
