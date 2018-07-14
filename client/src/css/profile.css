@@ -148,6 +148,7 @@ figcaption h2, figcaption span, figcaption p{
   text-align: left;
 }
 .profile-post-area{
+  margin-bottom: 60px;
   display: flex;
   min-width: 100px;
   justify-content: space-around;
