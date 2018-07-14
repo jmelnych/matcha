@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-router.post('/getall', require('./getall'));
+router.post('/get-all', require('./getAll'));
 
-router.post('/getbyfilter', require('./getbyfilter'));
+router.post('/get-by-filter', require('./getByFilter'));
 
 export default router;

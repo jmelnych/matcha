@@ -11,10 +11,18 @@ const prepareAge = (age) => {
 
 module.exports = (req, res) => {
     if (!req.body['tag']) req.body['tag'] = req.body['tags'];
+
     req.body['bday'] = prepareAge(req.body['age']);
-    let db                        = req.app.get('db'),
-        prepareQuery              = req.app.get('prepareQuery'),
-        query, filters = '', data = [];
+
+    let db           = req.app.get('db'),
+        prepareQuery = req.app.get('prepareQuery'),
+        error        = (e) => {
+            console.log(e);
+            res.send(e);
+        },
+        filters      = '',
+        data         = [],
+        query;
     try {
         query = prepareQuery(req.body, {
             users: {
@@ -26,28 +34,28 @@ module.exports = (req, res) => {
                 in: {tag: 'array'}
             }
         });
-        if (query.result.length === 0) throw `No Data\n`;
+        if (query.result.length === 0) {
+            error(`No Data\n`);
+            process.exit(1);
+        }
         query['result'].forEach((value) => {
             if (value['key'] !== '') {
                 filters += ' AND ' + value['key'];
                 data = data.concat(value['value']);
             }
         });
-    let promise = db.getAllByFilter([
-        'id', 'username', 'firstname', 'lastname', 'gender', 'preference',
-        'occupancy', 'bday', 'rating', 'bio', 'location', 'avatar', 'added'
-    ], filters, data, query['having']);
-    promise.then((response) => {
-        if (response === undefined) {
-            res.send('No users');
-        } else {
-            res.send(response);
-        }
-    }).catch((e) => {
-        res.send(e);
-    });
+        let promise = db.getAllByFilter([
+            'id', 'username', 'firstname', 'lastname', 'gender', 'preference',
+            'occupancy', 'bday', 'rating', 'bio', 'location', 'avatar', 'added'
+        ], filters, data, query['having']);
+        promise.then((response) => {
+            if (response === undefined) {
+                res.send('No users');
+            } else {
+                res.send(response);
+            }
+        }).catch(error);
     } catch (e) {
-        console.log(e);
-        res.send(e);
+        error(e)
     }
 };

@@ -52,7 +52,7 @@ render() {
     const avatar = require(`../img/avatars/${av_name}`);
     const props = {
         name: 'avatar',
-        action: 'api/image/saveavatar',
+        action: 'api/image/save-avatar',
         headers: {
             authorization: 'authorization-text',
         }
@@ -69,16 +69,16 @@ render() {
       </div>
     );
   }
-};
+}
 
 function mapStateToProps({user}) {
     return user;
-};
+}
 
 
 EditProfileUserAvatar.propTypes = {
     user: PropTypes.object.isRequired,
 
-}
+};
 
 export default connect(mapStateToProps, null)(EditProfileUserAvatar);

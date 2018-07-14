@@ -7,7 +7,8 @@ module.exports = (req, res) => {
             res.send(e);
         };
 
-    promise.then(() => {
+    promise.then((response) => {
+        console.log(response);
         res.send('Tags added');
     }).catch(error);
 };

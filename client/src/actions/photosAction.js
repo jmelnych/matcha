@@ -2,7 +2,7 @@ import {GET_PHOTOS} from './types'
 import axios from 'axios'
 
 export const getPhotos = () => dispatch => {
-    axios.post('api/image/getphotos')
+    axios.post('api/image/get-photos')
         .then(res => res.data)
         .then(photos => dispatch({
             type: GET_PHOTOS,

@@ -43,7 +43,7 @@ class ProfileUserPhotos extends Component {
             previewImage: file.url || file.thumbUrl,
             previewVisible: true,
         });
-    }
+    };
 
     handleChange = (photo) => {
         console.log(photo);
@@ -72,7 +72,7 @@ class ProfileUserPhotos extends Component {
 
         const props = {
             name: 'photo',
-            action: 'api/image/savephoto',
+            action: 'api/image/save-photo',
             headers: {
                 authorization: 'authorization-text',
             }
@@ -100,25 +100,25 @@ class ProfileUserPhotos extends Component {
             </div>
         );
     }
-};
+}
 
 function mapStateToProps({photos}) {
     return {
         photos: photos.map((photo) => photo.filename)
     }
-};
+}
 
 function mapDispatchToProps(dispatch) {
     return {
         getPhotos: () => dispatch(getPhotos()),
         removePhoto: (name) => dispatch(removePhoto(name))
     }
-};
+}
 
 ProfileUserPhotos.propTypes = {
     getPhotos: PropTypes.func.isRequired,
     removePhoto: PropTypes.func.isRequired
-}
+};
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileUserPhotos);

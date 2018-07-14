@@ -17,11 +17,11 @@ export const addTags = (tags) => dispatch => {
 };
 
 export const saveUserTag = (tag) => dispatch => {
-    return axios.post('api/tags/addtouser', {name: tag})
+    return axios.post('api/tags/add-to-user', {name: tag})
 };
 
 export const deleteUserTag = (tag) => dispatch => {
-    return axios.post('api/tags/deletefromuser', {name: tag})
+    return axios.post('api/tags/delete-from-user', {name: tag})
 };
 
 
