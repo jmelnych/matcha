@@ -32,7 +32,6 @@ class Profile extends Component {
               <ProfileUserInfo/>
               <ProfileUserPhotos/>
               <ProfileUserInterests/>
-
               <div className="profile-main-info-list">
                   <h3>Friends</h3>
                   <ul>
@@ -64,7 +63,7 @@ class Profile extends Component {
 
           <div className="profile-main-feed">
               <ProfileWritePost/>
-              <h3>Feed</h3>
+              <h2>Recent posts</h2>
               <ProfileFeedPosts/>
           </div>
       </div>

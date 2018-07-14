@@ -51,19 +51,19 @@ class ProfileUserAddTag extends Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                //console.log('Received values of form: ', values);
-                const newTags = {names: values.names};
-                this.props.addTags(newTags)
-                    .then((res) => {
-                    if (res.data === 'Tags added') {
-                        message.success(`Tags uploaded successfully`);
-                        //TODO: update tags in store
-                    } else {
-                        message.error(`Tag already exists. Please, choose from the list`);
-                    }
-                });
-                this.setInitialValues();
-                this.props.closeOnSubmit();
+                console.log('Received values of form: ', values);
+                // const newTags = {names: values.names};
+                // this.props.addTags(newTags)
+                //     .then((res) => {
+                //     if (res.data === 'Tags added') {
+                //         message.success(`Tags uploaded successfully`);
+                //         //TODO: update tags in store
+                //     } else {
+                //         message.error(`Tag already exists. Please, choose from the list`);
+                //     }
+                // });
+                // this.setInitialValues();
+                // this.props.closeOnSubmit();
             }
         });
     };
