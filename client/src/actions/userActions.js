@@ -42,5 +42,12 @@ export const tryActivate = (token) => dispatch => {
 
 export const updatePassword = (password, token) => dispatch => {
     return axios.post('api/users/password', {password, token})
-}
+};
 
+export const validatePassword = (password) => dispatch => {
+    return axios.post('api/users/password', password)
+};
+
+export const updatePasswordFromProfile = (password) => dispatch => {
+    return axios.post('api/users/password', password)
+};

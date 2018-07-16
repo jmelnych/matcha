@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import {Form, Input, Button} from 'antd'
+import {validatePassword, updatePasswordFromProfile} from '../actions/userActions'
+import {connect} from 'react-redux'
+
 
 class EditProfileUserPassword extends Component {
     state = {
@@ -22,7 +25,6 @@ class EditProfileUserPassword extends Component {
 
     validateComplex = (rule, value, callback) => {
         const pattern = /^(?=.*\d)(?=.*[a-z])\w{6,}$/;
-        //console.log(pattern.test(value));
         if (value) {
             if (pattern.test(value)) {
                 callback();
@@ -55,22 +57,29 @@ class EditProfileUserPassword extends Component {
         const { form } = this.props;
         form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                const password = values.password;
-                //TODO: update passwords
+                const passwordObj = {
+                    password: values.password
+                };
+                this.props.updatePasswordFromProfile(passwordObj);
             }
         })
     };
 
-    validateCurrenpassword = (rule, value, callback) => {
-        //TODO: request send password and compare
-        if (value === 'hello') {
-            this.setState({
-                successPassword: true
-            })
-            callback();
-        } else {
-            callback('this is not hello');
-        }
+    validateCurrentPassword = (rule, value, callback) => {
+        const passwordObj = {
+            password: value
+        };
+        this.props.validatePassword(passwordObj).then((res) => {
+            console.log(res.data);
+            if (res.data === 'ok') {
+                this.setState({
+                    successPassword: true
+                })
+                callback();
+            } else {
+                callback('current password is wrong');
+            }
+        });
     }
 
 render() {
@@ -91,7 +100,7 @@ render() {
                 getFieldDecorator('current_password', {
                     validateTrigger: "onBlur",
                     rules: [{required: true, message: 'Please input your password'},
-                        {validator: this.validateCurrenpassword}]
+                        {validator: this.validateCurrentPassword}]
                 })(<Input name='current_password' type='password'/>)
             }
             </Form.Item>
@@ -119,4 +128,4 @@ render() {
     );
   }
 }
-export default Form.create()(EditProfileUserPassword);
+export default connect(null, {validatePassword, updatePasswordFromProfile})(Form.create()(EditProfileUserPassword));
