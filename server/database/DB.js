@@ -85,7 +85,7 @@ module.exports = class DB {
         return this.run(`UPDATE ${table} SET ${columns} WHERE ${key} = ?`, values.concat(value));
     }
 
-    delete(table, column, value) {
-        return this.run(`DELETE FROM ${table} WHERE ${column} = ?`, [value]);
+    delete(table, columns, values) {
+        return this.run(`DELETE FROM ${table} WHERE ${columns.map(column => `${column} = ?`).join(' and ')}`, values);
     }
 };

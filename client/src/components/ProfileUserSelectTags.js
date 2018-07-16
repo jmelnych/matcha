@@ -16,7 +16,8 @@ class ProfileUserSelectTags extends Component {
 
     handleChange = (tags) => {
         Array.prototype.diff = function(a) {
-            return this.filter(function(i) {return a.indexOf(i) < 0;});
+            return this.filter(function(i) {
+                return a.indexOf(i) < 0;})[0];
         };
         if (this.state.tags.length < tags.length) {
             this.props.saveUserTag(tags[tags.length - 1]);
