@@ -3,6 +3,7 @@ import ProfileHead from './ProfileHead'
 import ProfileUserInfo from './ProfileUserInfo'
 import ProfileUserPhotos from './ProfileUserPhotos'
 import ProfileWritePost from './ProfileWritePost'
+
 import {connect} from 'react-redux'
 import {getUser} from '../actions/userActions'
 import PropTypes from 'prop-types'
@@ -10,19 +11,9 @@ import ProfileUserInterests from './ProfileUserInterests'
 import ProfileFeedPosts from './ProfileFeedPosts'
 
 class Profile extends Component {
-    state = {
-        x: null,
-        y: null
-    }
-    componentDidMount() {
-        this.props.getUser();
-        navigator.geolocation.getCurrentPosition((position) => {
-            console.log(position.coords.latitude, position.coords.longitude);
-        });
-    }
+
 
   render() {
-    let {user} = this.props;
     return (
     <div>
       <ProfileHead />
@@ -30,6 +21,7 @@ class Profile extends Component {
         <div className="container-flex">
           <div className="profile-main-info">
               <ProfileUserInfo/>
+
               <ProfileUserPhotos/>
               <ProfileUserInterests/>
               <div className="profile-main-info-list">
@@ -73,10 +65,6 @@ class Profile extends Component {
   }
 }
 
-function mapStateToProps({user}) {
-    return user;
-};
-
 function mapDispatchToProps(dispatch) {
     return {
         getUser: () => dispatch(getUser())
@@ -84,7 +72,7 @@ function mapDispatchToProps(dispatch) {
 };
 
 Profile.propTypes = {
-    user: PropTypes.object.isRequired
+    getUser: PropTypes.func.isRequired
 };
 
-export default connect (mapStateToProps, mapDispatchToProps)(Profile);
+export default connect (null, mapDispatchToProps)(Profile);

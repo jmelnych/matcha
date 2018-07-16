@@ -1,20 +1,19 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Checkbox, Slider, Switch } from 'antd'
+import { Radio, Slider, Switch } from 'antd'
 import {connect} from 'react-redux'
 import {getUsers, getUsersFiltered} from '../actions/searchActions'
 import FilterSelectTags from './filterSelectTags'
 
-const plainOptions = ['male', 'female'];
-
 class Filter extends Component {
     state = {
-        ageSliderDisabled: true,
+        locationSliderDisabled: true,
         filters : {
-            gender: ['male', 'female'],
+            gender: 'both',
             rating: [0, 42],
             tags: [],
-            age: [17, 100]
+            age: [17, 80],
+            radius: null
         },
         inputVisible: false,
         inputValue: '',
@@ -24,21 +23,22 @@ class Filter extends Component {
         console.log(this.state);
         //TODO: request if no gender selected?
         let filteredValues = this.state.filters;
-        if (this.state.ageSliderDisabled) {
-            delete filteredValues['age'];
+        if (this.state.locationSliderDisabled) {
+            delete filteredValues['radius'];
         }
-        //if (filteredValues.gender.length === 2) {
-        //    filteredValues.gender = ['both'];
-        //}
+        //TODO: delete below
+        filteredValues.gender = ['male', 'female'];
+
         //console.log(filteredValues);
         this.props.getUsersFiltered(filteredValues);
     };
 
     onChangeGender = (gender) => {
+        let chosenGender = gender.target.value;
         this.setState(prevState => ({
             filters: {
                 ...prevState.filters,
-                gender
+                gender: chosenGender
             }
         }), () => this.filterUsers())
     };
@@ -68,28 +68,40 @@ class Filter extends Component {
                 tags: value
             },
         }), () => this.filterUsers());
-    }
+    };
 
     handleDisabledChange = (value) => {
-        this.setState({ ageSliderDisabled: value });
+        this.setState({ locationSliderDisabled: value });
+    };
+
+    formatterLocation = (value) => {
+         return `${value}km`;
+    };
+
+    formatterAge = (value) => {
+        return `${value} years old`
     }
 
 render() {
-
-    const CheckboxGroup = Checkbox.Group;
-
+    const RadioGroup = Radio.Group;
+    console.log(this.state.filters.gender);
     return (
         <div className="container-nav">
             <h3>Filter results</h3>
             <div className="filter-block">
                 <span className="filter-title">Gender</span>
-                <CheckboxGroup options={plainOptions} value={this.state.filters.gender} onChange={this.onChangeGender} />
+                <RadioGroup onChange={this.onChangeGender}
+                            value={this.state.filters.gender}>
+                    <Radio value={'both'}>Men and Women</Radio>
+                    <Radio value={'male'}>Men</Radio>
+                    <Radio value={'female'}>Women</Radio>
+                </RadioGroup>
             </div>
             <div className="filter-block">
                 <span className="filter-title">Rating</span>
                 <Slider range step={1} defaultValue={[0, 42]}
                         min={0} max={42}
-                        onChange={this.onChangeRating}/>
+                        onAfterChange={this.onChangeRating}/>
             </div>
             <div className="filter-block">
                 <span className="filter-title">Interests</span>
@@ -97,10 +109,18 @@ render() {
             </div>
             <div className="filter-block">
                 <span className="filter-title">Age</span>
-                <Slider range step={1} defaultValue={[17, 100]}
-                        min={17} max={100} disabled={this.state.ageSliderDisabled}
-                        onChange={this.onChangeAge}/>
-                Disabled: <Switch size="small" checked={this.state.ageSliderDisabled}
+                <Slider range step={1} defaultValue={[17, 80]}
+                        min={17} max={80}
+                        tipFormatter={this.formatterAge}
+                        onAfterChange={this.onChangeAge}/>
+            </div>
+            <div className="filter-block">
+                <span className="filter-title">Location, km</span>
+                <Slider defaultValue={100}
+                        tipFormatter={this.formatterLocation}
+                        min={0} max={800} disabled={this.state.locationSliderDisabled}
+                        onAfterChange={this.onChangeAge}/>
+                Disabled: <Switch size="small" checked={this.state.locationSliderDisabled}
                                   onChange={this.handleDisabledChange} />
             </div>
         </div>

@@ -16,7 +16,7 @@ import SetPassword from './SetPassword'
 class Root extends Component {
     componentDidMount() {
         const _curl = (window.location.href).split('/');
-        if (_curl[3] === '') {
+        if (_curl[3] === '' || _curl[3] === 'search') {
             this.props.isAuth();
 
         }

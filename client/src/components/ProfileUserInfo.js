@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Ionicon from 'react-ionicons'
 import {Modal} from 'antd'
 import EditProfileUserTabs from './EditProfileUserTabs'
+import ProfileUserLocation from './ProfileUserLocation'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import moment from 'moment'
@@ -91,10 +92,7 @@ class ProfileUserInfo extends Component {
                     <span className="text-secondary">Bio: </span>
                     <span className="editable"> {user.bio}</span></li>
                 }
-                    {(user.location) &&<li><Ionicon icon="ios-pin-outline" style={ionicStyle}/>
-                        <span className="text-secondary">Location: </span>
-                        <span className="editable"> {user.location}</span></li>
-                    }
+                <ProfileUserLocation/>
                 </ul>
             </div>
         );
