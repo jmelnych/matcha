@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {addFlashMessage} from '../actions/flashMessages'
 import {sendLinkPassword} from '../actions/userActions'
-import {Form, Input, Button} from 'antd'
+import {Form, Input, Button, Icon} from 'antd'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 
@@ -76,7 +76,7 @@ render() {
                     })(<Input name='email'/>)
                 }
                 </Form.Item>
-                <a onClick={this.props.toggle}>I just reacalled my password!</a>
+                <a onClick={this.props.toggle}> <Icon type="arrow-left" /> Back</a>
                 <Button className="App-button" type='primary' htmlType='submit'>Send link for new password</Button>
             </Form>
         </div>

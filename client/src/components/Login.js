@@ -111,8 +111,4 @@ Login.propTypes = {
     getUser: PropTypes.func.isRequired
 };
 
-Login.contextTypes = {
-    router: PropTypes.object.isRequired
-};
-
 export default connect(null, {tryLoginUser, getUser, addFlashMessage})(Form.create()(Login));

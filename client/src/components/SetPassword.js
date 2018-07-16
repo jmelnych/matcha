@@ -3,6 +3,7 @@ import {Form, Input, Button} from 'antd'
 import {addFlashMessage} from '../actions/flashMessages'
 import {updatePassword} from '../actions/userActions'
 import {connect} from 'react-redux'
+import PropTypes from 'prop-types'
 
 class SetPassword extends Component {
     state = {
@@ -16,28 +17,27 @@ class SetPassword extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        const { form, addFlashMessage, toggle, updatePassword } = this.props;
+        const { form, addFlashMessage, updatePassword } = this.props;
         const {token} = this.props.match.params;
         form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 const password = values.password;
                 updatePassword(password, token).then(
                 (res) => {
-                    //console.log(res.data);
                     if (res.data === 'Success'){
                         addFlashMessage({
                             type: 'success',
                             text: 'Your password has been successfully changed'
                         });
-                        toggle();
+                        console.log(this.props.router);
                     } else {
                         addFlashMessage({
                             type: 'error',
-                            text: 'Some error occured'
+                            text: 'Some error occurred'
                         });
-                        toggle();
                     }
                 })
+                this.context.router.history.push('/');
             }
         })
     };
@@ -79,6 +79,7 @@ class SetPassword extends Component {
     };
 
 render() {
+    console.log(this.context);
     const {getFieldDecorator} = this.props.form;
     const formItemLayout      = {
         labelCol: {
@@ -94,7 +95,7 @@ render() {
     return (
       <div className="loading">
           <Form className="App-form" onSubmit={this.onSubmit}>
-              <Form.Item {...formItemLayout} label='Password' hasFeedback> {
+              <Form.Item {...formItemLayout} label='New Password' hasFeedback> {
                   getFieldDecorator('password', {
                       rules: [{
                           required: true, message: 'Please input your password'},
@@ -103,7 +104,7 @@ render() {
                   })(<Input name='password' type='password'/>)
               }
               </Form.Item>
-              <Form.Item {...formItemLayout} label="Confirm Password" >{
+              <Form.Item {...formItemLayout} label="Confirm password" >{
                   getFieldDecorator('confirm_password', {
                       rules: [{required: true, message: 'Please confirm your password'},
                           {validator: this.compareToFirstPassword}]
@@ -113,10 +114,14 @@ render() {
                   )}
               </Form.Item>
               <Button className="App-button" type='primary'
-                      htmlType='submit'>Save new password</Button>
+                      htmlType='submit'>Save</Button>
           </Form>
       </div>
     );
   }
-}
+};
+
+SetPassword.contextTypes = {
+    router: PropTypes.object.isRequired
+};
 export default connect(null, {updatePassword, addFlashMessage})(Form.create()(SetPassword));
