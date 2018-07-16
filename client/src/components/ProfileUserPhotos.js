@@ -19,6 +19,8 @@ class ProfileUserPhotos extends Component {
     componentDidUpdate(){
         const photos = this.props.photos;
         const generatedPhotos = [];
+        // console.log('state', this.state.photos.length);
+        // console.log('photos', photos.length);
         if (photos.length > this.state.photos.length) {
             photos.map((photo, index) => {
                 let src = require(`../img/photos/${photo}`);
@@ -46,14 +48,15 @@ class ProfileUserPhotos extends Component {
     };
 
     handleChange = (photo) => {
-        console.log(photo);
+        //console.log(photo);
         if(photo.file.status === 'removed') {
             this.props.removePhoto(photo.file.name);
         }
-        this.setState(prevState => ({
-            photos:
-            prevState.photos})
-        );
+        // this.setState(prevState => ({
+        //     photos:
+        //     prevState.photos})
+        // );
+        this.setState({ photos: photo.fileList})
     };
 
     render() {
@@ -79,8 +82,8 @@ class ProfileUserPhotos extends Component {
         };
 
         let photos = this.state.photos || [];
-        let photosRender = photos.filter(photo => photo.status === 'done');
-
+        let photosRender = photos.filter(photo => photo.status === 'done'
+            || photo.status === 'uploading');
         return (
             <div className="profile-main-info-list">
             <div className="clearfix">
