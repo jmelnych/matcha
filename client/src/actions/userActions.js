@@ -1,4 +1,4 @@
-import {GET_USER, UPDATE_USER} from './types'
+import {GET_USER, UPDATE_USER, LOGOUT_USER} from './types'
 import axios from 'axios'
 
 axios.defaults.baseURL = 'http://localhost:5000';
@@ -50,4 +50,13 @@ export const validatePassword = (password) => dispatch => {
 
 export const updatePasswordFromProfile = (password) => dispatch => {
     return axios.post('api/users/password', password)
+};
+
+export const logoutUser = () => dispatch => {
+    axios.post('api/users/logout')
+        .then(res => res.data)
+        .then(user => dispatch({
+            type: LOGOUT_USER,
+            payload: user
+        }));
 };

@@ -1,4 +1,4 @@
-import {GET_USER, UPDATE_USER} from '../actions/types'
+import {GET_USER, UPDATE_USER, LOGOUT_USER} from '../actions/types'
 
 const initialState = {
     auth: false,
@@ -25,6 +25,13 @@ export default function (state = initialState, action) {
                 ...state,
                 user: updateUser
             };
+        case LOGOUT_USER:
+            if (action.payload === 'logout'){
+                return {
+                    user: {},
+                    auth: false
+                }
+            }
         default:
             return state;
     }

@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Checkbox, Slider, Tag, Input, Tooltip, Icon, Switch } from 'antd'
+import { Checkbox, Slider, Switch } from 'antd'
 import {connect} from 'react-redux'
 import {getUsers, getUsersFiltered} from '../actions/searchActions'
+import FilterSelectTags from './filterSelectTags'
 
 const plainOptions = ['male', 'female'];
 
@@ -20,6 +21,7 @@ class Filter extends Component {
     };
 
     filterUsers = () => {
+        console.log(this.state);
         //TODO: request if no gender selected?
         let filteredValues = this.state.filters;
         if (this.state.ageSliderDisabled) {
@@ -59,45 +61,14 @@ class Filter extends Component {
         }), () => this.filterUsers());
     };
 
-    showInput = () => {
-        this.setState({ inputVisible: true }, () => this.input.focus());
-    };
-
-    handleInputChange = (e) => {
-        this.setState({ inputValue: e.target.value });
-    };
-
-    handleInputConfirm = () => {
-        const state = this.state;
-        const inputValue = state.inputValue;
-        let tags = state.filters.tags;
-        if (inputValue && tags.indexOf(inputValue) === -1) {
-            tags = [...tags, inputValue];
-        }
-        console.log(tags);
+    onChangeTags = (value) => {
         this.setState(prevState => ({
             filters: {
                 ...prevState.filters,
-                tags
-            }
-        }), () => this.filterUsers());
-        this.setState({
-            inputVisible: false,
-            inputValue: '',
-        });
-    };
-
-    handleClose = (removedTag) => {
-        const tags = this.state.filters.tags.filter(tag => tag !== removedTag);
-        this.setState(prevState => ({
-            filters: {
-                ...prevState.filters,
-                tags
-            }
+                tags: value
+            },
         }), () => this.filterUsers());
     }
-
-    saveInputRef = input => this.input = input;
 
     handleDisabledChange = (value) => {
         this.setState({ ageSliderDisabled: value });
@@ -106,8 +77,7 @@ class Filter extends Component {
 render() {
 
     const CheckboxGroup = Checkbox.Group;
-    const { inputVisible, inputValue } = this.state;
-    const { tags } = this.state.filters;
+
     return (
         <div className="container-nav">
             <h3>Filter results</h3>
@@ -123,35 +93,7 @@ render() {
             </div>
             <div className="filter-block">
                 <span className="filter-title">Interests</span>
-                {tags.map((tag) => {
-                    const isLongTag = tag.length > 20;
-                    const tagElem = (
-                        <Tag color="#2db7f5"
-                             key={tag} closable={true} afterClose={() => this.handleClose(tag)}>
-                            {isLongTag ? `${tag.slice(0, 20)}...` : tag}
-                        </Tag>
-                    );
-                    return isLongTag ? <Tooltip title={tag} key={tag}>{tagElem}</Tooltip> : tagElem;
-                })}
-                {inputVisible && (
-                    <Input
-                        ref={this.saveInputRef}
-                        type="text"
-                        size="small"
-                        style={{ width: 78 }}
-                        value={inputValue}
-                        onChange={this.handleInputChange}
-                        onBlur={this.handleInputConfirm}
-                        onPressEnter={this.handleInputConfirm}
-                    />
-                )}
-                {!inputVisible && (
-                    <Tag
-                        onClick={this.showInput}
-                        style={{ background: '#fff', borderStyle: 'dashed' }}>
-                        <Icon type="plus" /> New Tag
-                    </Tag>
-                )}
+                <FilterSelectTags handleTags={this.onChangeTags}/>
             </div>
             <div className="filter-block">
                 <span className="filter-title">Age</span>

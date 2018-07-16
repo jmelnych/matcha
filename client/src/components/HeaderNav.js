@@ -3,23 +3,28 @@ import FlashMessagesList from './flash/FlashMessagesList'
 import {Layout, Menu} from 'antd'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import {logoutUser} from '../actions/userActions'
 
 class HeaderNav extends Component {
-render() {
-    const {Header} = Layout;
-    const {auth} = this.props;
-    const linkStyle = {
-        textDecoration: 'none'
+    logout = () => {
+        this.props.logoutUser();
+    };
+    render() {
+        const {Header} = Layout;
+        const {auth} = this.props;
+        const linkStyle = {
+            textDecoration: 'none'
+        };
+
+        let tab;
+        const _urlArr = (window.location.href).split('/');
+        const _curl = _urlArr[_urlArr.length - 1];
+        if (_curl === '') {
+            tab = '1';
+        } else if (_curl === 'search') {
+            tab = '2';
     };
 
-    let tab;
-    const _urlArr = (window.location.href).split('/');
-    const _curl = _urlArr[_urlArr.length - 1];
-    if (_curl === '') {
-        tab = '1';
-    } else if (_curl === 'search') {
-        tab = '2';
-    };
     return (
       <div>
           <Header>
@@ -31,7 +36,7 @@ render() {
                   style={{ lineHeight: '64px' }}>
                   <Menu.Item key="1"><Link to='/' style={linkStyle}>Profile</Link></Menu.Item>
                   <Menu.Item key="2"><Link to='/search' style={linkStyle}>Search</Link></Menu.Item>
-                  <Menu.Item key="3"><Link to='/' style={linkStyle}>Logout</Link></Menu.Item>
+                  <Menu.Item key="3"><Link to='/' onClick={this.logout} style={linkStyle}>Logout</Link></Menu.Item>
               </Menu>
               }
           </Header>
@@ -45,4 +50,4 @@ function mapStateToProps({user}) {
     return user;
 }
 
-export default connect(mapStateToProps)(HeaderNav);
+export default connect(mapStateToProps, {logoutUser})(HeaderNav);
