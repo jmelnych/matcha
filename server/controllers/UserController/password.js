@@ -15,7 +15,7 @@ module.exports = (req, res) => {
         if (!response || !response.activation || !password) {
             res.send('404');
         } else if (!token) {
-            res.send(hash.generate(password) === response.password ? 'ok' : 'ko')
+            res.send(hash.verify(password, response.password) ? 'ok' : 'ko')
         } else {
             promise = db.update('users',
                 'password', hash.generate(password),
