@@ -92,7 +92,7 @@ class ProfileUserInfo extends Component {
                     <span className="text-secondary">Bio: </span>
                     <span className="editable"> {user.bio}</span></li>
                 }
-                <ProfileUserLocation/>
+                <ProfileUserLocation userLocation={user.location}/>
                 </ul>
             </div>
         );

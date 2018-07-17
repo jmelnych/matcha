@@ -4,11 +4,14 @@ import Ionicon from 'react-ionicons'
 class ProfileUserLocation extends Component {
     state = {
         x: null,
-        y: null
+        y: null,
+        city: '',
+        country: ''
     };
     componentDidMount() {
         navigator.geolocation.getCurrentPosition((position) => {
-            //console.log(position.coords.latitude, position.coords.longitude);
+            this.setState({x: position.coords.latitude,
+                            y: position.coords.longitude});
             this.codeLatLng(position.coords.latitude, position.coords.longitude);
         });
     };
@@ -18,11 +21,12 @@ class ProfileUserLocation extends Component {
         const latlng = new google.maps.LatLng(lat, lng);
         geocoder.geocode({'latLng': latlng}, function(results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
-                console.log('results', results);
+                //console.log('results', results);
                 if (results[1] && results[1].address_components) {
+
                     const addressComponents = results[1].address_components;
-                    let city;
-                    let country;
+                    let city = '';
+                    let country = '';
                     addressComponents.map(compo => {
                         if (compo.types){
                             compo.types.map(type => {
@@ -35,15 +39,19 @@ class ProfileUserLocation extends Component {
                             })
                         }
                     });
-                    console.log('city', city);
-                    console.log('country', country);
+                    console.log(city);
+                    console.log(country);
+                    this.setState({
+                        city,
+                        country
+                    });
                 } else {
                     console.log("No results found");
                 }
             } else {
                 console.log("Geocoder failed due to: " + status);
             }
-        });
+        }.bind(this));
     };
     render() {
         const ionicStyle = {
@@ -51,10 +59,16 @@ class ProfileUserLocation extends Component {
             marginBottom: '-5px',
             marginRight: '10px',
         };
+        const {city, country} = this.state;
+        const dbLocation = this.props.userLocation;
+        let userLocation = (city && country) ? `${city}, ${country}` : dbLocation;//don't wrap dbLocation into `` since it renders as `null` and sets to true
     return (
-        <li><Ionicon icon="ios-pin-outline" style={ionicStyle}/>
+    <div>
+        {(userLocation) && <li><Ionicon icon="ios-pin-outline" style={ionicStyle}/>
         <span className="text-secondary">Location: </span>
-        <span className="editable"> </span></li>
+        <span className="editable">{userLocation}</span></li>
+        }
+    </div>
     );
   }
 }
