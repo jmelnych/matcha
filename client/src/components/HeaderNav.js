@@ -23,7 +23,9 @@ class HeaderNav extends Component {
             tab = '1';
         } else if (_curl === 'search') {
             tab = '2';
-    };
+        } else if (_curl === 'match') {
+            tab = '3';
+        }
 
     return (
       <div>
@@ -36,7 +38,8 @@ class HeaderNav extends Component {
                   style={{ lineHeight: '64px' }}>
                   <Menu.Item key="1"><Link to='/' style={linkStyle}>Profile</Link></Menu.Item>
                   <Menu.Item key="2"><Link to='/search' style={linkStyle}>Search</Link></Menu.Item>
-                  <Menu.Item key="3"><Link to='/' onClick={this.logout} style={linkStyle}>Logout</Link></Menu.Item>
+                  <Menu.Item key="3"><Link to='/match' style={linkStyle}>Match</Link></Menu.Item>
+                  <Menu.Item key="4"><Link to='/' onClick={this.logout} style={linkStyle}>Logout</Link></Menu.Item>
               </Menu>
               }
           </Header>

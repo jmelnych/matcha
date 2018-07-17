@@ -93,7 +93,7 @@ render() {
     };
 
     return (
-      <div className="loading">
+      <div className="loading App-set-password">
           <Form className="App-form" onSubmit={this.onSubmit}>
               <Form.Item {...formItemLayout} label='New Password' hasFeedback> {
                   getFieldDecorator('password', {
