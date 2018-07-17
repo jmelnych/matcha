@@ -11,8 +11,6 @@ import ProfileUserInterests from './ProfileUserInterests'
 import ProfileFeedPosts from './ProfileFeedPosts'
 
 class Profile extends Component {
-
-
   render() {
     return (
     <div>

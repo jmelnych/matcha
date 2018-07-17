@@ -9,4 +9,4 @@ export const addPost = (post) => dispatch => {
             type: ADD_POST,
             payload: post
         }))
-}
+};

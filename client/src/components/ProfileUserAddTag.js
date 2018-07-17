@@ -43,7 +43,6 @@ class ProfileUserAddTag extends Component {
         const { form } = this.props;
         form.setFieldsValue({
             keys: [],
-
         });
     };
 
@@ -88,15 +87,8 @@ class ProfileUserAddTag extends Component {
                 }
                 /* if no duplicates, submit array to save in db */
                 const newTags = {names: newTagsLower};
-                this.props.addTags(newTags)
-                    .then((res) => {
-                    if (res.data === 'Tags added') {
-                        message.success(`Tags uploaded successfully`);
-                        //TODO: update tags in store
-                    } else {
-                        message.error(`Tag already exists. Please, choose from the list`);
-                    }
-                });
+                this.props.addTags(newTags);
+                message.success(`Tags successfully uploaded`);
                 this.setInitialValues();
                 this.props.closeOnSubmit();
             }

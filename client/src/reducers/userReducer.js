@@ -1,8 +1,10 @@
-import {GET_USER, UPDATE_USER, LOGOUT_USER} from '../actions/types'
+import {GET_USER, UPDATE_USER, GET_USER_TAGS,
+    DELETE_USER_TAG, SAVE_USER_TAG, LOGOUT_USER} from '../actions/types'
 
 const initialState = {
     auth: false,
-    user: {}
+    user: {},
+    user_tags: []
 };
 
 export default function (state = initialState, action) {
@@ -31,7 +33,26 @@ export default function (state = initialState, action) {
                     user: {},
                     auth: false
                 }
-            }
+            } else {
+                return state;
+            };
+        case GET_USER_TAGS:
+            return {
+                ...state,
+                user_tags: action.payload
+            };
+        case SAVE_USER_TAG:
+            return {
+                ...state,
+                user_tags: state.user_tags.concat(action.payload)
+            };
+        case DELETE_USER_TAG:
+            console.log('state tags', state.user_tags);
+            console.log('action payload', action.payload);
+            return {
+                ...state,
+                user_tags: state.user_tags.filter(tag => tag.tag !== action.payload.tag)
+            };
         default:
             return state;
     }

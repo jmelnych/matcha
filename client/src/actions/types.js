@@ -1,9 +1,13 @@
 export const ADD_FLASH_MESSAGE = 'ADD_FLASH_MESSAGE';
 export const DELETE_FLASH_MESSAGE = 'DELETE_FLASH_MESSAGE';
 export const GET_USER = 'GET_USER';
+export const GET_USER_TAGS = 'GET_USER_TAGS';
 export const UPDATE_USER = 'UPDATE_USER';
 export const GET_USERS = 'GET_USERS';
 export const GET_TAGS = 'GET_TAGS';
+export const ADD_TAGS = 'ADD_TAGS';
 export const ADD_POST = 'ADD_POST';
 export const GET_PHOTOS = 'GET_PHOTOS';
 export const LOGOUT_USER = 'LOGOUT_USER';
+export const SAVE_USER_TAG = 'SAVE_USER_TAG';
+export const DELETE_USER_TAG = 'DELETE_USER_TAG';

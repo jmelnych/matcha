@@ -1,4 +1,5 @@
-import {GET_USER, UPDATE_USER, LOGOUT_USER} from './types'
+import {GET_USER, UPDATE_USER, GET_USER_TAGS, SAVE_USER_TAG,
+    DELETE_USER_TAG, LOGOUT_USER} from './types'
 import axios from 'axios'
 
 axios.defaults.baseURL = 'http://localhost:5000';
@@ -19,6 +20,22 @@ export  const sendLinkPassword = (data) => dispatch => {
     return axios.post('api/users/remind', data);
 };
 
+export const tryActivate = (token) => dispatch => {
+    return axios.post('api/users/activate', token)
+};
+
+export const updatePassword = (password, token) => dispatch => {
+    return axios.post('api/users/password', {password, token})
+};
+
+export const validatePassword = (password) => dispatch => {
+    return axios.post('api/users/password', password)
+};
+
+export const updatePasswordFromProfile = (password) => dispatch => {
+    return axios.post('api/users/password', password)
+};
+
 export const getUser = () => dispatch => {
     axios.post('api/users/get')
         .then(res => res.data)
@@ -36,22 +53,6 @@ export const updateUser = (id, data) => dispatch => {
     }))
 };
 
-export const tryActivate = (token) => dispatch => {
-    return axios.post('api/users/activate', token)
-};
-
-export const updatePassword = (password, token) => dispatch => {
-    return axios.post('api/users/password', {password, token})
-};
-
-export const validatePassword = (password) => dispatch => {
-    return axios.post('api/users/password', password)
-};
-
-export const updatePasswordFromProfile = (password) => dispatch => {
-    return axios.post('api/users/password', password)
-};
-
 export const logoutUser = () => dispatch => {
     axios.post('api/users/logout')
         .then(res => res.data)
@@ -59,4 +60,29 @@ export const logoutUser = () => dispatch => {
             type: LOGOUT_USER,
             payload: user
         }));
+};
+
+export const getUserTags = () => dispatch => {
+    axios.post('api/tags/get-for-user')
+        .then(res => res.data)
+        .then(userTags => dispatch({
+            type: GET_USER_TAGS,
+            payload: userTags
+        }))
+};
+
+export const saveUserTag = (tag) => dispatch => {
+    axios.post('api/tags/add-to-user', {name: tag})
+        .then(res => dispatch({
+            type: SAVE_USER_TAG,
+            payload: {tag: tag}
+        }))
+};
+
+export const deleteUserTag = (tag) => dispatch => {
+    axios.post('api/tags/delete-from-user', {name: tag})
+        .then(res => dispatch({
+            type: DELETE_USER_TAG,
+            payload: {tag: tag}
+        }))
 };

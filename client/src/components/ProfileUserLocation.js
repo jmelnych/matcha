@@ -8,7 +8,7 @@ class ProfileUserLocation extends Component {
     };
     componentDidMount() {
         navigator.geolocation.getCurrentPosition((position) => {
-            console.log(position.coords.latitude, position.coords.longitude);
+            //console.log(position.coords.latitude, position.coords.longitude);
             this.codeLatLng(position.coords.latitude, position.coords.longitude);
         });
     };

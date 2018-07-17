@@ -48,14 +48,15 @@ class ProfileUserPhotos extends Component {
     };
 
     handleChange = (photo) => {
-        //console.log(photo);
         if(photo.file.status === 'removed') {
             this.props.removePhoto(photo.file.name);
+            // this.setState(prevState => ({
+            //     photos:
+            //     prevState.photos})
+            // );
         }
-        // this.setState(prevState => ({
-        //     photos:
-        //     prevState.photos})
-        // );
+            //will be working when photos will be deleted...
+        console.log(photo.fileList);
         this.setState({ photos: photo.fileList})
     };
 
