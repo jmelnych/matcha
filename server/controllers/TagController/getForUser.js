@@ -1,4 +1,7 @@
 module.exports = (req, res) => {
-    console.log(req.body);
-    res.send([{id:1, tag:'coke'}, {id:2, tag:'sushi'}]);
+    let db       = req.app.get('db'),
+        promise  = db.getAllTagsForUser(req.session.id),
+        response = obj => res.send(obj);
+
+    promise.then(response).catch(response);
 };
