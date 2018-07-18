@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
-import {Form, Input, Button, Select} from 'antd'
+import {Form, Input, Button} from 'antd'
 import {connect} from 'react-redux'
 import {updateUser} from '../actions/userActions'
 import PropTypes from 'prop-types'
+import isEmpty from 'lodash/isEmpty'
 
 class EditProfileUserLocation extends Component {
     componentDidMount() {
         this.setInitialValues();
+        this.setMap();
     };
 
     setInitialValues = () => {
@@ -15,6 +17,53 @@ class EditProfileUserLocation extends Component {
             location: user.location
 
         });
+    };
+
+
+    setMap = () => {
+        /* map initialization */
+      const map = new google.maps.Map(document.getElementsByClassName("map-canvas")[0], {
+          center: {
+              //TODO: get coordinates form db and set them or set default
+              lat: 50.5068337,
+              lng: 30.5917266
+          },
+          zoom: 15
+      });
+        /* interaction with marker */
+      const marker = new google.maps.Marker({
+          //TODO: get coordinates form db and set them or set default
+          position: {
+              lat: 50.5068337,
+              lng: 30.5917266
+          },
+          map: map,
+          draggable: true
+      });
+      //TODO: figure out how to get lat lng after dragging
+      // TODO: get city, country based on lat, lng
+      //TODO: update user location obj on draggable
+      //console.log(marker);
+
+        /* interaction with input field*/
+        const searchBox = new google.maps.places.SearchBox(document.getElementsByClassName("map-search")[0]);
+        //console.log(searchBox);
+        //place change event on search box:
+        google.maps.event.addListener(searchBox, 'places_changed', function(){
+            let places = searchBox.getPlaces();
+            console.log('places', places);//geometry=>lng, lat func
+            const bounds = new google.maps.LatLngBounds();
+            places.map(place => {
+                console.log('place geometry location', place.geometry.location);
+                bounds.extend(place.geometry.location);
+                marker.setPosition(place.geometry.location);
+            });
+            map.fitBounds(bounds);
+            map.setZoom(15);
+        });
+        //TODO: get lat lng after searching
+        // TODO: get city, country based on lat, lng
+        //TODO: update user location obj on draggable
     };
 
     onSubmit = (e) => {
@@ -49,16 +98,20 @@ render() {
         }
     };
     return (
-        <Form onSubmit={this.onSubmit}>
-            <Form.Item {...formItemLayout} label='Location'> {
-                getFieldDecorator('location', {
-                    validateTrigger: 'onBlur'
-                })(< Input name="location" />)
-            }
-            </Form.Item>
-            <Button className="center-button" type='primary'
-                    htmlType='submit'>Save changes</Button>
-        </Form>
+        <div>
+            <Form onSubmit={this.onSubmit}>
+                <Form.Item {...formItemLayout} className="form-item-inline" label='Location'> {
+                    getFieldDecorator('location', {
+                        validateTrigger: 'onBlur'
+                    })(< Input name="location" className="map-search"/>)
+                }
+                </Form.Item>
+                <Button className="right-button" type='primary'
+                        htmlType='submit'>Update location</Button>
+            </Form>
+            <div className="map-canvas">
+            </div>
+        </div>
     );
   }
 };

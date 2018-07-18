@@ -36,6 +36,10 @@ export const updatePasswordFromProfile = (password) => dispatch => {
     return axios.post('api/users/password', password)
 };
 
+export const saveLocation = (location) => dispatch => {
+    return axios.post('api/users/location', location);
+};
+
 export const getUser = () => dispatch => {
     axios.post('api/users/get')
         .then(res => res.data)

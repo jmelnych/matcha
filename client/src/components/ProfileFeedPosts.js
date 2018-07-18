@@ -10,7 +10,7 @@ class ProfileFeedPosts extends Component {
 render() {
     let posts = this.props.posts;
 
-    console.log(posts);
+    //console.log(posts);
     return (
       <div>
           {posts.map((post) =>

@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import Ionicon from 'react-ionicons'
+import {saveLocation} from '../actions/userActions'
+import {connect} from 'react-redux'
 
 class ProfileUserLocation extends Component {
     state = {
-        x: null,
-        y: null,
+        lat: null,
+        lng: null,
         city: '',
         country: ''
     };
@@ -39,12 +41,17 @@ class ProfileUserLocation extends Component {
                             })
                         }
                     });
-                    console.log(city);
-                    console.log(country);
                     this.setState({
                         city,
                         country
                     });
+                    let locationObj = {
+                        lat,
+                        lng,
+                        city,
+                        country
+                    };
+                    this.props.saveLocation(locationObj);
                 } else {
                     console.log("No results found");
                 }
@@ -72,4 +79,4 @@ class ProfileUserLocation extends Component {
     );
   }
 }
-export default ProfileUserLocation;
+export default connect(null, {saveLocation})(ProfileUserLocation);

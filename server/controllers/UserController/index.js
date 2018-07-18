@@ -94,4 +94,6 @@ router.post('/add', require('./add'));
 
 router.post('/update', require('./update'));
 
+router.post('/location', require('./location'));
+
 export default router;
