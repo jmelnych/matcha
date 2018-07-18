@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Form, Input, Button, Select, DatePicker, Tabs} from 'antd'
+import {Form, Input, Button, Select, DatePicker} from 'antd'
 import {updateUser} from '../actions/userActions'
 import {connect} from 'react-redux'
 import isEmpty from 'lodash/isEmpty'
@@ -51,7 +51,6 @@ class EditProfileUserInfo extends Component {
             preference: user.preference,
             bday: moment(user.bday, dateFormat),
             bio: user.bio
-
         });
     };
 

@@ -74,13 +74,10 @@ class Filter extends Component {
         this.setState({ locationSliderDisabled: value });
     };
 
-    formatterLocation = (value) => {
-         return `${value}km`;
-    };
+    formatterLocation = (value) => `${value}km`;
 
-    formatterAge = (value) => {
-        return `${value} years old`
-    }
+
+    formatterAge = (value) => `${value} years old`;
 
 render() {
     const RadioGroup = Radio.Group;

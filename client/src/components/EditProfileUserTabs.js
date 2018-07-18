@@ -3,6 +3,7 @@ import {Tabs} from 'antd'
 import EditProfileUserInfo from './EditProfileUserInfo'
 import EditProfileUserHead from './EditProfileUserHead'
 import EditProfileUserPassword from './EditProfileUserPassword'
+import EditProfileUserLocation from './EditProfileUserLocation'
 
 const TabPane = Tabs.TabPane;
 class EditProfileUserTabs extends Component {
@@ -13,7 +14,9 @@ render() {
                 closeOnSubmit={this.props.closeOnSubmit}/></TabPane>
             <TabPane tab="Main details" key="2"><EditProfileUserHead
                 closeOnSubmit={this.props.closeOnSubmit}/></TabPane>
-            <TabPane tab="Password settings" key="3"><EditProfileUserPassword
+            <TabPane tab="Location" key="3"><EditProfileUserLocation
+                closeOnSubmit={this.props.closeOnSubmit}/></TabPane>
+            <TabPane tab="Password settings" key="4"><EditProfileUserPassword
                 closeOnSubmit={this.props.closeOnSubmit}/></TabPane>
         </Tabs>
     );

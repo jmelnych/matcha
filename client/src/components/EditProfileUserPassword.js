@@ -113,7 +113,7 @@ render() {
                 })(<Input name='password' type='password'/>)
             }
             </Form.Item>
-            <Form.Item {...formItemLayout} label="Confirm Password" >{
+            <Form.Item {...formItemLayout} label="Confirm Password" hasFeedback>{
                 getFieldDecorator('confirm_password', {
                     rules: [{required: true, message: 'Please confirm your password'},
                         {validator: this.compareToFirstPassword}]

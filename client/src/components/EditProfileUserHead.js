@@ -32,6 +32,8 @@ class EditProfileUserHead extends Component {
                     newUserInfo.username = values.username;
                 } if (values.gender !== user.gender){
                     newUserInfo.gender = values.gender;
+                } if (values.email !== user.email){
+                    newUserInfo.email = values.email;
                 }
                 if(!isEmpty(newUserInfo)) {
                     updateUser(user.id, newUserInfo);
