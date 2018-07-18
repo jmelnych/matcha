@@ -31,6 +31,10 @@ app.use(session({
     keys: ['key1']
 }));
 
+/* Set root dir */
+app.set('rootDir', path.dirname(__dirname));
+
+
 /* Set Models */
 const DB = require('./database/DB');
 const Mail = require('./models/Mail');
