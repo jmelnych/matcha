@@ -144,5 +144,21 @@ li.left-border{
     align-items: center;
 }
 
+.heart{
+    stroke: #1890ff;
+    fill: none;
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    width: 62px;
+    animation: pulse 5s ease infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
 
 

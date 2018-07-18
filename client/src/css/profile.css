@@ -185,6 +185,21 @@ h4{
   margin-bottom: 20px;
 }
 
+.map-canvas{
+  min-width: 300px;
+  height: 300px;
+}
+
+.right-button{
+  display: inline;
+}
+
+.form-item-inline{
+  width: 60%;
+  display: inline-block;
+  margin-right: 20px;
+  margin-top: -4px
+}
 /* Posts */
 .hidden{
   display: none;
