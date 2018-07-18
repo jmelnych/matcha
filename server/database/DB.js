@@ -75,6 +75,12 @@ module.exports = class DB {
         return this.all(`SELECT * FROM ${table}`);
     }
 
+    getAllTagsForUser(id) {
+        return this.all(`SELECT tags.id, tags.tag FROM tags
+            JOIN users_tags ON tags.id = users_tags.tag_id
+            WHERE users_tags.user_id = ?`, [id]);
+    }
+
     update(table, column, value, key, data) {
         return this.run(`UPDATE ${table} SET ${column} = ? WHERE ${key} = ?`, [value, data]);
     }
