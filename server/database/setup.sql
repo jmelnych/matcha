@@ -3,7 +3,6 @@ DROP TABLE IF EXISTS photos;
 DROP TABLE IF EXISTS tags;
 DROP TABLE IF EXISTS users_tags;
 DROP TABLE IF EXISTS posts;
-DROP TABLE IF EXISTS users_posts;
 
 CREATE TABLE users
 (
@@ -31,8 +30,7 @@ CREATE TABLE photos
   id       INTEGER PRIMARY KEY AUTOINCREMENT,
   user_id  INTEGER,
   filename VARCHAR(255) NOT NULL UNIQUE,
-  added    DATETIME            DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (user_id) REFERENCES users (id)
+  added    DATETIME            DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE tags
@@ -45,25 +43,15 @@ CREATE TABLE users_tags
 (
   user_id INTEGER,
   tag_id  INTEGER,
-  CONSTRAINT primary_id PRIMARY KEY (user_id, tag_id),
-  FOREIGN KEY (user_id) REFERENCES users (id),
-  FOREIGN KEY (tag_id) REFERENCES tags (id)
+  CONSTRAINT primary_id PRIMARY KEY (user_id, tag_id)
 );
 
 CREATE TABLE posts
 (
-  id    INTEGER PRIMARY KEY AUTOINCREMENT,
-  post  TEXT NOT NULL,
-  added DATETIME            DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE users_posts
-(
+  id      INTEGER PRIMARY KEY AUTOINCREMENT,
   user_id INTEGER,
-  post_id INTEGER,
-  CONSTRAINT primary_id PRIMARY KEY (user_id, post_id),
-  FOREIGN KEY (user_id) REFERENCES users (id),
-  FOREIGN KEY (post_id) REFERENCES posts (id)
+  post    TEXT NOT NULL,
+  added   DATETIME            DEFAULT CURRENT_TIMESTAMP
 );
 
 INSERT INTO tags (tag) VALUES ('zombie'), ('pizza'), ('javascript');

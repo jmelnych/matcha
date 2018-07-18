@@ -7,8 +7,8 @@ router.post('/get', require('./get'));
 
 router.post('/get-for-user', require('./getForUser'));
 
-router.post('/add-to-user', require('./addToUser'));
+router.post('/add-to-user', require('./userAddDelete'));
 
-router.post('/delete-from-user', require('./deleteFromUser'));
+router.post('/delete-from-user', require('./userAddDelete'));
 
 export default router;

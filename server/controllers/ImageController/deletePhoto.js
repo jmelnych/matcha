@@ -4,7 +4,7 @@ module.exports = (req, res) => {
     let db      = req.app.get('db'),
         rootDir = req.app.get('rootDir'),
         {name}  = req.body,
-        promise = db.getByUnique('photos', 'filename', name),
+        promise = db.delete('photos', ['filename', 'user_id'], [name, req.session.id]),
         error   = (e) => {
             console.log('error: ', e);
             res.send(e);
@@ -12,12 +12,8 @@ module.exports = (req, res) => {
 
     promise.then((response) => {
         if (response) {
-            promise = db.delete('photos',
-                ['id', 'user_id'], [response.id, req.session.id]);
-            promise.then(() => {
-                fs.unlink(`${rootDir}/client/src/img/photos/${name}`);
-                res.send('Deleted')
-            }).catch(error);
+            fs.unlink(`${rootDir}/client/src/img/photos/${name}`);
+            res.send('Deleted')
         } else {
             res.send('404');
         }
