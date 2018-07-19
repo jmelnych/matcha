@@ -10,9 +10,14 @@ const prepareAge = (age) => {
 };
 
 module.exports = (req, res) => {
-    if (!req.body['tag']) req.body['tag'] = req.body['tags'];
+    let body = req.body;
+    if (!body['tag']) {body['tag'] = body['tags']}
+    if (body['gender'] && (body['gender'] !== 'male' || body['gender'] !== 'female')) {
+        delete body['gender'];
+    }
 
-    req.body['bday'] = prepareAge(req.body['age']);
+    body['bday'] = prepareAge(body['age']);
+
 
     let db           = req.app.get('db'),
         prepareQuery = req.app.get('prepareQuery'),
@@ -24,7 +29,7 @@ module.exports = (req, res) => {
         data         = [],
         query;
     try {
-        query = prepareQuery(req.body, {
+        query = prepareQuery(body, {
             users: {
                 or: {gender: 'array', preference: 'array'},
                 between: {bday: 'array', rating: 'array'},

@@ -23,7 +23,7 @@ module.exports = (data, filterArray) => {
         order: (by) => {
             if (validator.object(by)) {
                 let key = Object.keys(by), arr = ['rating', 'age', 'radius'];
-                key = key.length === 1 ? key[0] : null;
+                key     = key.length === 1 ? key[0] : null;
                 if (key && (by[key] === 'asc' || by[key] === 'desc') &&
                     arr.indexOf(key) > -1) {
                     return `ORDER BY users.${key} ${by[key].toUpperCase()}`
