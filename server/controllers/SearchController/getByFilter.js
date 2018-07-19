@@ -11,13 +11,14 @@ const prepareAge = (age) => {
 
 module.exports = (req, res) => {
     let body = req.body;
-    if (!body['tag']) {body['tag'] = body['tags']}
+    if (!body['tag']) {
+        body['tag'] = body['tags']
+    }
     if (body['gender'] && (body['gender'] !== 'male' || body['gender'] !== 'female')) {
         delete body['gender'];
     }
 
     body['bday'] = prepareAge(body['age']);
-
 
     let db           = req.app.get('db'),
         prepareQuery = req.app.get('prepareQuery'),
