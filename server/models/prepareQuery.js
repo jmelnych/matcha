@@ -29,7 +29,7 @@ module.exports = (data, filterArray) => {
                     return `ORDER BY users.${key} ${by[key].toUpperCase()}`
                 }
             }
-            return '';
+            return 'ORDER BY users.rating ASC';
         }
     };
 
