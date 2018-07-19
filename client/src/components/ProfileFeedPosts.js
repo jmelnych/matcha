@@ -10,21 +10,24 @@ class ProfileFeedPosts extends Component {
     state = {
         visible: false,
         confirmLoading: true,
-        ModalText: ''
+        ModalText: '',
+        post: null
     };
     componentDidMount(){
         this.props.getPosts();
     };
 
-    showModal = () => {
+    showModal = (post) => {
         this.setState({
             visible: true,
+            post
         });
     };
 
     handleCancel = () => {
         this.setState({
             visible: false,
+            post: null
         });
     };
 
@@ -37,7 +40,8 @@ class ProfileFeedPosts extends Component {
             this.setState({
                 visible: false,
                 confirmLoading: false,
-                ModalText: ''
+                ModalText: '',
+                post: null
             });
         }, 1000);
     };
@@ -59,16 +63,17 @@ render() {
                   {post.post}
                   </p>
                   <div className="editable feed-snippet-footer">
-                      <Ionicon onClick={this.showModal} className="editable-icon" icon="md-create"/>
+                      <Ionicon onClick={() => this.showModal(post)} className="editable-icon" icon="md-create"/>
                     <Ionicon className="editable-icon" icon="ios-trash"/>
                   </div>
                   <Modal title="Edit your post"
                          visible={visible}
                          onCancel={this.handleCancel}
+                         destroyOnClose={true}
                          confirmLoading={confirmLoading}
                          footer={null}>
                       {ModalText ? <p>{ModalText}</p> :
-                          <EditProfileFeedPost currentPost={post} closeOnSubmit={this.handleOk}/>
+                          <EditProfileFeedPost currentPost={this.state.post} closeOnSubmit={this.handleOk}/>
                       }
                   </Modal>
               </div>

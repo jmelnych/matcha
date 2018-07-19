@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Input, Button, message } from 'antd'
+import { Input, Button, message, Popover } from 'antd'
 import {addPost} from '../actions/postActions'
 import {connect} from 'react-redux'
 
@@ -42,7 +42,14 @@ render() {
     if (postCount >= 5) {
         allowTextArea = false;
     }
+    const content = (
+        <div>
+            <p>You can post up to 5 entries</p>
+        </div>
+    );
     return (<div>
+        <Popover placement="rightTop" title="Post info" content={content}
+                 trigger="hover">
         {(allowTextArea) &&
         <div className="profile-post-area">
             <div className="post-textarea">
@@ -56,6 +63,7 @@ render() {
             <Button className="post-button" size="large" type="primary"
                     onClick={this.savePost} htmlType="submit">Post</Button>
         </div>}
+        </Popover>
         </div>
     );
   }

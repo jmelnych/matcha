@@ -73,7 +73,6 @@ class ProfileUserPhotos extends Component {
                 <p>You can upload up to 4 photos</p>
             </div>
         );
-
         const props = {
             name: 'photo',
             action: 'api/image/save-photo',
