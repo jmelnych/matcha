@@ -67,6 +67,15 @@ figcaption h2, figcaption span, figcaption p{
   fill: rgba(96,96,96,.3);
 }
 
+.feed-snippet-footer .editable-icon {
+  position: relative;
+  padding: 5px;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  fill: rgba(96,96,96,.3);
+}
+
 
 .editable-icon:hover{
   cursor: pointer;
@@ -122,16 +131,19 @@ figcaption h2, figcaption span, figcaption p{
 }
 
 /* FEED */
-.profile-main-feed{
-  width: 73%;
-  color: white;
-}
 
-.profile-main-info, .profile-main-feed{
+
+.profile-main-info{
   margin: 2% 1%;
 }
 
-.profile-main-info, .profile-post-area, .profile-feed-snippet{
+.profile-main-feed{
+  width: 73%;
+  color: white;
+  margin: 2% 4%;
+}
+
+.profile-main-info, .profile-feed-snippet{
   padding: 20px 20px;
   min-height: 200px;
   background: white;
@@ -140,36 +152,42 @@ figcaption h2, figcaption span, figcaption p{
   margin-bottom: 30px;
 }
 
-.profile-feed-snippet{
-  color: black;
-  font-size: 14px;
-  font-weight: normal;
-  line-height: 1.38;
-  font-family: Helvetica Neue;
-  text-align: left;
-}
 .profile-post-area{
   margin-bottom: 60px;
-  display: flex;
   min-width: 100px;
-  justify-content: space-around;
-  align-items: center;
-
+  position: relative;
 }
 
 .profile-main-info .profile-main-info-list:not(:last-child){
   border-bottom: 1px solid rgba(0,2,36, 0.3);
 }
 
-.post-textarea {
-  width: 80%;
-  border: none;
-  border-bottom: 1px solid gainsboro;
-  font-size: 16px;
+.post-textarea, .profile-feed-snippet {
+  word-wrap: break-word;
+  resize: none;
+  background-color:#FFF;
+  font-family:Courier, monospace;
+  font-weight:normal;
+  line-height:40px;
+  padding-left:100px;
+  padding-right:100px;
+  padding-top:45px;
+  padding-bottom:34px;
+  background-image:url(https://static.tumblr.com/maopbtg/E9Bmgtoht/lines.png);
+  background-repeat:repeat-y, repeat;
+  -webkit-border-radius:12px;
+  border-radius:12px;
+  -webkit-box-shadow: 0px 2px 14px #000;
+  box-shadow: 0 0 20px rgba(0,0,0,.15);
+  border-top:1px solid #FFF;
+  border-bottom:1px solid #FFF;
 }
 
 .post-button{
-  width: 90px;
+  position: absolute;
+  width: 80px;
+  right: 50px;
+  top: 40%;
 }
 
 .ant-btn-circle.ant-btn-sm, .ant-btn-circle-outline.ant-btn-sm{
@@ -201,16 +219,47 @@ h4{
   margin-top: -4px
 }
 /* Posts */
+
+.profile-feed-snippet{
+  color: black;
+  text-align: left;
+}
+
 .hidden{
   display: none;
 }
 
-.feed-snippet-head-avatar{
-  height: 45px;
-  width: 45px;
-  cursor: pointer;
-  border-radius: 50%;
+.feed-snippet-head{
+  color: dimgray;
 }
+
+.feed-snippet-text{
+  font-size: 20px;
+}
+.feed-snippet-footer{
+  position: relative;
+  top: 20px;
+  left: 95%;
+}
+
+.transparent{
+  font-size: 20px;
+  background: transparent;
+  font-family:Courier, monospace;
+  font-weight:normal;
+  line-height:40px;
+  padding: 0;
+  border: none;
+  outline: none;
+  resize: none;
+  overflow: hidden;
+  word-wrap: break-word;
+  color:#222;
+}
+.title{
+  font-size: 24px;
+}
+
 
 
 

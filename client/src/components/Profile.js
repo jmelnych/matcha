@@ -53,7 +53,6 @@ class Profile extends Component {
 
           <div className="profile-main-feed">
               <ProfileWritePost/>
-              <h2>Recent posts</h2>
               <ProfileFeedPosts/>
           </div>
       </div>

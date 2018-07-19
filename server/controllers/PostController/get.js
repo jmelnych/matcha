@@ -10,7 +10,7 @@ module.exports = (req, res) => {
 
     promise.then((response) => {
         if (response){
-            res.send(response.map(val => filterObject(val, ['id', 'post', 'added'])))
+            res.send(response.map(val => filterObject(val, ['id', 'title', 'post', 'added'])))
         } else {
             res.send('404');
         }

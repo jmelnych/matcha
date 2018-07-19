@@ -1,5 +1,6 @@
 module.exports = (req, res) => {
     let db           = req.app.get('db'),
+        {title}       = req.body,
         {text}       = req.body,
         promise      = db.getAllByUnique('posts', ['user_id'], req.session.id),
         filterObject = req.app.get('filterObject'),
@@ -10,11 +11,11 @@ module.exports = (req, res) => {
 
     promise.then((response) => {
         if (response && response.length < 5) {
-            promise = db.create('posts', 'user_id, post', [req.session.id, text]);
+            promise = db.create('posts', 'user_id, title, post', [req.session.id, title, text]);
             promise.then((post_id) => {
                 promise = db.getByUnique('posts', 'id', post_id);
                 promise.then(last_res => res.send(
-                    filterObject(last_res, ['id', 'post', 'added']))).catch(error);
+                    filterObject(last_res, ['id', 'title', 'post', 'added']))).catch(error);
             }).catch(error);
         } else {
             res.send('404');

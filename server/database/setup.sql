@@ -50,6 +50,7 @@ CREATE TABLE posts
 (
   id      INTEGER PRIMARY KEY AUTOINCREMENT,
   user_id INTEGER,
+  title   TEXT NOT NULL,
   post    TEXT NOT NULL,
   added   DATETIME            DEFAULT CURRENT_TIMESTAMP
 );

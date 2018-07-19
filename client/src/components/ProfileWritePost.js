@@ -7,7 +7,12 @@ const { TextArea } = Input;
 
 class ProfileWritePost extends Component {
     state = {
+        title: '',
         text: ''
+    };
+
+    updateTitle = (title) => {
+        this.setState({title})
     };
 
     updateText = (text) => {
@@ -16,16 +21,18 @@ class ProfileWritePost extends Component {
 
     savePost = () => {
         let newPost = {
+            title: this.state.title.trim(),
             text: this.state.text.trim()
         };
-        if (newPost.text){
+        if (newPost.text && newPost.title){
             this.props.addPost(newPost);
             this.setState({
-                text: ''
+                text: '',
+                title: ''
             });
             message.success(`Post uploaded successfully`);
         } else {
-            message.error(`Post cannot be empty`);
+            message.error(`Post fields title and body should be filled`);
         }
     };
 
@@ -36,11 +43,16 @@ render() {
         allowTextArea = false;
     }
     return (<div>
-        {(this.state.allowTextArea) &&
+        {(allowTextArea) &&
         <div className="profile-post-area">
-            <TextArea className="post-textarea" placeholder="What's on your mind?"
-                      rows={3} onChange={(e) => this.updateText(e.target.value)}
-            value={this.state.text}/>
+            <div className="post-textarea">
+                <TextArea className="transparent title" placeholder="Title"
+                          rows={1} onChange={(e) => this.updateTitle(e.target.value)}
+                value={this.state.title}/>
+                <TextArea className="transparent" placeholder="What's on your mind?"
+                          rows={1} onChange={(e) => this.updateText(e.target.value)}
+                          value={this.state.text}/>
+            </div>
             <Button className="post-button" size="large" type="primary"
                     onClick={this.savePost} htmlType="submit">Post</Button>
         </div>}
