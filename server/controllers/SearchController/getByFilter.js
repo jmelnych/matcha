@@ -44,10 +44,9 @@ module.exports = (req, res) => {
                 data = data.concat(value['value']);
             }
         });
-        let promise = db.getAllByFilter([
-            'id', 'username', 'firstname', 'lastname', 'gender', 'preference',
-            'occupancy', 'bday', 'rating', 'bio', 'location', 'avatar', 'added'
-        ], filters, data, query['having']);
+        let columns = ['id', 'username', 'firstname', 'lastname', 'gender', 'preference',
+                'occupancy', 'bday', 'rating', 'bio', 'location', 'avatar', 'added'],
+            promise = db.getAllByFilter(columns, filters, data, query['having'], query['order']);
         promise.then((response) => {
             if (response === undefined) {
                 res.send('No users');

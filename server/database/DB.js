@@ -63,12 +63,12 @@ module.exports = class DB {
         return this.all(`SELECT * FROM ${table} WHERE ${column} = ?`, [value]);
     }
 
-    getAllByFilter(columns, filters, values, having) {
+    getAllByFilter(columns, filters, values, having, order) {
         return this.all(`SELECT ${columns.map(value => `users.${value}`).join(', ')} FROM users
             LEFT JOIN  users_tags ON users.id = users_tags.user_id
             LEFT JOIN  tags ON users_tags.tag_id = tags.id
          WHERE users.activation = 1 ${filters}
-         GROUP BY users.id ${having}`, values);
+         GROUP BY users.id ${having} ${order}`, values);
     }
 
     getAll(table) {

@@ -19,6 +19,17 @@ module.exports = (data, filterArray) => {
                 return `${table}.${key} IN (${'?, '.repeat(values.length - 1) + '?'})`;
             }
             return '';
+        },
+        order: (by) => {
+            if (validator.object(by)) {
+                let key = Object.keys(by), arr = ['rating', 'age', 'radius'];
+                key = key.length === 1 ? key[0] : null;
+                if (key && (by[key] === 'asc' || by[key] === 'desc') &&
+                    arr.indexOf(key) > -1) {
+                    return `ORDER BY users.${key} ${by[key].toUpperCase()}`
+                }
+            }
+            return '';
         }
     };
 
@@ -32,11 +43,11 @@ module.exports = (data, filterArray) => {
                     });
                 } else if (data[key]) {
                     throw `api/search/getbyfilter -> prepareQuery\n` +
-                    `'${key}' => ${util.inspect(data[key])} is ${validator['type'](data[key])}, ` +
+                    `'${key}' => ${util.inspect(data[key])} is ${validator.type(data[key])}, ` +
                     `expected to be ${filterArray[table][method][key]}\n`;
                 }
             });
         });
     });
-    return {result: result, having: having};
+    return {result: result, having: having, order: queryBuilder.order(data['order'])};
 };
