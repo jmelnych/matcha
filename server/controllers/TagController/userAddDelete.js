@@ -14,7 +14,7 @@ module.exports = (req, res) => {
                     'user_id, tag_id',
                     [req.session.id, response.id]);
                 promise.then(() => res.send('Tag added')).catch(error);
-            } else if (req.route.path === '/add-to-user') {
+            } else if (req.route.path === '/delete-from-user') {
                 promise = db.delete('users_tags',
                     ['user_id', 'tag_id'],
                     [req.session.id, response.id]);
