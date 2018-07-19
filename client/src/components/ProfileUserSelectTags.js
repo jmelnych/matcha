@@ -31,7 +31,7 @@ render() {
     let tags = this.props.tags || [];
     const children = [];
     tags.map((tag) => {
-        children.push(<Option key={tag}>{tag}</Option>);
+        children.push(<Select.Option key={tag}>{tag}</Select.Option>);
     });
 
     return (
