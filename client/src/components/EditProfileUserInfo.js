@@ -20,7 +20,6 @@ class EditProfileUserInfo extends Component {
         form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 //console.log('Received values of form editing: ', values);
-                closeOnSubmit();
                 let newUserInfo = new Object();
                 if (values.firstname !== user.firstname) {
                     newUserInfo.firstname = values.firstname;
@@ -38,6 +37,7 @@ class EditProfileUserInfo extends Component {
                 } else {
                     console.log('nothing has been changes');
                 }
+                closeOnSubmit();
             }
         })
     };

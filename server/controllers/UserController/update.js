@@ -12,4 +12,3 @@ module.exports = (req, res) => {
         res.send(e);
     });
 };
-//why use reducer in filterObject here if data is already comes in an object needed?

@@ -7,4 +7,6 @@ router.post('/get', require('./get'));
 
 router.post('/delete', require('./delete'));
 
+router.post('/update', require('./update'));
+
 export default router;

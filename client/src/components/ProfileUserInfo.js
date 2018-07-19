@@ -42,6 +42,7 @@ class ProfileUserInfo extends Component {
 
     render() {
         const { visible, confirmLoading, ModalText } = this.state;
+        const {user} = this.props;
         const ionicStyle = {
             fill: '#001529',
             marginBottom: '-5px',
@@ -51,7 +52,6 @@ class ProfileUserInfo extends Component {
             bottom: '15px',
             right: '0'
         };
-        const {user} = this.props;
         return (
             <div className="profile-main-info-list">
                 <h3>Info

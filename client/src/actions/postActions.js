@@ -1,4 +1,4 @@
-import {ADD_POST, GET_POSTS} from './types'
+import {ADD_POST, GET_POSTS, UPDATE_POST} from './types'
 import axios from 'axios'
 
 axios.defaults.baseURL = 'http://localhost:5000';
@@ -19,4 +19,12 @@ export const getPosts = () => dispatch => {
             type: GET_POSTS,
             payload: posts
         }))
-}
+};
+
+export const updatePost = (post) => dispatch => [
+    axios.post('api/posts/update', post)
+        .then(() => dispatch({
+            type: UPDATE_POST,
+            payload: post
+        }))
+]

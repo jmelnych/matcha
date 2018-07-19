@@ -166,7 +166,7 @@ figcaption h2, figcaption span, figcaption p{
   word-wrap: break-word;
   resize: none;
   background-color:#FFF;
-  font-family:Courier, monospace;
+  /*font-family:Courier, monospace;*/
   font-weight:normal;
   line-height:40px;
   padding-left:100px;
@@ -234,7 +234,7 @@ h4{
 }
 
 .feed-snippet-text{
-  font-size: 20px;
+  font-size: 18px;
 }
 .feed-snippet-footer{
   position: relative;
@@ -243,9 +243,9 @@ h4{
 }
 
 .transparent{
-  font-size: 20px;
+  font-size: 18px;
   background: transparent;
-  font-family:Courier, monospace;
+  /*font-family:Courier, monospace;*/
   font-weight:normal;
   line-height:40px;
   padding: 0;
@@ -257,7 +257,7 @@ h4{
   color:#222;
 }
 .title{
-  font-size: 24px;
+  font-size: 22px;
 }
 
 
