@@ -8,26 +8,26 @@ const { TextArea } = Input;
 class ProfileWritePost extends Component {
     state = {
         title: '',
-        text: ''
+        post: ''
     };
 
     updateTitle = (title) => {
         this.setState({title})
     };
 
-    updateText = (text) => {
-        this.setState({text})
+    updateText = (post) => {
+        this.setState({post})
     };
 
     savePost = () => {
         let newPost = {
             title: this.state.title.trim(),
-            text: this.state.text.trim()
+            post: this.state.post.trim()
         };
-        if (newPost.text && newPost.title){
+        if (newPost.post && newPost.title){
             this.props.addPost(newPost);
             this.setState({
-                text: '',
+                post: '',
                 title: ''
             });
             message.success(`Post uploaded successfully`);
@@ -58,7 +58,7 @@ render() {
                 value={this.state.title}/>
                 <TextArea className="transparent" placeholder="What's on your mind?"
                           rows={1} onChange={(e) => this.updateText(e.target.value)}
-                          value={this.state.text}/>
+                          value={this.state.post}/>
             </div>
             <Button className="post-button" size="large" type="primary"
                     onClick={this.savePost} htmlType="submit">Post</Button>
