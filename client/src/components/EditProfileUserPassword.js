@@ -54,13 +54,14 @@ class EditProfileUserPassword extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        const { form } = this.props;
+        const { form, closeOnSubmit } = this.props;
         form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 const passwordObj = {
                     password: values.password
                 };
                 this.props.updatePasswordFromProfile(passwordObj);
+                closeOnSubmit();
             }
         })
     };

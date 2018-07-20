@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {getPosts} from '../actions/postActions'
+import {getPosts, deletePost} from '../actions/postActions'
 import Ionicon from 'react-ionicons'
 import {Modal} from 'antd'
 import EditProfileFeedPost from './EditProfileFeedPost'
 
 
 class ProfileFeedPosts extends Component {
+    // constructor(props){
+    //     super(props);
+    //     this.deletePost = this.props.deletePost.bind(this);
+    // }
     state = {
         visible: false,
         confirmLoading: true,
@@ -14,6 +18,7 @@ class ProfileFeedPosts extends Component {
         post: null
     };
     componentDidMount(){
+        console.log(this);
         this.props.getPosts();
     };
 
@@ -45,6 +50,22 @@ class ProfileFeedPosts extends Component {
             });
         }, 1000);
     };
+    showDeleteConfirm = (postId) => {
+        const confirmDelete = this.props.deletePost;
+        Modal.confirm({
+            title: 'Are you sure you want delete this post?',
+            content: 'This action is not reversible',
+            okText: 'Yes',
+            okType: 'danger',
+            cancelText: 'No',
+            onOk() {
+                confirmDelete(postId);
+            },
+            onCancel() {
+                console.log('Thanks for saving me from being deleted');
+            },
+        });
+    };
 
 render() {
     const { visible, confirmLoading, ModalText } = this.state;
@@ -64,7 +85,7 @@ render() {
                   </p>
                   <div className="editable feed-snippet-footer">
                       <Ionicon onClick={() => this.showModal(post)} className="editable-icon" icon="md-create"/>
-                    <Ionicon className="editable-icon" icon="ios-trash"/>
+                    <Ionicon onClick={() => this.showDeleteConfirm(post.id)} className="editable-icon" icon="ios-trash"/>
                   </div>
                   <Modal title="Edit your post"
                          visible={visible}
@@ -88,4 +109,4 @@ function mapStateToProps({posts}){
         posts
     }
 };
-export default connect(mapStateToProps, {getPosts})(ProfileFeedPosts);
+export default connect(mapStateToProps, {getPosts, deletePost})(ProfileFeedPosts);
