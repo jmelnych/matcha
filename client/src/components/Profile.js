@@ -19,7 +19,6 @@ class Profile extends Component {
         <div className="container-flex">
           <div className="profile-main-info">
               <ProfileUserInfo/>
-
               <ProfileUserPhotos/>
               <ProfileUserInterests/>
               <div className="profile-main-info-list">

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Form, Input, Button, Select, DatePicker} from 'antd'
+import {Form, Input, Button, Select, DatePicker, Popover} from 'antd'
 import {updateUser} from '../actions/userActions'
 import {connect} from 'react-redux'
 import isEmpty from 'lodash/isEmpty'
@@ -27,6 +27,8 @@ class EditProfileUserInfo extends Component {
                     newUserInfo.lastname = values.lastname;
                 } if (values.preference !== user.preference) {
                     newUserInfo.preference = values.preference;
+                } if (values.personality !== user.personality) {
+                    newUserInfo.personality = values.personality;
                 } if (values.occupancy !== user.occupancy) {
                     newUserInfo.occupancy = values.occupancy;
                 } if (values.bio !== user.bio) {
@@ -49,6 +51,7 @@ class EditProfileUserInfo extends Component {
             lastname: user.lastname,
             occupancy: user.occupancy,
             preference: user.preference,
+            personality: user.personality,
             bday: moment(user.bday, dateFormat),
             bio: user.bio
         });
@@ -67,6 +70,12 @@ render() {
         }
     };
     const { TextArea } = Input;
+    const content = (
+        <div>
+            <p>Don't know your personality type?</p>
+            <p><a href="https://www.16personalities.com/free-personality-test" target="_blank">Take a test</a></p>
+        </div>
+    );
 
     return (
       <div>
@@ -98,8 +107,30 @@ render() {
                       <Select.Option value="men">Men</Select.Option>
                       <Select.Option value="women">Women</Select.Option>
                       <Select.Option value="both">Men and Women</Select.Option>
-                  </Select>)
-              }
+                  </Select>)}
+              </Form.Item>
+              <Form.Item {...formItemLayout} label='Personality'> {
+                  getFieldDecorator('personality')(
+                      <Popover placement="rightTop" title="Personality type" content={content} trigger="hover">
+                          <Select >
+                          <Select.Option value="istj">ISTJ</Select.Option>
+                          <Select.Option value="istp">ISTP</Select.Option>
+                          <Select.Option value="isfj">ISFJ</Select.Option>
+                          <Select.Option value="isfp">ISFP</Select.Option>
+                          <Select.Option value="infj">INFJ</Select.Option>
+                          <Select.Option value="infp">INFP</Select.Option>
+                          <Select.Option value="intj">INTJ</Select.Option>
+                          <Select.Option value="intp">INTP</Select.Option>
+                          <Select.Option value="estp">ESTP</Select.Option>
+                          <Select.Option value="estj">ESTJ</Select.Option>
+                          <Select.Option value="esfp">ESFP</Select.Option>
+                          <Select.Option value="esfj">ESFJ</Select.Option>
+                          <Select.Option value="enfp">ENFP</Select.Option>
+                          <Select.Option value="enfj">ENFJ</Select.Option>
+                          <Select.Option value="entp">ENTP</Select.Option>
+                          <Select.Option value="entj">ENTJ</Select.Option>
+                      </Select>
+                      </Popover>)}
               </Form.Item>
               <Form.Item {...formItemLayout} label='Birth day'> {
                   getFieldDecorator('bday',  {

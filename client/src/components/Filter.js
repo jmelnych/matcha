@@ -21,14 +21,7 @@ class Filter extends Component {
 
     filterUsers = () => {
         console.log(this.state);
-        //TODO: request if no gender selected?
         let filteredValues = this.state.filters;
-        if (this.state.locationSliderDisabled) {
-            delete filteredValues['radius'];
-        }
-        //TODO: delete below
-        filteredValues.gender = ['male', 'female'];
-
         //console.log(filteredValues);
         this.props.getUsersFiltered(filteredValues);
     };

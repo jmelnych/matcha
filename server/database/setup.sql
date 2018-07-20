@@ -16,6 +16,7 @@ CREATE TABLE users
   token      VARCHAR(255),
   gender     VARCHAR(10)  NOT NULL,
   preference VARCHAR(10)         DEFAULT 'both' NOT NULL,
+  personality VARCHAR(4),
   occupancy  VARCHAR(255),
   bday       DATETIME     NOT NULL,
   rating     INTEGER             DEFAULT 0 NOT NULL,

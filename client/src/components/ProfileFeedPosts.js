@@ -4,13 +4,9 @@ import {getPosts, deletePost} from '../actions/postActions'
 import Ionicon from 'react-ionicons'
 import {Modal} from 'antd'
 import EditProfileFeedPost from './EditProfileFeedPost'
-
+import orderBy from 'lodash/orderBy'
 
 class ProfileFeedPosts extends Component {
-    // constructor(props){
-    //     super(props);
-    //     this.deletePost = this.props.deletePost.bind(this);
-    // }
     state = {
         visible: false,
         confirmLoading: true,
@@ -18,7 +14,6 @@ class ProfileFeedPosts extends Component {
         post: null
     };
     componentDidMount(){
-        console.log(this);
         this.props.getPosts();
     };
 
@@ -69,7 +64,8 @@ class ProfileFeedPosts extends Component {
 
 render() {
     const { visible, confirmLoading, ModalText } = this.state;
-    const posts = this.props.posts;
+    let posts = this.props.posts;
+    posts = orderBy(posts, ['added'], ['desc']);
     return (
       <div>
           {posts.map((post) =>

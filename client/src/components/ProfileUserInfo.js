@@ -52,6 +52,7 @@ class ProfileUserInfo extends Component {
             bottom: '15px',
             right: '0'
         };
+
         return (
             <div className="profile-main-info-list">
                 <h3>Info
@@ -67,7 +68,7 @@ class ProfileUserInfo extends Component {
                     }
                 </Modal>
                 <ul>
-                <li><Ionicon icon="ios-body-outline" style={ionicStyle}/>
+                <li><Ionicon icon="ios-contact-outline" style={ionicStyle}/>
                     <span className="text-secondary">Full Name: </span>
                     <span className="editable">{user.firstname} {user.lastname}</span></li>
 
@@ -75,11 +76,14 @@ class ProfileUserInfo extends Component {
                     <span className="text-secondary">Occupancy: </span>
                     <span className="editable">{user.occupancy}</span></li>
                 }
-
                 <li><Ionicon icon="ios-heart-outline" style={ionicStyle}/>
                     <span className="text-secondary">Preferences: </span>
                     <span className="editable">{user.preference === 'both' ? 'Men and Women':
                         user.preference.charAt(0).toUpperCase() + user.preference.substr(1)}</span></li>
+                {(user.personality) &&<li><Ionicon icon="ios-body-outline" style={ionicStyle}/>
+                    <span className="text-secondary">Personality type: </span>
+                    <span className="editable">{user.personality}</span></li>
+                }
                 <li><Ionicon icon="ios-wine-outline" style={ionicStyle}/>
                     <span className="text-secondary">Birthday: </span>
                     <span className="editable"> {moment(user.bday, 'MM/DD/YYYY').format('ll')}</span>

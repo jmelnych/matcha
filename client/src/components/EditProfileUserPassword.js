@@ -71,7 +71,6 @@ class EditProfileUserPassword extends Component {
             password: value
         };
         this.props.validatePassword(passwordObj).then((res) => {
-            console.log(res.data);
             if (res.data === 'ok') {
                 this.setState({
                     successPassword: true
