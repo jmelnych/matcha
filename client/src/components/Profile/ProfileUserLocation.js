@@ -23,7 +23,7 @@ class ProfileUserLocation extends Component {
         const latlng = new google.maps.LatLng(lat, lng);
         geocoder.geocode({'latLng': latlng}, function(results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
-                //console.log('results', results);
+                console.log('results', results);
                 if (results[1] && results[1].address_components) {
 
                     const addressComponents = results[1].address_components;

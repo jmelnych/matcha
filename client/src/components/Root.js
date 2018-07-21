@@ -14,7 +14,7 @@ import Activation from './Activation'
 import SetPassword from './Additional/SetPassword'
 import Match from './Match'
 import NotFound from './Additional/NotFound'
-import Messenger from './Messenger'
+import Messenger from './Messenger/Messenger'
 
 class Root extends Component {
     componentDidMount() {

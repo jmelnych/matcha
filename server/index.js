@@ -67,4 +67,9 @@ const server = app.listen(config.port, () => console.log(`Running on localhost $
 const io = socket(server);
 io.on('connection', function (socket) {
     console.log('made socket connection', socket.id);
+    socket.on('chat', function (data) {
+        //TODO: send msgs to all. Change it to only 1 person
+        io.sockets.emit('chat', data);
+        
+    });
 });
