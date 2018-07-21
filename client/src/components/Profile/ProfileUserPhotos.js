@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Upload, Icon, Modal, Popover } from 'antd'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {getPhotos, removePhoto} from '../actions/photosAction'
+import {getPhotos, removePhoto} from '../../actions/photosAction'
 
 class ProfileUserPhotos extends Component {
     state = {
@@ -23,7 +23,7 @@ class ProfileUserPhotos extends Component {
         // console.log('photos', photos.length);
         if (photos.length > this.state.photos.length) {
             photos.map((photo, index) => {
-                let src = require(`../img/photos/${photo}`);
+                let src = require(`../../img/photos/${photo}`);
                 let photoObj = {
                     uid: index,
                     status: 'done',

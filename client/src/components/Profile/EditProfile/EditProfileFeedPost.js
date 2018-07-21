@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import isEmpty from 'lodash/isEmpty'
 import {Form, Input, Button} from 'antd'
-import {updatePost} from '../actions/postActions'
+import {updatePost} from '../../../actions/postActions'
 import {connect} from 'react-redux'
 
 class EditProfileFeedPost extends Component {

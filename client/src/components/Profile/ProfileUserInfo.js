@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Ionicon from 'react-ionicons'
 import {Modal} from 'antd'
-import EditProfileUserTabs from './EditProfileUserTabs'
+import EditProfileUserTabs from './EditProfile/EditProfileUserTabs'
 import ProfileUserLocation from './ProfileUserLocation'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'

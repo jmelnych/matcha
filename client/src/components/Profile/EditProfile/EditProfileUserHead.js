@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {updateUser} from '../actions/userActions'
+import {updateUser} from '../../../actions/userActions'
 import {connect} from 'react-redux'
 import {Form, Input, Button, Radio} from 'antd'
 import isEmpty from 'lodash/isEmpty'

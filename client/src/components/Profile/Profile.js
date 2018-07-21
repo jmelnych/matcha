@@ -5,7 +5,7 @@ import ProfileUserPhotos from './ProfileUserPhotos'
 import ProfileWritePost from './ProfileWritePost'
 
 import {connect} from 'react-redux'
-import {getUser} from '../actions/userActions'
+import {getUser} from '../../actions/userActions'
 import PropTypes from 'prop-types'
 import ProfileUserInterests from './ProfileUserInterests'
 import ProfileFeedPosts from './ProfileFeedPosts'

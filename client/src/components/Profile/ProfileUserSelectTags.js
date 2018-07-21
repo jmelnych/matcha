@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Select } from 'antd'
-import {getTags} from '../actions/tagsActions'
-import {saveUserTag, getUserTags, deleteUserTag} from '../actions/userActions'
+import {getTags} from '../../actions/tagsActions'
+import {saveUserTag, getUserTags, deleteUserTag} from '../../actions/userActions'
 import {connect} from "react-redux";
 import PropTypes from 'prop-types'
 

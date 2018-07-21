@@ -2,23 +2,25 @@ import React, { Component } from 'react'
 import '../../../node_modules/antd/dist/antd.css'
 import  '../css/styles'
 import {Layout} from 'antd'
-import Profile from './Profile'
+import Profile from './Profile/Profile'
 import Home from './Home'
 import {getUser} from '../actions/userActions'
 import {connect} from 'react-redux'
 import HeaderNav from './HeaderNav'
 import {Route, Switch} from 'react-router-dom'
-import Search from './Search'
+import Search from './Search/Search'
 import PropTypes from 'prop-types'
 import Activation from './Activation'
-import SetPassword from './SetPassword'
+import SetPassword from './Additional/SetPassword'
 import Match from './Match'
-import NotFound from './NotFound'
+import NotFound from './Additional/NotFound'
+import Messenger from './Messenger'
 
 class Root extends Component {
     componentDidMount() {
         const _curl = (window.location.href).split('/');
-        if (_curl[3] === '' || _curl[3] === 'search' || _curl[3] === 'match') {
+        if (_curl[3] === '' || _curl[3] === 'search' || _curl[3] === 'match'
+            || _curl[3] === 'messenger') {
             //console.log('checking auth');
             this.props.isAuth();
         } //TODO: fix rendering profile when relinked from 404 page
@@ -32,6 +34,7 @@ class Root extends Component {
                     <Route exact path='/' component={!this.props.auth ? Home : Profile}/>
                     <Route exact path='/search' component={Search}/> //TODO: handle /search/
                     <Route exact path='/match' component={Match}/>
+                    <Route exact path='/messenger' component={Messenger}/>
                     <Route exact path='/activate/:token' component={Activation} />
                     <Route exact path='/password/:token' component={SetPassword} />
                     <Route component={NotFound}/>

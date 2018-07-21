@@ -3,8 +3,8 @@ import Ionicon from 'react-ionicons'
 import {Popover} from 'antd'
 import PropTypes from 'prop-types'
 import {Modal} from 'antd'
-import EditProfileUserHead from './EditProfileUserHead'
-import EditProfileUserAvatar from './EditProfileUserAvatar'
+import EditProfileUserHead from './EditProfile/EditProfileUserHead'
+import EditProfileUserAvatar from './EditProfile/EditProfileUserAvatar'
 import {connect} from 'react-redux'
 
 class ProfileHead extends Component {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {Form, Input, Button} from 'antd'
 import {connect} from 'react-redux'
-import {updateUser} from '../actions/userActions'
+import {updateUser} from '../../../actions/userActions'
 import PropTypes from 'prop-types'
 import isEmpty from 'lodash/isEmpty'
 

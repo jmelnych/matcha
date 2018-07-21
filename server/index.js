@@ -13,6 +13,7 @@ import posts from './controllers/PostController';
 const session = require('cookie-session');
 const bodyParser = require('body-parser');
 const config     = require('./config');
+const socket = require('socket.io');
 
 let app        = express();
 const compiler = webpack(webpackConfig);
@@ -60,4 +61,10 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, './index.html'));
 });
 
-app.listen(config.port, () => console.log(`Running on localhost ${config.port}`));
+const server = app.listen(config.port, () => console.log(`Running on localhost ${config.port}`));
+
+/* socket setup */
+const io = socket(server);
+io.on('connection', function (socket) {
+    console.log('made socket connection', socket.id);
+});

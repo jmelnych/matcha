@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Radio, Slider, Switch } from 'antd'
 import {connect} from 'react-redux'
-import {getUsers, getUsersFiltered} from '../actions/searchActions'
-import FilterSelectTags from './filterSelectTags'
+import {getUsers, getUsersFiltered} from '../../actions/searchActions'
+import FilterSelectTags from './FilterSelectTags'
 
 class Filter extends Component {
     state = {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Form, Input, Button} from 'antd'
-import {validatePassword, updatePasswordFromProfile} from '../actions/userActions'
+import {validatePassword, updatePasswordFromProfile} from '../../../actions/userActions'
 import {connect} from 'react-redux'
 
 

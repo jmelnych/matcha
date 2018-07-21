@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Form, Input, Icon, Button, message } from 'antd'
-import {addTags} from '../actions/tagsActions'
+import {addTags} from '../../actions/tagsActions'
 import {connect} from 'react-redux'
 
 

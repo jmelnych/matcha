@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Input, Button, message, Popover } from 'antd'
-import {addPost} from '../actions/postActions'
+import {addPost} from '../../actions/postActions'
 import {connect} from 'react-redux'
 
 const { TextArea } = Input;

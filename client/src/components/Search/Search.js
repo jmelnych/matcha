@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {getUsers} from '../actions/searchActions'
+import {getUsers} from '../../actions/searchActions'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import Filter from './Filter'
@@ -24,7 +24,7 @@ render() {
               <div className="container-results">
               { users.map((user) =>
               <figure key={user.id} className="user-snippet">
-                  <p>{src = require(`../img/avatars/${user.avatar}`)}</p>
+                  <p>{src = require(`../../img/avatars/${user.avatar}`)}</p>
                   <img src={src}
                        alt="profile-sample" className="background"/>
                   <img src={src}

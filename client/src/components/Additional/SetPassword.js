@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {Form, Input, Button} from 'antd'
-import {addFlashMessage} from '../actions/flashMessages'
-import {updatePassword} from '../actions/userActions'
+import {addFlashMessage} from '../../actions/flashMessages'
+import {updatePassword} from '../../actions/userActions'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 

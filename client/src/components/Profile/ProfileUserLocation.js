@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Ionicon from 'react-ionicons'
-import {saveLocation} from '../actions/userActions'
+import {saveLocation} from '../../actions/userActions'
 import {connect} from 'react-redux'
 
 class ProfileUserLocation extends Component {

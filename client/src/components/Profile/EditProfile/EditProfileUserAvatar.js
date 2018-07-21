@@ -49,7 +49,7 @@ render() {
     const imageUrl = this.state.imageUrl;
     const {user} = this.props;
     const av_name = user.avatar || 'default.png';
-    const avatar = require(`../img/avatars/${av_name}`);
+    const avatar = require(`../../../img/avatars/${av_name}`);
     const props = {
         name: 'avatar',
         action: 'api/image/save-avatar',

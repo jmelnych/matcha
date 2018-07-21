@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {getPosts, deletePost} from '../actions/postActions'
+import {getPosts, deletePost} from '../../actions/postActions'
 import Ionicon from 'react-ionicons'
 import {Modal} from 'antd'
-import EditProfileFeedPost from './EditProfileFeedPost'
+import EditProfileFeedPost from './EditProfile/EditProfileFeedPost'
 import orderBy from 'lodash/orderBy'
 
 class ProfileFeedPosts extends Component {

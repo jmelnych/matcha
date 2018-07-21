@@ -33,7 +33,7 @@ export const validatePassword = (password) => dispatch => {
 };
 
 export const updatePasswordFromProfile = (password) => dispatch => {
-    return axios.post('api/users/password', password)
+    return axios.post('api/users/update-password', password)
 };
 
 export const saveLocation = (location) => dispatch => {
