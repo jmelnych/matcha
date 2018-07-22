@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
         data     = (({email, username, firstname, lastname, password, gender, bday}) =>
             ({email, username, firstname, lastname, password, gender, bday}))(req.body);
 
-    data.bday     = moment(data.bday).format();
+    data.bday     = moment(new Date(data.bday)).format();
     data.password = hash.generate(data.password);
     data.token    = token;
     data.location = getLocation(await location.get(req.connection.remoteAddress));
