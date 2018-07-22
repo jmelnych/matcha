@@ -62,7 +62,7 @@ module.exports = (req, res) => {
             if (response === undefined) {
                 res.send('No users');
             } else {
-                response.map(user => {
+                response = response.filter(user => {
                     user.location = JSON.parse(user.location);
                     user.distance = location.calculateDistance(
                         req.session.location.lat,
@@ -70,6 +70,7 @@ module.exports = (req, res) => {
                         user.location.lat,
                         user.location.lng
                     );
+                    return !(body.radius && user.distance > body.radius);
                 });
                 if (query.order === '') {
                     response.sort((cur, next) => {
