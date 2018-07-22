@@ -54,6 +54,15 @@ class Filter extends Component {
         }), () => this.filterUsers());
     };
 
+    onChangeLocation = (value) => {
+        this.setState(prevState => ({
+            filters: {
+                ...prevState.filters,
+                radius: value
+            },
+        }), () => this.filterUsers());
+    };
+
     onChangeTags = (value) => {
         this.setState(prevState => ({
             filters: {
@@ -109,7 +118,7 @@ render() {
                 <Slider defaultValue={100}
                         tipFormatter={this.formatterLocation}
                         min={0} max={800} disabled={this.state.locationSliderDisabled}
-                        onAfterChange={this.onChangeAge}/>
+                        onAfterChange={this.onChangeLocation}/>
                 Disabled: <Switch size="small" checked={this.state.locationSliderDisabled}
                                   onChange={this.handleDisabledChange} />
             </div>
