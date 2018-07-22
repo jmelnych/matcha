@@ -23,7 +23,7 @@ class ProfileUserLocation extends Component {
         const latlng = new google.maps.LatLng(lat, lng);
         geocoder.geocode({'latLng': latlng}, function(results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
-                console.log('results', results);
+                //console.log('results', results);
                 if (results[1] && results[1].address_components) {
 
                     const addressComponents = results[1].address_components;
@@ -67,7 +67,11 @@ class ProfileUserLocation extends Component {
             marginRight: '10px',
         };
         const {city, country} = this.state;
-        const dbLocation = this.props.userLocation;
+        const dbLocationObj = this.props.userLocation;
+        let dbLocation;
+        if (dbLocationObj) {
+            dbLocation = dbLocationObj.city + ', ' + dbLocationObj.country;
+        }
         let userLocation = (city && country) ? `${city}, ${country}` : dbLocation;//don't wrap dbLocation into `` since it renders as `null` and sets to true
     return (
     <div>

@@ -5,6 +5,7 @@ import users from './searchReducer'
 import tags from './tagsReducer'
 import photos from './photosReducer'
 import posts from './postsReducer'
+import chat from './chatReducer'
 
 export default combineReducers({
     users,
@@ -12,5 +13,6 @@ export default combineReducers({
     tags,
     flashMessages,
     photos,
-    posts
+    posts,
+    chat
 });

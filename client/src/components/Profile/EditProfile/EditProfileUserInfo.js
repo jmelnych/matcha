@@ -35,7 +35,7 @@ class EditProfileUserInfo extends Component {
                     newUserInfo.bio = values.bio;
                 }
                 if(!isEmpty(newUserInfo)) {
-                    updateUser(user.id, newUserInfo);
+                    updateUser(newUserInfo);
                 } else {
                     console.log('nothing has been changes');
                 }
