@@ -1,10 +1,10 @@
-const hash = require('password-hash');
+const hash   = require('password-hash');
 
 module.exports = (req, res) => {
     let promise,
         email,
         password = null,
-        db     = req.app.get('db');
+        db       = req.app.get('db');
 
     if (req.session.email) {
         email = req.session.email;
@@ -23,12 +23,14 @@ module.exports = (req, res) => {
             res.send('No activation');
         } else {
             response.location = JSON.parse(response.location);
-            req.session.email = email;
-            req.session.id = response.id;
-            req.session.location = response.location;
             delete response.activation;
             delete response.password;
             delete response.token;
+
+            req.session.email    = email;
+            req.session.id       = response.id;
+            req.session.location = response.location;
+
             res.send(response);
         }
     }).catch((e) => {

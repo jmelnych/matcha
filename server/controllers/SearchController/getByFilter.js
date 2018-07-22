@@ -1,6 +1,7 @@
+const moment = require('moment');
+
 const prepareAge = (age) => {
     if (age && Array.isArray(age) && age.length === 2) {
-        let moment = require('moment');
         return [
             moment().subtract(age[1], 'years').format(),
             moment().subtract(age[0], 'years').format()
@@ -9,19 +10,27 @@ const prepareAge = (age) => {
     return null;
 };
 
-module.exports = (req, res) => {
-    let body = req.body;
-    if (!body['tag']) {
-        body['tag'] = body['tags']
+const prepareBody = (body) => {
+    if (!body.tag) {
+        body.tag = body.tags
     }
-    if (body['gender'] && body['gender'] !== 'male' && body['gender'] !== 'female') {
-        delete body['gender'];
+    if (body.gender && body.gender !== 'male' && body.gender !== 'female') {
+        delete body.gender;
     }
+    body.bday = prepareAge(body.age);
+    return body;
+};
 
-    body['bday'] = prepareAge(body['age']);
+module.exports = (req, res) => {
+    if (req.session.id === undefined) {
+        res.send('Need login');
+        return;
+    }
 
     let db           = req.app.get('db'),
         prepareQuery = req.app.get('prepareQuery'),
+        location     = req.app.get('location'),
+        body         = prepareBody(req.body),
         error        = (e) => {
             console.log(e);
             res.send(e);
@@ -40,28 +49,41 @@ module.exports = (req, res) => {
                 in: {tag: 'array'}
             }
         });
-        if (query.result.length === 0) {
-            error(`No Data\n`);
-            process.exit(1);
-        }
-        query['result'].forEach((value) => {
-            if (value['key'] !== '') {
-                filters += ' AND ' + value['key'];
-                data = data.concat(value['value']);
+        query.result.forEach((value) => {
+            if (value.key !== '') {
+                filters += ' AND ' + value.key;
+                data = data.concat(value.value);
             }
         });
         let columns = ['id', 'username', 'firstname', 'lastname', 'gender', 'preference',
                 'occupancy', 'bday', 'rating', 'bio', 'location', 'avatar', 'added'],
-            promise = db.getAllByFilter(columns, filters, data, query['having'], query['order']);
+            promise = db.getAllByFilter(columns, filters, data, query.having, query.order);
         promise.then((response) => {
             if (response === undefined) {
                 res.send('No users');
             } else {
-                if (query['order'] === '') {
+                response.map(user => {
+                    user.location = JSON.parse(user.location);
+                    user.distance = location.calculateDistance(
+                        req.session.location.lat,
+                        req.session.location.lng,
+                        user.location.lat,
+                        user.location.lng
+                    );
+                });
+                if (query.order === '') {
+                    response.sort((cur, next) => {
+                        if (cur.distance !== next.distance) {
+                            if (cur.distance > next.distance) {
+                                return body.order.radius === 'asc' ? 1 : -1;
+                            } else {
+                                return body.order.radius === 'asc' ? -1 : 1;
+                            }
+                        } else {
+                            return 0;
+                        }
+                    });
                 }
-                console.log(response);
-                console.log(query);
-                console.log(body);
                 res.send(response);
             }
         }).catch(error);
