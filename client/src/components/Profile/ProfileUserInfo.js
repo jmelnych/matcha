@@ -86,11 +86,11 @@ class ProfileUserInfo extends Component {
                 }
                 <li><Ionicon icon="ios-wine-outline" style={ionicStyle}/>
                     <span className="text-secondary">Birthday: </span>
-                    <span className="editable"> {moment(user.bday, 'MM/DD/YYYY').format('ll')}</span>
+                    <span className="editable"> {moment(new Date(user.bday), 'MM/DD/YYYY').format('ll')}</span>
                 </li>
                 <li><Ionicon icon="ios-time-outline" style={ionicStyle}/>
                     <span className="text-secondary">Joined: </span>
-                    <span className="non-editable"> {moment(user.added).format('ll')}</span>
+                    <span className="non-editable"> {moment (new Date(user.added)).format('ll')}</span>
                 </li>
                 {(user.bio) &&<li><Ionicon icon="ios-book-outline" style={ionicStyle}/>
                     <span className="text-secondary">Bio: </span>

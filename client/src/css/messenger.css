@@ -1,6 +1,6 @@
 .people-list-container{
     padding: 20px 20px;
-    min-height: calc(100vh - 80px - 64px);
+    min-height: calc(100vh - 80px - 64px - 60px);
     background: #001529;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
@@ -12,12 +12,12 @@
 
 .chat-container{
     width: 73%;
-    min-width: 350px;
+    min-width: 550px;
     box-shadow: 0 0 20px rgba(0,0,0,.15);
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     background: white;
-    min-height: calc(100vh - 80px - 64px);
+    min-height: calc(100vh - 80px - 64px - 60px);
     margin-bottom: 30px;
 
 }
@@ -78,7 +78,7 @@ ul.people-list,  ul.chat-history-list {
     padding: 30px 30px 20px;
     border-bottom: 2px solid white;
     overflow-y: scroll;
-    min-height: calc(100vh - 420px);
+    height: calc(100vh - 420px);
 }
 
 .message-data {

@@ -14,3 +14,4 @@ export const DELETE_USER_TAG = 'DELETE_USER_TAG';
 export const GET_POSTS = 'GET_POSTS';
 export const UPDATE_POST = 'UPDATE_POST';
 export const DELETE_POST = 'DELETE_POST';
+export const ADD_CHAT_MESSAGE = 'ADD_CHAT_MESSAGE';
