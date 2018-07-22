@@ -54,5 +54,5 @@ module.exports = (data, filterArray) => {
             });
         });
     });
-    return {result: result, having: having, order: queryBuilder.order(data['order'])};
+    return {result: result, having: having, order: queryBuilder.order(data.order)};
 };
