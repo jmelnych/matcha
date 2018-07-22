@@ -51,7 +51,7 @@ class ProfileUserLocation extends Component {
                         city,
                         country
                     };
-                    this.props.saveLocation(locationObj);
+                    this.props.saveLocation({location: locationObj});
                 } else {
                     console.log("No results found");
                 }

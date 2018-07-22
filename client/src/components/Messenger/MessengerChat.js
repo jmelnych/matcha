@@ -51,8 +51,8 @@ render() {
                     {this.props.chat.map(message =>
                     <li key={message.id} className="history-list-message">
                         <div className="message-data align-right">
-                            <span className="message-data-time">{message.time}</span>
-                            <span className="message-data-name">{message.username}</span>
+                            <span className="message-data-name">{message.username} </span>
+                            <span className="message-data-time"> {message.time}</span>
                         </div>
                         <div className="message other-message float-right">{message.message}</div>
                     </li>
