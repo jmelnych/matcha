@@ -3,7 +3,7 @@ const hash = require('password-hash');
 module.exports = (req, res) => {
     let promise,
         email,
-        password = 0,
+        password = null,
         db     = req.app.get('db');
 
     if (req.session.email) {
@@ -22,8 +22,10 @@ module.exports = (req, res) => {
         } else if (!response.activation) {
             res.send('No activation');
         } else {
+            response.location = JSON.parse(response.location);
             req.session.email = email;
             req.session.id = response.id;
+            req.session.location = response.location;
             delete response.activation;
             delete response.password;
             delete response.token;

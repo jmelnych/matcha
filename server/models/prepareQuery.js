@@ -26,6 +26,11 @@ module.exports = (data, filterArray) => {
                 key     = key.length === 1 ? key[0] : null;
                 if (key && (by[key] === 'asc' || by[key] === 'desc') &&
                     arr.indexOf(key) > -1) {
+                    if (key === 'age') {
+                        key = 'bday';
+                    } else if (key === 'radius') {
+                        return '';
+                    }
                     return `ORDER BY users.${key} ${by[key].toUpperCase()}`
                 }
             }

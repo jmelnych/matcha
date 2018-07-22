@@ -17,8 +17,6 @@ router.post('/resend', require('./resend'));
 
 router.post('/update', require('./update'));
 
-router.post('/location', require('./location'));
-
 router.post('/logout', require('./logout'));
 
 export default router;

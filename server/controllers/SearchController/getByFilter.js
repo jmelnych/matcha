@@ -14,7 +14,7 @@ module.exports = (req, res) => {
     if (!body['tag']) {
         body['tag'] = body['tags']
     }
-    if (body['gender'] && (body['gender'] !== 'male' || body['gender'] !== 'female')) {
+    if (body['gender'] && body['gender'] !== 'male' && body['gender'] !== 'female') {
         delete body['gender'];
     }
 
@@ -32,9 +32,9 @@ module.exports = (req, res) => {
     try {
         query = prepareQuery(body, {
             users: {
-                or: {gender: 'array', preference: 'array'},
+                or: {preference: 'array'},
                 between: {bday: 'array', rating: 'array'},
-                and: {location: 'string'}
+                and: {location: 'string', gender: 'string'}
             },
             tags: {
                 in: {tag: 'array'}
@@ -57,6 +57,11 @@ module.exports = (req, res) => {
             if (response === undefined) {
                 res.send('No users');
             } else {
+                if (query['order'] === '') {
+                }
+                console.log(response);
+                console.log(query);
+                console.log(body);
                 res.send(response);
             }
         }).catch(error);

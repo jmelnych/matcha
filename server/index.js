@@ -42,6 +42,7 @@ const Mail = require('./models/Mail');
 
 app.set('db', new DB());
 app.set('mail', new Mail());
+app.set('location', require('./models/location'));
 
 /* Set multer saveImage */
 app.set('save', require('./models/saveImage'));
