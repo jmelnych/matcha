@@ -1,7 +1,7 @@
 .container-nav{
     width: 390px;
     padding: 20px 20px;
-    min-height: 200px;
+    height: 740px;
     background: white;
     box-shadow: 0 0 20px rgba(0,0,0,.15);
     border-radius: 5px;
@@ -9,6 +9,7 @@
 }
 
 .top{
+    height: calc(100vh - 80px - 94px);
     margin-top: 30px;
 }
 
@@ -16,6 +17,7 @@
     width: 1100px;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .container-nav h3 {
@@ -118,4 +120,8 @@
 .search-sort-title{
     font-size: 15px;
     padding-right: 5px;
+}
+
+.pagination{
+    margin: 15px 0 30px;
 }

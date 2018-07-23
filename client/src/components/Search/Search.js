@@ -2,16 +2,34 @@ import React, { Component } from 'react'
 import {getUsersFiltered} from '../../actions/searchActions'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import Filter from './Filter'
+import SearchFilter from './SearchFilter'
+import SearchPagination from './SearchPagination'
+
 
 class Search extends Component {
+    state = {
+        page: 1,
+        rangeL: 0,
+        rangeU: 9
+    }
+    handleChangePage = (page) => {
+        let step = 9;
+        let rangeL = (page - 1) * step;
+        let rangeU = rangeL + step;
+        this.setState({
+            page,
+            rangeL,
+            rangeU
+        });
+
+    };
 render() {
-    let users = this.props.users;
+    let {users} = this.props;
+    users = users.slice(this.state.rangeL, this.state.rangeU);
     let src;
-    //TODO: how current user is filtered out?
     return (
       <div className="container-flex top">
-          <Filter/>
+          <SearchFilter/>
           <div className="container-right">
               <div className="container-results">
               { users.map((user) =>
@@ -34,6 +52,7 @@ render() {
               <h3> No users with such parameters found.</h3>
               }
               </div>
+              <SearchPagination handleChangePage={this.handleChangePage}/>
           </div>
       </div>
     );

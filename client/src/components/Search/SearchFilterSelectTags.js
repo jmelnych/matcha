@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 
 const Option = Select.Option;
 
-class FilterSelectTags extends Component {
+class SearchFilterSelectTags extends Component {
     componentDidMount(){
         this.props.getTags();
     };
@@ -53,8 +53,8 @@ function mapDispatchToProps(dispatch) {
 
 };
 
-FilterSelectTags.propTypes = {
+SearchFilterSelectTags.propTypes = {
     getTags: PropTypes.func.isRequired
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FilterSelectTags);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchFilterSelectTags);

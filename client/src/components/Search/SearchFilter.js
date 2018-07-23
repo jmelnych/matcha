@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import { Radio, Slider, Switch, InputNumber, Col, Row } from 'antd'
 import {connect} from 'react-redux'
 import { getUsersFiltered} from '../../actions/searchActions'
-import FilterSelectTags from './FilterSelectTags'
+import SearchFilterSelectTags from './SearchFilterSelectTags'
 import Sort from './Sort'
 
-class Filter extends Component {
+class SearchFilter extends Component {
     state = {
         locationSliderDisabled: true,
         filters : {
@@ -15,7 +15,7 @@ class Filter extends Component {
             tags: [],
             age: [17, 80],
             radius: 100,
-            order: {'rating': 'asc'}
+            order: {'rating': 'desc'}
         },
         inputVisible: false
     };
@@ -83,7 +83,7 @@ class Filter extends Component {
         this.setState(prevState => ({
             filters: {
                 ...prevState.filters,
-                order: {[sortBy]: 'asc'}
+                order: {[sortBy]: 'desc'}
             },
         }), () => this.filterUsers());
     };
@@ -121,7 +121,7 @@ render() {
             </div>
             <div className="filter-block">
                 <span className="filter-title">Interests</span>
-                <FilterSelectTags handleTags={this.onChangeTags}/>
+                <SearchFilterSelectTags handleTags={this.onChangeTags}/>
             </div>
             <div className="filter-block">
                 <span className="filter-title">Age</span>
@@ -166,8 +166,8 @@ function mapDispatchToProps(dispatch) {
 
 };
 
-Filter.propTypes = {
+SearchFilter.propTypes = {
     getUsersFiltered: PropTypes.func.isRequired
 };
 
-export default connect(null, mapDispatchToProps)(Filter);
+export default connect(null, mapDispatchToProps)(SearchFilter);
