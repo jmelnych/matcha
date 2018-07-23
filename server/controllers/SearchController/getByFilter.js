@@ -64,6 +64,7 @@ module.exports = (req, res) => {
             } else {
                 response = response.filter(user => {
                     user.location = JSON.parse(user.location);
+                    user.age = moment().diff(user.bday, 'years');
                     user.distance = location.calculateDistance(
                         req.session.location.lat,
                         req.session.location.lng,
