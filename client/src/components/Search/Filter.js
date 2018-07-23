@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Radio, Slider, Switch } from 'antd'
+import { Radio, Slider, Switch, InputNumber, Col, Row } from 'antd'
 import {connect} from 'react-redux'
-import {getUsers, getUsersFiltered} from '../../actions/searchActions'
+import { getUsersFiltered} from '../../actions/searchActions'
 import FilterSelectTags from './FilterSelectTags'
+import Sort from './Sort'
 
 class Filter extends Component {
     state = {
@@ -13,10 +14,15 @@ class Filter extends Component {
             rating: [0, 42],
             tags: [],
             age: [17, 80],
-            radius: null
+            radius: 100,
+            order: {'rating': 'asc'}
         },
-        inputVisible: false,
-        inputValue: '',
+        inputVisible: false
+    };
+
+    componentDidMount() {
+        let filteredValues = this.state.filters;
+        this.props.getUsersFiltered(filteredValues);
     };
 
     filterUsers = () => {
@@ -72,6 +78,16 @@ class Filter extends Component {
         }), () => this.filterUsers());
     };
 
+    onChangeSort = (e) => {
+        let sortBy = e.target.value;
+        this.setState(prevState => ({
+            filters: {
+                ...prevState.filters,
+                order: {[sortBy]: 'asc'}
+            },
+        }), () => this.filterUsers());
+    };
+
     handleDisabledChange = (value) => {
         this.setState({ locationSliderDisabled: value });
     };
@@ -83,9 +99,10 @@ class Filter extends Component {
 
 render() {
     const RadioGroup = Radio.Group;
-    console.log(this.state.filters.gender);
     return (
         <div className="container-nav">
+            <h3>Sort results</h3>
+            <Sort handleSort={this.onChangeSort}/>
             <h3>Filter results</h3>
             <div className="filter-block">
                 <span className="filter-title">Gender</span>
@@ -115,12 +132,27 @@ render() {
             </div>
             <div className="filter-block">
                 <span className="filter-title">Location, km</span>
-                <Slider defaultValue={100}
-                        tipFormatter={this.formatterLocation}
-                        min={0} max={800} disabled={this.state.locationSliderDisabled}
-                        onAfterChange={this.onChangeLocation}/>
-                Disabled: <Switch size="small" checked={this.state.locationSliderDisabled}
-                                  onChange={this.handleDisabledChange} />
+                <Row>
+                    <Col span={17}>
+                        <Slider value={this.state.filters.radius}
+                                tipFormatter={this.formatterLocation}
+                                min={0} max={800} disabled={this.state.locationSliderDisabled}
+                                onChange={this.onChangeLocation}/>
+                        Disabled: <Switch size="small" checked={this.state.locationSliderDisabled}
+                                          onChange={this.handleDisabledChange} />
+                    </Col>
+                    <Col span={2}>
+                        <InputNumber
+                            min={0}
+                            max={800}
+                            style={{ marginLeft: 16 }}
+                            value={this.state.filters.radius}
+                            disabled={this.state.locationSliderDisabled}
+                            onChange={this.onChangeLocation}
+                        />
+                    </Col>
+                </Row>
+
             </div>
         </div>
     );
@@ -129,14 +161,12 @@ render() {
 
 function mapDispatchToProps(dispatch) {
     return {
-        getUsers: () => dispatch(getUsers()),
         getUsersFiltered: (filters) => dispatch(getUsersFiltered(filters))
     }
 
 };
 
 Filter.propTypes = {
-    getUsers: PropTypes.func.isRequired,
     getUsersFiltered: PropTypes.func.isRequired
 };
 

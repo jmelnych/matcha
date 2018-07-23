@@ -38,6 +38,12 @@ figcaption h2, figcaption span, figcaption p{
   color: white;
   overflow: hidden;
   max-height: 60px;
+  display: block;
+}
+
+span.distance{
+  margin: 5px 0;
+  color: #5caef9;
 }
 
 

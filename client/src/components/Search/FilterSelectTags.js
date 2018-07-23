@@ -30,7 +30,7 @@ class FilterSelectTags extends Component {
             <Select
                 mode="multiple"
                 style={{ width: '100%' }}
-                showAction={["onChange"]}
+                // showAction={["onChange"]}
                 placeholder="Filter by interests"
                 onChange={this.handleChange}
             >

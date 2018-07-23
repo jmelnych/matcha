@@ -1,26 +1,18 @@
 import React, { Component } from 'react'
-import {getUsers} from '../../actions/searchActions'
+import {getUsersFiltered} from '../../actions/searchActions'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import Filter from './Filter'
-import Sort from './Sort'
 
 class Search extends Component {
-
-    componentDidMount() {
-        this.props.getUsers();
-    };
-
 render() {
     let users = this.props.users;
     let src;
-    //TODO: filter current user id, maybe in reducer?
-
+    //TODO: how current user is filtered out?
     return (
       <div className="container-flex top">
           <Filter/>
           <div className="container-right">
-              <Sort/>
               <div className="container-results">
               { users.map((user) =>
               <figure key={user.id} className="user-snippet">
@@ -30,8 +22,10 @@ render() {
                   <img src={src}
                        alt="profile-sample" className="profile"/>
                   <figcaption>
-                      <h3>{user.username}
-                              <span>{user.occupancy}</span></h3>
+                      <h3>{user.username}</h3>
+                      <span>rating: {user.rating}</span>
+                      <span>{user.age} years old</span>
+                      <span className="distance">&asymp; {(user.distance).toFixed(2)} km away</span>
                       <div className="icons">
                       </div>
                   </figcaption>
@@ -54,13 +48,13 @@ function mapStateToProps({users}) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        getUsers: () => dispatch(getUsers())
+        getUsersFiltered: () => dispatch(getUsersFiltered())
     }
 
 };
 
 Search.propTypes = {
-    getUsers: PropTypes.func.isRequired
+    getUsersFiltered: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

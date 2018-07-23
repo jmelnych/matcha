@@ -23,6 +23,10 @@
     font-size: 19px;
 }
 
+.sort-container{
+    margin: 20px 0 30px 0;
+}
+
 .filter-block{
     margin-bottom: 25px;
 }
@@ -112,6 +116,6 @@
 }
 
 .search-sort-title{
-    font-size: 17px;
+    font-size: 15px;
     padding-right: 5px;
 }
