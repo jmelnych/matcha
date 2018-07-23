@@ -22,16 +22,19 @@ module.exports = (data, filterArray) => {
         },
         order: (by) => {
             if (validator.object(by)) {
-                let key = Object.keys(by), arr = ['rating', 'age', 'radius'];
-                key     = key.length === 1 ? key[0] : null;
-                if (key && (by[key] === 'asc' || by[key] === 'desc') &&
+                let key = Object.keys(by),
+                    arr = ['rating', 'age', 'radius'],
+                    direction;
+                key       = key.length === 1 ? key[0] : null;
+                direction = key ? by[key].toUpperCase() : null;
+                if (key && (direction === 'ASC' || direction === 'DESC') &&
                     arr.indexOf(key) > -1) {
                     if (key === 'age') {
                         key = 'bday';
-                    } else if (key === 'radius') {
+                    } if (key === 'radius') {
                         return '';
                     }
-                    return `ORDER BY users.${key} ${by[key].toUpperCase()}`
+                    return `ORDER BY users.${key} ${direction}`
                 }
             }
             return 'ORDER BY users.rating ASC';
