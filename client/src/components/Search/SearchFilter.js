@@ -28,7 +28,6 @@ class SearchFilter extends Component {
     filterUsers = () => {
         console.log(this.state);
         let filteredValues = this.state.filters;
-        //console.log(filteredValues);
         this.props.getUsersFiltered(filteredValues);
     };
 

@@ -11,11 +11,18 @@ class ProfileUserLocation extends Component {
         country: ''
     };
     componentDidMount() {
+        this.mounted = true;
         navigator.geolocation.getCurrentPosition((position) => {
-            this.setState({x: position.coords.latitude,
-                            y: position.coords.longitude});
-            this.codeLatLng(position.coords.latitude, position.coords.longitude);
+            if(this.mounted) {
+                this.setState({x: position.coords.latitude,
+                                y: position.coords.longitude});
+                this.codeLatLng(position.coords.latitude, position.coords.longitude);
+            }
         });
+    };
+
+    componentWillUnmount() {
+        this.mounted = false;
     };
 
     codeLatLng = (lat, lng) => {
@@ -61,6 +68,7 @@ class ProfileUserLocation extends Component {
         }.bind(this));
     };
     render() {
+        console.log(this.state);
         const ionicStyle = {
             fill: '#001529',
             marginBottom: '-5px',

@@ -1,4 +1,4 @@
-.container-nav{
+.container-nav, .container-nav-match{
     width: 390px;
     padding: 20px 20px;
     height: 740px;
@@ -6,6 +6,10 @@
     box-shadow: 0 0 20px rgba(0,0,0,.15);
     border-radius: 5px;
     margin: 30px;
+}
+
+.container-nav-match{
+    height: 180px;
 }
 
 .top{
@@ -20,7 +24,7 @@
     justify-content: center;
 }
 
-.container-nav h3 {
+.container-nav h3, .container-nav-match h3 {
     padding: 10px;
     font-size: 19px;
 }
