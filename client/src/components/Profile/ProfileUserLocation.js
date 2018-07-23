@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Ionicon from 'react-ionicons'
 import {saveLocation} from '../../actions/userActions'
 import {connect} from 'react-redux'
+import {decodeLocation} from '../../api/decodeLocation'
 
 class ProfileUserLocation extends Component {
     state = {
@@ -14,9 +15,21 @@ class ProfileUserLocation extends Component {
         this.mounted = true;
         navigator.geolocation.getCurrentPosition((position) => {
             if(this.mounted) {
-                this.setState({x: position.coords.latitude,
-                                y: position.coords.longitude});
-                this.codeLatLng(position.coords.latitude, position.coords.longitude);
+                this.setState({lat: position.coords.latitude,
+                                lng: position.coords.longitude});
+                let obj = (async () => {
+
+                let locationObj = await decodeLocation(position.coords.latitude, position.coords.longitude);
+                return locationObj;
+                })();
+                //TODO: get resolved obj from decodeLocation fnc and update user location on backend
+                // if (locationObj) {
+                //     this.setState({
+                //         city: locationObj.city,
+                //         country: locationObj.country
+                //     });
+                //     this.props.saveLocation({location: locationObj});
+                // }
             }
         });
     };
@@ -25,50 +38,8 @@ class ProfileUserLocation extends Component {
         this.mounted = false;
     };
 
-    codeLatLng = (lat, lng) => {
-        const geocoder = new google.maps.Geocoder();
-        const latlng = new google.maps.LatLng(lat, lng);
-        geocoder.geocode({'latLng': latlng}, function(results, status) {
-            if (status === google.maps.GeocoderStatus.OK) {
-                //console.log('results', results);
-                if (results[1] && results[1].address_components) {
-
-                    const addressComponents = results[1].address_components;
-                    let city = '';
-                    let country = '';
-                    addressComponents.map(compo => {
-                        if (compo.types){
-                            compo.types.map(type => {
-                                if (type === 'administrative_area_level_1'){
-                                    city = compo.long_name;
-                                }
-                                if (type === 'country') {
-                                    country = compo.long_name;
-                                }
-                            })
-                        }
-                    });
-                    this.setState({
-                        city,
-                        country
-                    });
-                    let locationObj = {
-                        lat,
-                        lng,
-                        city,
-                        country
-                    };
-                    this.props.saveLocation({location: locationObj});
-                } else {
-                    console.log("No results found");
-                }
-            } else {
-                console.log("Geocoder failed due to: " + status);
-            }
-        }.bind(this));
-    };
     render() {
-        console.log(this.state);
+        // console.log(this.state);
         const ionicStyle = {
             fill: '#001529',
             marginBottom: '-5px',

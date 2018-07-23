@@ -1,49 +1,49 @@
 import React, { Component } from 'react'
 import {Form, Input, Button} from 'antd'
 import {connect} from 'react-redux'
-import {updateUser} from '../../../actions/userActions'
+import {saveLocation} from '../../../actions/userActions'
 import PropTypes from 'prop-types'
 import isEmpty from 'lodash/isEmpty'
+import {decodeLocation} from '../../../api/decodeLocation'
 
 class EditProfileUserLocation extends Component {
     componentDidMount() {
-        this.setInitialValues();
         this.setMap();
-    };
-
-    setInitialValues = () => {
-        const {form, user} = this.props;
-        form.setFieldsValue({
-            location: user.location
-
-        });
     };
 
 
     setMap = () => {
         /* map initialization */
+        let saveFnc = this.props.saveLocation;
+        console.log('saveFnc', saveFnc);
       const map = new google.maps.Map(document.getElementsByClassName("map-canvas")[0], {
+
           center: {
-              //TODO: get coordinates form db and set them or set default
-              lat: 50.5068337,
-              lng: 30.5917266
+              lat: this.props.user.location.lat,
+              lng: this.props.user.location.lng
           },
           zoom: 15
       });
         /* interaction with marker */
       const marker = new google.maps.Marker({
-          //TODO: get coordinates form db and set them or set default
           position: {
-              lat: 50.5068337,
-              lng: 30.5917266
+              lat: this.props.user.location.lat,
+              lng: this.props.user.location.lng
           },
           map: map,
           draggable: true
       });
-      //TODO: figure out how to get lat lng after dragging
+
       // TODO: get city, country based on lat, lng
       //TODO: update user location obj on draggable
-      //console.log(marker);
+        google.maps.event.addListener(marker, 'dragend', function(){
+            console.log(this.getPosition().lat());
+            console.log(this.getPosition().lng());
+            let locationObj = decodeLocation(this.getPosition().lat(), this.getPosition().lng());
+            //TODO: get resolved obj from decodeLocation fnc and update user location on backend
+            saveFnc({location: locationObj});
+
+        });
 
         /* interaction with input field*/
         const searchBox = new google.maps.places.SearchBox(document.getElementsByClassName("map-search")[0]);
@@ -71,17 +71,18 @@ class EditProfileUserLocation extends Component {
         e.preventDefault();
         form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                //console.log('Received values of form editing: ', values);
+                console.log('Received values of form editing: ', values);
                 closeOnSubmit();
-                let newUserInfo = new Object();
-                if (values.location !== user.location) {
-                    newUserInfo.location = values.location;
-                }
-                if(!isEmpty(newUserInfo)) {
-                    updateUser(user.id, newUserInfo);
-                } else {
-                    console.log('nothing has been changes');
-                }
+                //TODO: update user position on backend
+        //         let newUserInfo = new Object();
+        //         if (values.location !== user.location) {
+        //             newUserInfo.location = values.location;
+        //         }
+        //         if(!isEmpty(newUserInfo)) {
+        //             updateUser(newUserInfo);
+        //         } else {
+        //             console.log('nothing has been changes');
+        //         }
             }
         })
     };
@@ -117,7 +118,7 @@ render() {
 };
 
     EditProfileUserLocation.propTypes = {
-        updateUser: PropTypes.func.isRequired,
+        saveLocation: PropTypes.func.isRequired,
         closeOnSubmit: PropTypes.func.isRequired,
         user: PropTypes.object.isRequired
     };
@@ -128,7 +129,7 @@ render() {
 
     function dispatchMapStateToProps(dispatch) {
         return {
-            updateUser: (id, newUserInfo) => dispatch(updateUser(id, newUserInfo))
+            saveLocation: (newUserInfo) => dispatch(saveLocation(newUserInfo))
         }
     };
 export default connect(mapStateToProps, dispatchMapStateToProps)(Form.create()(EditProfileUserLocation));

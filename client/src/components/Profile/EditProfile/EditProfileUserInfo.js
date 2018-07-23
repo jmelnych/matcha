@@ -52,7 +52,7 @@ class EditProfileUserInfo extends Component {
             occupancy: user.occupancy,
             preference: user.preference,
             personality: user.personality,
-            bday: moment(new Date(user.bday)).format(dateFormat),
+            bday: moment(new Date(user.bday)),
             bio: user.bio
         });
     };

@@ -3,6 +3,7 @@ import webpack from 'webpack'
 
 export default {
     entry: [
+        'babel-polyfill',
         'react-hot-loader/patch',
         'webpack-hot-middleware/client',
         path.join(__dirname, '/client/src/index.js'),
