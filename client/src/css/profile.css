@@ -213,6 +213,19 @@ h4{
   margin-bottom: 20px;
 }
 
+.form-items{
+   width: 100%;
+  margin-bottom: 15px;
+ }
+
+.map-input-search{
+  border-radius: 5px;
+  border: 1px solid #d6d6d6;
+  padding: 4px;
+  display: inline-block;
+  margin: -4px 20px 0;
+}
+
 .map-canvas{
   min-width: 300px;
   height: 300px;
@@ -222,12 +235,6 @@ h4{
   display: inline;
 }
 
-.form-item-inline{
-  width: 60%;
-  display: inline-block;
-  margin-right: 20px;
-  margin-top: -4px
-}
 /* Posts */
 
 .profile-feed-snippet{

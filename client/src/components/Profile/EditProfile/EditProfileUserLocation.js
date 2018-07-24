@@ -45,7 +45,7 @@ class EditProfileUserLocation extends Component {
         });
 
         /* interaction with input field*/
-        const searchBox = new google.maps.places.SearchBox(document.getElementsByClassName("map-search")[0]);
+        const searchBox = new google.maps.places.SearchBox(document.getElementsByClassName("map-input-search")[0]);
         //place change event on search box:
 
         google.maps.event.addListener(searchBox, 'places_changed', function(){
@@ -75,52 +75,33 @@ class EditProfileUserLocation extends Component {
     };
 
     onSubmit = (e) => {
-        const { form, closeOnSubmit, saveLocation } = this.props;
+        const { closeOnSubmit, saveLocation } = this.props;
         e.preventDefault();
-        form.validateFieldsAndScroll((err, values) => {
-            if (!err) {
-                console.log('Received values of form editing: ', values);
-                //TODO: update user position on backend
-                const {lat, lng} = this.state;
-                if (lat && lng) {
-                    (async function () {
-                        let locationObj = await decodeLocation(lat, lng);
-                        saveLocation({location: locationObj});
-                    })();
-                closeOnSubmit();
-                } else {
-                    message.error('Please input your location');
-                }
-            }
-        })
-    };
-render() {
-    const {getFieldDecorator} = this.props.form;
-    const formItemLayout      = {
-        labelCol: {
-            xs: {span: 24},
-            sm: {span: 8}
-        },
-        wrapperCol: {
-            xs: {span: 24},
-            sm: {span: 16}
+        const {lat, lng} = this.state;
+        if (lat && lng) {
+            (async function () {
+                let locationObj = await decodeLocation(lat, lng);
+                saveLocation({location: locationObj});
+            })();
+        closeOnSubmit();
+        } else {
+            message.error('Please input your location');
         }
     };
-    console.log(this.state.input);
+render() {
     return (
         <div>
-            <Form onSubmit={this.onSubmit}>
-                <Form.Item {...formItemLayout} className="form-item-inline" label='Location'> {
-                    getFieldDecorator('location')
-                    (< Input name="location" className="map-search"/>)
-                }
-                </Form.Item>
+            <div className="form-items">
+                <input name="location" onChange={(e) => this.setState({input: e.target.value})}
+                   value={this.state.input} className="map-input-search"/>
                 <Button className="right-button" type='primary'
-                        htmlType='submit'>Update location</Button>
-            </Form>
+                        htmlType='submit' onClick={this.onSubmit}>Update location</Button>
+            </div>
             <div className="map-canvas">
             </div>
         </div>
+
+
     );
   }
 };
@@ -140,7 +121,7 @@ render() {
             saveLocation: (newUserInfo) => dispatch(saveLocation(newUserInfo))
         }
     };
-export default connect(mapStateToProps, dispatchMapStateToProps)(Form.create()(EditProfileUserLocation));
+export default connect(mapStateToProps, dispatchMapStateToProps)(EditProfileUserLocation);
 
 
 
