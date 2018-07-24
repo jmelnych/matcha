@@ -108,9 +108,9 @@ span.distance{
 .container-flex {
   position: relative;
   display: flex;
-  justify-content: space-between;
   max-width: 1600px;
-  margin: 0 auto;
+  /*justify-content: space-between;*/
+  /*margin: 0 auto;*/
 }
 
 .profile-main-info{

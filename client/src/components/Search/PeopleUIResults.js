@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 const PeopleUIResults = (props) => {
     let users = props.users;
@@ -6,7 +7,7 @@ const PeopleUIResults = (props) => {
     return (
         <div className="container-results">
             { users.map((user) =>
-                <figure key={user.id} className="user-snippet">
+                <Link key={user.id} to={`/user/${user.id}`}><figure className="user-snippet">
                     <p>{src = require(`../../img/avatars/${user.avatar}`)}</p>
                     <img src={src}
                          alt="profile-sample" className="background"/>
@@ -20,7 +21,7 @@ const PeopleUIResults = (props) => {
                         <div className="icons">
                         </div>
                     </figcaption>
-                </figure>
+                </figure></Link>
             )} {users.length === 0 &&
         <h3> No users with such parameters found.</h3>
         }

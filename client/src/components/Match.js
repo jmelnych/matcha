@@ -5,9 +5,6 @@ import MatchFilter from './MatchFilter'
 import PeopleUIResults from './Search/PeopleUIResults'
 
 class Match extends Component {
-    componentDidMount() {
-        //TODO: request perfect matches
-    };
 
     state = {
         page: 1,

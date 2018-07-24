@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Radio, Slider, Switch, InputNumber, Col, Row } from 'antd'
 import {connect} from 'react-redux'
-import { getUsersFiltered} from '../../actions/searchActions'
+import {getUsersFiltered} from '../../actions/searchActions'
 import SearchFilterSelectTags from './SearchFilterSelectTags'
 import Sort from './Sort'
 
@@ -22,11 +22,11 @@ class SearchFilter extends Component {
 
     componentDidMount() {
         let filteredValues = this.state.filters;
+        console.log('requesting users by filter', filteredValues);
         this.props.getUsersFiltered(filteredValues);
     };
 
     filterUsers = () => {
-        console.log(this.state);
         let filteredValues = this.state.filters;
         this.props.getUsersFiltered(filteredValues);
     };

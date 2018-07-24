@@ -15,6 +15,7 @@ import SetPassword from './Additional/SetPassword'
 import Match from './Match'
 import NotFound from './Additional/NotFound'
 import Messenger from './Messenger/Messenger'
+import OtherUserProfile from './OtherUserProfile'
 
 class Root extends Component {
     componentDidMount() {
@@ -37,6 +38,7 @@ class Root extends Component {
                     <Route exact path='/messenger' component={Messenger}/>
                     <Route exact path='/activate/:token' component={Activation} />
                     <Route exact path='/password/:token' component={SetPassword} />
+                    <Route exact path='/user/:id' component={OtherUserProfile} />
                     <Route component={NotFound}/>
                 </Switch>
                 <Footer>&copy; by imelnych & pkolomiy</Footer>

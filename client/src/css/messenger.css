@@ -141,3 +141,9 @@ ul.people-list,  ul.chat-history-list {
 .center-button-chat{
     margin-top: 20px;
 }
+
+.top-chat{
+    height: calc(100vh - 80px - 94px);
+    min-height: 500px;
+    margin: 30px auto;
+}

@@ -14,6 +14,7 @@ class MatchFilter extends Component {
     componentDidMount() {
         let filteredValues = this.state.filters;
         //TODO: perfect match
+        console.log('requesting users by filter', filteredValues);
         this.props.getUsersFiltered(filteredValues);
     };
 

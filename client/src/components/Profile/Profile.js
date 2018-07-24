@@ -3,7 +3,6 @@ import ProfileHead from './ProfileHead'
 import ProfileUserInfo from './ProfileUserInfo'
 import ProfileUserPhotos from './ProfileUserPhotos'
 import ProfileWritePost from './ProfileWritePost'
-
 import {connect} from 'react-redux'
 import {getUser} from '../../actions/userActions'
 import PropTypes from 'prop-types'
