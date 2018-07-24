@@ -1,21 +1,23 @@
 import React, { Component } from 'react'
-import {Form, Input, Button} from 'antd'
+import {Form, Input, Button, message} from 'antd'
 import {connect} from 'react-redux'
 import {saveLocation} from '../../../actions/userActions'
 import PropTypes from 'prop-types'
-import isEmpty from 'lodash/isEmpty'
 import {decodeLocation} from '../../../api/decodeLocation'
 
 class EditProfileUserLocation extends Component {
+    state = {
+      input: '',
+      lat: null,
+      lng: null
+    };
     componentDidMount() {
         this.setMap();
     };
 
-
     setMap = () => {
         /* map initialization */
         let saveFnc = this.props.saveLocation;
-        console.log('saveFnc', saveFnc);
       const map = new google.maps.Map(document.getElementsByClassName("map-canvas")[0], {
 
           center: {
@@ -33,56 +35,62 @@ class EditProfileUserLocation extends Component {
           map: map,
           draggable: true
       });
-
-      // TODO: get city, country based on lat, lng
-      //TODO: update user location obj on draggable
         google.maps.event.addListener(marker, 'dragend', function(){
-            console.log(this.getPosition().lat());
-            console.log(this.getPosition().lng());
-            let locationObj = decodeLocation(this.getPosition().lat(), this.getPosition().lng());
-            //TODO: get resolved obj from decodeLocation fnc and update user location on backend
-            saveFnc({location: locationObj});
-
+            (async function () {
+                let locationObj = await decodeLocation(this.getPosition().lat(), this.getPosition().lng());
+                if (locationObj) {
+                    saveFnc({location: locationObj});
+                }
+            }).bind(this)();
         });
 
         /* interaction with input field*/
         const searchBox = new google.maps.places.SearchBox(document.getElementsByClassName("map-search")[0]);
-        //console.log(searchBox);
         //place change event on search box:
+
         google.maps.event.addListener(searchBox, 'places_changed', function(){
             let places = searchBox.getPlaces();
-            console.log('places', places);//geometry=>lng, lat func
+            //console.log('place inserted', places[0].formatted_address);
+            this.setState({
+                input: places[0].formatted_address
+            });
             const bounds = new google.maps.LatLngBounds();
             places.map(place => {
                 console.log('place geometry location', place.geometry.location);
+                console.log('inside map places', this);
                 bounds.extend(place.geometry.location);
                 marker.setPosition(place.geometry.location);
+                this.setState({
+                    lat: place.geometry.location.lat(),
+                    lng: place.geometry.location.lng()
+                });
+
             });
             map.fitBounds(bounds);
             map.setZoom(15);
-        });
+        }.bind(this));
         //TODO: get lat lng after searching
         // TODO: get city, country based on lat, lng
         //TODO: update user location obj on draggable
     };
 
     onSubmit = (e) => {
-        const { form, closeOnSubmit, user, updateUser } = this.props;
+        const { form, closeOnSubmit, saveLocation } = this.props;
         e.preventDefault();
         form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 console.log('Received values of form editing: ', values);
-                closeOnSubmit();
                 //TODO: update user position on backend
-        //         let newUserInfo = new Object();
-        //         if (values.location !== user.location) {
-        //             newUserInfo.location = values.location;
-        //         }
-        //         if(!isEmpty(newUserInfo)) {
-        //             updateUser(newUserInfo);
-        //         } else {
-        //             console.log('nothing has been changes');
-        //         }
+                const {lat, lng} = this.state;
+                if (lat && lng) {
+                    (async function () {
+                        let locationObj = await decodeLocation(lat, lng);
+                        saveLocation({location: locationObj});
+                    })();
+                closeOnSubmit();
+                } else {
+                    message.error('Please input your location');
+                }
             }
         })
     };
@@ -98,13 +106,13 @@ render() {
             sm: {span: 16}
         }
     };
+    console.log(this.state.input);
     return (
         <div>
             <Form onSubmit={this.onSubmit}>
                 <Form.Item {...formItemLayout} className="form-item-inline" label='Location'> {
-                    getFieldDecorator('location', {
-                        validateTrigger: 'onBlur'
-                    })(< Input name="location" className="map-search"/>)
+                    getFieldDecorator('location')
+                    (< Input name="location" className="map-search"/>)
                 }
                 </Form.Item>
                 <Button className="right-button" type='primary'

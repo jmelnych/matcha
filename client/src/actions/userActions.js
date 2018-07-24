@@ -1,5 +1,5 @@
 import {GET_USER, UPDATE_USER, GET_USER_TAGS, SAVE_USER_TAG,
-    DELETE_USER_TAG, LOGOUT_USER} from './types'
+    DELETE_USER_TAG, LOGOUT_USER, UPDATE_USER_LOCATION} from './types'
 import axios from 'axios'
 
 axios.defaults.baseURL = 'http://localhost:5000';
@@ -37,7 +37,12 @@ export const updatePasswordFromProfile = (password) => dispatch => {
 };
 
 export const saveLocation = (data) => dispatch => {
-    return axios.post('api/users/update', {data});
+    axios.post('api/users/update', {data})
+    .then(() => dispatch ({
+        type: UPDATE_USER_LOCATION,
+        payload: data
+        })
+    )
 };
 
 export const getUser = () => dispatch => {

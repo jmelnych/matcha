@@ -5,31 +5,19 @@ import {connect} from 'react-redux'
 import {decodeLocation} from '../../api/decodeLocation'
 
 class ProfileUserLocation extends Component {
-    state = {
-        lat: null,
-        lng: null,
-        city: '',
-        country: ''
-    };
+
     componentDidMount() {
         this.mounted = true;
         navigator.geolocation.getCurrentPosition((position) => {
             if(this.mounted) {
                 this.setState({lat: position.coords.latitude,
                                 lng: position.coords.longitude});
-                let obj = (async () => {
-
+                (async function () {
                 let locationObj = await decodeLocation(position.coords.latitude, position.coords.longitude);
-                return locationObj;
-                })();
-                //TODO: get resolved obj from decodeLocation fnc and update user location on backend
-                // if (locationObj) {
-                //     this.setState({
-                //         city: locationObj.city,
-                //         country: locationObj.country
-                //     });
-                //     this.props.saveLocation({location: locationObj});
-                // }
+                    if (locationObj) {
+                        this.props.saveLocation({location: locationObj});
+                    }
+                }).bind(this)();
             }
         });
     };
@@ -39,27 +27,25 @@ class ProfileUserLocation extends Component {
     };
 
     render() {
-        // console.log(this.state);
         const ionicStyle = {
             fill: '#001529',
             marginBottom: '-5px',
             marginRight: '10px',
         };
-        const {city, country} = this.state;
-        const dbLocationObj = this.props.userLocation;
-        let dbLocation;
-        if (dbLocationObj) {
-            dbLocation = dbLocationObj.city + ', ' + dbLocationObj.country;
-        }
-        let userLocation = (city && country) ? `${city}, ${country}` : dbLocation;//don't wrap dbLocation into `` since it renders as `null` and sets to true
+        let userLoc = `${this.props.user.location.city}, ${this.props.user.location.country}`;
     return (
     <div>
-        {(userLocation) && <li><Ionicon icon="ios-pin-outline" style={ionicStyle}/>
+        {(userLoc) && <li><Ionicon icon="ios-pin-outline" style={ionicStyle}/>
         <span className="text-secondary">Location: </span>
-        <span className="editable">{userLocation}</span></li>
+        <span className="editable">{userLoc}</span></li>
         }
     </div>
     );
   }
+};
+
+function mapStateToProps({user}) {
+    return user;
 }
-export default connect(null, {saveLocation})(ProfileUserLocation);
+
+export default connect(mapStateToProps, {saveLocation})(ProfileUserLocation);

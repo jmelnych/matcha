@@ -1,5 +1,7 @@
-import {GET_USER, UPDATE_USER, GET_USER_TAGS,
-    DELETE_USER_TAG, SAVE_USER_TAG, LOGOUT_USER} from '../actions/types'
+import {
+    GET_USER, UPDATE_USER, GET_USER_TAGS,
+    DELETE_USER_TAG, SAVE_USER_TAG, LOGOUT_USER, UPDATE_USER_LOCATION
+} from '../actions/types'
 
 const initialState = {
     auth: false,
@@ -27,15 +29,21 @@ export default function (state = initialState, action) {
                 ...state,
                 user: updateUser
             };
+        case UPDATE_USER_LOCATION:
+            let updateUserObj = Object.assign({}, state.user);
+            updateUserObj.location = action.payload.location;
+            return {
+                ...state,
+                user: updateUserObj
+            };
         case LOGOUT_USER:
             if (action.payload === 'logout'){
                 return {
                     user: {},
                     auth: false
                 }
-            } else {
-                return state;
             };
+            return state;
         case GET_USER_TAGS:
             return {
                 ...state,
