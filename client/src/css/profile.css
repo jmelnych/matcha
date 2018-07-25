@@ -286,6 +286,11 @@ h4{
   font-size: 22px;
 }
 
+.ant-select-selection__choice{
+  background: rgb(45, 183, 245) !important;
+  color: white !important;
+}
+
 
 
 

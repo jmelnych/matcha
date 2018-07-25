@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 import OtherUserProfileInfo from './OtherUserProfileInfo'
 import OtherUserProfileHead from './OtherUserProfileHead'
 import OtherUserProfilePhotos from './OtherUserProfilePhotos'
+import OtherUserProfileInterests from './OtherUserProfileInterests'
+import OtherUserProfileFeedPosts from './OtherUserProfileFeedPosts'
 
 class OtherUserProfile extends Component {
 //TODO: ComponentDidMount -> getOtherUser(id)
@@ -15,7 +17,11 @@ class OtherUserProfile extends Component {
                 <div className="profile-main-info">
                     <OtherUserProfileInfo/>
                     <OtherUserProfilePhotos/>
+                    <OtherUserProfileInterests/>
                 </div>
+                    <div className="profile-main-feed">
+                        <OtherUserProfileFeedPosts/>
+                    </div>
                 </div>
                 </div>
             </div>

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Select } from 'antd'
 import {getTags} from '../../actions/tagsActions'
 import {saveUserTag, getUserTags, deleteUserTag} from '../../actions/userActions'
-import {connect} from "react-redux";
+import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 
 class ProfileUserSelectTags extends Component {
@@ -33,7 +33,6 @@ render() {
     tags.map((tag) => {
         children.push(<Select.Option key={tag}>{tag}</Select.Option>);
     });
-
     return (
         <Select
             mode="multiple"
