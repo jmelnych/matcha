@@ -15,7 +15,7 @@ import SetPassword from './Additional/SetPassword'
 import Match from './Match'
 import NotFound from './Additional/NotFound'
 import Messenger from './Messenger/Messenger'
-import OtherUserProfile from './OtherUserProfile'
+import OtherUserProfile from './Profile/OtherUserProfile'
 
 class Root extends Component {
     componentDidMount() {

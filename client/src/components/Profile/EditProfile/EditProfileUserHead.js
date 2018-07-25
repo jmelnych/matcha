@@ -25,8 +25,7 @@ class EditProfileUserHead extends Component {
         e.preventDefault();
         form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                //console.log('Received values of form editing: ', values);
-                closeOnSubmit();
+                console.log('Received values of form editing: ', values);
                 let newUserInfo = new Object();
                 if (values.username !== user.username) {
                     newUserInfo.username = values.username;
@@ -36,10 +35,11 @@ class EditProfileUserHead extends Component {
                     newUserInfo.email = values.email;
                 }
                 if(!isEmpty(newUserInfo)) {
-                    updateUser(user.id, newUserInfo);
+                    updateUser(newUserInfo);
                 } else {
                     console.log('nothing has been changes');
                 }
+                closeOnSubmit();
             }
         })
     };
@@ -97,7 +97,7 @@ function mapStateToProps({user}){
 
 function mapDispatchToProps(dispatch) {
     return {
-        updateUser: (id, newUserInfo) => dispatch(updateUser(id, newUserInfo))
+        updateUser: (newUserInfo) => dispatch(updateUser(newUserInfo))
     }
 };
 

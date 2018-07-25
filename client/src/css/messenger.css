@@ -1,6 +1,6 @@
 .people-list-container{
     padding: 20px 20px;
-    min-height: calc(100vh - 80px - 64px - 60px);
+    min-height: calc(100vh - 80px - 64px - 50px);
     background: #001529;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
@@ -17,7 +17,7 @@
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     background: white;
-    min-height: calc(100vh - 80px - 64px - 60px);
+    min-height: calc(100vh - 80px - 64px - 50px);
     margin-bottom: 30px;
 
 }
@@ -78,7 +78,7 @@ ul.people-list,  ul.chat-history-list {
     padding: 30px 30px 20px;
     border-bottom: 2px solid white;
     overflow-y: scroll;
-    height: calc(100vh - 420px);
+    height: calc(100vh - 400px);
 }
 
 .message-data {
@@ -143,7 +143,7 @@ ul.people-list,  ul.chat-history-list {
 }
 
 .top-chat{
-    height: calc(100vh - 80px - 94px);
+    height: calc(100vh - 80px - 134px);
     min-height: 500px;
     margin: 30px auto;
 }

@@ -7,6 +7,14 @@ body {
     height: 80px;
 }
 
+.ant-menu-dark.ant-menu-horizontal{
+    line-height: 74px !important;
+}
+
+.ant-layout-header{
+    height: 74px;
+}
+
 .ant-layout-footer, .ant-layout-header {
     color: white !important;
 }
@@ -148,7 +156,7 @@ li.left-border{
     stroke: #1890ff;
     fill: none;
     position: absolute;
-    top: 6px;
+    top: 10px;
     right: 10px;
     width: 62px;
     animation: pulse 5s ease infinite;

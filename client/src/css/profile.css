@@ -28,6 +28,15 @@ ul {
   align-items: center;
 }
 
+.icon-inline{
+  display: inline;
+}
+
+.rating-text{
+  width: 100px;
+  margin: 0 auto;
+}
+
 figcaption {
   max-width: 400px;
   margin: 0 auto;

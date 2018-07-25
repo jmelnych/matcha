@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import Ionicon from 'react-ionicons'
-import {Popover} from 'antd'
+import {Popover, Modal} from 'antd'
 import PropTypes from 'prop-types'
-import {Modal} from 'antd'
 import EditProfileUserHead from './EditProfile/EditProfileUserHead'
 import EditProfileUserAvatar from './EditProfile/EditProfileUserAvatar'
 import {connect} from 'react-redux'
+import ProfileUserGenderIcon from './ProfileUI/ProfileUserGenderIcon'
 
 class ProfileHead extends Component {
     state = {
@@ -47,19 +47,6 @@ class ProfileHead extends Component {
             <p>completness and likes from other users</p>
         </div>
     );
-
-    const ratingText = {
-        width: '100px',
-        margin: '0 auto'
-    };
-
-    const genderStyle = {
-        fill: 'white',
-        marginLeft: '7px',
-        marginBottom: '-3px',
-        fontSize: '25px'
-    };
-
         const editablePen = {
             bottom: '15px',
             right: '0',
@@ -67,7 +54,6 @@ class ProfileHead extends Component {
             width: '35px',
             height: '35px'
         };
-
     const { visible, confirmLoading, ModalText } = this.state;
     const {user} = this.props;
     return (
@@ -77,13 +63,12 @@ class ProfileHead extends Component {
               </div>
               <figcaption>
                   <h2>{user.username}
-                      {user.gender === 'male' ? <Ionicon icon="md-male" style={genderStyle}/>
-                          : <Ionicon icon="md-female" style={genderStyle}/>}
+                      <ProfileUserGenderIcon gender={user.gender}/>
                       <Ionicon onClick={this.showModal} className="editable-icon" style={editablePen} icon="md-create"/>
                   </h2>
                   <Ionicon icon="ios-pulse-outline" color='white' fontSize="45px"/>
                   <Popover placement="rightTop" title="Rating info" content={content}
-                           trigger="hover"><p style={ratingText}>Rating: {user.rating}</p></Popover>
+                           trigger="hover"><p className="rating-text">Rating: {user.rating}</p></Popover>
               </figcaption>
               <Modal title="Edit your profile info"
                      visible={visible}

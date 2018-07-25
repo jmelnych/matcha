@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Form, Input, Button, message} from 'antd'
+import {Button, message} from 'antd'
 import {connect} from 'react-redux'
 import {saveLocation} from '../../../actions/userActions'
 import PropTypes from 'prop-types'
@@ -50,14 +50,11 @@ class EditProfileUserLocation extends Component {
 
         google.maps.event.addListener(searchBox, 'places_changed', function(){
             let places = searchBox.getPlaces();
-            //console.log('place inserted', places[0].formatted_address);
             this.setState({
                 input: places[0].formatted_address
             });
             const bounds = new google.maps.LatLngBounds();
             places.map(place => {
-                console.log('place geometry location', place.geometry.location);
-                console.log('inside map places', this);
                 bounds.extend(place.geometry.location);
                 marker.setPosition(place.geometry.location);
                 this.setState({
@@ -69,9 +66,6 @@ class EditProfileUserLocation extends Component {
             map.fitBounds(bounds);
             map.setZoom(15);
         }.bind(this));
-        //TODO: get lat lng after searching
-        // TODO: get city, country based on lat, lng
-        //TODO: update user location obj on draggable
     };
 
     onSubmit = (e) => {
@@ -100,8 +94,6 @@ render() {
             <div className="map-canvas">
             </div>
         </div>
-
-
     );
   }
 };
