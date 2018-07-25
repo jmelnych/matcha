@@ -21,7 +21,7 @@ class Root extends Component {
     componentDidMount() {
         const _curl = (window.location.href).split('/');
         if (_curl[3] === '' || _curl[3] === 'search' || _curl[3] === 'match'
-            || _curl[3] === 'messenger') {
+            || _curl[3] === 'messenger' || _curl[3] === 'user') {
             //console.log('checking auth');
             this.props.isAuth();
         } //TODO: fix rendering profile when relinked from 404 page

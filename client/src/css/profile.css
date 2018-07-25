@@ -290,6 +290,19 @@ h4{
   background: rgb(45, 183, 245) !important;
   color: white !important;
 }
+.like-button{
+  position: absolute;
+  bottom: 70%;
+  right: 51%;
+}
+
+.profile-suspect-button{
+  position: absolute;
+  font-size: 15px;
+  bottom: 0;
+  right: 0;
+  margin: 0 20px 5px 0;
+}
 
 
 
