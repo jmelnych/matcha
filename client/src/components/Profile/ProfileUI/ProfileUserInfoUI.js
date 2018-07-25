@@ -9,27 +9,28 @@ const ProfileUserInfoUI = (props) => {
         marginRight: '10px',
     };
     const user = props.user;
+    const ouIndicator = props.ouIndicator;
     return (
         <div>
             <li><Ionicon icon="ios-contact-outline" style={ionicStyle}/>
                 <span className="text-secondary">Full Name: </span>
-                <span className="editable">{user.firstname} {user.lastname}</span></li>
+                <span className={ouIndicator ? "non-editable" : "editable"}>{user.firstname} {user.lastname}</span></li>
 
             {(user.occupancy) &&<li><Ionicon icon="ios-briefcase-outline" style={ionicStyle}/>
                 <span className="text-secondary">Occupancy: </span>
-                <span className="editable">{user.occupancy}</span></li>
+                <span className={ouIndicator ? "non-editable" : "editable"}>{user.occupancy}</span></li>
             }
             <li><Ionicon icon="ios-heart-outline" style={ionicStyle}/>
                 <span className="text-secondary">Preferences: </span>
-                <span className="editable">{user.preference === 'both' ? 'Men and Women':
+                <span className={ouIndicator ? "non-editable" : "editable"}>{user.preference === 'both' ? 'Men and Women':
                     user.preference.charAt(0).toUpperCase() + user.preference.substr(1)}</span></li>
             {(user.personality) &&<li><Ionicon icon="ios-body-outline" style={ionicStyle}/>
                 <span className="text-secondary">Personality type: </span>
-                <span className="editable">{user.personality}</span></li>
+                <span className={ouIndicator ? "non-editable" : "editable"}>{user.personality}</span></li>
             }
             <li><Ionicon icon="ios-wine-outline" style={ionicStyle}/>
                 <span className="text-secondary">Birthday: </span>
-                <span className="editable"> {moment(new Date(user.bday), 'MM/DD/YYYY').format('ll')}</span>
+                <span className={ouIndicator ? "non-editable" : "editable"}> {moment(new Date(user.bday), 'MM/DD/YYYY').format('ll')}</span>
             </li>
             <li><Ionicon icon="ios-time-outline" style={ionicStyle}/>
                 <span className="text-secondary">Joined: </span>
@@ -37,7 +38,7 @@ const ProfileUserInfoUI = (props) => {
             </li>
             {(user.bio) &&<li><Ionicon icon="ios-book-outline" style={ionicStyle}/>
                 <span className="text-secondary">Bio: </span>
-                <span className="editable"> {user.bio}</span></li>
+                <span className={ouIndicator ? "non-editable" : "editable"}> {user.bio}</span></li>
             }
         </div>
     );

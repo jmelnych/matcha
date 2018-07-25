@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux'
 import OtherUserProfileInfo from './OtherUserProfileInfo'
 import OtherUserProfileHead from './OtherUserProfileHead'
+import OtherUserProfilePhotos from './OtherUserProfilePhotos'
 
 class OtherUserProfile extends Component {
-
+//TODO: ComponentDidMount -> getOtherUser(id)
     render() {
-
         return (
             <div>
                 <OtherUserProfileHead/>
@@ -13,6 +14,7 @@ class OtherUserProfile extends Component {
                 <div className="container-flex">
                 <div className="profile-main-info">
                     <OtherUserProfileInfo/>
+                    <OtherUserProfilePhotos/>
                 </div>
                 </div>
                 </div>
@@ -21,6 +23,13 @@ class OtherUserProfile extends Component {
     }
 };
 
+//TODO: getOtherUser(id)
+function mapDispatchToProps(dispatch) {
+    return{
+
+    }
+}
 
 
-export default OtherUserProfile;
+
+export default connect(null, mapDispatchToProps)(OtherUserProfile);

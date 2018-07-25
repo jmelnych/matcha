@@ -5,21 +5,22 @@ import ProfileUserInfoUI from './ProfileUI/ProfileUserInfoUI'
 
 class OtherUserProfileInfo extends Component {
 render() {
-    const {user} = this.props;
+    const user = this.props.info;
     const ionicStyle = {
         fill: '#001529',
         marginBottom: '-5px',
         marginRight: '10px',
     };
-    let userLoc = `${this.props.user.location.city}, ${this.props.user.location.country}`;
+    let userLoc = `${user.location.city}, ${user.location.country}`;
+    let ouIndicator = true;
     return (
         <div className="profile-main-info-list">
             <h3>Info</h3>
             <ul>
-                <ProfileUserInfoUI user={user}/>
+                <ProfileUserInfoUI ouIndicator={ouIndicator} user={user}/>
                 {(userLoc) && <li><Ionicon icon="ios-pin-outline" style={ionicStyle}/>
                     <span className="text-secondary">Location: </span>
-                    <span className="editable">{userLoc}</span></li>
+                    <span className={ouIndicator ? "non-editable" : "editable"}>{userLoc}</span></li>
                 }
             </ul>
         </div>
@@ -28,13 +29,7 @@ render() {
 };
 
 function mapStateToProps({otherUser}){
-    return otherUser;
+    return otherUser.user;
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        getUser: () => dispatch(getUser())
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(OtherUserProfileInfo);
+export default connect(mapStateToProps)(OtherUserProfileInfo);

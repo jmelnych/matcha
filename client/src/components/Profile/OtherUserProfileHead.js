@@ -5,7 +5,7 @@ import ProfileUserGenderIcon from './ProfileUI/ProfileUserGenderIcon'
 
 class OtherUserProfileHead extends Component {
 render() {
-    const {user} = this.props;
+    const user = this.props.info;
     const av_name = user.avatar;
     const avatar = require(`../../img/avatars/${av_name}`);
     return (
@@ -26,14 +26,7 @@ render() {
 }
 
 function mapStateToProps({otherUser}){
-    return otherUser;
+    return otherUser.user;
 }
 
-//TODO: fetch getOtherUser(id) instead
-function mapDispatchToProps(dispatch) {
-    return {
-        getUser: () => dispatch(getUser())
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(OtherUserProfileHead);
+export default connect(mapStateToProps)(OtherUserProfileHead);

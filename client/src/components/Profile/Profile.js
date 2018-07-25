@@ -3,9 +3,6 @@ import ProfileHead from './ProfileHead'
 import ProfileUserInfo from './ProfileUserInfo'
 import ProfileUserPhotos from './ProfileUserPhotos'
 import ProfileWritePost from './ProfileWritePost'
-import {connect} from 'react-redux'
-import {getUser} from '../../actions/userActions'
-import PropTypes from 'prop-types'
 import ProfileUserInterests from './ProfileUserInterests'
 import ProfileFeedPosts from './ProfileFeedPosts'
 
@@ -13,7 +10,7 @@ class Profile extends Component {
   render() {
     return (
     <div>
-      <ProfileHead />
+      <ProfileHead/>
       <div className="profile-main">
         <div className="container-flex">
           <div className="profile-main-info">
@@ -60,14 +57,5 @@ class Profile extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        getUser: () => dispatch(getUser())
-    }
-};
 
-Profile.propTypes = {
-    getUser: PropTypes.func.isRequired
-};
-
-export default connect (null, mapDispatchToProps)(Profile);
+export default Profile;
