@@ -8,40 +8,67 @@ ul {
   position: relative;
   width: 100%;
   background-image: url("../img/dawn-dusk-lake-355423.jpg");
-
   background-repeat: no-repeat;
   background-size: cover;
   border-bottom: 1px solid white;
+  min-height: 300px;
 }
-.profile-main-header img {
+
+
+
+.profile-main-avatar-content{
+  position: relative;
+  left: 25%;
+  top: -60px;
+
+}
+.profile-main-avatar img {
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  margin: 30px 10px 10px;
+  border: 1px solid #aaaaaa;
+  margin: 10px 10px 10px;
 }
 
 .profile-main-avatar{
-  position: relative;
+  position: absolute;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  height: 80px;
+  width: 100%;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5) 0%,rgba(0,0,0,0.51) 3%,rgba(0,0,0,0.75) 61%,rgba(0,0,0,0.5) 100%);
 }
 
+.profile-user-title h1{
+  margin: 40px 30px 0 0;
+  color: #354B63;
+  font-size: 40px;
+}
+
+h1>small{
+  margin-left: 15px;
+  color: #aaaaaa;
+  font-size: .5em;
+}
 .icon-inline{
   display: inline;
 }
 
-.rating-text{
-  width: 100px;
+.figcaption-text{
+  font-size: 18px;
   margin: 0 auto;
+  padding: 0 10px;
 }
 
-figcaption {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 0 0 20px 0;
+.profile-main-avatar figcaption {
+  display: flex;
+  align-items: center;
+  position: relative;
+  left: 30%;
 }
+
+
 
 figcaption h2, figcaption span, figcaption p{
   color: white;
@@ -66,11 +93,12 @@ span.distance{
   color: white;
 }
 
-.profile-main h3 {
+.profile-main h3, .profile-main-feed h3 {
   position: relative;
-  font-size: 19px;
-  color: rgba(0,21,41, 1);
-  padding: 10px;
+  font-size: 30px;
+  padding: 30px 0;
+  color: #354B63;
+
 }
 
 .editable-icon {
@@ -102,12 +130,12 @@ span.distance{
 }
 
 .profile-main-info-list li{
-  display: flex;
+  /*display: flex;*/
   position: relative;
   padding: 10px;
   color: rgba(0,21,41, 1);
   text-align: left;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .text-secondary{
@@ -119,11 +147,11 @@ span.distance{
   display: flex;
   max-width: 1600px;
   /*justify-content: space-between;*/
-  /*margin: 0 auto;*/
+  margin: 0 auto;
 }
 
 .profile-main-info{
-  width: 27%;
+  width: 77%;
   min-width: 350px;
 }
 
@@ -147,23 +175,22 @@ span.distance{
 
 /* FEED */
 
-
 .profile-main-info{
-  margin: 2% 1%;
+  margin: 30px 30px;
 }
 
 .profile-main-feed{
-  width: 73%;
+  width: 23%;
   color: white;
-  margin: 2% 4%;
+  margin: 30px 30px;
 }
 
 .profile-main-info, .profile-feed-snippet{
-  padding: 20px 20px;
+  padding: 20px 30px;
   min-height: 200px;
-  background: white;
-  box-shadow: 0 0 20px rgba(0,0,0,.15);
-  border-radius: 5px;
+  /*background: white;*/
+  /*box-shadow: 0 0 20px rgba(0,0,0,.15);*/
+  /*border-radius: 5px;*/
   margin-bottom: 30px;
 }
 
@@ -178,35 +205,22 @@ span.distance{
 }
 
 .post-textarea, .profile-feed-snippet {
+  padding: 20px 30px;
   word-wrap: break-word;
   resize: none;
-  background-color:#FFF;
-  /*font-family:Courier, monospace;*/
   font-weight:normal;
-  line-height:40px;
-  padding-left:100px;
-  padding-right:100px;
-  padding-top:45px;
-  padding-bottom:34px;
-  background-image:url(https://static.tumblr.com/maopbtg/E9Bmgtoht/lines.png);
-  background-repeat:repeat-y, repeat;
-  -webkit-border-radius:5px;
   border-radius:5px;
   -webkit-box-shadow: 0px 2px 14px #000;
   box-shadow: 0 0 20px rgba(0,0,0,.15);
-  border-top:1px solid #FFF;
-  border-bottom:1px solid #FFF;
-}
 
-.profile-feed-snippet{
-  background: white;
+  /*background: white;*/
 }
 
 .post-button{
   position: absolute;
-  width: 80px;
-  right: 50px;
-  top: 40%;
+  width: 90px;
+  right: 20px;
+  top: 50%;
 }
 
 .ant-btn-circle.ant-btn-sm, .ant-btn-circle-outline.ant-btn-sm{
@@ -247,7 +261,7 @@ h4{
 /* Posts */
 
 .profile-feed-snippet{
-  color: black;
+  color: #354B63;
   text-align: left;
 }
 
@@ -259,17 +273,21 @@ h4{
   color: dimgray;
 }
 
-.feed-snippet-text{
+.feed-snippet-title{
   font-size: 18px;
+}
+
+.feed-snippet-text{
+  font-size: 15px;
 }
 .feed-snippet-footer{
   position: relative;
   top: 20px;
-  left: 95%;
+  left: 80%;
 }
 
 .transparent{
-  font-size: 18px;
+  font-size: 15px;
   background: transparent;
   /*font-family:Courier, monospace;*/
   font-weight:normal;
@@ -283,7 +301,7 @@ h4{
   color:#222;
 }
 .title{
-  font-size: 22px;
+  font-size: 18px;
 }
 
 .ant-select-selection__choice{
@@ -292,8 +310,9 @@ h4{
 }
 .like-button{
   position: absolute;
-  bottom: 70%;
-  right: 51%;
+  right: 4%;
+  height: 40px;
+  width: 100px;
 }
 
 .profile-suspect-button{
@@ -304,7 +323,34 @@ h4{
   margin: 0 20px 5px 0;
 }
 
+.tags-no-border>.ant-select-selection--multiple{
+  border: none;
+  background: none;
+}
+
+.ant-upload-list-picture-card .ant-upload-list-item, .ant-upload.ant-upload-select-picture-card{
+  height: 300px;
+  width: 300px;
+}
 
 
+@media (min-width: 1401px ) and (max-width: 1900px ){
+  .profile-main-header {
+    height: 350px;
+  }
+}
 
+@media screen and (min-width: 1901px ){
+  .profile-main-header{
+    height: 400px;
+
+  }
+}
+
+@media screen and (min-width: 1401px) {
+  .profile-main-avatar img {
+    width: 180px;
+    height: 180px;
+  }
+}
 

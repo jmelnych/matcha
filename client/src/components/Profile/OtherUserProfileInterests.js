@@ -11,6 +11,7 @@ render() {
         <div className="profile-main-info-list">
             <h3>Personal Interests</h3>
             <Select
+                className="tags-no-border"
                 mode="multiple"
                 style={{ width: '100%' }}
                 value={userTags}

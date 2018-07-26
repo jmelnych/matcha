@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import Ionicon from 'react-ionicons'
+import {Button} from 'antd'
 import {connect} from 'react-redux'
-import { Button } from 'antd'
 import ProfileUserGenderIcon from './ProfileUI/ProfileUserGenderIcon'
 
 class OtherUserProfileHead extends Component {
@@ -12,17 +11,18 @@ render() {
     return (
         <div className="profile-main-header">
             <div className="profile-main-avatar">
-                <img src={avatar} alt="avatar"/>
-                <Button className="like-button" shape="circle" icon="heart" size='large'></Button>
+                <div className="profile-main-avatar-content">
+                    <img src={avatar} alt="avatar"/>
+                </div>
+                <figcaption>
+                    <p className="figcaption-text">Rating: {user.rating}</p>
+                    <p className="figcaption-text">Age: {user.age}</p>
+                    <p className="figcaption-text">City: {user.location.city}</p>
+                    <p className="figcaption-text">Gender:
+                        <ProfileUserGenderIcon user={this.props.info.gender}/></p>
+                </figcaption>
+                <Button className="like-button" type="primary">Like</Button>
             </div>
-            <figcaption>
-                <h2>{user.username}
-                    <ProfileUserGenderIcon gender={user.gender}/>
-                    <a className="profile-suspect-button">Suspect fake account?</a>
-                </h2>
-                <Ionicon icon="ios-pulse-outline" color='white' fontSize="45px"/>
-                <p className="rating-text">Rating: {user.rating}</p>
-            </figcaption>
         </div>
     );
   }

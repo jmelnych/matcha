@@ -81,7 +81,6 @@ class ProfileUserPhotos extends Component {
         let photos = this.state.photos || [];
         let photosRender = photos.filter(photo => photo.status === 'done'
             || photo.status === 'uploading');
-        console.log(photosRender);
         return (
             <div className="profile-main-info-list">
             <div className="clearfix">

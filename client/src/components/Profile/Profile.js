@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux'
 import ProfileHead from './ProfileHead'
 import ProfileUserInfo from './ProfileUserInfo'
 import ProfileUserPhotos from './ProfileUserPhotos'
 import ProfileWritePost from './ProfileWritePost'
 import ProfileUserInterests from './ProfileUserInterests'
 import ProfileFeedPosts from './ProfileFeedPosts'
+import ProfileUserTitleUI from './ProfileUI/ProfileUserTitleUI'
 
 class Profile extends Component {
   render() {
@@ -12,7 +14,13 @@ class Profile extends Component {
     <div>
       <ProfileHead/>
       <div className="profile-main">
+          <ProfileUserTitleUI user={this.props.user}/>
         <div className="container-flex">
+            <div className="profile-main-feed">
+                <h3>Posts</h3>
+                <ProfileWritePost/>
+                <ProfileFeedPosts/>
+            </div>
           <div className="profile-main-info">
               <ProfileUserInfo/>
               <ProfileUserPhotos/>
@@ -46,10 +54,7 @@ class Profile extends Component {
               </div>
           </div>
 
-          <div className="profile-main-feed">
-              <ProfileWritePost/>
-              <ProfileFeedPosts/>
-          </div>
+
       </div>
     </div>
     </div>
@@ -57,5 +62,9 @@ class Profile extends Component {
   }
 }
 
+function mapStateToProps({user}){
+    return user;
+}
 
-export default Profile;
+
+export default connect(mapStateToProps)(Profile);

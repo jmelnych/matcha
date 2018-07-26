@@ -35,6 +35,7 @@ render() {
     });
     return (
         <Select
+            className="tags-no-border"
             mode="multiple"
             style={{ width: '100%' }}
             //showAction={["onChange"]}

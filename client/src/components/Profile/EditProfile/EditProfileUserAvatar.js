@@ -59,7 +59,7 @@ render() {
     };
 
     return (
-      <div>
+      <div className="profile-main-avatar-content">
           {imageUrl ? <img src={imageUrl} alt="avatar" /> : <img src={avatar} alt="avatar"/>}
           <Upload {...props}
                   showUploadList={false} beforeUpload={checkTypeSize}

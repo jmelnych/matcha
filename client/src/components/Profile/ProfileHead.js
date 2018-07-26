@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Ionicon from 'react-ionicons'
-import {Popover, Modal} from 'antd'
+import {Modal} from 'antd'
 import PropTypes from 'prop-types'
 import EditProfileUserHead from './EditProfile/EditProfileUserHead'
 import EditProfileUserAvatar from './EditProfile/EditProfileUserAvatar'
@@ -41,15 +41,10 @@ class ProfileHead extends Component {
     };
 
     render() {
-    const content = (
-        <div>
-            <p>Rating is count based on your profile</p>
-            <p>completness and likes from other users</p>
-        </div>
-    );
+
         const editablePen = {
             bottom: '15px',
-            right: '0',
+            right: '10px',
             fill:'#5caef9',
             width: '35px',
             height: '35px'
@@ -60,16 +55,15 @@ class ProfileHead extends Component {
           <div className="profile-main-header">
               <div className="profile-main-avatar">
                   <EditProfileUserAvatar/>
-              </div>
-              <figcaption>
-                  <h2>{user.username}
-                      <ProfileUserGenderIcon gender={user.gender}/>
+                  <figcaption>
+                      <p className="figcaption-text">Rating: {user.rating}</p>
+                      <p className="figcaption-text">Age: {user.age}</p>
+                      <p className="figcaption-text">City: {user.location.city}</p>
+                      <p className="figcaption-text">Gender:
+                      <ProfileUserGenderIcon user={this.props.user.gender}/></p>
+                  </figcaption>
                       <Ionicon onClick={this.showModal} className="editable-icon" style={editablePen} icon="md-create"/>
-                  </h2>
-                  <Ionicon icon="ios-pulse-outline" color='white' fontSize="45px"/>
-                  <Popover placement="rightTop" title="Rating info" content={content}
-                           trigger="hover"><p className="rating-text">Rating: {user.rating}</p></Popover>
-              </figcaption>
+              </div>
               <Modal title="Edit your profile info"
                      visible={visible}
                      onCancel={this.handleCancel}
@@ -79,7 +73,7 @@ class ProfileHead extends Component {
                       <EditProfileUserHead closeOnSubmit={this.handleOk}/>
                   }
               </Modal>
-          </div>
+        </div>
 
     );
   }
