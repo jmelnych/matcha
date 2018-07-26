@@ -81,6 +81,36 @@ module.exports = class DB {
             WHERE users_tags.user_id = ?`, [id]);
     }
 
+    getUser(id) {
+        return this.all(`SELECT
+  users.username    as users_username,
+  users.firstname   as users_firstname,
+  users.lastname    as users_lastname,
+  users.gender      as users_gender,
+  users.bday        as users_bday,
+  users.added       as users_added,
+  users.location    as users_location,
+  users.avatar      as users_avatar,
+  users.personality as users_personality,
+  users.preference  as users_preference,
+  users.occupancy   as users_occupancy,
+  users.rating      as users_rating,
+  users.bio         as users_bio,
+  photos.filename   as photos_filename,
+  posts.id          as posts_id,
+  posts.title       as posts_title,
+  posts.post        as posts_post,
+  posts.added       as posts_added,
+  tags.id           as tags_id,
+  tags.tag          as tags_tag
+FROM users
+  LEFT JOIN photos ON users.id = photos.user_id
+  LEFT JOIN posts ON users.id = posts.user_id
+  LEFT JOIN users_tags ON users.id = users_tags.user_id
+  LEFT JOIN tags ON users_tags.tag_id = tags.id
+WHERE users.id = ?`, [id]);
+    }
+
     update(table, column, value, key, data) {
         return this.run(`UPDATE ${table} SET ${column} = ? WHERE ${key} = ?`, [value, data]);
     }

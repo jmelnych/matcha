@@ -29,7 +29,7 @@ module.exports = (req, res) => {
 
     let db           = req.app.get('db'),
         prepareQuery = req.app.get('prepareQuery'),
-        location     = req.app.get('location'),
+        prepareUsers = req.app.get('prepareUsers'),
         body         = prepareBody(req.body),
         error        = (e) => {
             console.log(e);
@@ -62,17 +62,7 @@ module.exports = (req, res) => {
             if (response === undefined) {
                 res.send('No users');
             } else {
-                response = response.filter(user => {
-                    user.location = JSON.parse(user.location);
-                    user.age = moment().diff(user.bday, 'years');
-                    user.distance = location.calculateDistance(
-                        req.session.location.lat,
-                        req.session.location.lng,
-                        user.location.lat,
-                        user.location.lng
-                    );
-                    return !(body.radius && user.distance > body.radius);
-                });
+                response = prepareUsers(response, req.session, body.radius);
                 if (query.order === '') {
                     response.sort((cur, next) => {
                         if (cur.distance !== next.distance) {
