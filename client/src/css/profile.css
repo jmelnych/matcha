@@ -14,8 +14,6 @@ ul {
   min-height: 300px;
 }
 
-
-
 .profile-main-avatar-content{
   position: relative;
   left: 25%;
@@ -140,6 +138,12 @@ span.distance{
 
 .text-secondary{
   color: rgba(96,96,96,1);
+}
+
+.suspect {
+  left: 4%;
+  position: absolute;
+  font-size: 12px;
 }
 
 .container-flex {
@@ -332,7 +336,6 @@ h4{
   height: 300px;
   width: 300px;
 }
-
 
 @media (min-width: 1401px ) and (max-width: 1900px ){
   .profile-main-header {

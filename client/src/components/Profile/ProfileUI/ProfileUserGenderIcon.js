@@ -2,7 +2,7 @@ import React from 'react'
 import Ionicon from 'react-ionicons'
 
 const ProfileUserGenderIcon = (props) => {
-    const gender = props.gender;
+    const gender = props.user;
     const genderStyle = {
         fill: 'white',
         width: '32px',

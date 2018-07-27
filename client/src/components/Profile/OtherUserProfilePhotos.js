@@ -11,7 +11,7 @@ class OtherUserProfilePhotos extends Component {
     };
 
     componentDidMount(){
-        const photos = this.props.photos;
+        const photos = this.props.photos || [];
         const generatedPhotos = [];
         photos.map((photo, index) => {
             let src = require(`../../img/photos/${photo.filename}`);

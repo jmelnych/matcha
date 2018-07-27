@@ -5,7 +5,7 @@ import ProfileUserGenderIcon from './ProfileUI/ProfileUserGenderIcon'
 
 class OtherUserProfileHead extends Component {
 render() {
-    const user = this.props.info;
+    const user = this.props.info || {avatar: 'default.png', gender: 'male', rating: 0, age: 18, location: {city:'Kiev', country: 'Ukraine'}};
     const av_name = user.avatar;
     const avatar = require(`../../img/avatars/${av_name}`);
     return (
@@ -19,9 +19,10 @@ render() {
                     <p className="figcaption-text">Age: {user.age}</p>
                     <p className="figcaption-text">City: {user.location.city}</p>
                     <p className="figcaption-text">Gender:
-                        <ProfileUserGenderIcon user={this.props.info.gender}/></p>
+                        <ProfileUserGenderIcon user={user.gender}/></p>
                 </figcaption>
                 <Button className="like-button" type="primary">Like</Button>
+                <a className="text-secondary suspect">Suspect fake account?</a>
             </div>
         </div>
     );

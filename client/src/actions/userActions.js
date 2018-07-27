@@ -1,5 +1,5 @@
 import {GET_USER, UPDATE_USER, GET_USER_TAGS, SAVE_USER_TAG,
-    DELETE_USER_TAG, LOGOUT_USER, UPDATE_USER_LOCATION} from './types'
+    DELETE_USER_TAG, LOGOUT_USER, UPDATE_USER_LOCATION, GET_OTHER_USER} from './types'
 import axios from 'axios'
 
 axios.defaults.baseURL = 'http://localhost:5000';
@@ -94,4 +94,13 @@ export const deleteUserTag = (tag) => dispatch => {
             type: DELETE_USER_TAG,
             payload: {tag: tag}
         }))
+};
+
+export const getOtherUser = (id) => dispatch => {
+  axios.post('api/profile/get', {id: id})
+      .then(res => res.data)
+      .then((userData) => dispatch({
+          type: GET_OTHER_USER,
+          payload: userData
+      }))
 };

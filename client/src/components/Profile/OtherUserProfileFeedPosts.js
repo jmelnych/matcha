@@ -4,7 +4,7 @@ import orderBy from 'lodash/orderBy'
 
 class OtherUserProfileFeedPosts extends Component {
 render() {
-    let posts = this.props.posts;
+    let posts = this.props.posts || [];
     posts = orderBy(posts, ['added'], ['desc']);
     return (
         <div>

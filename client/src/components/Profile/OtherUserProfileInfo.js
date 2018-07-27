@@ -5,7 +5,7 @@ import ProfileUserInfoUI from './ProfileUI/ProfileUserInfoUI'
 
 class OtherUserProfileInfo extends Component {
 render() {
-    const user = this.props.info;
+    const user = this.props.info || {firstname: 'John', lastname: 'Doe', preference:'both', location: {city:'Kiev', country: 'Ukraine'}};
     const ionicStyle = {
         fill: '#001529',
         marginBottom: '-5px',

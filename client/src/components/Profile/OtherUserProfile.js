@@ -6,37 +6,42 @@ import OtherUserProfilePhotos from './OtherUserProfilePhotos'
 import OtherUserProfileInterests from './OtherUserProfileInterests'
 import OtherUserProfileFeedPosts from './OtherUserProfileFeedPosts'
 import ProfileUserTitleUI from './ProfileUI/ProfileUserTitleUI'
+import {getOtherUser} from '../../actions/userActions'
 
 class OtherUserProfile extends Component {
-//TODO: ComponentDidMount -> getOtherUser(id)
+    componentDidMount() {
+        const {id} = this.props.match.params;
+        this.props.getOtherUser(id);
+    };
+
     render() {
-        console.log(this.props.posts.length);
+        const posts = this.props.posts || [];
+        const user = this.props.info || {firstname: 'John', lastname: 'Doe', username: 'johndoe'};
         return (
             <div>
                 <OtherUserProfileHead/>
                 <div className="profile-main">
-                    <ProfileUserTitleUI user={this.props.info}/>
-                <div className="container-flex">
-                    {this.props.posts.length && (<div className="profile-main-feed">
-                        <h3>Posts</h3>
-                        <OtherUserProfileFeedPosts/>
-                    </div>)}
-                <div className="profile-main-info">
-                    <OtherUserProfileInfo/>
-                    <OtherUserProfilePhotos/>
-                    <OtherUserProfileInterests/>
-                </div>
-                </div>
+                    <ProfileUserTitleUI user={user}/>
+                    <div className="container-flex">
+                        {posts.length && (<div className="profile-main-feed">
+                            <h3>Posts</h3>
+                            <OtherUserProfileFeedPosts/>
+                        </div>)}
+                        <div className="profile-main-info">
+                            <OtherUserProfileInfo/>
+                            <OtherUserProfilePhotos/>
+                            <OtherUserProfileInterests/>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
     }
 };
 
-//TODO: getOtherUser(id)
 function mapDispatchToProps(dispatch) {
     return{
-
+        getOtherUser: (id) => dispatch(getOtherUser(id))
     }
 }
 

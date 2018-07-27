@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 
 class OtherUserProfileInterests extends Component {
 render() {
-    let userTags = this.props.tags;
+    let userTags = this.props.tags || [];
     userTags = userTags.map(tag => tag.tag);
 
     return (
