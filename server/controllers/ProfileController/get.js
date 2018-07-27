@@ -18,8 +18,10 @@ const getColumns = (user, columns) => {
 };
 
 const filterUser = (user) => {
+    //console.log(user);
     let
         info   = {
+            id: user[0]['users_id'],
             username: user[0]['users_username'],
             firstname: user[0]['users_firstname'],
             lastname: user[0]['users_lastname'],

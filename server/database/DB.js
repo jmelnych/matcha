@@ -83,6 +83,7 @@ module.exports = class DB {
 
     getUser(id) {
         return this.all(`SELECT
+  users.id          as users_id,      
   users.username    as users_username,
   users.firstname   as users_firstname,
   users.lastname    as users_lastname,

@@ -1,9 +1,18 @@
 import React, { Component } from 'react'
-import {Button} from 'antd'
+import {Button, Popconfirm, message} from 'antd'
 import {connect} from 'react-redux'
 import ProfileUserGenderIcon from './ProfileUI/ProfileUserGenderIcon'
+import {fakeNotification} from '../../actions/userActions'
 
 class OtherUserProfileHead extends Component {
+    confirm = () => {
+        const {id} = this.props.info;
+        this.props.fakeNotification(id);
+        message.success('Your notification has been send');
+    };
+    cancel = () => {
+        console.log('cancel');
+    };
 render() {
     const user = this.props.info || {avatar: 'default.png', gender: 'male', rating: 0, age: 18, location: {city:'Kiev', country: 'Ukraine'}};
     const av_name = user.avatar;
@@ -22,7 +31,10 @@ render() {
                         <ProfileUserGenderIcon user={user.gender}/></p>
                 </figcaption>
                 <Button className="like-button" type="primary">Like</Button>
-                <a className="text-secondary suspect">Suspect fake account?</a>
+                <Popconfirm title="Are you sure you want notify us about fake account?"
+                            onConfirm={this.confirm} onCancel={this.cancel} okText="Yes" cancelText="No">
+                    <a className="text-secondary suspect">Suspect fake account?</a>
+                </Popconfirm>
             </div>
         </div>
     );
@@ -33,4 +45,4 @@ function mapStateToProps({otherUser}){
     return otherUser.user;
 }
 
-export default connect(mapStateToProps)(OtherUserProfileHead);
+export default connect(mapStateToProps, {fakeNotification})(OtherUserProfileHead);

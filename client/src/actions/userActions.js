@@ -104,3 +104,7 @@ export const getOtherUser = (id) => dispatch => {
           payload: userData
       }))
 };
+
+export const fakeNotification = (id) => dispatch => {
+    return axios.post('api/profile/fake-notification', {id: id});
+};
