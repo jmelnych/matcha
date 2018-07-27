@@ -16,19 +16,21 @@ import Match from './Match'
 import NotFound from './Additional/NotFound'
 import Messenger from './Messenger/Messenger'
 import OtherUserProfile from './Profile/OtherUserProfile'
+import Notifications from './Notifications'
 
 class Root extends Component {
     componentDidMount() {
         const _curl = (window.location.href).split('/');
-        if (_curl[3] === '' || _curl[3] === 'search' || _curl[3] === 'match'
-            || _curl[3] === 'messenger' || _curl[3] === 'user') {
+        // if (_curl[3] === '' || _curl[3] === 'search' || _curl[3] === 'match'
+        //     || _curl[3] === 'messenger' || _curl[3] === 'user' || _curl[3] === 'notifications') {
             //console.log('checking auth');
             this.props.isAuth();
-        } //TODO: fix rendering profile when relinked from 404 page
+        //}
     }
     render() {
         const {Footer} = Layout;
         return (
+            //TODO: render pages only when user logged  in
             <Layout className="App">
                 <HeaderNav/>
                 <Switch>
@@ -39,6 +41,7 @@ class Root extends Component {
                     <Route exact path='/activate/:token' component={Activation} />
                     <Route exact path='/password/:token' component={SetPassword} />
                     <Route exact path='/user/:id' component={OtherUserProfile} />
+                    <Route exact path='/notifications' component={Notifications} />
                     <Route component={NotFound}/>
                 </Switch>
                 <Footer>&copy; by imelnych & pkolomiy</Footer>

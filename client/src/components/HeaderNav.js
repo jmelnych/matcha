@@ -28,6 +28,8 @@ class HeaderNav extends Component {
             tab = '3';
         } else if (_curl === 'messenger') {
             tab = '4';
+        } else if(_curl === 'notifications') {
+            tab = '5';
         }
 
     return (
@@ -46,7 +48,8 @@ class HeaderNav extends Component {
                         c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/></svg>
                       <Link to='/match' style={linkStyle}>Match</Link></Menu.Item>
                   <Menu.Item key="4"><Link to='/messenger' style={linkStyle}>Messenger</Link></Menu.Item>
-                  <Menu.Item key="5"><Link to='/' onClick={this.logout} style={linkStyle}>Logout</Link></Menu.Item>
+                  <Menu.Item key="5"><Link to='/notifications' style={linkStyle}>Notifications</Link></Menu.Item>
+                  <Menu.Item key="6"><Link to='/' onClick={this.logout} style={linkStyle}>Logout</Link></Menu.Item>
               </Menu>
               }
           </Header>

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {Button, Popconfirm, message} from 'antd'
 import {connect} from 'react-redux'
 import ProfileUserGenderIcon from './ProfileUI/ProfileUserGenderIcon'
-import {fakeNotification} from '../../actions/userActions'
+import {fakeNotification, likeUser} from '../../actions/userActions'
 
 class OtherUserProfileHead extends Component {
     confirm = () => {
@@ -13,6 +13,11 @@ class OtherUserProfileHead extends Component {
     cancel = () => {
         console.log('cancel');
     };
+
+    like = () => {
+        const {id} = this.props.info;
+        this.props.likeUser(id);
+    }
 render() {
     const user = this.props.info || {avatar: 'default.png', gender: 'male', rating: 0, age: 18, location: {city:'Kiev', country: 'Ukraine'}};
     const av_name = user.avatar;
@@ -30,8 +35,8 @@ render() {
                     <p className="figcaption-text">Gender:
                         <ProfileUserGenderIcon user={user.gender}/></p>
                 </figcaption>
-                <Button className="like-button" type="primary">Like</Button>
-                <Popconfirm title="Are you sure you want notify us about fake account?"
+                <Button className="like-button" onClick={this.like} type="primary">Like</Button>
+                <Popconfirm title="Are you sure you want to report fake account?"
                             onConfirm={this.confirm} onCancel={this.cancel} okText="Yes" cancelText="No">
                     <a className="text-secondary suspect">Suspect fake account?</a>
                 </Popconfirm>
@@ -43,6 +48,13 @@ render() {
 
 function mapStateToProps({otherUser}){
     return otherUser.user;
+};
+
+function mapDispatchToProps(dispatch) {
+    return {
+        fakeNotification: (id) => dispatch(fakeNotification(id)),
+        likeUser: (id) => dispatch(likeUser(id))
+    }
 }
 
-export default connect(mapStateToProps, {fakeNotification})(OtherUserProfileHead);
+export default connect(mapStateToProps, mapDispatchToProps)(OtherUserProfileHead);

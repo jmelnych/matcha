@@ -1,3 +1,3 @@
 module.exports = (req, res) => {
-  console.log('fake', req.body);
+    console.log('like', req.body);
 };
