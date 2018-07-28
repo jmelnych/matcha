@@ -59,6 +59,10 @@ module.exports = class DB {
         return this.get(`SELECT * FROM ${table} WHERE ${column} = ?`, [value]);
     }
 
+    getByMultipleUnique(table, columns, values) {
+        return this.get(`SELECT * FROM ${table} WHERE ${columns.map(column => `${column} = ?`).join(' AND ')}`, [values]);
+    }
+
     getAllByUnique(table, column, value) {
         return this.all(`SELECT * FROM ${table} WHERE ${column} = ?`, [value]);
     }
@@ -83,32 +87,35 @@ module.exports = class DB {
 
     getUser(id) {
         return this.all(`SELECT
-  users.id          as users_id,      
-  users.username    as users_username,
-  users.firstname   as users_firstname,
-  users.lastname    as users_lastname,
-  users.gender      as users_gender,
-  users.bday        as users_bday,
-  users.added       as users_added,
-  users.location    as users_location,
-  users.avatar      as users_avatar,
-  users.personality as users_personality,
-  users.preference  as users_preference,
-  users.occupancy   as users_occupancy,
-  users.rating      as users_rating,
-  users.bio         as users_bio,
-  photos.filename   as photos_filename,
-  posts.id          as posts_id,
-  posts.title       as posts_title,
-  posts.post        as posts_post,
-  posts.added       as posts_added,
-  tags.id           as tags_id,
-  tags.tag          as tags_tag
+  users.id          AS users_id,
+  users.username    AS users_username,
+  users.firstname   AS users_firstname,
+  users.lastname    AS users_lastname,
+  users.gender      AS users_gender,
+  users.bday        AS users_bday,
+  users.added       AS users_added,
+  users.location    AS users_location,
+  users.avatar      AS users_avatar,
+  users.personality AS users_personality,
+  users.preference  AS users_preference,
+  users.occupancy   AS users_occupancy,
+  users.rating      AS users_rating,
+  users.bio         AS users_bio,
+  photos.filename   AS photos_filename,
+  posts.id          AS posts_id,
+  posts.title       AS posts_title,
+  posts.post        AS posts_post,
+  posts.added       AS posts_added,
+  tags.id           AS tags_id,
+  tags.tag          AS tags_tag,
+  history.first_id  AS history_first_id,
+  history.action    AS history_actions
 FROM users
-  LEFT JOIN photos ON users.id = photos.user_id
-  LEFT JOIN posts ON users.id = posts.user_id
+  LEFT JOIN photos     ON users.id = photos.user_id
+  LEFT JOIN posts      ON users.id = posts.user_id
   LEFT JOIN users_tags ON users.id = users_tags.user_id
-  LEFT JOIN tags ON users_tags.tag_id = tags.id
+  LEFT JOIN tags       ON users_tags.tag_id = tags.id
+  LEFT JOIN history    ON users.id = history.second_id
 WHERE users.id = ?`, [id]);
     }
 

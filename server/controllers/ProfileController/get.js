@@ -6,7 +6,7 @@ const removeDuplicates = (myArr, prop) => {
 
 const getColumns = (user, columns) => {
     let arr = user.map((row) => {
-        let obj      = {};
+        let obj = {};
         Object.keys(columns).forEach(key => row[key] ? obj[columns[key]] = row[key] : null);
         if (Object.keys(obj).length) {
             return obj;
@@ -17,10 +17,9 @@ const getColumns = (user, columns) => {
     }
 };
 
-const filterUser = (user) => {
-    //console.log(user);
+const filterUser = (user, id) => {
     let
-        info   = {
+        info    = {
             id: user[0]['users_id'],
             username: user[0]['users_username'],
             firstname: user[0]['users_firstname'],
@@ -36,18 +35,33 @@ const filterUser = (user) => {
             rating: user[0]['users_rating'],
             bio: user[0]['users_bio']
         },
-        photos = getColumns(removeDuplicates(user, 'photos_filename'), {photos_filename: 'filename'}),
-        posts = getColumns(removeDuplicates(user, 'posts_id'), {
+        photos  = getColumns(removeDuplicates(user, 'photos_filename'), {
+            photos_filename: 'filename'
+        }),
+        posts   = getColumns(removeDuplicates(user, 'posts_id'), {
             posts_id: 'id',
             posts_title: 'title',
             posts_post: 'post',
             posts_added: 'added'
         }),
-        tags = getColumns(removeDuplicates(user, 'tags_id'), {
+        tags    = getColumns(removeDuplicates(user, 'tags_id'), {
             tags_id: 'id',
             tags_tag: 'tag'
-        });
-    return {info: info, photos: photos, posts: posts, tags: tags};
+        }),
+        history = getColumns(user, {
+            history_first_id: 'id',
+            history_actions: 'action'
+        }).filter(item =>
+            item.id === id &&
+            item.action !== 'fake' &&
+            item.action !== 'see').map(item => item.action);
+    return {
+        info: info,
+        photos: photos,
+        posts: posts,
+        tags: tags,
+        history: history
+    };
 };
 
 module.exports = (req, res) => {
@@ -59,17 +73,17 @@ module.exports = (req, res) => {
     let db           = req.app.get('db'),
         prepareUsers = req.app.get('prepareUsers'),
         {id}         = req.body,
+        promise      = db.getUser(id),
         error        = (e) => {
             console.log(e);
             res.send(e);
-        },
-        promise      = db.getUser(id);
+        };
 
     promise.then((response) => {
         if (response === undefined || !response.length) {
             res.send('No user');
         } else {
-            let filtered  = filterUser(response);
+            let filtered  = filterUser(response, req.session.id);
             filtered.info = prepareUsers([filtered.info], req.session)[0];
             res.send(filtered);
         }

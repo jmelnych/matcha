@@ -11,24 +11,24 @@ module.exports = (req, res) => {
     let db      = req.app.get('db'),
         promise = db.getByMultipleUnique('history',
             ['first_id', 'second_id', '`action`'],
-            [req.session.id, id, 'like']),
+            [req.session.id, id, 'ban']),
         error   = (e) => {
             console.log(e);
             res.send(e);
         };
     promise.then((response) => {
         if (response) {
-            res.send('I already like you');
-        } else {
             promise = db.delete('history',
                 ['first_id', 'second_id', '`action`'],
                 [req.session.id, id, 'unlike']);
             promise.then(() => {
-                promise = db.create('history',
-                    'first_id, second_id, `action`',
-                    [req.session.id, id, 'like']);
-                promise.then(() => res.send('I like you')).catch(error);
+                promise = db.delete('history',
+                    ['first_id', 'second_id', '`action`'],
+                    [req.session.id, id, 'ban']);
+                promise.then(() => res.send('I unbanned you')).catch(error);
             }).catch(error);
+        } else {
+            res.send("I can't unban you");
         }
     }).catch(error);
 };

@@ -18,17 +18,17 @@ module.exports = (req, res) => {
         };
     promise.then((response) => {
         if (response) {
-            res.send('I already like you');
-        } else {
             promise = db.delete('history',
                 ['first_id', 'second_id', '`action`'],
-                [req.session.id, id, 'unlike']);
+                [req.session.id, id, 'like']);
             promise.then(() => {
                 promise = db.create('history',
                     'first_id, second_id, `action`',
-                    [req.session.id, id, 'like']);
-                promise.then(() => res.send('I like you')).catch(error);
+                    [req.session.id, id, 'unlike']);
+                promise.then(() => res.send('I unliked you')).catch(error);
             }).catch(error);
+        } else {
+            res.send("I can't unlike you");
         }
     }).catch(error);
 };

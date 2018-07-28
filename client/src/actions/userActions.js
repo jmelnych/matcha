@@ -106,7 +106,7 @@ export const getOtherUser = (id) => dispatch => {
 };
 
 export const fakeNotification = (id) => dispatch => {
-    return axios.post('api/profile/fake-notification', {id: id});
+    return axios.post('api/profile/fake', {id: id});
 };
 
 export const likeUser = (id) => dispatch => {

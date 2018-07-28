@@ -2,7 +2,6 @@ const location = require('./location');
 const moment   = require('moment');
 
 module.exports = (users, session, radius = null) => {
-
     users.filter(user => {
         user.location = JSON.parse(user.location);
         user.age      = moment().diff(user.bday, 'years');
@@ -16,6 +15,5 @@ module.exports = (users, session, radius = null) => {
         }
         return !(radius && user.distance > radius);
     });
-
     return users;
 };

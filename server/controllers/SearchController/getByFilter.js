@@ -63,6 +63,7 @@ module.exports = (req, res) => {
                 res.send('No users');
             } else {
                 response = prepareUsers(response, req.session, body.radius);
+                response = response.filter(user => user.id !== req.session.id);
                 if (query.order === '') {
                     response.sort((cur, next) => {
                         if (cur.distance !== next.distance) {
