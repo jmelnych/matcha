@@ -87,7 +87,7 @@ VALUES
 ('owen@mail.com', 'user', 'Owen', 'Chambers', 'sha1$6ccf8120$1$6565287932415fe3adca37dbaada1c3d64409f94', 1, 'male', 'female', '1985-06-13T00:00:00+02:00', '{"city":"Kyiv","country":"Ukraine","lat":50.393074,"lng":30.498484}'),
 ('niko@mail.com', 'user', 'Niko', 'Hester', 'sha1$6ccf8120$1$6565287932415fe3adca37dbaada1c3d64409f94', 1, 'male', 'male', '1996-05-03T00:00:00+02:00', '{"city":"Kyiv","country":"Ukraine","lat":50.521861,"lng":30.615231}'),
 ('van@mail.com', 'user', 'Van', 'Mcneil', 'sha1$6ccf8120$1$6565287932415fe3adca37dbaada1c3d64409f94', 1, 'male', 'female', '1997-04-08T00:00:00+02:00', '{"city":"Kiev","country":"Ukraine","lat":50.4547,"lng":30.5238}'),
-('jean@mail.com', 'user', 'Jean', 'Brooks', 'sha1$6ccf8120$1$6565287932415fe3adca37dbaada1c3d64409f94', 1, 'female', 'female', '1968-13-30T00:00:00+02:00', '{"city":"Chernihiv","country":"Ukraine","lat":51.506445,"lng":31.274401}'),
+('jean@mail.com', 'user', 'Jean', 'Brooks', 'sha1$6ccf8120$1$6565287932415fe3adca37dbaada1c3d64409f94', 1, 'female', 'female', '1968-12-30T00:00:00+02:00', '{"city":"Chernihiv","country":"Ukraine","lat":51.506445,"lng":31.274401}'),
 ('helen@mail.com', 'user', 'Helen', 'Odom', 'sha1$6ccf8120$1$6565287932415fe3adca37dbaada1c3d64409f94', 1, 'female', 'both', '1999-02-05T00:00:00+02:00', '{"city":"Kyiv","country":"Ukraine","lat":50.460939,"lng":30.642840}'),
 ('mila@mail.com', 'user', 'Mila', 'Bonilla', 'sha1$6ccf8120$1$6565287932415fe3adca37dbaada1c3d64409f94', 1, 'female', 'both', '2000-01-24T00:00:00+02:00', '{"city":"Kiev","country":"Ukraine","lat":50.4547,"lng":30.5238}');
 -- all users password = '1'
