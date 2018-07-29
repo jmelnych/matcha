@@ -44,16 +44,23 @@ class OtherUserProfilePhotos extends Component {
             <div className="profile-main-info-list">
                 <div className="clearfix">
                     <h3>Photos</h3>
-                    <Upload
+                    {!!this.state.photos.length && (
+                        <div>
+                        <Upload
                             listType="picture-card"
                             fileList={this.state.photos}
                             onPreview={this.handlePreview}
                             showUploadList={{ showRemoveIcon: false, showPreviewIcon: true }}
-                            >
-                    </Upload>
-                    <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
+                        >
+                        </Upload>
+                        <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
                         <img alt="example" style={{ width: '100%' }} src={previewImage} />
-                    </Modal>
+                        </Modal>
+                        </div>
+                    )}
+                    {(this.state.photos.length === 0) && (
+                        <div className="text-secondary info">No photos yet</div>
+                    )}
                 </div>
             </div>
         );

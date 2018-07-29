@@ -6,7 +6,8 @@ const ProfileUserGenderIcon = (props) => {
     const genderStyle = {
         fill: 'white',
         width: '32px',
-        height: '22px'
+        height: '22px',
+        marginBottom: '-3px'
     };
  return (
      <span className="icon-inline">

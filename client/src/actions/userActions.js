@@ -111,4 +111,8 @@ export const fakeNotification = (id) => dispatch => {
 
 export const likeUser = (id) => dispatch => {
     return axios.post('api/profile/like', {id: id})
-}
+};
+
+export const banUser = (id) => dispatch => {
+    return axios.post('api/profile/ban', {id: id})
+};

@@ -10,14 +10,18 @@ render() {
     return (
         <div className="profile-main-info-list">
             <h3>Personal Interests</h3>
-            <Select
+            {!!userTags.length &&
+            (<Select
                 className="tags-no-border"
                 mode="multiple"
                 style={{ width: '100%' }}
                 value={userTags}
                 disabled={true}
             >
-            </Select>
+            </Select>)}
+            {userTags.length === 0 && (
+                <div className="text-secondary info">No interests selected</div>
+            )}
         </div>
     );
   }

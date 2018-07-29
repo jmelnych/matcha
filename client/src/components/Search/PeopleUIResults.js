@@ -14,7 +14,7 @@ const PeopleUIResults = (props) => {
                     <img src={src}
                          alt="profile-sample" className="profile"/>
                     <figcaption>
-                        <h3>{user.username}</h3>
+                        <h3>{user.firstname} {user.lastname}</h3>
                         <span>rating: {user.rating}</span>
                         <span>{user.age} years old</span>
                         <span className="distance">&asymp; {(user.distance).toFixed(2)} km away</span>

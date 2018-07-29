@@ -8,7 +8,7 @@ export const socket = openSocket.connect('http://localhost:5000');
 class Messenger extends Component {
 render() {
     return (
-      <div className="container-flex top-chat">
+      <div className="container-flex">
           <MessengerPeople/>
            <MessengerChat/>
       </div>

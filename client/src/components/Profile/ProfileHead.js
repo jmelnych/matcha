@@ -54,6 +54,7 @@ class ProfileHead extends Component {
     return (
           <div className="profile-main-header">
               <div className="profile-main-avatar">
+                  <div className="wrapper">
                   <EditProfileUserAvatar/>
                   <figcaption>
                       <p className="figcaption-text">Rating: {user.rating}</p>
@@ -63,6 +64,7 @@ class ProfileHead extends Component {
                       <ProfileUserGenderIcon user={this.props.user.gender}/></p>
                   </figcaption>
                       <Ionicon onClick={this.showModal} className="editable-icon" style={editablePen} icon="md-create"/>
+                    </div>
               </div>
               <Modal title="Edit your profile info"
                      visible={visible}

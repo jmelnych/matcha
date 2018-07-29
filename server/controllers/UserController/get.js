@@ -1,4 +1,5 @@
 const hash   = require('password-hash');
+const moment   = require('moment');
 
 module.exports = (req, res) => {
     let promise,
@@ -23,6 +24,7 @@ module.exports = (req, res) => {
             res.send('No activation');
         } else {
             response.location = JSON.parse(response.location);
+            response.age      = moment().diff(response.bday, 'years');
             delete response.activation;
             delete response.password;
             delete response.token;
