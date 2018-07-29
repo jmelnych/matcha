@@ -19,7 +19,7 @@ class EditProfileUserInfo extends Component {
         e.preventDefault();
         form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                //console.log('Received values of form editing: ', values);
+                console.log('Received values of form editing: ', values);
                 let newUserInfo = new Object();
                 if (values.firstname !== user.firstname) {
                     newUserInfo.firstname = values.firstname;
@@ -109,28 +109,29 @@ render() {
                       <Select.Option value="both">Men and Women</Select.Option>
                   </Select>)}
               </Form.Item>
-              <Form.Item {...formItemLayout} label='Personality'> {
+
+              <Form.Item {...formItemLayout} label='Personality'>
+                  <Popover placement="rightTop" title="Personality type" content={content} trigger="hover">{
                   getFieldDecorator('personality')(
-                      <Popover placement="rightTop" title="Personality type" content={content} trigger="hover">
                           <Select >
-                          <Select.Option value="istj">ISTJ</Select.Option>
-                          <Select.Option value="istp">ISTP</Select.Option>
-                          <Select.Option value="isfj">ISFJ</Select.Option>
-                          <Select.Option value="isfp">ISFP</Select.Option>
-                          <Select.Option value="infj">INFJ</Select.Option>
-                          <Select.Option value="infp">INFP</Select.Option>
-                          <Select.Option value="intj">INTJ</Select.Option>
-                          <Select.Option value="intp">INTP</Select.Option>
-                          <Select.Option value="estp">ESTP</Select.Option>
-                          <Select.Option value="estj">ESTJ</Select.Option>
-                          <Select.Option value="esfp">ESFP</Select.Option>
-                          <Select.Option value="esfj">ESFJ</Select.Option>
-                          <Select.Option value="enfp">ENFP</Select.Option>
-                          <Select.Option value="enfj">ENFJ</Select.Option>
-                          <Select.Option value="entp">ENTP</Select.Option>
-                          <Select.Option value="entj">ENTJ</Select.Option>
+                          <Select.Option value="ISTJ">ISTJ</Select.Option>
+                          <Select.Option value="ISTP">ISTP</Select.Option>
+                          <Select.Option value="ISFJ">ISFJ</Select.Option>
+                          <Select.Option value="ISFP">ISFP</Select.Option>
+                          <Select.Option value="INFJ">INFJ</Select.Option>
+                          <Select.Option value="INFP">INFP</Select.Option>
+                          <Select.Option value="INTJ">INTJ</Select.Option>
+                          <Select.Option value="INTP">INTP</Select.Option>
+                          <Select.Option value="ESTP">ESTP</Select.Option>
+                          <Select.Option value="ESTJ">ESTJ</Select.Option>
+                          <Select.Option value="ESFP">ESFP</Select.Option>
+                          <Select.Option value="ESFJ">ESFJ</Select.Option>
+                          <Select.Option value="ENFP">ENFP</Select.Option>
+                          <Select.Option value="ENFJ">ENFJ</Select.Option>
+                          <Select.Option value="ENTP">ENTP</Select.Option>
+                          <Select.Option value="ENTJ">ENTJ</Select.Option>
                       </Select>
-                      </Popover>)}
+                      )}</Popover>
               </Form.Item>
               <Form.Item {...formItemLayout} label='Birth day'> {
                   getFieldDecorator('bday',  {
