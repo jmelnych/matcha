@@ -51,10 +51,13 @@ const filterUser = (user, id) => {
         history = getColumns(user, {
             history_first_id: 'id',
             history_actions: 'action'
-        }).filter(item =>
+        });
+    if (history) {
+        history = history.filter(item =>
             item.id === id &&
             item.action !== 'fake' &&
-            item.action !== 'see').map(item => item.action);
+            item.action !== 'see').map(item => item.action)
+    }
     return {
         info: info,
         photos: photos,
