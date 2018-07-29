@@ -43,15 +43,16 @@ const Mail = require('./models/Mail');
 
 app.set('db', new DB());
 app.set('mail', new Mail());
-app.set('location', require('./models/location'));
-app.set('prepareUsers', require('./models/prepareUsers'));
 
 /* Set multer saveImage */
 app.set('save', require('./models/saveImage'));
 
 /* Additional models helpers */
+app.set('location', require('./models/location'));
+app.set('prepareHistory', require('./models/prepareHistory'));
 app.set('filterObject', require('./models/filterObject'));
 app.set('prepareQuery', require('./models/prepareQuery'));
+app.set('prepareUsers', require('./models/prepareUsers'));
 
 /*defining routes */
 app.use('/api/users/', users);

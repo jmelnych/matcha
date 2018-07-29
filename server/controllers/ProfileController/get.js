@@ -17,7 +17,7 @@ const getColumns = (user, columns) => {
     }
 };
 
-const filterUser = (user, id) => {
+const filterUser = (user) => {
     let
         info    = {
             id: user[0]['users_id'],
@@ -47,23 +47,12 @@ const filterUser = (user, id) => {
         tags    = getColumns(removeDuplicates(user, 'tags_id'), {
             tags_id: 'id',
             tags_tag: 'tag'
-        }),
-        history = getColumns(user, {
-            history_first_id: 'id',
-            history_actions: 'action'
         });
-    if (history) {
-        history = history.filter(item =>
-            item.id === id &&
-            item.action !== 'fake' &&
-            item.action !== 'see').map(item => item.action);
-    }
     return {
         info: info,
         photos: photos,
         posts: posts,
         tags: tags,
-        history: history
     };
 };
 
@@ -73,11 +62,12 @@ module.exports = (req, res) => {
         return;
     }
 
-    let db           = req.app.get('db'),
-        prepareUsers = req.app.get('prepareUsers'),
-        {id}         = req.body,
-        promise      = db.getUser(id),
-        error        = (e) => {
+    let db             = req.app.get('db'),
+        prepareUsers   = req.app.get('prepareUsers'),
+        prepareHistory = req.app.get('prepareHistory'),
+        {id}           = req.body,
+        promise        = db.getUser(id),
+        error          = (e) => {
             console.log(e);
             res.send(e);
         };
@@ -86,9 +76,16 @@ module.exports = (req, res) => {
         if (response === undefined || !response.length) {
             res.send('No user');
         } else {
-            let filtered  = filterUser(response, req.session.id);
+            let filtered  = filterUser(response);
             filtered.info = prepareUsers([filtered.info], req.session)[0];
-            res.send(filtered);
+            promise = db.all(`select * from history where
+                ((first_id = ? and second_id = ?) or (second_id = ? and first_id = ?)) and 
+                (action = ? or action = ? or action = ?)`,
+                [req.session.id, id, id, req.session.id, 'like', 'unlike', 'ban']);
+            promise.then((history) => {
+                filtered.history = prepareHistory(history, req.session.id);
+                res.send(filtered);
+            }).catch(error);
         }
     }).catch(error);
 };

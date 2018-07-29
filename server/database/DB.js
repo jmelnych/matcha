@@ -60,7 +60,7 @@ module.exports = class DB {
     }
 
     getByMultipleUnique(table, columns, values) {
-        return this.get(`SELECT * FROM ${table} WHERE ${columns.map(column => `${column} = ?`).join(' AND ')}`, [values]);
+        return this.get(`SELECT * FROM ${table} WHERE ${columns.map(column => `${column} = ?`).join(' AND ')}`, values);
     }
 
     getAllByUnique(table, column, value) {
@@ -107,15 +107,12 @@ module.exports = class DB {
   posts.post        AS posts_post,
   posts.added       AS posts_added,
   tags.id           AS tags_id,
-  tags.tag          AS tags_tag,
-  history.first_id  AS history_first_id,
-  history.action    AS history_actions
+  tags.tag          AS tags_tag
 FROM users
   LEFT JOIN photos     ON users.id = photos.user_id
   LEFT JOIN posts      ON users.id = posts.user_id
   LEFT JOIN users_tags ON users.id = users_tags.user_id
   LEFT JOIN tags       ON users_tags.tag_id = tags.id
-  LEFT JOIN history    ON users.id = history.second_id
 WHERE users.id = ?`, [id]);
     }
 
