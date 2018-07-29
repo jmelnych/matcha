@@ -11,5 +11,5 @@ export const getPhotos = () => dispatch => {
 };
 
 export const removePhoto = (name) => dispatch => {
-    return axios.post('api/image/delete-photo')
+    return axios.post('api/image/delete-photo', {name: name})
 };
