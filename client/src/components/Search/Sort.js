@@ -12,7 +12,7 @@ render() {
             <RadioGroup onChange={this.props.handleSort} defaultValue="rating">
                 <RadioButton value="rating">Rating</RadioButton>
                 <RadioButton value="age">Age</RadioButton>
-                <RadioButton value="distance">Distance</RadioButton>
+                <RadioButton value="radius">Distance</RadioButton>
             </RadioGroup>
         </div>
     );

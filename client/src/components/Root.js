@@ -20,7 +20,7 @@ import Notifications from './Notifications'
 
 class Root extends Component {
     componentDidMount() {
-        const _curl = (window.location.href).split('/');
+        //const _curl = (window.location.href).split('/');
         // if (_curl[3] === '' || _curl[3] === 'search' || _curl[3] === 'match'
         //     || _curl[3] === 'messenger' || _curl[3] === 'user' || _curl[3] === 'notifications') {
             //console.log('checking auth');

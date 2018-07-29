@@ -137,7 +137,12 @@ span.distance{
 }
 
 .text-secondary{
+  font-size: 18px;
   color: rgba(96,96,96,1);
+}
+
+.info{
+  padding-top: 10px;
 }
 
 .suspect {
@@ -187,6 +192,7 @@ span.distance{
   width: 23%;
   color: white;
   margin: 30px 30px;
+  padding: 20px 0;
 }
 
 .profile-main-info, .profile-feed-snippet{

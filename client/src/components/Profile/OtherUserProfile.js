@@ -11,6 +11,7 @@ import {getOtherUser} from '../../actions/userActions'
 class OtherUserProfile extends Component {
     componentDidMount() {
         const {id} = this.props.match.params;
+        // console.log('other user profile', id);
         this.props.getOtherUser(id);
     };
 
@@ -26,6 +27,10 @@ class OtherUserProfile extends Component {
                         {posts.length && (<div className="profile-main-feed">
                             <h3>Posts</h3>
                             <OtherUserProfileFeedPosts/>
+                        </div>)}
+                        {posts.length === 0 && (<div className="profile-main-feed">
+                            <h3>Posts</h3>
+                            <div className="text-secondary info">No posts yet</div>
                         </div>)}
                         <div className="profile-main-info">
                             <OtherUserProfileInfo/>
