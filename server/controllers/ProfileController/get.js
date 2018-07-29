@@ -56,7 +56,7 @@ const filterUser = (user, id) => {
         history = history.filter(item =>
             item.id === id &&
             item.action !== 'fake' &&
-            item.action !== 'see').map(item => item.action)
+            item.action !== 'see').map(item => item.action);
     }
     return {
         info: info,

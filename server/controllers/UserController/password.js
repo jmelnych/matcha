@@ -1,6 +1,10 @@
 const hash = require('password-hash');
 
 module.exports = (req, res) => {
+    if (req.session.id === undefined) {
+        res.send('Need login');
+        return;
+    }
     let {token, password} = req.body,
         db                = req.app.get('db'),
         error             = (e) => {

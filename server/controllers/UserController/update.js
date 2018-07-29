@@ -1,9 +1,13 @@
 module.exports = (req, res) => {
+    if (req.session.id === undefined) {
+        res.send('Need login');
+        return;
+    }
     let filterObject = req.app.get('filterObject'),
         db           = req.app.get('db'),
         data         = filterObject(req.body.data, [
             'username', 'firstname', 'lastname', 'gender', 'preference',
-            'occupancy', 'age', 'rating', 'bio', 'location'
+            'personality', 'occupancy', 'age', 'rating', 'bio', 'location'
         ]);
     if (data.location) {
         data.location = JSON.stringify(data.location);

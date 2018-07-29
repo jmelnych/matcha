@@ -12,7 +12,7 @@ module.exports = (req, res) => {
         promise = db.create('history',
             'first_id, second_id, `action`',
             [req.session.id, id, 'see']),
-        error        = (e) => {
+        error   = (e) => {
             console.log(e);
             res.send(e);
         };

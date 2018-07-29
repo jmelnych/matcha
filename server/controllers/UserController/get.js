@@ -1,5 +1,5 @@
 const hash   = require('password-hash');
-const moment   = require('moment');
+const moment = require('moment');
 
 module.exports = (req, res) => {
     let promise,
