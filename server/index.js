@@ -50,6 +50,7 @@ app.set('save', require('./models/saveImage'));
 /* Additional models helpers */
 app.set('location', require('./models/location'));
 app.set('prepareHistory', require('./models/prepareHistory'));
+app.set('relationshipHistory', require('./models/relationshipHistory'));
 app.set('filterObject', require('./models/filterObject'));
 app.set('prepareQuery', require('./models/prepareQuery'));
 app.set('prepareUsers', require('./models/prepareUsers'));

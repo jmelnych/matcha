@@ -67,8 +67,8 @@ CREATE TABLE history
 (
   first_id  INTEGER,
   second_id INTEGER,
-  `action`  VARCHAR(6) NOT NULL
-    CHECK (`action` IN ('see', 'like', 'unlike', 'fake', 'ban')),
+  `action`  VARCHAR(8) NOT NULL
+    CHECK (`action` IN ('see', 'like', 'match', 'ban', 'break up', 'fake')),
   added     DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 

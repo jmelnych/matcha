@@ -78,14 +78,14 @@ module.exports = (req, res) => {
         } else {
             let filtered  = filterUser(response);
             filtered.info = prepareUsers([filtered.info], req.session)[0];
-            promise = db.all(`select * from history where
-                ((first_id = ? and second_id = ?) or (second_id = ? and first_id = ?)) and 
-                (action = ? or action = ? or action = ?)`,
-                [req.session.id, id, id, req.session.id, 'like', 'unlike', 'ban']);
-            promise.then((history) => {
-                filtered.history = prepareHistory(history, req.session.id);
+            //promise = db.all(`select * from history where
+            //    ((first_id = ? and second_id = ?) or (second_id = ? and first_id = ?)) and
+            //    (action = ? or action = ? or action = ?)`,
+            //    [req.session.id, id, id, req.session.id, 'like', 'ban']);
+            //promise.then((history) => {
+            //    filtered.history = prepareHistory(history, req.session.id);
                 res.send(filtered);
-            }).catch(error);
+            //}).catch(error);
         }
     }).catch(error);
 };

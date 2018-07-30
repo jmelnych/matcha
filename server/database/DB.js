@@ -59,8 +59,11 @@ module.exports = class DB {
         return this.get(`SELECT * FROM ${table} WHERE ${column} = ?`, [value]);
     }
 
-    getByMultipleUnique(table, columns, values) {
-        return this.get(`SELECT * FROM ${table} WHERE ${columns.map(column => `${column} = ?`).join(' AND ')}`, values);
+    getHistory(first_id, second_id = null, relationship = false) {
+        return this.all(`SELECT * FROM history WHERE
+            ${second_id ? '((first_id = ? AND second_id = ?) OR (second_id = ? AND first_id = ?))' : '(first_id = ?)'}
+            ${relationship ? "AND (`action` != 'see' AND `action` != 'fake')" : ""}`,
+            second_id ? [first_id, second_id, first_id, second_id] : [first_id]);
     }
 
     getAllByUnique(table, column, value) {
@@ -128,5 +131,11 @@ WHERE users.id = ?`, [id]);
 
     delete(table, columns, values) {
         return this.run(`DELETE FROM ${table} WHERE ${columns.map(column => `${column} = ?`).join(' and ')}`, values);
+    }
+
+    deleteFromHistory(actions, values) {
+        return this.run(`DELETE FROM history WHERE
+            ((first_id = ? AND second_id = ?) OR (second_id = ? AND first_id = ?))
+        (${actions.map(action => action + ' = ?').join(' OR ')})`, values.concat(actions));
     }
 };

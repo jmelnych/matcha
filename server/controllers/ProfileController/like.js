@@ -1,34 +1,41 @@
 module.exports = (req, res) => {
-    if (req.session.id === undefined) {
+    let first_id = req.session.id,
+        second_id = req.body.id;
+    if (first_id === undefined) {
         res.send('Need login');
         return;
     }
-    let {id} = req.body;
-    if (!id || id === req.session.id) {
+    if (!second_id || second_id === first_id) {
         res.send('Need User Id');
         return;
     }
-    let db      = req.app.get('db'),
-        promise = db.getByMultipleUnique('history',
-            ['first_id', 'second_id', '`action`'],
-            [req.session.id, id, 'like']),
-        error   = (e) => {
+    let db                  = req.app.get('db'),
+        relationshipHistory = req.app.get('relationshipHistory'),
+        promise             = db.getHistory(first_id, second_id, true),
+        error               = (e) => {
             console.log(e);
             res.send(e);
         };
     promise.then((response) => {
-        if (response) {
-            res.send('I already like you');
-        } else {
-            promise = db.delete('history',
-                ['first_id', 'second_id', '`action`'],
-                [req.session.id, id, 'unlike']);
-            promise.then(() => {
+        let make = (action) => {
                 promise = db.create('history',
                     'first_id, second_id, `action`',
-                    [req.session.id, id, 'like']);
-                promise.then(() => res.send('I like you')).catch(error);
-            }).catch(error);
+                    [first_id, second_id, action]);
+                promise.then(() => {
+                    promise = db.deleteFromHistory(action === 'like' ? ['break up'] : ['like', 'break up'],
+                        [first_id, second_id, first_id, second_id]);
+                    promise.then(() => res.send(action)).catch(error);
+                }).catch(error);
+            },
+            Ilike = relationshipHistory(response, 'like', first_id),
+            likeMe   = relationshipHistory(response, 'like', second_id);
+
+        if (!Ilike && !likeMe) {
+            make('like');
+        } else if (!Ilike && likeMe) {
+            make('match');
+        } else {
+            res.send('No');
         }
     }).catch(error);
 };
