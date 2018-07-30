@@ -308,7 +308,7 @@ h4{
   font-size: 18px;
 }
 
-.anticon.anticon-heart{
+.anticon.anticon-heart, .anticon-exclamation-circle-o{
   font-size: 38px;
 }
 
@@ -342,58 +342,33 @@ h4{
   border-radius: 50%;
   height: 110px;
   width: 110px;
-
 }
 
-.no-likes-button{
-  background: white;
-  color: rgba(0, 0, 0, 0.65);
-  border: 1px solid #aaaaaa;
-}
-
-.no-likes-button:hover, .no-likes-button:focus{
-  color: white;
-  border: 1px solid #ff6399;
-  background: #ff6399;
-}
-
-.i-liked-button{
-  color: white;
-  border: 1px solid #ff6399;
-  background: #ff6399;
-}
-
-.i-liked-button:hover, .i-liked-button:focus{
-  color: rgba(0, 0, 0, 0.65);
-  border: 1px solid #aaaaaa;
-  background: white;
-}
-
-.me-liked-button{
-  color: white;
-  border: 1px solid #ff704b;
-  background: #ff704b;
-}
-
-.me-liked-button:hover, .me-liked-button:focus{
-  color: white;
-  border: 1px solid #ff2a44;
-  background: #ff2a44;
-}
-
-.match-button{
-  color: white;
-  border: 1px solid #ff2a44;
-  background: #ff2a44;
-}
-
-.match-button:hover, .match-button:focus{
+.no-likes-button, .no-likes-button:hover, .no-likes-button:focus{
   color: white;
   border: 1px solid white;
   background: black;
 }
 
-.broken-button{
+.i-liked-button, .i-liked-button:hover, .i-liked-button:focus{
+  color: white;
+  border: 1px solid #ff6399;
+  background: #ff6399;
+}
+
+.me-liked-button, .me-liked-button:hover, .me-liked-button:focus{
+  color: white;
+  border: 1px solid #ff704b;
+  background: #ff704b;
+}
+
+.match-button, .match-button:hover, .match-button:focus{
+  color: white;
+  border: 1px solid #ff2a44;
+  background: #ff2a44;
+}
+
+.broken-button, .broken-button:hover, .broken-button:focus{
   color: white;
   border: 1px solid white;
   background: black;
@@ -403,19 +378,31 @@ h4{
   content: '\01F494';
   font-size: 40px;
   font-weight: 500;
-  color: blue;
-}
-
-.broken-button:hover, .broken-button:focus{
-  color: white;
-  border: 1px solid #ff6399;
-  background: #ff6399;
-}
-
-.broken-button:hover:after, .broken-button:focus:after{
-  content: '❤';
   color: white;
 }
+
+/*.broken-button:hover:after, .broken-button:focus:after{*/
+  /*font-family: "anticon" !important;*/
+  /*content: "\E6A3";*/
+  /*color: white;*/
+  /*font-size: 38px;*/
+/*}*/
+
+.i-ban-button {
+  background: white;
+  color: rgba(0, 0, 0, 0.65);
+  border: 1px solid #aaaaaa;
+}
+
+.i-ban-button:hover, .i-ban-button:focus{
+  background: white;
+  color: rgba(0, 0, 0, 0.65);
+  border: 1px solid #aaaaaa;
+}
+
+
+
+
 
 .profile-suspect-button{
   font-size: 15px;

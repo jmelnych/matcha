@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
-import {Button, Popconfirm, message} from 'antd'
+import {Popconfirm, message} from 'antd'
 import {connect} from 'react-redux'
 import ProfileUserGenderIcon from './ProfileUI/ProfileUserGenderIcon'
 import LikeButtonStatus from './LikeButtonStatus'
-import {fakeNotification, banUser} from '../../actions/userActions'
+import {fakeNotification, banUser, unBanUser} from '../../actions/userActions'
 import PropTypes from 'prop-types'
 
 class OtherUserProfileHead extends Component {
+    state = {
+        iDidBan: false
+    };
+
     reportFake = () => {
         const {id} = this.props.info;
         this.props.fakeNotification(id);
@@ -16,10 +20,23 @@ class OtherUserProfileHead extends Component {
         console.log('cancel');
     };
 
-    ban = () => {
+    switchBan = () => {
         const {id} = this.props.info;
+        //TODO: or unban
         this.props.banUser(id);
+        this.setState({
+            iDidBan: !this.state.iDidBan
+        })
     };
+
+    componentWillReceiveProps(props){
+        const relatStatus = props.history;
+        if (relatStatus.includes('I ban')) {
+            this.setState({
+                iDidBan: true
+            })
+        }
+    }
 render() {
     const user = this.props.info ||
         {avatar: 'default.png', gender: 'male', rating: 0, age: 18, location: {city:'Kiev', country: 'Ukraine'}};
@@ -33,9 +50,9 @@ render() {
                                 onConfirm={this.reportFake} onCancel={this.cancel} okText="Yes" cancelText="No">
                         <a className="text-secondary suspect">Suspect fake account?</a>
                     </Popconfirm>
-                    <Popconfirm title="Are you sure you want to ban this user?"
-                                onConfirm={this.ban} onCancel={this.cancel} okText="Yes" cancelText="No">
-                        <a className="text-secondary ban">Ban</a>
+                    <Popconfirm title="Are you sure?"
+                                onConfirm={this.switchBan} onCancel={this.cancel} okText="Yes" cancelText="No">
+                        <a className="text-secondary ban">{this.state.iDidBan ? 'Unban' : 'Ban'}</a>
                     </Popconfirm>
                     <div className="profile-main-avatar-content">
                         <img src={avatar} alt="avatar"/>

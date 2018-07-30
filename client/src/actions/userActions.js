@@ -105,6 +105,10 @@ export const getOtherUser = (id) => dispatch => {
       }))
 };
 
+export const seeNotify = (id) => dispatch => {
+    return axios.post('api/profile/see', {id: id});
+};
+
 export const fakeNotification = (id) => dispatch => {
     return axios.post('api/profile/fake', {id: id});
 };
@@ -113,6 +117,18 @@ export const likeUser = (id) => dispatch => {
     return axios.post('api/profile/like', {id: id})
 };
 
+export const unlikeUser = (id) => dispatch => {
+    return axios.post('api/profile/unlike', {id: id})
+};
+
+export const breakUpWithUser = (id) => dispatch => {
+    return axios.post('api/profile/break-up', {id: id})
+};
+
 export const banUser = (id) => dispatch => {
     return axios.post('api/profile/ban', {id: id})
+};
+
+export const unBanUser = (id) => dispatch => {
+    return axios.post('api/profile/unban', {id: id})
 };

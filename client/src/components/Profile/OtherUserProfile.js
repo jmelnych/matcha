@@ -6,13 +6,14 @@ import OtherUserProfilePhotos from './OtherUserProfilePhotos'
 import OtherUserProfileInterests from './OtherUserProfileInterests'
 import OtherUserProfileFeedPosts from './OtherUserProfileFeedPosts'
 import ProfileUserTitleUI from './ProfileUI/ProfileUserTitleUI'
-import {getOtherUser} from '../../actions/userActions'
+import {getOtherUser, seeNotify} from '../../actions/userActions'
 import PropTypes from 'prop-types'
 
 class OtherUserProfile extends Component {
     componentDidMount() {
         const {id} = this.props.match.params;
         this.props.getOtherUser(id);
+        this.props.seeNotify(id);
     };
 
     render() {
@@ -48,7 +49,8 @@ class OtherUserProfile extends Component {
 
 function mapDispatchToProps(dispatch) {
     return{
-        getOtherUser: (id) => dispatch(getOtherUser(id))
+        getOtherUser: (id) => dispatch(getOtherUser(id)),
+        seeNotify: (id) => dispatch(seeNotify(id))
     }
 }
 
@@ -58,6 +60,7 @@ function mapStateToProps({otherUser}){
 
 OtherUserProfile.propTypes = {
     getOtherUser: PropTypes.func.isRequired,
+    seeNotify: PropTypes.func.isRequired,
     otherUser: PropTypes.object,
     id: PropTypes.number
 };
