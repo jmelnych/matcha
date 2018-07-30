@@ -22,7 +22,7 @@ class OtherUserProfileHead extends Component {
 
     switchBan = () => {
         const {id} = this.props.info;
-        //TODO: or unban
+        //TODO: make unban functionality //pass it to child component
         this.props.banUser(id);
         this.setState({
             iDidBan: !this.state.iDidBan
