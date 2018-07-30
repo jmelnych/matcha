@@ -70,7 +70,9 @@ ProfileUserSelectTags.propTypes = {
     getTags: PropTypes.func.isRequired,
     saveUserTag: PropTypes.func.isRequired,
     deleteUserTag: PropTypes.func.isRequired,
-    getUserTags: PropTypes.func.isRequired
+    getUserTags: PropTypes.func.isRequired,
+    tags: PropTypes.array,
+    user_tags: PropTypes.array
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileUserSelectTags);

@@ -79,7 +79,8 @@ class ResendActivation extends Component {
 ResendActivation.propTypes = {
     resendActivation: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
-    toggle: PropTypes.func.isRequired
+    toggle: PropTypes.func.isRequired,
+    emailValue: PropTypes.string.isRequired
 };
 
 export default connect(null, {resendActivation, addFlashMessage})(Form.create()(ResendActivation));

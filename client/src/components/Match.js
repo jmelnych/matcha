@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import SearchPagination from './Search/SearchPagination'
 import MatchFilter from './MatchFilter'
 import PeopleUIResults from './Search/PeopleUIResults'
+import PropTypes from 'prop-types'
 
 class Match extends Component {
 
@@ -44,6 +45,10 @@ function mapStateToProps({users}) {
     return {
         users
     }
+}
+
+Match.propTypes = {
+    users: PropTypes.array //TODO: prop types not users, but perfect matches
 }
 
 export default connect(mapStateToProps)(Match);

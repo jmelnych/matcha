@@ -15,7 +15,7 @@ class FlashMessage extends Component {
 
 
 render() {
-    const {id, type, text} = this.props.message;
+    const {type, text} = this.props.message;
     let alertType;
     switch (type) {
         case 'success':

@@ -3,7 +3,7 @@ import { Input, Button } from 'antd'
 import { socket } from './Messenger'
 import {connect} from 'react-redux'
 import { addChatMsg } from '../../actions/chatActions'
-
+import PropTypes from 'prop-types'
 
 const { TextArea } = Input;
 
@@ -82,5 +82,9 @@ function mapStateToProps({user, chat}) {
     return {user, chat};
 }
 
-
+MessengerChat.propTypes = {
+    user: PropTypes.object,
+    chat: PropTypes.array,
+    addChatMsg: PropTypes.func.isRequired
+}
 export default connect(mapStateToProps, { addChatMsg })(MessengerChat);

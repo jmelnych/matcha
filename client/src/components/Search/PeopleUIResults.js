@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 const PeopleUIResults = (props) => {
     let users = props.users;
@@ -28,5 +29,9 @@ const PeopleUIResults = (props) => {
         </div>
     )
 };
+
+PeopleUIResults.propTypes = {
+    users: PropTypes.array.isRequired
+}
 
 export default PeopleUIResults;

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Upload, Icon, Modal, Popover } from 'antd'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {getPhotos, removePhoto} from '../../actions/photosAction'
+import PropTypes from 'prop-types'
 
 class ProfileUserPhotos extends Component {
     state = {
@@ -117,7 +117,8 @@ function mapDispatchToProps(dispatch) {
 
 ProfileUserPhotos.propTypes = {
     getPhotos: PropTypes.func.isRequired,
-    removePhoto: PropTypes.func.isRequired
+    removePhoto: PropTypes.func.isRequired,
+    photos: PropTypes.array
 };
 
 

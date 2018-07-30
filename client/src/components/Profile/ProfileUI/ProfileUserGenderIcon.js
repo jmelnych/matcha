@@ -1,5 +1,6 @@
 import React from 'react'
 import Ionicon from 'react-ionicons'
+import PropTypes from 'prop-types'
 
 const ProfileUserGenderIcon = (props) => {
     const gender = props.user;
@@ -16,4 +17,9 @@ const ProfileUserGenderIcon = (props) => {
           </span>
  )
 };
+
+ProfileUserGenderIcon.propTypes = {
+    gender: PropTypes.string
+};
+
 export default ProfileUserGenderIcon;

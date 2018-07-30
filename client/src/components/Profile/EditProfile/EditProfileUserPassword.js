@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {Form, Input, Button} from 'antd'
 import {validatePassword, updatePasswordFromProfile} from '../../../actions/userActions'
 import {connect} from 'react-redux'
-
+import PropTypes from 'prop-types'
 
 class EditProfileUserPassword extends Component {
     state = {
@@ -127,5 +127,12 @@ render() {
         </Form>
     );
   }
-}
+};
+
+EditProfileUserPassword.propTypes = {
+    validatePassword: PropTypes.func.isRequired,
+    updatePasswordFromProfile: PropTypes.func.isRequired,
+    closeOnSubmit: PropTypes.func.isRequired
+};
+
 export default connect(null, {validatePassword, updatePasswordFromProfile})(Form.create()(EditProfileUserPassword));

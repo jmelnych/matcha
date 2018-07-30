@@ -34,7 +34,7 @@ class Root extends Component {
             <Layout className="App">
                 <HeaderNav/>
                 <Switch>
-                    <Route exact path='/' component={!this.props.auth ? Home : Profile}/>
+                    <Route exact path='/' component={this.props.auth ? Profile : Home}/>
                     <Route exact path='/search' component={Search}/> //TODO: handle /search/
                     <Route exact path='/match' component={Match}/>
                     <Route exact path='/messenger' component={Messenger}/>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Pagination } from 'antd'
 import {connect} from 'react-redux'
+import PropTypes from 'prop-types'
 
 class SearchPagination extends Component {
 render() {
@@ -20,6 +21,11 @@ function mapStateToProps({users}) {
     return {
         users
     }
+};
+
+SearchPagination.propTypes = {
+  users: PropTypes.array,
+  handleChangePage: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps)(SearchPagination);

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Select } from 'antd'
 import {connect} from 'react-redux'
+import PropTypes from 'prop-types'
 
 class OtherUserProfileInterests extends Component {
 render() {
@@ -29,6 +30,11 @@ render() {
 
 function mapStateToProps({otherUser}){
     return otherUser.user;
+};
+
+OtherUserProfileInterests.propTypes = {
+    otherUser: PropTypes.object,
+    userTags: PropTypes.array
 }
 
 export default connect(mapStateToProps)(OtherUserProfileInterests);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Upload, Modal } from 'antd'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import PropTypes from 'prop-types'
 
 class OtherUserProfilePhotos extends Component {
     state = {
@@ -69,6 +69,11 @@ class OtherUserProfilePhotos extends Component {
 
 function mapStateToProps({otherUser}){
     return otherUser.user;
+};
+
+OtherUserProfilePhotos.propTypes = {
+    otherUser: PropTypes.object,
+    photos: PropTypes.array
 }
 
 export default connect(mapStateToProps)(OtherUserProfilePhotos);

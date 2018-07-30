@@ -5,6 +5,7 @@ import Ionicon from 'react-ionicons'
 import {Modal} from 'antd'
 import EditProfileFeedPost from './EditProfile/EditProfileFeedPost'
 import orderBy from 'lodash/orderBy'
+import PropTypes from 'prop-types'
 
 class ProfileFeedPosts extends Component {
     state = {
@@ -105,4 +106,10 @@ function mapStateToProps({posts}){
         posts
     }
 };
+
+ProfileFeedPosts.propTypes = {
+    getPosts: PropTypes.func.isRequired,
+    deletePost: PropTypes.func.isRequired,
+    posts: PropTypes.array
+}
 export default connect(mapStateToProps, {getPosts, deletePost})(ProfileFeedPosts);

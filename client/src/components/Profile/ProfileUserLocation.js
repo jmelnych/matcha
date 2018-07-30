@@ -3,6 +3,7 @@ import Ionicon from 'react-ionicons'
 import {saveLocation} from '../../actions/userActions'
 import {connect} from 'react-redux'
 import {decodeLocation} from '../../api/decodeLocation'
+import PropTypes from 'prop-types'
 
 class ProfileUserLocation extends Component {
 
@@ -46,6 +47,12 @@ class ProfileUserLocation extends Component {
 
 function mapStateToProps({user}) {
     return user;
+};
+
+ProfileUserLocation.propTypes = {
+    user: PropTypes.object,
+    saveLocation: PropTypes.func.isRequired,
+    decodeLocation: PropTypes.func
 }
 
 export default connect(mapStateToProps, {saveLocation})(ProfileUserLocation);

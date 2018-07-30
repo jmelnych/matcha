@@ -4,6 +4,7 @@ import EditProfileUserInfo from './EditProfileUserInfo'
 import EditProfileUserHead from './EditProfileUserHead'
 import EditProfileUserPassword from './EditProfileUserPassword'
 import EditProfileUserLocation from './EditProfileUserLocation'
+import PropTypes from 'prop-types'
 
 const TabPane = Tabs.TabPane;
 class EditProfileUserTabs extends Component {
@@ -21,5 +22,10 @@ render() {
         </Tabs>
     );
   }
-}
+};
+
+EditProfileUserTabs.propTypes = {
+    closeOnSubmit: PropTypes.func.isRequired
+};
+
 export default EditProfileUserTabs;

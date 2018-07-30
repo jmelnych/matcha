@@ -7,6 +7,7 @@ import EditProfileUserAvatar from './EditProfile/EditProfileUserAvatar'
 import {connect} from 'react-redux'
 import ProfileUserGenderIcon from './ProfileUI/ProfileUserGenderIcon'
 
+
 class ProfileHead extends Component {
     state = {
         visible: false,

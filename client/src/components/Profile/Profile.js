@@ -7,6 +7,7 @@ import ProfileWritePost from './ProfileWritePost'
 import ProfileUserInterests from './ProfileUserInterests'
 import ProfileFeedPosts from './ProfileFeedPosts'
 import ProfileUserTitleUI from './ProfileUI/ProfileUserTitleUI'
+import PropTypes from 'prop-types'
 
 class Profile extends Component {
   render() {
@@ -64,7 +65,10 @@ class Profile extends Component {
 
 function mapStateToProps({user}){
     return user;
-}
+};
 
+Profile.propTypes = {
+    user: PropTypes.object
+}
 
 export default connect(mapStateToProps)(Profile);

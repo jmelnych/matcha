@@ -7,6 +7,7 @@ import OtherUserProfileInterests from './OtherUserProfileInterests'
 import OtherUserProfileFeedPosts from './OtherUserProfileFeedPosts'
 import ProfileUserTitleUI from './ProfileUI/ProfileUserTitleUI'
 import {getOtherUser} from '../../actions/userActions'
+import PropTypes from 'prop-types'
 
 class OtherUserProfile extends Component {
     componentDidMount() {
@@ -55,6 +56,10 @@ function mapStateToProps({otherUser}){
     return otherUser.user;
 }
 
-
+OtherUserProfile.propTypes = {
+    getOtherUser: PropTypes.func.isRequired,
+    otherUser: PropTypes.object,
+    id: PropTypes.number
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(OtherUserProfile);

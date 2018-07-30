@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import { getUsersFiltered} from '../actions/searchActions'
 import Sort from './Search/Sort'
+import PropTypes from 'prop-types'
 
 class MatchFilter extends Component {
     state = {
@@ -14,7 +14,6 @@ class MatchFilter extends Component {
     componentDidMount() {
         let filteredValues = this.state.filters;
         //TODO: perfect match
-        console.log('requesting users by filter', filteredValues);
         this.props.getUsersFiltered(filteredValues);
     };
 
@@ -52,7 +51,7 @@ function mapDispatchToProps(dispatch) {
 };
 
 MatchFilter.propTypes = {
-    getUsersFiltered: PropTypes.func.isRequired
+    getUsersFiltered: PropTypes.func.isRequired //TODO: perfect match
 };
 
 export default connect(null, mapDispatchToProps)(MatchFilter);

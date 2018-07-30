@@ -54,7 +54,8 @@ function mapDispatchToProps(dispatch) {
 };
 
 SearchFilterSelectTags.propTypes = {
-    getTags: PropTypes.func.isRequired
+    getTags: PropTypes.func.isRequired,
+    tags: PropTypes.array
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchFilterSelectTags);

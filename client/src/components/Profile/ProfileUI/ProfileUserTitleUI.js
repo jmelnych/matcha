@@ -1,5 +1,6 @@
 import React from 'react'
 import capitalize from 'lodash/capitalize'
+import PropTypes from 'prop-types'
 
 const ProfileUserTitleUI = (props) => {
     return (
@@ -11,5 +12,9 @@ const ProfileUserTitleUI = (props) => {
         </div>
     )
 };
+
+ProfileUserTitleUI.propTypes = {
+    user: PropTypes.object.isRequired
+}
 
 export default ProfileUserTitleUI;

@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import SearchFilter from './SearchFilter'
 import SearchPagination from './SearchPagination'
 import PeopleUIResults from './PeopleUIResults'
+import PropTypes from 'prop-types'
 
 
 class Search extends Component {
@@ -42,6 +43,10 @@ function mapStateToProps({users}) {
     return {
         users
     }
+};
+
+Search.propTypes = {
+    users: PropTypes.array
 }
 
 export default connect(mapStateToProps)(Search);

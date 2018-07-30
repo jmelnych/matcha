@@ -87,6 +87,7 @@ render() {
 RemindPassword.propTypes = {
     addFlashMessage: PropTypes.func.isRequired,
     toggle: PropTypes.func.isRequired,
-    sendLinkPassword: PropTypes.func.isRequired
+    sendLinkPassword: PropTypes.func.isRequired,
+    emailValue: PropTypes.string.isRequired
 }
 export default connect(null, {addFlashMessage, sendLinkPassword}) (Form.create()(RemindPassword));

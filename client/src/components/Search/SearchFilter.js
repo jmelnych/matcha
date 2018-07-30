@@ -22,12 +22,10 @@ class SearchFilter extends Component {
 
     componentDidMount() {
         let filteredValues = this.state.filters;
-        console.log('requesting users by filter', filteredValues);
         this.props.getUsersFiltered(filteredValues);
     };
 
     filterUsers = () => {
-        console.log( this.state.filters);
         let filteredValues = this.state.filters;
         this.props.getUsersFiltered(filteredValues);
     };

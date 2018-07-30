@@ -3,6 +3,7 @@ import isEmpty from 'lodash/isEmpty'
 import {Form, Input, Button} from 'antd'
 import {updatePost} from '../../../actions/postActions'
 import {connect} from 'react-redux'
+import PropTypes from 'prop-types'
 
 class EditProfileFeedPost extends Component {
     componentDidMount() {
@@ -23,7 +24,7 @@ class EditProfileFeedPost extends Component {
         form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 //console.log('Received values of form editing: ', values);
-                let updatedPost = new Object();
+                let updatedPost = {};
                 updatedPost.id = currentPost.id;
                 if (values.title !== currentPost.title) {
                     updatedPost.title = values.title;
@@ -75,5 +76,10 @@ render() {
       </div>
     );
   }
+};
+
+EditProfileFeedPost.propTypes = {
+    currentPost: PropTypes.object.isRequired,
+    updatePost: PropTypes.func.isRequired
 }
 export default connect(null, {updatePost})(Form.create()(EditProfileFeedPost));

@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import {Button, message} from 'antd'
 import {connect} from 'react-redux'
 import {saveLocation} from '../../../actions/userActions'
-import PropTypes from 'prop-types'
 import {decodeLocation} from '../../../api/decodeLocation'
+import PropTypes from 'prop-types'
 
 class EditProfileUserLocation extends Component {
     state = {
@@ -101,7 +101,8 @@ render() {
     EditProfileUserLocation.propTypes = {
         saveLocation: PropTypes.func.isRequired,
         closeOnSubmit: PropTypes.func.isRequired,
-        user: PropTypes.object.isRequired
+        user: PropTypes.object.isRequired,
+        decodeLocation: PropTypes.func
     };
 
     function mapStateToProps({user}){

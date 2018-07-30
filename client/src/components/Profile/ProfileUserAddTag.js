@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Form, Input, Icon, Button, message } from 'antd'
 import {addTags} from '../../actions/tagsActions'
 import {connect} from 'react-redux'
+import PropTypes from 'prop-types'
 
 
 const FormItem = Form.Item;
@@ -132,7 +133,7 @@ class ProfileUserAddTag extends Component {
                 {formItems}
                 <FormItem>
                     <Button className="center-button" type="dashed" onClick={this.add} >
-                        <Icon type="plus" /> Add
+                        <Icon type="plus"/> Add
                     </Button>
                 </FormItem>
                 <FormItem>
@@ -154,6 +155,12 @@ function mapDispatchToProps(dispatch){
     return {
         addTags: (tags) => dispatch(addTags(tags))
     }
+};
+
+ProfileUserAddTag.propTypes = {
+    tags: PropTypes.array.isRequired,
+    addTags: PropTypes.func.isRequired,
+    closeOnSubmit: PropTypes.func.isRequired
 }
 
 

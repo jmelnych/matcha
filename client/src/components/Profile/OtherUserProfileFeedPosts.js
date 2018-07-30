@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import orderBy from 'lodash/orderBy'
+import PropTypes from 'prop-types'
 
 class OtherUserProfileFeedPosts extends Component {
 render() {
@@ -29,5 +30,9 @@ render() {
 function mapStateToProps({otherUser}){
     return otherUser.user;
 }
+
+OtherUserProfileFeedPosts.propTypes = {
+    otherUser: PropTypes.object.isRequired
+};
 
 export default connect(mapStateToProps)(OtherUserProfileFeedPosts);

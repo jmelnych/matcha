@@ -20,7 +20,7 @@ class EditProfileUserInfo extends Component {
         form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 console.log('Received values of form editing: ', values);
-                let newUserInfo = new Object();
+                let newUserInfo = {};
                 if (values.firstname !== user.firstname) {
                     newUserInfo.firstname = values.firstname;
                 } if (values.lastname !== user.lastname){
@@ -168,7 +168,7 @@ function mapStateToProps({user}){
 
 function dispatchMapStateToProps(dispatch) {
     return {
-        updateUser: (id, newUserInfo) => dispatch(updateUser(id, newUserInfo))
+        updateUser: (newUserInfo) => dispatch(updateUser(newUserInfo))
     }
 }
 

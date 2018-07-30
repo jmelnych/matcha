@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Radio } from 'antd'
+import PropTypes from 'prop-types'
 
 
 class Sort extends Component {
@@ -18,4 +19,9 @@ render() {
     );
   }
 }
+
+Sort.propTypes = {
+    handleSort: PropTypes.func.isRequired
+};
+
 export default Sort;

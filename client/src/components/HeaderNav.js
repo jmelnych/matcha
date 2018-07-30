@@ -4,6 +4,7 @@ import {Layout, Menu} from 'antd'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logoutUser} from '../actions/userActions'
+import PropTypes from 'prop-types'
 
 class HeaderNav extends Component {
     logout = () => {
@@ -61,6 +62,11 @@ class HeaderNav extends Component {
 
 function mapStateToProps({user}) {
     return user;
+};
+
+HeaderNav.propTypes = {
+    user: PropTypes.object,
+    logoutUser: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, {logoutUser})(HeaderNav);

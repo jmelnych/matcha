@@ -70,14 +70,15 @@ class Home extends Component {
                     <Content className="App-content">
                         <ul className="tabs">
                             <li className={(this.state.show_login) ? 'left-border tabs-active' : 'left-border'}
-                                onClick={e => this.toggleFormLogin(e)}>
+                                onClick={this.toggleFormLogin}>
                                 Login</li>
                             <li className={(this.state.show_login) ? '' : 'tabs-active'}
-                                onClick={e => this.toggleFormSignup(e)}>
+                                onClick={this.toggleFormSignup}>
                                 Sign up</li>
                         </ul>
                         {(this.state.show_login)?
-                            <Login showResendForm={this.toggleFormResend} showResendPasswordForm={this.toggleFormResendPassword}/> :
+                            <Login showResendForm={this.toggleFormResend}
+                                   showResendPasswordForm={this.toggleFormResendPassword}/> :
                             <Signup toggle={this.toggleFormLogin}/>}
                     </Content>
                 </div>

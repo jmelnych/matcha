@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Input, Button, message, Popover } from 'antd'
 import {addPost} from '../../actions/postActions'
 import {connect} from 'react-redux'
+import PropTypes from 'prop-types'
 
 const { TextArea } = Input;
 
@@ -78,6 +79,11 @@ function mapDispatchToProps(dispatch) {
         addPost: (post) => dispatch(addPost(post))
     }
 };
+
+ProfileWritePost.propTypes = {
+    posts: PropTypes.array,
+    addPost: PropTypes.func.isRequired
+}
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileWritePost);

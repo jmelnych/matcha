@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {tryActivate} from '../actions/userActions'
-import PropTypes from 'prop-types'
 import {addFlashMessage} from '../actions/flashMessages'
+import PropTypes from 'prop-types'
 
 class Activation extends Component {
 
     componentDidMount() {
         const {token} = this.props.match.params;
-
         this.props.tryActivate({'token': token})
             .then((res) => {
             if (res.data === 'Your email has been confirmed'){
@@ -43,7 +42,9 @@ function mapDispatchToProps(dispatch) {
 }
 
 Activation.propTypes = {
-    tryActivate: PropTypes.func.isRequired
-}
+    tryActivate: PropTypes.func.isRequired,
+    addFlashMessage: PropTypes.func.isRequired,
+    token: PropTypes.string
+};
 
 export default connect(null, mapDispatchToProps)(Activation);
