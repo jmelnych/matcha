@@ -8,6 +8,7 @@ module.exports = class DB {
 
     /* used to create or alter tables and to insert or update table data, or delete data */
     run(sql, params = []) {
+        console.log(sql, params);
         return new Promise((resolve, reject) => {
             DB.db.prepare(sql, params).run(function (err) {
                 if (err) {
@@ -135,7 +136,7 @@ WHERE users.id = ?`, [id]);
 
     deleteFromHistory(actions, values) {
         return this.run(`DELETE FROM history WHERE
-            ((first_id = ? AND second_id = ?) OR (second_id = ? AND first_id = ?))
-        (${actions.map(action => action + ' = ?').join(' OR ')})`, values.concat(actions));
+            ((first_id = ? AND second_id = ?) OR (second_id = ? AND first_id = ?)) AND
+        (${actions.map(() => '`action` = ?').join(' OR ')})`, values.concat(actions));
     }
 };

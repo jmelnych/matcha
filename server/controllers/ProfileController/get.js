@@ -19,7 +19,7 @@ const getColumns = (user, columns) => {
 
 const filterUser = (user) => {
     let
-        info    = {
+        info   = {
             id: user[0]['users_id'],
             username: user[0]['users_username'],
             firstname: user[0]['users_firstname'],
@@ -35,16 +35,16 @@ const filterUser = (user) => {
             rating: user[0]['users_rating'],
             bio: user[0]['users_bio']
         },
-        photos  = getColumns(removeDuplicates(user, 'photos_filename'), {
+        photos = getColumns(removeDuplicates(user, 'photos_filename'), {
             photos_filename: 'filename'
         }),
-        posts   = getColumns(removeDuplicates(user, 'posts_id'), {
+        posts  = getColumns(removeDuplicates(user, 'posts_id'), {
             posts_id: 'id',
             posts_title: 'title',
             posts_post: 'post',
             posts_added: 'added'
         }),
-        tags    = getColumns(removeDuplicates(user, 'tags_id'), {
+        tags   = getColumns(removeDuplicates(user, 'tags_id'), {
             tags_id: 'id',
             tags_tag: 'tag'
         });
@@ -52,22 +52,27 @@ const filterUser = (user) => {
         info: info,
         photos: photos,
         posts: posts,
-        tags: tags,
+        tags: tags
     };
 };
 
 module.exports = (req, res) => {
-    if (req.session.id === undefined) {
+    let first_id  = req.session.id,
+        second_id = parseInt(req.body.id);
+    if (first_id === undefined) {
         res.send('Need login');
         return;
     }
+    if (!second_id || second_id === first_id) {
+        res.send('Need User Id');
+        return;
+    }
 
-    let db             = req.app.get('db'),
-        prepareUsers   = req.app.get('prepareUsers'),
-        prepareHistory = req.app.get('prepareHistory'),
-        {id}           = req.body,
-        promise        = db.getUser(id),
-        error          = (e) => {
+    let db                  = req.app.get('db'),
+        prepareUsers        = req.app.get('prepareUsers'),
+        relationshipHistory = req.app.get('relationshipHistory'),
+        promise             = db.getUser(second_id),
+        error               = (e) => {
             console.log(e);
             res.send(e);
         };
@@ -78,14 +83,20 @@ module.exports = (req, res) => {
         } else {
             let filtered  = filterUser(response);
             filtered.info = prepareUsers([filtered.info], req.session)[0];
-            //promise = db.all(`select * from history where
-            //    ((first_id = ? and second_id = ?) or (second_id = ? and first_id = ?)) and
-            //    (action = ? or action = ? or action = ?)`,
-            //    [req.session.id, id, id, req.session.id, 'like', 'ban']);
-            //promise.then((history) => {
-            //    filtered.history = prepareHistory(history, req.session.id);
+            promise       = db.getHistory(first_id, second_id, true);
+            promise.then((history) => {
+                let relationship = {
+                    'I like': relationshipHistory(history, 'like', first_id),
+                    'like Me': relationshipHistory(history, 'like', second_id),
+                    'match': relationshipHistory(history, 'match'),
+                    'break up': relationshipHistory(history, 'break up'),
+                    'I ban': relationshipHistory(history, 'ban', first_id),
+                    'ban Me': relationshipHistory(history, 'ban', second_id)
+                };
+                filtered.history = ['I like', 'like Me', 'match', 'break up', 'I ban', 'ban Me']
+                    .filter(status => relationship[status]);
                 res.send(filtered);
-            //}).catch(error);
+            }).catch(error);
         }
     }).catch(error);
 };

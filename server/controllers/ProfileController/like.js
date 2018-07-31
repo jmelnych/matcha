@@ -1,6 +1,6 @@
 module.exports = (req, res) => {
-    let first_id = req.session.id,
-        second_id = req.body.id;
+    let first_id  = req.session.id,
+        second_id = parseInt(req.body.id);
     if (first_id === undefined) {
         res.send('Need login');
         return;
@@ -17,7 +17,7 @@ module.exports = (req, res) => {
             res.send(e);
         };
     promise.then((response) => {
-        let make = (action) => {
+        let make   = (action) => {
                 promise = db.create('history',
                     'first_id, second_id, `action`',
                     [first_id, second_id, action]);
@@ -27,10 +27,12 @@ module.exports = (req, res) => {
                     promise.then(() => res.send(action)).catch(error);
                 }).catch(error);
             },
-            Ilike = relationshipHistory(response, 'like', first_id),
-            likeMe   = relationshipHistory(response, 'like', second_id);
+            Ilike  = relationshipHistory(response, 'like', first_id),
+            likeMe = relationshipHistory(response, 'like', second_id),
+            match  = relationshipHistory(response, 'match'),
+            ban    = relationshipHistory(response, 'ban');
 
-        if (!Ilike && !likeMe) {
+        if (!Ilike && !likeMe && !match && !ban) {
             make('like');
         } else if (!Ilike && likeMe) {
             make('match');
