@@ -61,23 +61,23 @@ class LikeButtonStatus extends Component {
 
     componentWillReceiveProps(props) {
         const relatStatus = props.history;
-        if (relatStatus.includes('I like')) {
-            this.paintButton('i-like');
-        } else if (relatStatus.includes('like Me')) {
-            this.paintButton('me-like');
-        } else if (relatStatus.includes('match')) {
-            this.paintButton('match');
-        } else if (relatStatus.includes('broken')) {
-            this.paintButton('broken');
-        }
-        if (relatStatus.includes('I ban')) {
-            this.setState({
-                iDidBan: true,
-                buttonClass: 'i-ban-button',
-                popOverText: 'You have banned this user. The user has limited permission ' +
-                'to your page. You cannot like the user unless you unban.'
-            })
-        }
+        // if (relatStatus.includes('I like')) {
+        //     this.paintButton('i-like');
+        // } else if (relatStatus.includes('like Me')) {
+        //     this.paintButton('me-like');
+        // } else if (relatStatus.includes('match')) {
+        //     this.paintButton('match');
+        // } else if (relatStatus.includes('broken')) {
+        //     this.paintButton('broken');
+        // }
+        // if (relatStatus.includes('I ban')) {
+        //     this.setState({
+        //         iDidBan: true,
+        //         buttonClass: 'i-ban-button',
+        //         popOverText: 'You have banned this user. The user has limited permission ' +
+        //         'to your page. You cannot like the user unless you unban.'
+        //     })
+        // }
     };
 
     like = () => {

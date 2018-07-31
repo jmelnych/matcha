@@ -342,6 +342,8 @@ h4{
   border-radius: 50%;
   height: 110px;
   width: 110px;
+  min-width: 110px;
+  min-height: 110px;
 }
 
 .no-likes-button, .no-likes-button:hover, .no-likes-button:focus{
@@ -400,10 +402,6 @@ h4{
   border: 1px solid #aaaaaa;
 }
 
-
-
-
-
 .profile-suspect-button{
   font-size: 15px;
   bottom: 0;
@@ -443,15 +441,25 @@ h4{
   }
 }
 
-@media screen and (max-width: 768px){
-  .profile-main-avatar figcaption {
-    display: none;
+@media screen and (max-width: 586px) {
+  .profile-main-avatar-content {
+    position: absolute;
+    bottom: 50%;
+    margin-top: -120px;
+    height: 240px;
+    width: 240px;
+    left: 50%;
+    margin-left: -120px;
   }
+}
+
+@media (min-width: 587px) and (max-width: 768px){
   .like-button{
     margin-left: 5%;
   }
   .profile-main-avatar-content{
     min-width: 40%;
+    margin-left: -10%;
   }
 }
 
@@ -460,6 +468,23 @@ h4{
     margin: 0 auto!important;
     width: 90%;
   }
+  .profile-main-avatar figcaption {
+    display: none;
+  }
+  .profile-main-avatar-content {
+   order: 0;
+  }
+  .suspect{
+    order: 1;
+  }
+  .ban{
+    order: 2;
+  }
+  .like-button{
+    order: 3;
+    margin-left: 10%;
+  }
+
 }
 
 @media screen and (max-width: 1200px) {
@@ -475,17 +500,35 @@ h4{
   .profile-main-info {
     width: 100%;
   }
-}
 
-@media screen and (max-width: 1400px) {
-  .suspect{
-    margin: 0;
+  .like-button{
+    width: 90px;
+    height: 90px;
+    min-width: 90px;
+    min-height: 90px;
+  }
+
+  .anticon.anticon-heart, .anticon-exclamation-circle-o{
+    font-size: 30px;
+  }
+  .profile-main-avatar figcaption{
+    margin-left: -2%;
+  }
+  .profile-main-avatar-content{
+    width: 240px;
+    min-width: 240px;
   }
 }
 
-@media (min-width: 769px) and (max-width: 1500px) {
+@media (min-width: 901px) and (max-width: 1200px){
   .like-button{
-    margin-left: 2%;
+    margin-left: -12%;
+  }
+}
+
+  @media screen and (max-width: 1400px) {
+  .suspect{
+    margin-left: 10px;
   }
 }
 

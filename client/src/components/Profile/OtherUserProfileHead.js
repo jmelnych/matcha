@@ -31,11 +31,11 @@ class OtherUserProfileHead extends Component {
 
     componentWillReceiveProps(props){
         const relatStatus = props.history;
-        if (relatStatus.includes('I ban')) {
-            this.setState({
-                iDidBan: true
-            })
-        }
+        // if (relatStatus.includes('I ban')) {
+        //     this.setState({
+        //         iDidBan: true
+        //     })
+        // }
     }
 render() {
     const user = this.props.info ||
