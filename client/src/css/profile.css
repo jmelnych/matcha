@@ -186,7 +186,8 @@ span.distance{
   width: 23%;
   color: white;
   margin: 30px 30px;
-  padding: 20px 0;
+  padding: 20px 30px;
+  min-width: 400px;
 }
 
 .profile-main-info, .profile-feed-snippet{
@@ -439,6 +440,9 @@ h4{
     height: 120px;
     width: 120px;
   }
+  .profile-main-feed{
+    min-width: 200px;
+  }
 }
 
 @media screen and (max-width: 586px) {
@@ -450,6 +454,14 @@ h4{
     width: 240px;
     left: 50%;
     margin-left: -120px;
+  }
+  .profile-post-area{
+    margin: 0;
+  }
+  .post-button {
+    position: relative;
+    width: 100px;
+    margin: 20px 0 0 0;
   }
 }
 
@@ -548,9 +560,5 @@ h4{
 @media screen and (min-width: 1901px ){
   .profile-main-header{
     height: 400px;
-
   }
 }
-
-
-

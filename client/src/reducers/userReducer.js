@@ -17,9 +17,8 @@ export default function (state = initialState, action) {
                     user: action.payload,
                     auth: true
                 }
-            } else {
-                return state;
             }
+            return state;
         case UPDATE_USER:
             let updateUser = Object.assign({}, state.user);
             for (let prop in action.payload){
