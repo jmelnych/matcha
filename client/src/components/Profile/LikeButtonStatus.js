@@ -21,7 +21,6 @@ class LikeButtonStatus extends Component {
                 buttonClass = 'i-liked-button';
                 popOverText = 'You already liked this user. If the user likes you in return, you become a match. ' +
                     'Wait for the response on remove your like.';
-                popConfirmText = 'Are you sure you want to dislike the user?';
                 brokenHeart = false;
                 iDidBan = false;
                 banMe = false;
@@ -30,7 +29,6 @@ class LikeButtonStatus extends Component {
                 buttonClass = 'me-liked-button';
                 popOverText = 'The user liked you. If you like the user, you can like in return and then you ' +
                     'will become a match!';
-                popConfirmText = 'Are you sure you want to become a match with the user?';
                 brokenHeart = false;
                 iDidBan = false;
                 banMe = false;
@@ -47,7 +45,6 @@ class LikeButtonStatus extends Component {
                 buttonClass = 'broken-button';
                 popOverText = 'Woo, you have broken up with the user. If you change your mind, ' +
                     'you can like the user again.';
-                popConfirmText = 'Are you sure you like the user AGAIN? (We will notify the user about it).';
                 brokenHeart = true;
                 iDidBan = false;
                 banMe = false;
@@ -68,10 +65,8 @@ class LikeButtonStatus extends Component {
                 banMe = true;
                 break;
             default:
-                console.log('in defaut');
                 buttonClass = 'no-likes-button';
                 popOverText = 'Like the profile? Like the user!';
-                popConfirmText = 'Are you sure you like the user? (We will notify the user about it).';
                 brokenHeart = false;
                 iDidBan = false;
                 banMe = false;
@@ -156,12 +151,15 @@ class LikeButtonStatus extends Component {
 render() {
     return (
         <Popover className="pop-relationship" placement="top" title="Your relationship status"
-                 content={this.state.popOverText}
-                 trigger="hover">
-            <Popconfirm title={this.state.popConfirmText} placement="bottom"
-                        onConfirm={this.like} onCancel={this.cancel} okText="Yes" cancelText="No">
-        <Button className={`like-button ${this.state.buttonClass}`} disabled={this.isBanned()}
-                icon={this.checkIcon()}/></Popconfirm>
+                 content={this.state.popOverText} trigger="hover">
+            {this.state.buttonClass === 'match-button' ? (
+                <Popconfirm title={this.state.popConfirmText} placement="bottom"
+                            onConfirm={this.like} onCancel={this.cancel} okText="Yes" cancelText="No">
+                    <Button className={`like-button ${this.state.buttonClass}`} disabled={this.isBanned()}
+                            icon={this.checkIcon()}/></Popconfirm>
+            ) : (<Button className={`like-button ${this.state.buttonClass}`} onClick={this.like}
+                        disabled={this.isBanned()}
+                        icon={this.checkIcon()}/>)}
         </Popover>
     );
   }
