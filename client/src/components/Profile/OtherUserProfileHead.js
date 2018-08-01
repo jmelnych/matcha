@@ -3,12 +3,13 @@ import {Popconfirm, message} from 'antd'
 import {connect} from 'react-redux'
 import ProfileUserGenderIcon from './ProfileUI/ProfileUserGenderIcon'
 import LikeButtonStatus from './LikeButtonStatus'
-import {fakeNotification, banUser, unBanUser} from '../../actions/userActions'
+import {fakeNotification, banUser} from '../../actions/userActions'
 import PropTypes from 'prop-types'
 
 class OtherUserProfileHead extends Component {
     state = {
-        iDidBan: false
+        iDidBan: false,
+        banMe: false
     };
 
     reportFake = () => {
@@ -22,7 +23,6 @@ class OtherUserProfileHead extends Component {
 
     switchBan = () => {
         const {id} = this.props.info;
-        //TODO: make unban functionality //pass it to child component
         this.props.banUser(id);
         this.setState({
             iDidBan: !this.state.iDidBan
@@ -31,13 +31,19 @@ class OtherUserProfileHead extends Component {
 
     componentWillReceiveProps(props){
         const relatStatus = props.history;
-        // if (relatStatus.includes('I ban')) {
-        //     this.setState({
-        //         iDidBan: true
-        //     })
-        // }
+        if (relatStatus.includes('I ban')) {
+            this.setState({
+                iDidBan: true
+            })
+        }
+        if (relatStatus.includes('ban Me')) {
+            this.setState({
+                banMe: true
+            })
+        }
     }
 render() {
+        console.log('state ban in parent', this.state.iDidBan);
     const user = this.props.info ||
         {avatar: 'default.png', gender: 'male', rating: 0, age: 18, location: {city:'Kiev', country: 'Ukraine'}};
     const av_name = user.avatar;
@@ -64,7 +70,7 @@ render() {
                         <p className="figcaption-text">Gender:
                             <ProfileUserGenderIcon user={user.gender}/></p>
                     </figcaption>
-                    <LikeButtonStatus/>
+                    <LikeButtonStatus ban={this.state.iDidBan} banMe={this.state.banMe}/>
                 </div>
             </div>
         </div>

@@ -9,75 +9,111 @@ class LikeButtonStatus extends Component {
         buttonClass: 'no-likes-button',
         popOverText: 'Like the profile? Like the user!',
         brokenHeart: false,
+        popConfirmText: 'Are you sure you like the user? (We will notify the user about it).',
         iDidBan: false,
-        imBanned: false,
-        popConfirmText: 'Are you sure you like the user? (We will notify the user about it).'
+        banMe: false
     };
 
     paintButton = (status) => {
-        let buttonClass, popOverText, brokenHeart, popConfirmText;
-        console.log(status);
+        let buttonClass, popOverText, brokenHeart, popConfirmText, iDidBan, banMe;
         switch (status) {
             case 'i-like':
                 buttonClass = 'i-liked-button';
                 popOverText = 'You already liked this user. If the user likes you in return, you become a match. ' +
                     'Wait for the response on remove your like.';
-                brokenHeart = false;
                 popConfirmText = 'Are you sure you want to dislike the user?';
+                brokenHeart = false;
+                iDidBan = false;
+                banMe = false;
                 break;
             case 'me-like':
                 buttonClass = 'me-liked-button';
                 popOverText = 'The user liked you. If you like the user, you can like in return and then you ' +
                     'will become a match!';
-                brokenHeart = false;
                 popConfirmText = 'Are you sure you want to become a match with the user?';
+                brokenHeart = false;
+                iDidBan = false;
+                banMe = false;
                 break;
             case 'match':
                 buttonClass = 'match-button';
                 popOverText = 'You are a match! You can write direct messages to each other!';
-                brokenHeart = false;
                 popConfirmText = 'Are you sure you want to break up with the user? This is irreversible!';
+                brokenHeart = false;
+                iDidBan = false;
+                banMe = false;
                 break;
             case 'broken':
                 buttonClass = 'broken-button';
                 popOverText = 'Woo, you have broken up with the user. If you change your mind, ' +
                     'you can like the user again.';
-                brokenHeart = true;
                 popConfirmText = 'Are you sure you like the user AGAIN? (We will notify the user about it).';
+                brokenHeart = true;
+                iDidBan = false;
+                banMe = false;
+                break;
+            case 'i-ban':
+                buttonClass = 'i-ban-button';
+                popOverText = 'You have banned this user. The user has limited permission ' +
+                    'to your page. You cannot like the user unless you change the status to unban.';
+                brokenHeart = false;
+                iDidBan = true;
+                banMe = false;
+                break;
+            case 'ban-me':
+                buttonClass = 'i-ban-button';
+                popOverText = 'You are banned by this user';
+                brokenHeart = false;
+                iDidBan = false;
+                banMe = true;
                 break;
             default:
+                console.log('in defaut');
                 buttonClass = 'no-likes-button';
                 popOverText = 'Like the profile? Like the user!';
-                brokenHeart = false;
                 popConfirmText = 'Are you sure you like the user? (We will notify the user about it).';
+                brokenHeart = false;
+                iDidBan = false;
+                banMe = false;
         }
         this.setState ({
             buttonClass,
             popOverText,
             brokenHeart,
-            popConfirmText
+            popConfirmText,
+            iDidBan,
+            banMe
         })
-    }
+    };
 
     componentWillReceiveProps(props) {
+        console.log('props in child', props);
+        if (props.ban) {
+            this.paintButton('i-ban');
+            this.setState({
+                iDidBan: true
+            });
+            return;
+        }
+        if (props.banMe){
+            this.paintButton('ban-me');
+            this.setState({
+                banMe: true
+            });
+            return;
+        }
         const relatStatus = props.history;
-        // if (relatStatus.includes('I like')) {
-        //     this.paintButton('i-like');
-        // } else if (relatStatus.includes('like Me')) {
-        //     this.paintButton('me-like');
-        // } else if (relatStatus.includes('match')) {
-        //     this.paintButton('match');
-        // } else if (relatStatus.includes('broken')) {
-        //     this.paintButton('broken');
-        // }
-        // if (relatStatus.includes('I ban')) {
-        //     this.setState({
-        //         iDidBan: true,
-        //         buttonClass: 'i-ban-button',
-        //         popOverText: 'You have banned this user. The user has limited permission ' +
-        //         'to your page. You cannot like the user unless you unban.'
-        //     })
-        // }
+        if (relatStatus.includes('I like')) {
+            this.paintButton('i-like');
+        } else if (relatStatus.includes('like Me')) {
+            this.paintButton('me-like');
+        } else if (relatStatus.includes('match')) {
+            this.paintButton('match');
+        } else if (relatStatus.includes('broken')) {
+            this.paintButton('broken');
+        } else {
+            this.paintButton('');
+        }
     };
 
     like = () => {
@@ -104,7 +140,7 @@ class LikeButtonStatus extends Component {
     };
 
     checkIcon = () => {
-        if (this.state.iDidBan) {
+        if (this.state.iDidBan || this.state.banMe) {
             return 'exclamation-circle-o';
         }
         if (this.state.brokenHeart) {
@@ -114,7 +150,7 @@ class LikeButtonStatus extends Component {
     };
 
     isBanned = () => {
-        return (this.state.iDidBan || this.state.imBanned);
+        return (this.state.iDidBan || this.state.banMe);
     };
 
 render() {

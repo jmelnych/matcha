@@ -42,8 +42,8 @@ class HeaderNav extends Component {
                   mode="horizontal"
                   defaultSelectedKeys={[tab]}
                   style={{ lineHeight: '64px' }}>
-                  <input type="checkbox" name="toggle" id="menu" className="toggle-menu"/>
-                  <label className="toggle-menu">☰ Menu</label>
+                  {/*<input type="checkbox" name="toggle" id="menu" className="toggle-menu"/>*/}
+                  {/*<label className="toggle-menu">☰ Menu</label>*/}
                   <Menu.Item key="1"><Link to='/' style={linkStyle}>Profile</Link></Menu.Item>
                   <Menu.Item key="2"><Link to='/search' style={linkStyle}>Search</Link></Menu.Item>
                   <Menu.Item key="3"><svg className="heart" viewBox="-1 -1 34 32">

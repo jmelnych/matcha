@@ -128,7 +128,3 @@ export const breakUpWithUser = (id) => dispatch => {
 export const banUser = (id) => dispatch => {
     return axios.post('api/profile/ban', {id: id})
 };
-
-export const unBanUser = (id) => dispatch => {
-    return axios.post('api/profile/unban', {id: id})
-};

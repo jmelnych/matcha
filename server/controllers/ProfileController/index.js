@@ -13,6 +13,4 @@ router.post('/fake', require('./fake'));
 
 router.post('/ban', require('./ban'));
 
-router.post('/unban', require('./unban'));
-
 export default router;
