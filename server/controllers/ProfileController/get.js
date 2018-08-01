@@ -93,7 +93,7 @@ module.exports = (req, res) => {
                     'I ban': relationshipHistory(history, 'ban', first_id),
                     'ban Me': relationshipHistory(history, 'ban', second_id)
                 };
-                filtered.history = ['I like', 'like Me', 'match', 'break up', 'I ban', 'ban Me']
+                filtered.relationship = ['I like', 'like Me', 'match', 'break up', 'I ban', 'ban Me']
                     .filter(status => relationship[status]);
                 res.send(filtered);
             }).catch(error);

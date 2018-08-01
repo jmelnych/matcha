@@ -172,20 +172,26 @@ li.left-border{
 
 label.toggle-menu, [type="checkbox"]{
     display: none;
+    height: 70px;
     font-size: 20px;
+    color: white;
+    padding: 20px;
+    background: #001529;
 }
 
 @media screen and (max-width: 682px){
-    .ant-menu-item, .heart{
+    .ant-layout-header, .heart{
         display: none;
     }
     [type="checkbox"] {
+        z-index: 1;
         display: block;
         position: absolute;
         opacity: 0;
         width: 100%;
         height: 70px;
         left: 0;
+        top: 0;
     }
     label.toggle-menu{
         display: block;
@@ -194,16 +200,12 @@ label.toggle-menu, [type="checkbox"]{
         padding: 0;
     }
 
-    input.toggle-menu:checked ~ li{
+    input.toggle-menu:checked ~ .ant-layout-header{
         display: block;
         position: relative;
         width: 100%;
     }
-
-    input.toggle-menu:checked .ant-layout-header{
-        background: orange !important;
-    }
-
+    
     .ant-layout-header ul {
         width: 100%;
     }

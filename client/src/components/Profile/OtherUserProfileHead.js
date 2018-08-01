@@ -30,7 +30,7 @@ class OtherUserProfileHead extends Component {
     };
 
     componentWillReceiveProps(props){
-        const relatStatus = props.history;
+        const relatStatus = props.relationship;
         if (relatStatus.includes('I ban')) {
             this.setState({
                 iDidBan: true
@@ -43,7 +43,6 @@ class OtherUserProfileHead extends Component {
         }
     }
 render() {
-        console.log('state ban in parent', this.state.iDidBan);
     const user = this.props.info ||
         {avatar: 'default.png', gender: 'male', rating: 0, age: 18, location: {city:'Kiev', country: 'Ukraine'}};
     const av_name = user.avatar;

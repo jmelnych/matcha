@@ -9,7 +9,7 @@ class LikeButtonStatus extends Component {
         buttonClass: 'no-likes-button',
         popOverText: 'Like the profile? Like the user!',
         brokenHeart: false,
-        popConfirmText: 'Are you sure you like the user? (We will notify the user about it).',
+        popConfirmText: '',
         iDidBan: false,
         banMe: false
     };
@@ -82,7 +82,6 @@ class LikeButtonStatus extends Component {
     };
 
     componentWillReceiveProps(props) {
-        console.log('props in child', props);
         if (props.ban) {
             this.paintButton('i-ban');
             this.setState({
@@ -97,7 +96,7 @@ class LikeButtonStatus extends Component {
             });
             return;
         }
-        const relatStatus = props.history;
+        const relatStatus = props.relationship;
         if (relatStatus.includes('I like')) {
             this.paintButton('i-like');
         } else if (relatStatus.includes('like Me')) {
