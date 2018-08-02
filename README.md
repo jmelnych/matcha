@@ -8,4 +8,4 @@ On the 'match' page, the user will see only the users that are considered to be 
 for him/her based on preferences, 'fame' rating, interests and a type of personality
 (according to Myers Briggs test).
 
-![compatibility chart](radme_pics/myers.jpg)
+![compatibility chart](readme_pics/myers.jpg)
