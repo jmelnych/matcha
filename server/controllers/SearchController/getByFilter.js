@@ -62,22 +62,30 @@ module.exports = (req, res) => {
             if (response === undefined) {
                 res.send('No users');
             } else {
-                response = prepareUsers(response, req.session, body.radius);
-                response = response.filter(user => user.id !== req.session.id);
-                if (query.order === '') {
-                    response.sort((cur, next) => {
-                        if (cur.distance !== next.distance) {
-                            if (cur.distance > next.distance) {
-                                return body.order.radius === 'asc' ? 1 : -1;
+                promise = db.all("SELECT * FROM history WHERE second_id = ? AND `action` = 'ban'", [req.session.id]);
+
+                promise.then((users) => {
+                    if (users) {
+                        users = users.map(user => user.first_id);
+                        response = response.filter(user => !users.includes(user.id));
+                    }
+                    response = prepareUsers(response, req.session, body.radius);
+                    response = response.filter(user => user.id !== req.session.id);
+                    if (query.order === '') {
+                        response.sort((cur, next) => {
+                            if (cur.distance !== next.distance) {
+                                if (cur.distance > next.distance) {
+                                    return body.order.radius === 'asc' ? 1 : -1;
+                                } else {
+                                    return body.order.radius === 'asc' ? -1 : 1;
+                                }
                             } else {
-                                return body.order.radius === 'asc' ? -1 : 1;
+                                return 0;
                             }
-                        } else {
-                            return 0;
-                        }
-                    });
-                }
-                res.send(response);
+                        });
+                    }
+                    res.send(response);
+                }).catch(error);
             }
         }).catch(error);
     } catch (e) {
