@@ -113,7 +113,8 @@ render() {
               <Form.Item {...formItemLayout} label='Personality'>
                   <Popover placement="rightTop" title="Personality type" content={content} trigger="hover">{
                   getFieldDecorator('personality')(
-                          <Select >
+                      <Select >
+                          <Select.Option value="">None</Select.Option>
                           <Select.Option value="ISTJ">ISTJ</Select.Option>
                           <Select.Option value="ISTP">ISTP</Select.Option>
                           <Select.Option value="ISFJ">ISFJ</Select.Option>
