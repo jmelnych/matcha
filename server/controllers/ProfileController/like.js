@@ -24,7 +24,18 @@ module.exports = (req, res) => {
                 promise.then(() => {
                     promise = db.deleteFromHistory(action === 'like' ? ['break up'] : ['like', 'break up'],
                         [first_id, second_id, first_id, second_id]);
-                    promise.then(() => res.send(action)).catch(error);
+                    promise.then(() => {
+                        promise = db.getByUnique('users', 'id', second_id);
+                        promise.then((user) => {
+                            if (user.rating < 42) {
+                                user.rating++;
+                                promise = db.update('users', 'rating', user.rating, 'id', second_id);
+                                promise.then(() => res.send(action)).catch(error);
+                            } else {
+                                res.send(action);
+                            }
+                        }).catch(error);
+                    }).catch(error);
                 }).catch(error);
             },
             Ilike  = relationshipHistory(response, 'like', first_id),

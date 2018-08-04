@@ -25,7 +25,18 @@ module.exports = (req, res) => {
                     promise = db.deleteFromHistory(['match'], [first_id, second_id, first_id, second_id]);
                     promise.then(() => {
                         promise = db.create('history', 'first_id, second_id, `action`', [first_id, second_id, action]);
-                        promise.then(() => res.send(action)).catch(error);
+                        promise.then(() => {
+                            promise = db.getByUnique('users', 'id', second_id);
+                            promise.then((user) => {
+                                if (user.rating > 0) {
+                                    user.rating--;
+                                    promise = db.update('users', 'rating', user.rating, 'id', second_id);
+                                    promise.then(() => res.send(action)).catch(error);
+                                } else {
+                                    res.send(action);
+                                }
+                            }).catch(error);
+                        }).catch(error);
                     }).catch(error);
                 }
             },
