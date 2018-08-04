@@ -8,7 +8,6 @@ module.exports = class DB {
 
     /* used to create or alter tables and to insert or update table data, or delete data */
     run(sql, params = []) {
-        console.log(sql, params);
         return new Promise((resolve, reject) => {
             DB.db.prepare(sql, params).run(function (err) {
                 if (err) {

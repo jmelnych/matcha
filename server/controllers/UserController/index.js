@@ -7,6 +7,8 @@ router.post('/activate', require('./activate'));
 
 router.post('/get', require('./get'));
 
+router.post('/history', require('./history'));
+
 router.post('/password', require('./password'));
 
 router.post('/update-password', require('./updatePassword'));
