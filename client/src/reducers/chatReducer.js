@@ -11,6 +11,7 @@ export default function (state = initialState, action) {
                 ...state,
                 {
                     id: shortid.generate(),
+                    authorId: action.payload.authorId,
                     username: action.payload.username,
                     message: action.payload.message,
                     time: action.payload.time

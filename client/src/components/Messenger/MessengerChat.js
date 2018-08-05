@@ -24,6 +24,7 @@ class MessengerChat extends Component {
         const {user} = this.props;
         socket.emit('chat', {
             recipientId: 1, //TODO: get recipient
+            authorId: user.user.id,
             username: user.user.username,
             message: this.state.input,
             time: new Date()
@@ -49,9 +50,8 @@ class MessengerChat extends Component {
     };
 
 render() {
-    const currentUsername = this.props.user.user.username;
+    const currentUserId = this.props.user.user.id;
     const msgLength = this.props.chat.length;
-
     return (
         <div className="chat-container">
             <div className="chat-header">
@@ -73,7 +73,7 @@ render() {
                             <span className="message-data-name">{message.username} </span>
                             <span className="message-data-time"> {message.time}</span>
                         </div>
-                        <div className={"message " + (currentUsername !== message.username ? "other-message float-right"
+                        <div className={"message " + (currentUserId !== message.authorId ? "other-message float-right"
                             : "my-message")}>{message.message}</div>
                     </li>
                     )}
