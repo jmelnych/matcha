@@ -193,9 +193,10 @@ label.toggle-menu, [type="checkbox"]{
         left: 0;
         top: 0;
     }
-    label.toggle-menu{
+    label.toggle-menu {
         display: block;
-    } /* show burger menu */
+    }
+    /* show burger menu */
     .ant-layout-header{
         padding: 0;
     }
@@ -205,7 +206,7 @@ label.toggle-menu, [type="checkbox"]{
         position: relative;
         width: 100%;
     }
-    
+
     .ant-layout-header ul {
         width: 100%;
     }

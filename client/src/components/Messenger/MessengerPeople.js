@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import {Input} from 'antd'
+import {connect} from 'react-redux'
+import {populateUserList} from '../../actions/chatActions'
+import PropTypes from 'prop-types'
 
 const Search = Input.Search;
 
@@ -35,5 +38,10 @@ render() {
         </div>
     );
   }
-}
-export default MessengerPeople;
+};
+
+MessengerPeople.propTypes = {
+    populateUserList: PropTypes.func.isRequired //TODO: get all 'match users' and display it
+};
+
+export default connect(null, {populateUserList})(MessengerPeople);

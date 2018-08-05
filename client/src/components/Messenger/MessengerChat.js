@@ -8,14 +8,22 @@ import PropTypes from 'prop-types'
 const { TextArea } = Input;
 
 class MessengerChat extends Component {
+    componentDidMount(){
+        const addMsg = this.props.addChatMsg;
+        socket.on('chat', (data) => {
+            console.log('chat data component didMount', data);
+        addMsg(data);
+        });
+    };
+
     state = {
         input: ''
     };
 
     sendMsg = () => {
         const {user} = this.props;
-        const addMsg = this.props.addChatMsg;
         socket.emit('chat', {
+            recipientId: 1, //TODO: get recipient
             username: user.user.username,
             message: this.state.input,
             time: new Date()
@@ -23,11 +31,9 @@ class MessengerChat extends Component {
         this.setState({
             input: ''
         });
-        socket.on('chat', function(data) {
-            addMsg(data);
-        });
-
     };
+
+
 
     updateText = (value) => {
         this.setState({
@@ -43,14 +49,19 @@ class MessengerChat extends Component {
     };
 
 render() {
-    let currentUsername = this.props.user.user.username;
+    const currentUsername = this.props.user.user.username;
+    const msgLength = this.props.chat.length;
+
     return (
         <div className="chat-container">
             <div className="chat-header">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg" alt="avatar" />
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg"
+                     alt="avatar" />
                 <div className="chat-header-about">
                     <div className="chat-header-with">Chat with Vincent Porter</div>
-                    <div className="chat-header-num-messages">already 1 902 messages</div>
+                    <div className="chat-header-num-messages">
+                    {msgLength > 0 ? `${msgLength} messages` : 'not messages yet'}
+                </div>
                 </div>
             </div>
             <div className="chat-history">
@@ -62,7 +73,8 @@ render() {
                             <span className="message-data-name">{message.username} </span>
                             <span className="message-data-time"> {message.time}</span>
                         </div>
-                        <div className={"message " + (currentUsername !== message.username ? "other-message float-right" : "my-message")}>{message.message}</div>
+                        <div className={"message " + (currentUsername !== message.username ? "other-message float-right"
+                            : "my-message")}>{message.message}</div>
                     </li>
                     )}
                 </ul>

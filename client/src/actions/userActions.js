@@ -41,8 +41,7 @@ export const saveLocation = (data) => dispatch => {
     .then(() => dispatch ({
         type: UPDATE_USER_LOCATION,
         payload: data
-        })
-    )
+    }))
 };
 
 export const getUser = () => dispatch => {
@@ -51,7 +50,7 @@ export const getUser = () => dispatch => {
         .then(user => dispatch({
             type: GET_USER,
             payload: user
-        }));
+        }))
 };
 
 export const updateUser = (data) => dispatch => {
@@ -68,7 +67,7 @@ export const logoutUser = () => dispatch => {
         .then(user => dispatch({
             type: LOGOUT_USER,
             payload: user
-        }));
+        }))
 };
 
 export const getUserTags = () => dispatch => {

@@ -67,8 +67,4 @@ Root.propTypes = {
 
 export default connect(mapStateToProps, mapDispatchToProps)(Root);
 
-//<Route exact path="/password/:token"render={ props => <Profile {...props}/>} />
-    {/*<Route exact path="/" component={Root}/>*/}
-    {/*<Route path={"profile"} render={Profile}></Route>*/}
-    {/*<Route path={"home"} render={Home}></Route>*/}
 
