@@ -21,4 +21,6 @@ router.post('/update', require('./update'));
 
 router.post('/logout', require('./logout'));
 
+router.post('/get-matches', require('./getMatches'));
+
 export default router;

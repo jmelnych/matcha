@@ -3,9 +3,10 @@ import axios from 'axios'
 
 axios.defaults.baseURL = 'http://localhost:5000';
 
-export const populateUserList = (temp) => dispatch => {
-    //return axios.post('api/users/get-match');
-}
+export const fetchMatchUsers = (temp) => dispatch => {
+    return axios.post('api/users/get-matches');
+};
+
 export const addChatMsg = data => dispatch => {
     dispatch({
         type: ADD_CHAT_MESSAGE,
