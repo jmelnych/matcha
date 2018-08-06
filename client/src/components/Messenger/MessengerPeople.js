@@ -28,9 +28,7 @@ render() {
                             <img src={src} alt="avatar" className="chat-avatar"/>
                         </Link>
                         <div className="people-list-person-about">
-                            <Link to={`/user/${user.id}`}>
-                                <div className="people-list-person-name">{`${user.firstname} ${user.lastname}`}</div>
-                            </Link>
+                            <div className="people-list-person-name">{`${user.firstname} ${user.lastname}`}</div>
                             <div className="people-list-person-status">
                                 <span className="circle online">&#9679;</span> online
                             </div>

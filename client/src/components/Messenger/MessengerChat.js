@@ -11,6 +11,7 @@ class MessengerChat extends Component {
     componentDidMount(){
         const addMsg = this.props.addChatMsg;
         socket.on('chat', (data) => {
+            //console.log(socket.id); unique socket id
             console.log('chat data component didMount', data);
         addMsg(data);
         });
@@ -23,12 +24,13 @@ class MessengerChat extends Component {
     sendMsg = () => {
         const {user} = this.props;
         socket.emit('chat', {
-            recipientId: 1, //TODO: get recipient
+            recipientId: 2, //TODO: get recipient
             authorId: user.user.id,
             username: user.user.username,
             message: this.state.input,
             time: new Date()
         });
+        //TODO: save msg to back
         this.setState({
             input: ''
         });

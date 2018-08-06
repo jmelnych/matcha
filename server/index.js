@@ -73,10 +73,15 @@ const server = app.listen(config.port, () => console.log(`Running on localhost $
 const io = socket(server);
 io.on('connection', (socket) => {
     console.log('made socket connection', socket.id);
+    //TODO: save that user online. grab current user id via cookies?
     socket.on('chat', (data) => {
         console.log('data that comes from client', data);
         //TODO: send msgs to all. Change it to only 1 person
         io.sockets.emit('chat', data);
-
+        //socket.broadcast.to(data.recipientId).emit('chat', data);
     });
+    socket.on('disconnect', () => {
+        console.log('user left', socket.id);
+        //TODO: save that user's gone offline
+    })
 });

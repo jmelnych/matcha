@@ -37,6 +37,9 @@ ul.people-list,  ul.chat-history-list {
 .people-list>li {
     padding-bottom: 20px;
 }
+.people-list-person{
+    cursor: pointer;
+}
 
 .people-list-person>img {
     float: left;
