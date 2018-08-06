@@ -1,10 +1,16 @@
-import {ADD_CHAT_MESSAGE, RECEIVED_CHAT_MESSAGE, POPULATE_USER_LIST} from './types'
+import {ADD_CHAT_MESSAGE, RECEIVED_CHAT_MESSAGE,
+    FETCH_MATCH_PEOPLE} from './types'
 import axios from 'axios'
 
 axios.defaults.baseURL = 'http://localhost:5000';
 
 export const fetchMatchUsers = (temp) => dispatch => {
-    return axios.post('api/users/get-matches');
+    axios.post('api/users/get-matches')
+        .then(res => (res.data))
+        .then(people => dispatch({
+            type: FETCH_MATCH_PEOPLE,
+            payload: people
+        }))
 };
 
 export const addChatMsg = data => dispatch => {
@@ -19,4 +25,4 @@ export const receivedChatMsg = data => dispatch => {
         type: RECEIVED_CHAT_MESSAGE,
         payload: data
     })
-}
+};

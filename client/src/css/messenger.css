@@ -22,6 +22,12 @@
     background: white;
 }
 
+.chat-avatar{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
 ul.people-list,  ul.chat-history-list {
     padding: 20px;
     display: flex;

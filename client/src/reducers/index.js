@@ -7,6 +7,7 @@ import photos from './photosReducer'
 import posts from './postsReducer'
 import chat from './chatReducer'
 import otherUser from './otherUser'
+import matchUsers from './matchUsersReducer'
 
 export default combineReducers({
     users,
@@ -16,5 +17,6 @@ export default combineReducers({
     photos,
     posts,
     chat,
-    otherUser
+    otherUser,
+    matchUsers
 });

@@ -3,11 +3,11 @@ import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 const PeopleUIResults = (props) => {
-    let users = props.users;
+    const users = props.users;
     let src;
     return (
         <div className="container-results">
-            { users.map((user) =>
+            {users.map((user) =>
                 <Link key={user.id} to={`/user/${user.id}`}><figure className="user-snippet">
                     <p>{src = require(`../../img/avatars/${user.avatar}`)}</p>
                     <img src={src}

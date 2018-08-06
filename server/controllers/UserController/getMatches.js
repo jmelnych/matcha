@@ -9,14 +9,15 @@ module.exports = (req, res) => {
                                  history.second_id,
                                  users.id,
                                  users.firstname,
-                                 users.lastname
+                                 users.lastname,
+                                 users.avatar
                           FROM history
                           JOIN users ON (users.id = history.first_id OR
                                          users.id = history.second_id) AND
                                                users.id != ?
-                          WHERE 
-                          (action = "match")
-                          `, [id]);
+                          WHERE (history.first_id = ? OR
+                                 history.second_id = ?) AND
+                                 (action = "match")`, [id, id, id]);
     promise.then(people => {
         people.map(person => {
             delete person.first_id;
@@ -24,4 +25,4 @@ module.exports = (req, res) => {
         });
         res.send(people);
     })
-}
+};
