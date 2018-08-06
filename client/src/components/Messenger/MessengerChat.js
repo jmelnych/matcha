@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Input, Button } from 'antd'
-import { socket } from './Messenger'
+import { socket } from '../Root'
 import {connect} from 'react-redux'
 import { addChatMsg } from '../../actions/chatActions'
 import PropTypes from 'prop-types'
@@ -24,7 +24,7 @@ class MessengerChat extends Component {
     sendMsg = () => {
         const {user} = this.props;
         socket.emit('chat', {
-            recipientId: 2, //TODO: get recipient
+            recipientId: 2, //TODO: get recipient id
             authorId: user.user.id,
             username: user.user.username,
             message: this.state.input,

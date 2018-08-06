@@ -10,7 +10,7 @@ import ProfileUserTitleUI from './ProfileUI/ProfileUserTitleUI'
 import PropTypes from 'prop-types'
 
 class Profile extends Component {
-  render() {
+    render() {
     return (
     <div>
       <ProfileHead/>

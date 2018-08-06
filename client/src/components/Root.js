@@ -17,15 +17,15 @@ import NotFound from './Additional/NotFound'
 import Messenger from './Messenger/Messenger'
 import OtherUserProfile from './Profile/OtherUserProfile'
 import Notifications from './Notifications'
+import openSocket from 'socket.io-client'
+
+export const socket = openSocket.connect('http://localhost:5000');
 
 class Root extends Component {
     componentDidMount() {
-        //const _curl = (window.location.href).split('/');
-        // if (_curl[3] === '' || _curl[3] === 'search' || _curl[3] === 'match'
-        //     || _curl[3] === 'messenger' || _curl[3] === 'user' || _curl[3] === 'notifications') {
-            //console.log('checking auth');
-            this.props.isAuth();
-        //}
+        this.props.isAuth();
+        const {id} = this.props.user;
+        socket.emit('users', id);
     }
     render() {
         const {Footer} = Layout;

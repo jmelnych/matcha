@@ -55,7 +55,7 @@ app.set('filterObject', require('./models/filterObject'));
 app.set('prepareQuery', require('./models/prepareQuery'));
 app.set('prepareUsers', require('./models/prepareUsers'));
 
-/*defining routes */
+/* Defining routes */
 app.use('/api/users/', users);
 app.use('/api/image/', image);
 app.use('/api/search/', search);
@@ -71,17 +71,32 @@ const server = app.listen(config.port, () => console.log(`Running on localhost $
 
 /* socket setup */
 const io = socket(server);
+let connectedUsers = [];
 io.on('connection', (socket) => {
-    console.log('made socket connection', socket.id);
+    console.log('user made socket connection', socket.id);
+    socket.on('users', id => {
+        if (connectedUsers.filter(user => user.id === id).length) {
+            return;
+        } else {
+            connectedUsers.push({id, socket: socket.id});
+        }
+    });
+
     //TODO: save that user online. grab current user id via cookies?
     socket.on('chat', (data) => {
         console.log('data that comes from client', data);
-        //TODO: send msgs to all. Change it to only 1 person
+        let socketId = connectedUsers.map(user => user.id === data.recipientId);
         io.sockets.emit('chat', data);
-        //socket.broadcast.to(data.recipientId).emit('chat', data);
+        //TODO: send msg to given socketId
+        //socket.broadcast.to(socketId).emit('chat', data);
     });
     socket.on('disconnect', () => {
         console.log('user left', socket.id);
+        connectedUsers.map(user => {
+            if(user.socket === socket.id){
+                delete connectedUsers.user;
+            }
+        })
         //TODO: save that user's gone offline
     })
 });
