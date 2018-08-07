@@ -87,7 +87,7 @@ io.on('connection', (socket) => {
         let recipient, recipientSId;
         recipient = connectedUsers.filter(user => user.id === data.recipientId);
         console.log('all connected users',connectedUsers);
-        if (recipient){
+        if (recipient[0]){
             //io.sockets.emit('chat', data);
             recipientSId = recipient[0].socket;
             socket.broadcast.to(recipientSId).emit('chat', data);

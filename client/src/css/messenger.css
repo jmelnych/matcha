@@ -158,6 +158,11 @@ ul.people-list,  ul.chat-history-list {
     margin-top: 20px;
 }
 
+.choose-chat{
+    font-size: 25px;
+    margin-top: 50%;
+}
+
 @media screen and (max-width: 586px) {
     .chat-container {
         min-width: 250px;

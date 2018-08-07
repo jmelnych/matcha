@@ -9,6 +9,10 @@ import moment from 'moment'
 const { TextArea } = Input;
 
 class MessengerChat extends Component {
+    state = {
+        input: '',
+        chatWith: {}
+    };
     componentDidMount(){
         const {addChatMsg} = this.props;
         if (socket) {
@@ -19,15 +23,19 @@ class MessengerChat extends Component {
             });
         }
     };
+    componentWillReceiveProps(nextProps){
+        if (nextProps.chatWith.id !== this.state.chatWith.id){
+            this.setState({
+                chatWith: nextProps.chatWith
+            })
+        }
+    }
 
-    state = {
-        input: ''
-    };
 
     sendMsg = () => {
         const {user, addChatMsg} = this.props;
         const data = {
-            recipientId: 2, //TODO: get recipient id
+            recipientId: this.state.chatWith.id,
             authorId: user.user.id,
             message: this.state.input,
             time: new Date()
@@ -40,8 +48,6 @@ class MessengerChat extends Component {
             input: ''
         });
     };
-
-
 
     updateText = (value) => {
         this.setState({
@@ -58,41 +64,47 @@ class MessengerChat extends Component {
 
 render() {
     const currentUserId = this.props.user.user.id;
-    const msgLength = this.props.chat.length;
-    console.log(this.props.chat);
+    const {chatWith} = this.state;
+    const messages = this.props.chat.filter(message => message.recipientId === chatWith.id);
+    const msgLength = messages.length;
     return (
         <div className="chat-container">
-            <div className="chat-header">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg"
-                     alt="avatar" />
-                <div className="chat-header-about">
-                    <div className="chat-header-with">Chat with Vincent Porter</div>
-                    <div className="chat-header-num-messages">
-                    {msgLength > 0 ? `${msgLength} messages` : 'not messages yet'}
+            {!chatWith.id && (<div className="choose-chat">Choose a user to start a chat</div>)}
+            { chatWith.id && (
+                <div>
+                <div className="chat-header">
+                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg"
+                         alt="avatar" />
+                    <div className="chat-header-about">
+                        <div className="chat-header-with">Chat with {`${chatWith.firstname}, ${chatWith.lastname}`}</div>
+                        <div className="chat-header-num-messages">
+                            {msgLength > 0 ? `${msgLength} messages` : 'not messages yet'}
+                        </div>
+                    </div>
                 </div>
-                </div>
-            </div>
-            <div className="chat-history">
+                <div className="chat-history">
 
                 <ul className="chat-history-list">
-                    {this.props.chat.map(message =>
-                    <li key={message.id} className="history-list-message">
-                        <div className="message-data">
-                            <span className="message-data-name">{currentUserId !== message.authorId ? 'other user' : this.props.user.user.username} </span>
-                            <span className="message-data-time">{moment(message.time).fromNow()}</span>
-                        </div>
-                        <div className={"message " + (currentUserId !== message.authorId ? "other-message float-right"
-                            : "my-message")}>{message.message}</div>
-                    </li>
-                    )}
+            {messages.map(message =>
+                <li key={message.id} className="history-list-message">
+                <div className="message-data">
+                <span className="message-data-name">{currentUserId !== message.authorId ? `${chatWith.username}`
+                    : 'me'} </span>
+                <span className="message-data-time">{moment(message.time).fromNow()}</span>
+                </div>
+                <div className={"message " + (currentUserId !== message.authorId ? "other-message float-right"
+                : "my-message")}>{message.message}</div>
+                </li>
+                )}
                 </ul>
-
             </div>
             <div className="chat-message">
-                <TextArea value={this.state.input} rows={1} placeholder ="Type your message"
-                          onKeyDown={this.onEnterPress} onChange={(e) => this.updateText(e.target.value)}/>
-                <Button onClick={this.sendMsg} className="center-button-chat" type="primary">Send</Button>
+            <TextArea value={this.state.input} rows={1} placeholder ="Type your message"
+            onKeyDown={this.onEnterPress} onChange={(e) => this.updateText(e.target.value)}/>
+            <Button onClick={this.sendMsg} className="center-button-chat" type="primary">Send</Button>
             </div>
+        </div>
+        )}
         </div>
     );
   }

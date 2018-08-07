@@ -91,8 +91,6 @@ class SearchFilter extends Component {
     };
 
     formatterLocation = (value) => `${value}km`;
-
-
     formatterAge = (value) => `${value} years old`;
 
 render() {
