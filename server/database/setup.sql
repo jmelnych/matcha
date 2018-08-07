@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS tags;
 DROP TABLE IF EXISTS users_tags;
 DROP TABLE IF EXISTS posts;
 DROP TABLE IF EXISTS history;
+DROP TABLE IF EXISTS messages;
 
 CREATE TABLE users
 (
@@ -64,6 +65,15 @@ CREATE TABLE posts
   added   DATETIME            DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE messages
+(
+   id   INTEGER PRIMARY KEY AUTOINCREMENT,
+   author_id    INTEGER,
+   recipient_id INTEGER,
+   message      TEXT NOT NULL,
+   added        DATETIME      DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE history
 (
   first_id  INTEGER,
@@ -72,6 +82,9 @@ CREATE TABLE history
     CHECK (`action` IN ('see', 'like', 'match', 'ban', 'break up', 'fake')),
   added     DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+INSERT INTO history (first_id, second_id, action)
+VALUES (1, 2, 'match');
 
 INSERT INTO tags (tag)
 VALUES ('zombie'),

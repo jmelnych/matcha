@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Input, Button } from 'antd'
 import { socket } from '../Root'
 import {connect} from 'react-redux'
-import { addChatMsg } from '../../actions/chatActions'
+import { addChatMsg, receiveChatMsg } from '../../actions/chatActions'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 
@@ -14,12 +14,11 @@ class MessengerChat extends Component {
         chatWith: {}
     };
     componentDidMount(){
-        const {addChatMsg} = this.props;
+        const {receiveChatMsg} = this.props;
         if (socket) {
             socket.on('chat', (data) => {
                 //console.log(socket.id); unique socket id
-                console.log('chat data component didMount', data);
-                addChatMsg(data);
+                receiveChatMsg(data);
             });
         }
     };
@@ -65,7 +64,8 @@ class MessengerChat extends Component {
 render() {
     const currentUserId = this.props.user.user.id;
     const {chatWith} = this.state;
-    const messages = this.props.chat.filter(message => message.recipientId === chatWith.id);
+    console.log(chatWith);
+    const messages = this.props.chat;
     const msgLength = messages.length;
     return (
         <div className="chat-container">
@@ -117,6 +117,7 @@ function mapStateToProps({user, chat}) {
 MessengerChat.propTypes = {
     user: PropTypes.object,
     chat: PropTypes.array,
-    addChatMsg: PropTypes.func.isRequired
+    addChatMsg: PropTypes.func.isRequired,
+    receiveChatMsg: PropTypes.func.isRequired
 }
-export default connect(mapStateToProps, { addChatMsg })(MessengerChat);
+export default connect(mapStateToProps, { addChatMsg,receiveChatMsg })(MessengerChat);

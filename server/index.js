@@ -10,6 +10,7 @@ import tags from './controllers/TagController';
 import image from './controllers/ImageController';
 import posts from './controllers/PostController';
 import profile from './controllers/ProfileController';
+import messages from './controllers/MessagesController';
 
 const session    = require('cookie-session');
 const bodyParser = require('body-parser');
@@ -62,6 +63,7 @@ app.use('/api/search/', search);
 app.use('/api/tags/', tags);
 app.use('/api/posts/', posts);
 app.use('/api/profile/', profile);
+app.use('/api/messages/', messages);
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, './index.html'));
@@ -87,7 +89,7 @@ io.on('connection', (socket) => {
         let recipient, recipientSId;
         recipient = connectedUsers.filter(user => user.id === data.recipientId);
         console.log('all connected users',connectedUsers);
-        if (recipient[0]){
+        if (recipient.length){
             //io.sockets.emit('chat', data);
             recipientSId = recipient[0].socket;
             socket.broadcast.to(recipientSId).emit('chat', data);
@@ -96,7 +98,7 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('user left', socket.id);
         connectedUsers = connectedUsers.filter(user => user.socket !== socket.id);
-        console.log('users left', connectedUsers);
+        console.log('remaining users', connectedUsers);
         //TODO: save that user's gone offline
     })
 });
