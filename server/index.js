@@ -15,7 +15,7 @@ import messages from './controllers/MessagesController';
 const session    = require('cookie-session');
 const bodyParser = require('body-parser');
 const config     = require('./config');
-const socket     = require('socket.io');
+
 
 let app        = express();
 const compiler = webpack(webpackConfig);
@@ -41,6 +41,7 @@ app.set('rootDir', path.dirname(__dirname));
 /* Set Models */
 const DB   = require('./database/DB');
 const Mail = require('./models/Mail');
+const Socket = require('./models/socket');
 
 app.set('db', new DB());
 app.set('mail', new Mail());
@@ -70,35 +71,6 @@ app.get('*', (req, res) => {
 });
 
 const server = app.listen(config.port, () => console.log(`Running on localhost ${config.port}`));
+app.set('socket', new Socket(server));
 
-/* socket setup */
-const io = socket(server);
-let connectedUsers = [];
-io.on('connection', (socket) => {
-    socket.on('users', id => {
-    console.log('user', id, 'made socket connection', socket.id);
-        if (connectedUsers.filter(user => user.id === id).length) {
-            return;
-        } else {
-            connectedUsers.push({id, socket: socket.id});
-        }
-    });
 
-    //TODO: save that user online. grab current user id via cookies?
-    socket.on('chat', (data) => {
-        let recipient, recipientSocketId;
-        recipient = connectedUsers.filter(user => user.id === data.recipient_id);
-        console.log('all connected users',connectedUsers);
-        if (recipient.length){
-            //io.sockets.emit('chat', data);
-            recipientSocketId = recipient[0].socket;
-            socket.broadcast.to(recipientSocketId).emit('chat', data);
-        }
-    });
-    socket.on('disconnect', () => {
-        console.log('user left', socket.id);
-        connectedUsers = connectedUsers.filter(user => user.socket !== socket.id);
-        console.log('remaining users', connectedUsers);
-        //TODO: save that user's gone offline
-    })
-});

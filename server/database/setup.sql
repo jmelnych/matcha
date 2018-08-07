@@ -32,7 +32,9 @@ CREATE TABLE users
   bio         TEXT,
   location    TEXT         NOT NULL,
   avatar      VARCHAR(255)        DEFAULT 'default.png',
-  added       DATETIME            DEFAULT CURRENT_TIMESTAMP
+  added       DATETIME            DEFAULT CURRENT_TIMESTAMP,
+  online      TINYINT(1)    DEFAULT 0 NOT NULL,
+  last_seen   DATETIME            DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE photos
