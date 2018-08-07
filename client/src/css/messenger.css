@@ -3,6 +3,14 @@
     height: calc(100vh - 74px - 120px - 80px);
 }
 
+.container-no-wrap{
+    position: relative;
+    display: flex;
+    max-width: 1600px;
+    margin: 0 auto;
+    flex-wrap: nowrap;
+}
+
 .people-list-container{
     padding: 20px 20px;
     background: #001529;
@@ -14,8 +22,7 @@
 }
 
 .chat-container{
-    width: 73%;
-    min-width: 550px;
+    min-width: 530px;
     box-shadow: 0 0 20px rgba(0,0,0,.15);
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -150,3 +157,46 @@ ul.people-list,  ul.chat-history-list {
 .center-button-chat{
     margin-top: 20px;
 }
+
+@media screen and (max-width: 586px) {
+    .chat-container {
+        min-width: 250px;
+    }
+    .people-list-container{
+        padding: 20px 3px;
+        min-width: 130px;
+    }
+    .people-list-person-about{
+        margin: 0;
+        padding: 0;
+    }
+    .chat-avatar{
+        display: none;
+    }
+}
+
+@media (min-width: 587px) and (max-width: 768px) {
+    .chat-container {
+        min-width: 400px;
+    }
+    .people-list-container{
+        padding: 20px 5px;
+        min-width: 150px;
+    }
+    .chat-avatar{
+        display: none;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 900px) {
+    .people-list-container{
+        padding: 20px 5px;
+        min-width: 240px;
+    }
+    .chat-avatar{
+        width: 50px;
+        height: 50px;
+    }
+}
+
+

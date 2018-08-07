@@ -4,17 +4,20 @@ import { socket } from '../Root'
 import {connect} from 'react-redux'
 import { addChatMsg } from '../../actions/chatActions'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 
 const { TextArea } = Input;
 
 class MessengerChat extends Component {
     componentDidMount(){
-        const addMsg = this.props.addChatMsg;
-        socket.on('chat', (data) => {
-            //console.log(socket.id); unique socket id
-            console.log('chat data component didMount', data);
-        addMsg(data);
-        });
+        const {addChatMsg} = this.props;
+        if (socket) {
+            socket.on('chat', (data) => {
+                //console.log(socket.id); unique socket id
+                console.log('chat data component didMount', data);
+                addChatMsg(data);
+            });
+        }
     };
 
     state = {
@@ -22,14 +25,16 @@ class MessengerChat extends Component {
     };
 
     sendMsg = () => {
-        const {user} = this.props;
-        socket.emit('chat', {
+        const {user, addChatMsg} = this.props;
+        const data = {
             recipientId: 2, //TODO: get recipient id
             authorId: user.user.id,
-            username: user.user.username,
             message: this.state.input,
             time: new Date()
-        });
+
+        };
+        socket.emit('chat', data);
+        addChatMsg(data);
         //TODO: save msg to back
         this.setState({
             input: ''
@@ -54,6 +59,7 @@ class MessengerChat extends Component {
 render() {
     const currentUserId = this.props.user.user.id;
     const msgLength = this.props.chat.length;
+    console.log(this.props.chat);
     return (
         <div className="chat-container">
             <div className="chat-header">
@@ -72,8 +78,8 @@ render() {
                     {this.props.chat.map(message =>
                     <li key={message.id} className="history-list-message">
                         <div className="message-data">
-                            <span className="message-data-name">{message.username} </span>
-                            <span className="message-data-time"> {message.time}</span>
+                            <span className="message-data-name">{currentUserId !== message.authorId ? 'other user' : this.props.user.user.username} </span>
+                            <span className="message-data-time">{moment(message.time).fromNow()}</span>
                         </div>
                         <div className={"message " + (currentUserId !== message.authorId ? "other-message float-right"
                             : "my-message")}>{message.message}</div>

@@ -20,12 +20,16 @@ import Notifications from './Notifications'
 import openSocket from 'socket.io-client'
 
 export const socket = openSocket.connect('http://localhost:5000');
-
 class Root extends Component {
     componentDidMount() {
         this.props.isAuth();
-        const {id} = this.props.user;
-        socket.emit('users', id);
+        }
+
+    componentWillReceiveProps(newProps) {
+        if (newProps.user.id !== this.props.user.id){
+            const {id} = newProps.user;
+            socket.emit('users', id);
+        }
     }
     render() {
         const {Footer} = Layout;

@@ -7,12 +7,12 @@ export default function (state = initialState, action) {
     switch (action.type){
         case ADD_CHAT_MESSAGE:
         // case RECEIVED_CHAT_MESSAGE:
+            //console.log(action.payload);
             return [
                 ...state,
                 {
                     id: shortid.generate(),
                     authorId: action.payload.authorId,
-                    username: action.payload.username,
                     message: action.payload.message,
                     time: action.payload.time
 

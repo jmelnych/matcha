@@ -73,8 +73,8 @@ const server = app.listen(config.port, () => console.log(`Running on localhost $
 const io = socket(server);
 let connectedUsers = [];
 io.on('connection', (socket) => {
-    console.log('user made socket connection', socket.id);
     socket.on('users', id => {
+    console.log('user', id, 'made socket connection', socket.id);
         if (connectedUsers.filter(user => user.id === id).length) {
             return;
         } else {
@@ -84,19 +84,19 @@ io.on('connection', (socket) => {
 
     //TODO: save that user online. grab current user id via cookies?
     socket.on('chat', (data) => {
-        console.log('data that comes from client', data);
-        let socketId = connectedUsers.map(user => user.id === data.recipientId);
-        io.sockets.emit('chat', data);
-        //TODO: send msg to given socketId
-        //socket.broadcast.to(socketId).emit('chat', data);
+        let recipient, recipientSId;
+        recipient = connectedUsers.filter(user => user.id === data.recipientId);
+        console.log('all connected users',connectedUsers);
+        if (recipient){
+            //io.sockets.emit('chat', data);
+            recipientSId = recipient[0].socket;
+            socket.broadcast.to(recipientSId).emit('chat', data);
+        }
     });
     socket.on('disconnect', () => {
         console.log('user left', socket.id);
-        connectedUsers.map(user => {
-            if(user.socket === socket.id){
-                delete connectedUsers.user;
-            }
-        })
+        connectedUsers = connectedUsers.filter(user => user.socket !== socket.id);
+        console.log('users left', connectedUsers);
         //TODO: save that user's gone offline
     })
 });

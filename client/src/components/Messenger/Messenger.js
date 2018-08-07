@@ -5,7 +5,7 @@ import MessengerChat from './MessengerChat'
 class Messenger extends Component {
 render() {
     return (
-      <div className="container-flex">
+      <div className="container-no-wrap">
           <MessengerPeople/>
            <MessengerChat/>
       </div>
