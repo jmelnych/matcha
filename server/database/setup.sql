@@ -84,7 +84,8 @@ CREATE TABLE history
 );
 
 INSERT INTO history (first_id, second_id, action)
-VALUES (1, 2, 'match');
+VALUES (1, 2, 'match'),
+       (1, 3, 'match');
 
 INSERT INTO tags (tag)
 VALUES ('zombie'),

@@ -1,18 +1,20 @@
 import shortid from 'shortid'
-import {ADD_CHAT_MESSAGE, RECEIVE_CHAT_MESSAGE} from "../actions/types"
+import {SET_CHAT_HISTORY, ADD_CHAT_MESSAGE, RECEIVE_CHAT_MESSAGE } from "../actions/types"
 
 const initialState = [];
 
 export default function (state = initialState, action) {
     switch (action.type){
+        case SET_CHAT_HISTORY:
+            return action.payload;
         case ADD_CHAT_MESSAGE:
         case RECEIVE_CHAT_MESSAGE:
             return [
                 ...state,
                 {
                     id: shortid.generate(),
-                    authorId: action.payload.authorId,
-                    recipientId: action.payload.recipientId,
+                    author_id: action.payload.author_id,
+                    recipient_id: action.payload.recipient_id,
                     message: action.payload.message,
                     time: action.payload.time
 

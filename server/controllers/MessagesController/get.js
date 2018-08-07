@@ -1,5 +1,7 @@
 module.exports = (req, res) => {
-    console.log('message controller get', req.body);
-
-    res.send('success');
+    let db = req.app.get('db'),
+        promise = db.all(`SELECT * FROM messages WHERE(author_id = ? OR recipient_id = ?)`, [req.session.id, req.session.id]);
+        promise.then(response => {
+        res.send(response);
+        }).catch(e => res.rend(e));
 };

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Input, Button } from 'antd'
 import { socket } from '../Root'
 import {connect} from 'react-redux'
-import { addChatMsg, receiveChatMsg } from '../../actions/chatActions'
+import { addChatMsg, receiveChatMsg, getMessageHistory } from '../../actions/chatActions'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 
@@ -26,7 +26,8 @@ class MessengerChat extends Component {
         if (nextProps.chatWith.id !== this.state.chatWith.id){
             this.setState({
                 chatWith: nextProps.chatWith
-            })
+            });
+            this.props.getMessageHistory(this.state.chatWith.id);
         }
     }
 
@@ -34,10 +35,10 @@ class MessengerChat extends Component {
     sendMsg = () => {
         const {user, addChatMsg} = this.props;
         const data = {
-            recipientId: this.state.chatWith.id,
-            authorId: user.user.id,
+            recipient_id: this.state.chatWith.id,
+            author_id: user.user.id,
             message: this.state.input,
-            time: new Date()
+            added: new Date()
 
         };
         socket.emit('chat', data);
@@ -64,8 +65,8 @@ class MessengerChat extends Component {
 render() {
     const currentUserId = this.props.user.user.id;
     const {chatWith} = this.state;
-    console.log(chatWith);
-    const messages = this.props.chat;
+    const messages = this.props.chat.filter(message => chatWith.id === message.recipient_id
+        || chatWith.id === message.author_id);
     const msgLength = messages.length;
     return (
         <div className="chat-container">
@@ -88,11 +89,11 @@ render() {
             {messages.map(message =>
                 <li key={message.id} className="history-list-message">
                 <div className="message-data">
-                <span className="message-data-name">{currentUserId !== message.authorId ? `${chatWith.username}`
+                <span className="message-data-name">{currentUserId !== message.author_id ? `${chatWith.username}`
                     : 'me'} </span>
-                <span className="message-data-time">{moment(message.time).fromNow()}</span>
+                <span className="message-data-time">{moment(message.added).fromNow()}</span>
                 </div>
-                <div className={"message " + (currentUserId !== message.authorId ? "other-message float-right"
+                <div className={"message " + (currentUserId !== message.author_id ? "other-message float-right"
                 : "my-message")}>{message.message}</div>
                 </li>
                 )}
@@ -112,6 +113,14 @@ render() {
 
 function mapStateToProps({user, chat}) {
     return {user, chat};
+};
+
+function mapDispatchToProps(dispatch) {
+    return {
+        addChatMsg: (data) => dispatch(addChatMsg(data)),
+        receiveChatMsg: (data) => dispatch(receiveChatMsg(data)),
+        getMessageHistory: (id) => dispatch(getMessageHistory(id))
+    }
 }
 
 MessengerChat.propTypes = {
@@ -120,4 +129,4 @@ MessengerChat.propTypes = {
     addChatMsg: PropTypes.func.isRequired,
     receiveChatMsg: PropTypes.func.isRequired
 }
-export default connect(mapStateToProps, { addChatMsg,receiveChatMsg })(MessengerChat);
+export default connect(mapStateToProps, mapDispatchToProps)(MessengerChat);

@@ -86,13 +86,13 @@ io.on('connection', (socket) => {
 
     //TODO: save that user online. grab current user id via cookies?
     socket.on('chat', (data) => {
-        let recipient, recipientSId;
-        recipient = connectedUsers.filter(user => user.id === data.recipientId);
+        let recipient, recipientSocketId;
+        recipient = connectedUsers.filter(user => user.id === data.recipient_id);
         console.log('all connected users',connectedUsers);
         if (recipient.length){
             //io.sockets.emit('chat', data);
-            recipientSId = recipient[0].socket;
-            socket.broadcast.to(recipientSId).emit('chat', data);
+            recipientSocketId = recipient[0].socket;
+            socket.broadcast.to(recipientSocketId).emit('chat', data);
         }
     });
     socket.on('disconnect', () => {
