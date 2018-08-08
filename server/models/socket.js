@@ -1,5 +1,5 @@
 const socket     = require('socket.io');
-const DB         = require('./database/DB');
+const DB         = require('../database/DB');
 
 module.exports = class Socket {
     constructor(server) {
@@ -40,25 +40,28 @@ module.exports = class Socket {
 
     disconnectUser(socket_id){
         console.log('user left', socket_id);
+        let uid = this._connectedUsers.filter(user => user.socket_id === socket_id);
+        if (uid.length){
+            let id = uid[0].id;
+            this.saveStatusOffline(id);
+        }
         this._connectedUsers = this._connectedUsers.filter(user => user.socket_id !== socket_id);
         console.log('remaining users', this._connectedUsers);
-        this.saveStatusOffline(id);
     }
 
     saveStatusOnline(id){
         let db = new DB,
             promise = db.update('users', 'online', 1, 'id', id);
         promise.then((response) => {
-            console.log(response);
            //TODO:UPDATE FRONT ABOUT ONLINE STATUS (use sockets?)
         })
     }
 
     saveStatusOffline(id){
+        console.log('current user id', id);
         let db = new DB,
             promise = db.update('users', 'online', 0, 'id', id);
         promise.then((response) => {
-            console.log(response);
             //TODO:UPDATE FRONT ABOUT OFFLINE STATUS
         })
     }

@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import {Input} from 'antd'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
 import {fetchMatchUsers} from '../../actions/chatActions'
 import MessengerChat from './MessengerChat'
 import PropTypes from 'prop-types'
+import moment from 'moment'
+import ChatAvatar from "./MessengerUI/ChatAvatar";
 
 const Search = Input.Search;
 
@@ -24,7 +25,6 @@ class Messenger extends Component {
     };
     render() {
         const {matchUsers} = this.props;
-        let src;
         return (
             <div className="container-no-wrap">
                 <div className="people-list-container">
@@ -35,14 +35,13 @@ class Messenger extends Component {
                     <ul className="people-list">
                         {matchUsers.map((user) =>
                             <li key={user.id} className="people-list-person" onClick={() => this.selectUser(user)}>
-                                <p className="hidden">{src = require(`../../img/avatars/${user.avatar}`)}</p>
-                                <Link to={`/user/${user.id}`}>
-                                    <img src={src} alt="avatar" className="chat-avatar"/>
-                                </Link>
+                                <ChatAvatar user={user}/>
                                 <div className="people-list-person-about">
                                     <div className="people-list-person-name">{`${user.firstname} ${user.lastname}`}</div>
                                     <div className="people-list-person-status">
-                                        <span className="circle online">&#9679;</span> online
+                                        <span className={ user.online === 1 ? "circle online" :
+                                            "circle offline"}>&#9679;</span> {user.online === 1 ? "online" :
+                                        `last seen ${moment(user.last_seen).fromNow()}`}
                                     </div>
                                 </div>
                             </li>

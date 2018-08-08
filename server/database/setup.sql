@@ -37,6 +37,12 @@ CREATE TABLE users
   last_seen   DATETIME            DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TRIGGER last_seen UPDATE OF online
+    ON users
+BEGIN
+    UPDATE users SET last_seen = CURRENT_TIMESTAMP WHERE id = OLD.id;
+  END;
+
 CREATE TABLE photos
 (
   id       INTEGER PRIMARY KEY AUTOINCREMENT,

@@ -3,8 +3,9 @@ import { Input, Button } from 'antd'
 import { socket } from '../Root'
 import {connect} from 'react-redux'
 import { addChatMsg, receiveChatMsg, getMessageHistory } from '../../actions/chatActions'
-import PropTypes from 'prop-types'
 import moment from 'moment'
+import ChatAvatar from "./MessengerUI/ChatAvatar";
+import PropTypes from 'prop-types'
 
 const { TextArea } = Input;
 
@@ -74,8 +75,7 @@ render() {
             { chatWith.id && (
                 <div>
                 <div className="chat-header">
-                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg"
-                         alt="avatar" />
+                    <ChatAvatar user={chatWith}/>
                     <div className="chat-header-about">
                         <div className="chat-header-with">Chat with {`${chatWith.firstname}, ${chatWith.lastname}`}</div>
                         <div className="chat-header-num-messages">
