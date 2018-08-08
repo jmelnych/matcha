@@ -5,7 +5,6 @@ export const decodeLocation = (lat, lng) => {
         geocoder.geocode({'latLng': latlng}, function(results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
                 if (results[1] && results[1].address_components) {
-                    console.log(results[1]);
                     const addressComponents = results[1].address_components;
                     let city = '';
                     let country = '';
@@ -28,7 +27,6 @@ export const decodeLocation = (lat, lng) => {
                         city,
                         country
                     };
-                    console.log('loc obj in decodeLoc func', locationObj);
                     resolve (locationObj);
                 } else {
                     console.log("No results found");

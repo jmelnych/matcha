@@ -21,7 +21,6 @@ module.exports = (req, res) => {
                           WHERE (first_id = ? OR second_id = ?)
                           ORDER BY history.added DESC`, [id, id, id]);
     promise.then((history) => {
-                console.log('hhh',history);
         if (history && history.length) {
             history = history.map(row => {
                 row.action = row.first_id === id ?

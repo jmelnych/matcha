@@ -17,6 +17,10 @@ module.exports = class Socket {
             })
         });
     };
+//TODO:write normal function that takes id, checks in current connecte users and broadcast notifications
+    testfun(){
+        console.log('test done');
+    }
 
     addConnectedUser(socket_id, id){
         console.log('user', id, 'made socket connection', socket_id);

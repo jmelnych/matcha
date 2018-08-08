@@ -17,5 +17,8 @@ module.exports = (req, res) => {
             console.log(e);
             res.send(e);
         };
+    //TODO: write normal function, passing second user id
+    let s =  req.app.get('socket');
+    s.testfun();
     promise.then(() => res.send('I see you')).catch(error);
 };
