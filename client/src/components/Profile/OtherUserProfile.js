@@ -24,8 +24,7 @@ class OtherUserProfile extends Component {
                 <OtherUserProfileHead/>
                 <div className="profile-main">
                     <ProfileUserTitleUI user={user}/>
-                    <div className="container-flex">
-
+                    <div className="container-flex-center">
                         {!!posts.length && (<div className="profile-main-feed">
                             <h3>Posts</h3>
                             <OtherUserProfileFeedPosts/>

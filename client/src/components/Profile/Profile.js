@@ -16,7 +16,7 @@ class Profile extends Component {
       <ProfileHead/>
       <div className="profile-main">
           <ProfileUserTitleUI user={this.props.user}/>
-        <div className="container-flex">
+        <div className="container-flex-center">
             <div className="profile-main-feed">
                 <h3>Posts</h3>
                 <ProfileWritePost/>

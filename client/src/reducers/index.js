@@ -8,6 +8,7 @@ import posts from './postsReducer'
 import chat from './chatReducer'
 import otherUser from './otherUser'
 import matchUsers from './matchUsersReducer'
+import history from './historyReducer'
 
 export default combineReducers({
     users,
@@ -18,5 +19,6 @@ export default combineReducers({
     posts,
     chat,
     otherUser,
-    matchUsers
+    matchUsers,
+    history
 });

@@ -149,6 +149,12 @@ span.distance{
   position: relative;
   display: flex;
   max-width: 1600px;
+}
+
+.container-flex-center{
+  position: relative;
+  display: flex;
+  max-width: 1600px;
   margin: 0 auto;
 }
 
