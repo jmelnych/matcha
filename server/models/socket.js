@@ -32,7 +32,6 @@ module.exports = class Socket {
         let recipient, recipientSocket;
         recipient = this._connectedUsers.filter(user => user.id === data.recipient_id);
         if (recipient.length){
-            //io.sockets.emit('chat', data);
             recipientSocket = recipient[0].socket_id;
             socket.broadcast.to(recipientSocket).emit('chat', data);
         }
@@ -52,17 +51,16 @@ module.exports = class Socket {
     saveStatusOnline(id){
         let db = new DB,
             promise = db.update('users', 'online', 1, 'id', id);
-        promise.then((response) => {
-           //TODO:UPDATE FRONT ABOUT ONLINE STATUS (use sockets?)
+        promise.then(() => {
+            this.io.sockets.emit('status', {status: 'online', id});
         })
     }
 
     saveStatusOffline(id){
-        console.log('current user id', id);
         let db = new DB,
             promise = db.update('users', 'online', 0, 'id', id);
-        promise.then((response) => {
-            //TODO:UPDATE FRONT ABOUT OFFLINE STATUS
+        promise.then(() => {
+            this.io.sockets.emit('status', {status: 'offline', id});
         })
     }
 };

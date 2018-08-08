@@ -5,7 +5,10 @@ import {fetchMatchUsers} from '../../actions/chatActions'
 import MessengerChat from './MessengerChat'
 import PropTypes from 'prop-types'
 import moment from 'moment'
-import ChatAvatar from "./MessengerUI/ChatAvatar";
+import { socket } from '../Root'
+import {updateChatStatus} from '../../actions/chatActions'
+
+import ChatUserAvatar from './MessengerUI/ChatUserAvatar';
 
 const Search = Input.Search;
 
@@ -15,6 +18,10 @@ class Messenger extends Component {
     };
     componentDidMount(){
         this.props.fetchMatchUsers();
+        socket.on('status', (data) => {
+            this.props.updateChatStatus(data);
+            console.log('comp Did Mount');
+        });
     };
 
     selectUser = (user) => {
@@ -35,13 +42,15 @@ class Messenger extends Component {
                     <ul className="people-list">
                         {matchUsers.map((user) =>
                             <li key={user.id} className="people-list-person" onClick={() => this.selectUser(user)}>
-                                <ChatAvatar user={user}/>
+                                <ChatUserAvatar user={user}/>
                                 <div className="people-list-person-about">
                                     <div className="people-list-person-name">{`${user.firstname} ${user.lastname}`}</div>
                                     <div className="people-list-person-status">
-                                        <span className={ user.online === 1 ? "circle online" :
-                                            "circle offline"}>&#9679;</span> {user.online === 1 ? "online" :
-                                        `last seen ${moment(user.last_seen).fromNow()}`}
+                                <span className={ user.online === 1 ? "circle online" :
+                                    "circle offline"}>&#9679;
+                                </span>
+                                {user.online === 1 ? "online" :
+                                    `last seen ${moment(user.last_seen).fromNow()}`}
                                     </div>
                                 </div>
                             </li>
@@ -62,4 +71,4 @@ Messenger.propTypes = {
     fetchMatchUsers: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps, {fetchMatchUsers})(Messenger);
+export default connect(mapStateToProps, {fetchMatchUsers, updateChatStatus})(Messenger);

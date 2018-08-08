@@ -54,6 +54,7 @@ ul.people-list,  ul.chat-history-list {
 
 .people-list-person-about {
     float: right;
+    width: 160px;
     margin-top: 8px;
     padding-left: 8px;
 }

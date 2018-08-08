@@ -5,7 +5,6 @@ const ROOT   = path.resolve(__dirname);
 module.exports = class DB {
     static db = new sqlite.Database(ROOT + '/matcha.db',
         err => console.log(err ? err : 'Connected to db'));
-
     /* used to create or alter tables and to insert or update table data, or delete data */
     run(sql, params = []) {
         return new Promise((resolve, reject) => {

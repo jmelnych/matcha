@@ -4,7 +4,7 @@ import { socket } from '../Root'
 import {connect} from 'react-redux'
 import { addChatMsg, receiveChatMsg, getMessageHistory } from '../../actions/chatActions'
 import moment from 'moment'
-import ChatAvatar from "./MessengerUI/ChatAvatar";
+import ChatUserAvatar from "./MessengerUI/ChatUserAvatar";
 import PropTypes from 'prop-types'
 
 const { TextArea } = Input;
@@ -75,7 +75,7 @@ render() {
             { chatWith.id && (
                 <div>
                 <div className="chat-header">
-                    <ChatAvatar user={chatWith}/>
+                    <ChatUserAvatar user={chatWith}/>
                     <div className="chat-header-about">
                         <div className="chat-header-with">Chat with {`${chatWith.firstname}, ${chatWith.lastname}`}</div>
                         <div className="chat-header-num-messages">

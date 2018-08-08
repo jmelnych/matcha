@@ -1,5 +1,5 @@
 import {FETCH_MATCH_PEOPLE, SET_CHAT_HISTORY,
-    ADD_CHAT_MESSAGE, RECEIVE_CHAT_MESSAGE} from './types'
+    ADD_CHAT_MESSAGE, RECEIVE_CHAT_MESSAGE, UPDATE_USER_STATUS} from './types'
 import axios from 'axios'
 
 axios.defaults.baseURL = 'http://localhost:5000';
@@ -36,3 +36,10 @@ export const receiveChatMsg = data => dispatch => {
         payload: data
     })
 };
+
+export const updateChatStatus = data => dispatch => {
+    dispatch({
+        type: UPDATE_USER_STATUS,
+        payload: data
+    })
+}
