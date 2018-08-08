@@ -84,6 +84,7 @@ CREATE TABLE messages
 
 CREATE TABLE history
 (
+    id   INTEGER PRIMARY KEY AUTOINCREMENT,
   first_id  INTEGER,
   second_id INTEGER,
   `action`  VARCHAR(8) NOT NULL

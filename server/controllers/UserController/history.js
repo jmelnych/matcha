@@ -5,7 +5,8 @@ module.exports = (req, res) => {
         return;
     }
     let db      = req.app.get('db'),
-        promise = db.all(`SELECT history.first_id,
+        promise = db.all(`SELECT history.id,
+                                 history.first_id,
                                  history.second_id,
                                  history.action,
                                  history.added,
@@ -20,6 +21,7 @@ module.exports = (req, res) => {
                           WHERE (first_id = ? OR second_id = ?)
                           ORDER BY history.added DESC`, [id, id, id]);
     promise.then((history) => {
+                console.log('hhh',history);
         if (history && history.length) {
             history = history.map(row => {
                 row.action = row.first_id === id ?

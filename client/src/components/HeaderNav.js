@@ -23,7 +23,7 @@ class HeaderNav extends Component {
         const _curl = _urlArr[_urlArr.length - 1];
         if (_curl === '') {
             tab = '1';
-        } else if (_curl === 'search') {
+        } else if (_curl === 'search' || Number.isInteger(Number(_curl))) {
             tab = '2';
         } else if (_curl === 'match') {
             tab = '3';
