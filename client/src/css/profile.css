@@ -145,6 +145,11 @@ span.distance{
   padding-top: 10px;
 }
 
+.container-center{
+  position: relative;
+  max-width: 1600px;
+  margin: 0 auto;
+}
 .container-flex {
   position: relative;
   display: flex;
@@ -540,7 +545,7 @@ h4{
 
 @media (min-width: 901px) and (max-width: 1200px){
   .like-button{
-    margin-left: -12%;
+    margin-left: -9%;
   }
 }
 

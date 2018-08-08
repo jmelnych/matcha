@@ -1,0 +1,44 @@
+.notification-plate{
+    font-size: 15px;
+    position: relative;
+    background: white;
+    width: 700px;
+    height: 100px;
+    padding: 20px;
+    border: 1px solid #cfcfcf;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.notification-plate .other-user{
+    font-weight: 600;
+    padding: 0 20px;
+}
+
+.notification-plate .time{
+    font-size: 13px;
+    color: #a8a8a8;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+}
+
+@media all and (max-width: 586px){
+    .notification-plate{
+        width: 300px;
+    }
+    .notification-plate .time{
+        left: 10%;
+    }
+}
+
+@media (min-width: 587px) and (max-width: 768px){
+    .notification-plate{
+        width: 500px;
+    }
+    .notification-plate .other-user{
+        padding: 0 10px;
+    }
+}

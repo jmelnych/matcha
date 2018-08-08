@@ -11,7 +11,8 @@ module.exports = (req, res) => {
                                  history.added,
                                  users.id,
                                  users.firstname,
-                                 users.lastname
+                                 users.lastname,
+                                 users.avatar
                           FROM history
                                  JOIN users ON (users.id = history.first_id OR
                                                 users.id = history.second_id) AND
