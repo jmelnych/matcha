@@ -1,4 +1,5 @@
 const socket     = require('socket.io');
+const DB         = require('./database/DB');
 
 module.exports = class Socket {
     constructor(server) {
@@ -23,8 +24,8 @@ module.exports = class Socket {
             return false;
         } else {
             this._connectedUsers.push({id, socket_id});
+            this.saveStatusOnline(id);
         }
-        //TODO: save that user online. grab current user id via cookies?
     }
 
     broadcastToSocket(socket, data){
@@ -41,7 +42,24 @@ module.exports = class Socket {
         console.log('user left', socket_id);
         this._connectedUsers = this._connectedUsers.filter(user => user.socket_id !== socket_id);
         console.log('remaining users', this._connectedUsers);
-        //TODO: save that user's gone offline
+        this.saveStatusOffline(id);
+    }
 
+    saveStatusOnline(id){
+        let db = new DB,
+            promise = db.update('users', 'online', 1, 'id', id);
+        promise.then((response) => {
+            console.log(response);
+           //TODO:UPDATE FRONT ABOUT ONLINE STATUS (use sockets?)
+        })
+    }
+
+    saveStatusOffline(id){
+        let db = new DB,
+            promise = db.update('users', 'online', 0, 'id', id);
+        promise.then((response) => {
+            console.log(response);
+            //TODO:UPDATE FRONT ABOUT OFFLINE STATUS
+        })
     }
 };
