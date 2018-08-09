@@ -39,8 +39,8 @@ app.set('rootDir', path.dirname(__dirname));
 
 
 /* Set Models */
-const DB   = require('./database/DB');
-const Mail = require('./models/Mail');
+const DB     = require('./database/DB');
+const Mail   = require('./models/Mail');
 const Socket = require('./models/socket');
 
 app.set('db', new DB());
@@ -72,5 +72,3 @@ app.get('*', (req, res) => {
 
 const server = app.listen(config.port, () => console.log(`Running on localhost ${config.port}`));
 app.set('socket', new Socket(server));
-
-

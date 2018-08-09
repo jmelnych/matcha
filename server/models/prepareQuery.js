@@ -52,9 +52,8 @@ module.exports = (data, filterArray) => {
                         value: data[key]
                     });
                 } else if (data[key]) {
-                    throw `api/search/getbyfilter -> prepareQuery\n` +
-                    `'${key}' => ${util.inspect(data[key])} is ${validator.type(data[key])}, ` +
-                    `expected to be ${filterArray[table][method][key]}\n`;
+                    throw `'${key}' => ${util.inspect(data[key])} is ${validator.type(data[key])}, 
+expected to be ${filterArray[table][method][key]}\n`;
                 }
             });
         });
