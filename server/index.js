@@ -71,6 +71,6 @@ app.get('*', (req, res) => {
 });
 
 const server = app.listen(config.port, () => console.log(`Running on localhost ${config.port}`));
-app.set('socket', new Socket(server));
+app.set('socket', new Socket(server, app.get('db')));
 
 

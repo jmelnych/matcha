@@ -18,7 +18,7 @@ module.exports = (req, res) => {
             res.send(e);
         };
     //TODO: write normal function, passing second user id
-    let s =  req.app.get('socket');
-    s.testfun();
+    let mysocket =  req.app.get('socket');
+    mysocket.broadcastNote(second_id, 'Your page have been viewed');
     promise.then(() => res.send('I see you')).catch(error);
 };

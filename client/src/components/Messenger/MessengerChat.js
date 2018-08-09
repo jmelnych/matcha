@@ -18,7 +18,6 @@ class MessengerChat extends Component {
         const {receiveChatMsg} = this.props;
         if (socket) {
             socket.on('chat', (data) => {
-                //console.log(socket.id); unique socket id
                 receiveChatMsg(data);
             });
         }

@@ -1,25 +1,46 @@
 const socket     = require('socket.io');
-const DB         = require('../database/DB');
 
 module.exports = class Socket {
-    constructor(server) {
+    constructor(server, db) {
+        this.db = db;
         this.io = socket(server);
         this._connectedUsers = [];
+        this.sckt = null;
         this.io.on('connection', (socket) => {
+            this.sckt = socket;
+            //console.log('~debug on connecton, ***************** ', this.sckt,'~debug on connecton, *****************1 ', socket);
             socket.on('users', id => {
                 this.addConnectedUser(socket.id, id);
             });
             socket.on('chat', (data) => {
-                this.broadcastToSocket(socket, data);
+                this.broadcastChat(socket, data);
             });
             socket.on('disconnect', () => {
                 this.disconnectUser(socket.id);
-            })
+            });
+            //this.sckt.emit('notification', 'sckt');
+            //CALL constructor function?
+            //socket.emit('notification', 'normal socket')
         });
     };
-//TODO:write normal function that takes id, checks in current connecte users and broadcast notifications
-    testfun(){
-        console.log('test done');
+    //TODO:write normal function that takes id, checks in current connected users and broadcast notifications
+    broadcastNote(id, action){
+        let recipientSocket = this.getSocketId(id);
+        console.log(action);
+        //this.sckt.emit('notification', 'sending not to all');
+        //console.log('sending to user socket_id ', recipientSocket);
+        this.sckt.broadcast.to(recipientSocket).emit('notification', {action});
+
+    }
+
+    getSocketId(id){
+        let recipient, recipientSocket;
+        recipient = this._connectedUsers.filter(user => user.id === id);
+        if (recipient.length) {
+            recipientSocket = recipient[0].socket_id;
+            return recipientSocket;
+        }
+        return false;
     }
 
     addConnectedUser(socket_id, id){
@@ -32,13 +53,9 @@ module.exports = class Socket {
         }
     }
 
-    broadcastToSocket(socket, data){
-        let recipient, recipientSocket;
-        recipient = this._connectedUsers.filter(user => user.id === data.recipient_id);
-        if (recipient.length){
-            recipientSocket = recipient[0].socket_id;
-            socket.broadcast.to(recipientSocket).emit('chat', data);
-        }
+    broadcastChat(socket, data){
+        let recipientSocket = this.getSocketId(data.recipient_id);
+        socket.broadcast.to(recipientSocket).emit('chat', data);
     }
 
     disconnectUser(socket_id){
@@ -53,16 +70,14 @@ module.exports = class Socket {
     }
 
     saveStatusOnline(id){
-        let db = new DB,
-            promise = db.update('users', 'online', 1, 'id', id);
+        let promise = this.db.update('users', 'online', 1, 'id', id);
         promise.then(() => {
             this.io.sockets.emit('status', {status: 'online', id});
         })
     }
 
     saveStatusOffline(id){
-        let db = new DB,
-            promise = db.update('users', 'online', 0, 'id', id);
+        let promise = this.db.update('users', 'online', 0, 'id', id);
         promise.then(() => {
             this.io.sockets.emit('status', {status: 'offline', id});
         })

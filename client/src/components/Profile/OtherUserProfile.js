@@ -19,8 +19,7 @@ class OtherUserProfile extends Component {
     render() {
         const posts = this.props.posts || [];
         const user = this.props.info || {firstname: 'John', lastname: 'Doe', username: 'johndoe'};
-        return (
-            <div>
+        return (<div>
                 <OtherUserProfileHead/>
                 <div className="profile-main">
                     <ProfileUserTitleUI user={user}/>
@@ -41,10 +40,9 @@ class OtherUserProfile extends Component {
                         </div>
                     </div>
                 </div>
-            </div>
-        );
+            </div>);
     }
-};
+}
 
 function mapDispatchToProps(dispatch) {
     return{
