@@ -511,7 +511,7 @@ h4{
 }
 
 @media screen and (max-width: 1200px) {
-  .container-flex{
+  .container-flex-center{
     flex-wrap: wrap;
   }
   .profile-main-feed{

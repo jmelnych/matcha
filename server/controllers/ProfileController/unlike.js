@@ -10,6 +10,7 @@ module.exports = (req, res) => {
         return;
     }
     let db                  = req.app.get('db'),
+        mysocket            =  req.app.get('socket'),
         relationshipHistory = req.app.get('relationshipHistory'),
         promise             = db.getHistory(first_id, second_id, true),
         error               = (e) => {
@@ -47,6 +48,7 @@ module.exports = (req, res) => {
             make('unlike');
         } else if (match) {
             make('break up');
+            mysocket.broadcastNote(second_id, 'Your match have broken up with you');
         } else {
             res.send('No');
         }

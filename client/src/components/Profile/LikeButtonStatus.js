@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {likeUser, unlikeUser, breakUpWithUser} from '../../actions/userActions'
+import {likeUser, unlikeUser} from '../../actions/userActions'
 import {connect} from 'react-redux'
 import {Button, Popover, Popconfirm} from 'antd'
 import PropTypes from 'prop-types'
@@ -124,7 +124,7 @@ class LikeButtonStatus extends Component {
             this.props.likeUser(id);
             this.paintButton('match');
         } else if (relationship === 'match-button') {
-            this.props.breakUpWithUser(id);
+            this.props.unlikeUser(id);
             this.paintButton('broken');
         }
     };
@@ -170,16 +170,14 @@ function mapStateToProps({otherUser}){
 function mapDispatchToProps(dispatch) {
     return {
         likeUser: (id) => dispatch(likeUser(id)),
-        unlikeUser: (id) => dispatch(unlikeUser(id)),
-        breakUpWithUser: (id) => dispatch(breakUpWithUser(id))
+        unlikeUser: (id) => dispatch(unlikeUser(id))
     }
 };
 
 LikeButtonStatus.propTypes = {
     otherUser: PropTypes.object,
     likeUser: PropTypes.func.isRequired,
-    unlikeUser: PropTypes.func.isRequired,
-    breakUpWithUser: PropTypes.func.isRequired
+    unlikeUser: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LikeButtonStatus);

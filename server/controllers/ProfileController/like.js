@@ -10,6 +10,7 @@ module.exports = (req, res) => {
         return;
     }
     let db                  = req.app.get('db'),
+        mysocket            =  req.app.get('socket'),
         relationshipHistory = req.app.get('relationshipHistory'),
         promise             = db.getHistory(first_id, second_id, true),
         error               = (e) => {
@@ -30,7 +31,9 @@ module.exports = (req, res) => {
                             if (user.rating < 42) {
                                 user.rating++;
                                 promise = db.update('users', 'rating', user.rating, 'id', second_id);
-                                promise.then(() => res.send(action)).catch(error);
+                                promise.then(() => {
+                                    res.send(action);
+                                }).catch(error);
                             } else {
                                 res.send(action);
                             }
@@ -45,8 +48,10 @@ module.exports = (req, res) => {
 
         if (!Ilike && !likeMe && !match && !ban) {
             make('like');
+            mysocket.broadcastNote(second_id, 'Your profile liked another user');
         } else if (!Ilike && likeMe) {
             make('match');
+            mysocket.broadcastNote(second_id, 'You have a new match!');
         } else {
             res.send('No');
         }

@@ -8,7 +8,6 @@ module.exports = class Socket {
         this.sckt = null;
         this.io.on('connection', (socket) => {
             this.sckt = socket;
-            //console.log('~debug on connecton, ***************** ', this.sckt,'~debug on connecton, *****************1 ', socket);
             socket.on('users', id => {
                 this.addConnectedUser(socket.id, id);
             });
@@ -18,17 +17,11 @@ module.exports = class Socket {
             socket.on('disconnect', () => {
                 this.disconnectUser(socket.id);
             });
-            //this.sckt.emit('notification', 'sckt');
-            //CALL constructor function?
-            //socket.emit('notification', 'normal socket')
         });
     };
     //TODO:write normal function that takes id, checks in current connected users and broadcast notifications
     broadcastNote(id, action){
         let recipientSocket = this.getSocketId(id);
-        console.log(action);
-        //this.sckt.emit('notification', 'sending not to all');
-        //console.log('sending to user socket_id ', recipientSocket);
         this.sckt.broadcast.to(recipientSocket).emit('notification', {action});
 
     }
@@ -56,6 +49,9 @@ module.exports = class Socket {
     broadcastChat(socket, data){
         let recipientSocket = this.getSocketId(data.recipient_id);
         socket.broadcast.to(recipientSocket).emit('chat', data);
+        console.log('sending data to', recipientSocket, 'with uid', data.recipient_id);
+        //for some reason, not all users get msg if (this.sckt is used, this is why socket passed in this fnc);
+        this.broadcastNote(data.recipient_id, 'You have new message');
     }
 
     disconnectUser(socket_id){

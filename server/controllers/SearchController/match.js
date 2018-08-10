@@ -125,7 +125,7 @@ const personalityTable = (my, they) => {
             'INFP': 0, 'ENFP': 0, 'INFJ': 0, 'ENFJ': 0,
             'INTJ': 0, 'ENTJ': 0, 'INTP': 0, 'ENTP': 0,
             'ISFP': 0, 'ESFP': 0, 'ISTP': 0, 'ESTP': 0,
-            'ISFJ': 0, 'ESFJ': 0, 'ISTJ': 0, 'ESTJ'
+            'ISFJ': 0, 'ESFJ': 0, 'ISTJ': 0, 'ESTJ': 0
         }
     };
 };
