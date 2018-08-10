@@ -1,5 +1,6 @@
 import {GET_USER, UPDATE_USER, GET_USER_TAGS, SAVE_USER_TAG,
-    DELETE_USER_TAG, LOGOUT_USER, UPDATE_USER_LOCATION, GET_OTHER_USER, SET_NOTE} from './types'
+    DELETE_USER_TAG, LOGOUT_USER, UPDATE_USER_LOCATION, GET_OTHER_USER,
+    SET_NOTE, CLEAN_CHAT_NOTES, CLEAN_NOTES} from './types'
 import axios from 'axios'
 
 axios.defaults.baseURL = 'http://localhost:5000';
@@ -124,7 +125,21 @@ export const banUser = (id) => dispatch => {
     return axios.post('api/profile/ban', {id: id})
 };
 
-export const setNote = (data) => dispatch({
-   type: SET_NOTE,
-   payload: data
-});
+export const setNote = (data) =>  {
+    return {
+       type: SET_NOTE,
+       payload: data
+    }
+};
+
+export const cleanMsg = () =>  {
+    return {
+        type: CLEAN_CHAT_NOTES
+    }
+};
+
+export const cleanNotes = () => {
+    return {
+        type: CLEAN_NOTES
+    }
+}

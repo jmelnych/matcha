@@ -215,6 +215,15 @@ label.toggle-menu, [type="checkbox"]{
     }
 }
 
+.nav-note{
+    color: #ff2c33;
+    font-size: 12px;
+    position: absolute;
+    top: -10px;
+    left: 22%;
+    display: none;
+}
+
 @media (min-width: 683px) and (max-width: 880px) {
     li .anticon{
         display: none;
