@@ -23,9 +23,6 @@ export const socket = openSocket.connect('http://localhost:5000');
 class Root extends Component {
     componentDidMount() {
         this.props.isAuth();
-        socket.on('notification', (data) => {
-            console.log('data from notification', data);
-        });
         }
 
     componentWillReceiveProps(newProps) {

@@ -153,21 +153,21 @@ li.left-border{
     align-items: center;
 }
 
-.heart{
-    stroke: #1890ff;
-    fill: none;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 62px;
-    animation: pulse 5s ease infinite;
-}
+/*.heart{*/
+    /*stroke: #1890ff;*/
+    /*fill: none;*/
+    /*position: absolute;*/
+    /*top: 10px;*/
+    /*right: 10px;*/
+    /*width: 62px;*/
+    /*animation: pulse 5s ease infinite;*/
+/*}*/
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(1); }
-}
+/*@keyframes pulse {*/
+    /*0% { transform: scale(1); }*/
+    /*50% { transform: scale(1.2); }*/
+    /*100% { transform: scale(1); }*/
+/*}*/
 
 
 label.toggle-menu, [type="checkbox"]{
@@ -213,5 +213,10 @@ label.toggle-menu, [type="checkbox"]{
     .ant-menu-item{
         width: 100%;
     }
+}
 
+@media (min-width: 683px) and (max-width: 880px) {
+    li .anticon{
+        display: none;
+    }
 }
