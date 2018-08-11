@@ -39,7 +39,7 @@ module.exports = (data, filterArray) => {
                     return `ORDER BY users.${key} ${direction}`
                 }
             }
-            return 'ORDER BY users.rating ASC';
+            return 'ORDER BY users.rating DESC';
         }
     };
 

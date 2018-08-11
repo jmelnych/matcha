@@ -15,7 +15,6 @@ module.exports = (req, res) => {
     }
     promise = db.getByUnique('users', 'email', email);
     promise.then((response) => {
-        console.log(response);
         if (response === undefined) {
             res.send('No user');
         } else if (password && !hash.verify(password, response.password)) {
