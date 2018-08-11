@@ -7,7 +7,6 @@ module.exports = class Socket {
         this._connectedUsers = [];
         this.sckt = null;
         this.io.on('connection', (socket) => {
-            this.sckt = socket;
             socket.on('users', id => {
                 this.addConnectedUser(socket.id, id);
             });
@@ -17,14 +16,9 @@ module.exports = class Socket {
             socket.on('disconnect', () => {
                 this.disconnectUser(socket.id);
             });
+            this.sckt = socket;
         });
     };
-    //TODO:write normal function that takes id, checks in current connected users and broadcast notifications
-    broadcastNote(id, action){
-        let recipientSocket = this.getSocketId(id);
-        this.sckt.broadcast.to(recipientSocket).emit('notification', {action});
-
-    }
 
     getSocketId(id){
         let recipient, recipientSocket;
@@ -34,6 +28,11 @@ module.exports = class Socket {
             return recipientSocket;
         }
         return false;
+    }
+
+    broadcastNote(id, action){
+        let recipientSocket = this.getSocketId(id);
+        this.sckt.broadcast.to(recipientSocket).emit('notification', {action});
     }
 
     addConnectedUser(socket_id, id){

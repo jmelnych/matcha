@@ -7,8 +7,8 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import { socket } from '../Root'
 import {updateChatStatus} from '../../actions/chatActions'
-
-import ChatUserAvatar from './MessengerUI/ChatUserAvatar';
+import ChatUserAvatar from './MessengerUI/ChatUserAvatar'
+import UserStatus from './MessengerUI/UserStatus'
 
 const Search = Input.Search;
 
@@ -46,9 +46,7 @@ class Messenger extends Component {
                                 <div className="people-list-person-about">
                                     <div className="people-list-person-name">{`${user.firstname} ${user.lastname}`}</div>
                                     <div className="people-list-person-status">
-                                <span className={ user.online === 1 ? "circle online" :
-                                    "circle offline"}>&#9679;
-                                </span>
+                                <UserStatus status={user.online}/>
                                 {user.online === 1 ? "online" :
                                     `last seen ${moment(user.last_seen).fromNow()}`}
                                     </div>

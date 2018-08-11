@@ -33,6 +33,7 @@ class Login extends Component {
         e.preventDefault();
         const {form, tryLoginUser, addFlashMessage} = this.props;
         form.validateFieldsAndScroll((err, values) => {
+            console.log(values);
             if (!err) {
                 tryLoginUser(values).then(
                     (res) => {

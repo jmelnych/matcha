@@ -91,10 +91,10 @@
 }
 .user-snippet figcaption {
     width: 100%;
-    padding: 35px 25px;
+    padding: 30px 25px;
     position: absolute;
     left: 0;
-    top: 50%;
+    top: 39%;
 }
 .user-snippet .profile {
     border-radius: 50%;

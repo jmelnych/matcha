@@ -56,7 +56,7 @@ module.exports = (req, res) => {
             }
         });
         let columns = ['id', 'username', 'firstname', 'lastname', 'gender', 'preference',
-                'occupancy', 'bday', 'rating', 'bio', 'location', 'avatar', 'added'],
+                'occupancy', 'bday', 'rating', 'bio', 'location', 'avatar', 'added', 'online'],
             promise = db.getAllByFilter(columns, filters, data, query.having, query.order);
         promise.then((response) => {
             if (response === undefined) {

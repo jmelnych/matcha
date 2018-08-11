@@ -64,8 +64,15 @@ ul.people-list,  ul.chat-history-list {
     font-size: 13px;
 }
 
+figcaption .circle{
+    font-size: 30px;
+    color: #bbbbbb;
+    margin: -7px 40px 10px -10px;
+}
+
 .circle {
-    font-size: 19px;
+    color: gray;
+    font-size: 20px;
     margin-right: 5px;
 }
 .online {

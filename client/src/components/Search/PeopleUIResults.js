@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import UserStat from '../Messenger/MessengerUI/UserStatus'
 import PropTypes from 'prop-types'
 
 const PeopleUIResults = (props) => {
@@ -15,6 +16,7 @@ const PeopleUIResults = (props) => {
                     <img src={src}
                          alt="profile-sample" className="profile"/>
                     <figcaption>
+                    <UserStat status={user.online}/>
                         <h3>{user.firstname} {user.lastname}</h3>
                         <span>rating: {user.rating}</span>
                         <span>{user.age} years old</span>
