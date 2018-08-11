@@ -5,12 +5,12 @@ module.exports = (req, res) => {
         return;
     }
     let db      = req.app.get('db'),
-        promise = db.all(`SELECT history.id,
+        promise = db.all(`SELECT history.id as history_id,
                                  history.first_id,
                                  history.second_id,
                                  history.action,
                                  history.added,
-                                 users.id,
+                                 users.id as user_id,
                                  users.firstname,
                                  users.lastname,
                                  users.avatar
