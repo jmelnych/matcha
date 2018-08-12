@@ -29,13 +29,8 @@ class Profile extends Component {
               <ProfileUserPhotos/>
               <ProfileUserInterests/>
               <ProfileUserFriends/>
-
-              <div className="profile-main-info">
-                  <ProfileUserSuggestions/>
-              </div>
+              <ProfileUserSuggestions/>
           </div>
-
-
       </div>
     </div>
     </div>
