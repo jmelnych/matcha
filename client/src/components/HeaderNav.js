@@ -43,18 +43,22 @@ class HeaderNav extends Component {
 
         let tab;
         const _urlArr = (window.location.href).split('/');
-        const _curl = _urlArr[_urlArr.length - 1];
-        if (_curl === '') {
-            tab = '1';
-        } else if (_curl === 'search' || Number.isInteger(Number(_curl))) {
-            tab = '2';
-        } else if (_curl === 'match') {
-            tab = '3';
-        } else if (_curl === 'messenger') {
-            tab = '4';
-        } else if(_curl === 'notifications') {
-            tab = '5';
-        }
+        if(_urlArr.length){
+            const _curl = _urlArr[_urlArr.length - 1];
+            if (_curl === '') {
+                tab = '1';
+            } else if (_curl === 'search' || Number.isInteger(Number(_curl))) {
+                tab = '2';
+            } else if (_curl === 'match') {
+                tab = '3';
+            } else if (_curl === 'messenger') {
+                tab = '4';
+            } else if(_curl === 'notifications') {
+                tab = '5';
+            }
+        };
+        const unread_messages = this.props.unread_messages || [];
+        const unread_notes = this.props.unread_notes || [];
     return (
       <div>
           <label className="toggle-menu">☰ Menu</label>
@@ -75,11 +79,11 @@ class HeaderNav extends Component {
                           <Icon type="heart-o" />Match</Link></Menu.Item>
                   <Menu.Item key="4" onClick={this.readMsg}><Link to='/messenger' style={linkStyle}>
                       <span className="nav-note"
-                            style = {this.props.unread_messages.length && _curl !== 'messanger' ? navNoteExistStyle : navNoteNoneStyle}>&#9679;</span>
+                            style = {unread_messages.length && _curl !== 'messanger' ? navNoteExistStyle : navNoteNoneStyle}>&#9679;</span>
                       <Icon type="message" />Messenger</Link></Menu.Item>
                   <Menu.Item key="5" onClick={this.readNotes}><Link to='/notifications' style={linkStyle}>
                       <span className="nav-note"
-                            style = {this.props.unread_notes.length && _curl !== 'notifications' ? navNoteExistStyle : navNoteNoneStyle}>&#9679;</span>
+                            style = {unread_notes.length && _curl !== 'notifications' ? navNoteExistStyle : navNoteNoneStyle}>&#9679;</span>
                       <Icon type="notification" /> Notifications</Link></Menu.Item>
                   <Menu.Item key="6"><Link to='/' onClick={this.logout} style={linkStyle}>
                       <Icon type="logout" />Logout</Link></Menu.Item>

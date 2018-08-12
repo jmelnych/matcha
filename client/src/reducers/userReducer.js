@@ -57,7 +57,7 @@ export default function (state = initialState, action) {
         case GET_USER_TAGS:
             return {
                 ...state,
-                user_tags: state.user_tags.concat(action.payload)
+                user_tags: action.payload
             };
         case SAVE_USER_TAG:
             return {
