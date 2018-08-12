@@ -1,7 +1,8 @@
 import {ADD_POST, GET_POSTS, UPDATE_POST, DELETE_POST} from './types'
 import axios from 'axios'
+import {getBaseURL} from '../config'
 
-axios.defaults.baseURL = 'http://localhost:5000';
+axios.defaults.baseURL = getBaseURL();
 
 export const addPost = (post) => dispatch => {
     axios.post('api/posts/add', post)

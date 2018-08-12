@@ -1,6 +1,8 @@
 import {FETCH_HISTORY} from './types'
 import axios from 'axios'
-axios.defaults.baseURL = 'http://localhost:5000';
+import {getBaseURL} from '../config'
+
+axios.defaults.baseURL = getBaseURL();
 
 export const fetchHistory = () => dispatch => {
     axios.post('api/users/history')

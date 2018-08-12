@@ -1,6 +1,8 @@
 import {GET_USERS, GET_MATCH_USERS} from './types'
 import axios from 'axios'
-axios.defaults.baseURL = 'http://localhost:5000';
+import {getBaseURL} from '../config'
+
+axios.defaults.baseURL = getBaseURL();
 
 export const getUsersFiltered = (filters) => dispatch => {
     axios.post('api/search/get-by-filter', filters)

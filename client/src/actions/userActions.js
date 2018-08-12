@@ -2,8 +2,9 @@ import {GET_USER, UPDATE_USER, GET_USER_TAGS, SAVE_USER_TAG,
     DELETE_USER_TAG, LOGOUT_USER, UPDATE_USER_LOCATION, GET_OTHER_USER,
     SET_NOTE, CLEAN_CHAT_NOTES, CLEAN_NOTES} from './types'
 import axios from 'axios'
+import {getBaseURL} from '../config'
 
-axios.defaults.baseURL = 'http://localhost:5000';
+axios.defaults.baseURL = getBaseURL();
 
 export const createUser = (data) => dispatch => {
     return axios.post('api/users/add', data)

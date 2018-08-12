@@ -1,8 +1,9 @@
 import {FETCH_MATCH_PEOPLE, SET_CHAT_HISTORY,
     ADD_CHAT_MESSAGE, RECEIVE_CHAT_MESSAGE, UPDATE_USER_STATUS} from './types'
 import axios from 'axios'
+import {getBaseURL} from '../config'
 
-axios.defaults.baseURL = 'http://localhost:5000';
+axios.defaults.baseURL = getBaseURL();
 
 export const fetchMatchUsers = () => dispatch => {
     axios.post('api/users/get-matches')

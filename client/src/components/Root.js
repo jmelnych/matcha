@@ -18,12 +18,14 @@ import Messenger from './Messenger/Messenger'
 import OtherUserProfile from './Profile/OtherUserProfile'
 import Notifications from './Notifications'
 import openSocket from 'socket.io-client'
+import {getBaseURL} from '../config'
 
-export const socket = openSocket.connect('http://localhost:5000');
+export const socket = openSocket.connect(getBaseURL());
+
 class Root extends Component {
     componentDidMount() {
         this.props.isAuth();
-        }
+    }
 
     componentWillReceiveProps(newProps) {
         if (newProps.user.id !== this.props.user.id){
