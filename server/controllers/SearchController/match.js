@@ -31,6 +31,10 @@ const deleteDublicates = (users) => {
     return Object.values(filtered);
 };
 
+const deleteMatched = (matchedIds, users) => {
+    return users.filter(user => matchedIds.includes(user.id) === false);
+};
+
 const tagsMatch = (tags, they) => {
     if (tags) {
         they.forEach(user => {
@@ -237,14 +241,26 @@ AND users.id != ? AND users.activation = 1`, [id]);
                 me.location = JSON.parse(me.location);
                 me.age      = moment().diff(me.bday, 'years');
                 they        = prepareUsers(deleteDublicates(they), me);
-                tagsMatch(me.tag, they);
-                personalityMatch(me.personality, they);
-                distanceMatch(they);
-                ageMatch(me.age, they);
-                ratingMatch(they);
-                matchSorting(they);
+                promise = db.all(`SELECT * FROM history WHERE +
+                    (first_id = ? OR second_id = ?) AND \`action\` = 'match'`, [id, id]);
+                promise.then(matched => {
+                    if (matched && matched.length) {
+                        matched = matched.map(user => {
+                            user.id = user.first_id === id ?
+                                user.second_id : user.first_id;
+                            return user.id;
+                        });
+                        they    = deleteMatched(matched, they);
+                    }
+                    tagsMatch(me.tag, they);
+                    personalityMatch(me.personality, they);
+                    distanceMatch(they);
+                    ageMatch(me.age, they);
+                    ratingMatch(they);
+                    matchSorting(they);
 
-                res.send(they);
+                    res.send(they);
+                }).catch(error);
             }).catch(error);
         } else {
             res.send('404');
