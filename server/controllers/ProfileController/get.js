@@ -21,6 +21,7 @@ const filterUser = (user) => {
     let
         info   = {
             id: user[0]['users_id'],
+            online: user[0]['users_online'],
             username: user[0]['users_username'],
             firstname: user[0]['users_firstname'],
             lastname: user[0]['users_lastname'],
