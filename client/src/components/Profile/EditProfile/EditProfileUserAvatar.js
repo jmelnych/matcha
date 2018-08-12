@@ -64,7 +64,7 @@ render() {
           <Upload {...props}
                   showUploadList={false} beforeUpload={checkTypeSize}
                   onChange={this.handleChange}>
-              <Button type="primary" shape="circle" icon={this.state.loading ? "loading" : "upload"} size="small" />
+              <Button type="primary" shape="circle" className="avatar-upload" icon={this.state.loading ? "loading" : "upload"} size="small" />
           </Upload>
       </div>
     );

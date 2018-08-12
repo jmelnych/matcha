@@ -70,13 +70,25 @@ figcaption .circle{
     margin: -7px 40px 10px -10px;
 }
 
+.profile-main-avatar-content{
+    position: relative;
+}
+
+.profile-main-avatar-content .circle{
+    position: absolute;
+    bottom: 20px;
+    left: 80px;
+    font-size: 30px;
+    color: #bbbbbb;
+}
+
 .circle {
     color: gray;
     font-size: 20px;
     margin-right: 5px;
 }
 .online {
-    color: #00c600;
+    color: #00c600 !important;
 }
 
 .chat-header{

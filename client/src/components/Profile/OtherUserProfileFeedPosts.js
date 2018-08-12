@@ -32,7 +32,7 @@ function mapStateToProps({otherUser}){
 }
 
 OtherUserProfileFeedPosts.propTypes = {
-    otherUser: PropTypes.object.isRequired
+    otherUser: PropTypes.object
 };
 
 export default connect(mapStateToProps)(OtherUserProfileFeedPosts);

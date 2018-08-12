@@ -16,8 +16,10 @@ class Notifications extends Component {
                 return "You have viewed this user";
             case "see Me":
                 return "The user viewed your profile";
-            case "break up":
+            case "I break up":
                 return "You broke up with this user!";
+            case "break up Me":
+                return "The user has broken up with you :(";
             case "I like":
                 return "You liked this user";
             case "like Me":
@@ -38,7 +40,7 @@ render() {
     return (
       <div className="container-center top">
           {history.map(activity => (
-              <article key={activity.id} className="notification-plate">
+              <article key={activity.history_id} className="notification-plate">
                   <UserAvatar user={activity}/>
                   <div className="other-user">{`${activity.firstname}, ${activity.lastname}`}</div>
                   <div className="activity">{this.textForActivity(activity.action)}</div>

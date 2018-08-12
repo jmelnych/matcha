@@ -21,7 +21,6 @@ ul {
   min-height: 300px;
 }
 
-
 .profile-main-avatar img {
   width: 150px;
   height: 150px;
@@ -38,6 +37,16 @@ ul {
   width: 100%;
   bottom: 0;
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5) 0%,rgba(0,0,0,0.51) 3%,rgba(0,0,0,0.75) 61%,rgba(0,0,0,0.5) 100%);
+}
+
+.ant-upload.ant-upload-select .ant-upload .avatar-upload{
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  min-height: 34px;
+  padding: 0;
+  font-size: 14px;
+  border-radius: 50%;
 }
 
 .profile-user-title h1{
@@ -350,7 +359,7 @@ h4{
   margin: 0 0 0 4%;
 }
 
-.like-button {
+.wrapper .like-button, .wrapper .ant-btn-icon-only {
   border-radius: 50%;
   height: 110px;
   width: 110px;
@@ -477,7 +486,8 @@ h4{
 }
 
 @media (min-width: 587px) and (max-width: 768px){
-  .like-button{
+  .wrapper .like-button,
+  .wrapper .ant-btn-icon-only{
     margin-left: 5%;
   }
   .profile-main-avatar-content{
@@ -503,7 +513,7 @@ h4{
   .ban{
     order: 2;
   }
-  .like-button{
+  .wrapper .like-button, .wrapper .ant-btn-icon-only{
     order: 3;
     margin-left: 10%;
   }
@@ -524,7 +534,7 @@ h4{
     width: 100%;
   }
 
-  .like-button{
+  .wrapper .like-button, .wrapper .ant-btn-icon-only{
     width: 90px;
     height: 90px;
     min-width: 90px;
@@ -544,7 +554,7 @@ h4{
 }
 
 @media (min-width: 901px) and (max-width: 1200px){
-  .like-button{
+  .wrapper .like-button, .wrapper .ant-btn-icon-only{
     margin-left: -9%;
   }
 }

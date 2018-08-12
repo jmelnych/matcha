@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 const ChatAvatar = (props) => {
     let src;
     return (
-        <Link to={`/user/${props.user.id}`}>
+        <Link to={`/user/${props.user.user_id}`}>
             <p className="hidden">{src = require(`../../../img/avatars/${props.user.avatar}`)}</p>
             <img src={src} alt="avatar" className="chat-avatar"/>
         </Link>

@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import ProfileUserGenderIcon from './ProfileUI/ProfileUserGenderIcon'
 import LikeButtonStatus from './LikeButtonStatus'
 import {fakeNotification, banUser} from '../../actions/userActions'
+import UserStatus from '../Messenger/MessengerUI/UserStatus'
 import PropTypes from 'prop-types'
 
 class OtherUserProfileHead extends Component {
@@ -60,6 +61,7 @@ render() {
                         <a className="text-secondary ban">{this.state.iDidBan ? 'Unban' : 'Ban'}</a>
                     </Popconfirm>
                     <div className="profile-main-avatar-content">
+                        <UserStatus status={user.online}/>
                         <img src={avatar} alt="avatar"/>
                     </div>
                     <figcaption>

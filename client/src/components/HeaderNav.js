@@ -79,11 +79,11 @@ class HeaderNav extends Component {
                           <Icon type="heart-o" />Match</Link></Menu.Item>
                   <Menu.Item key="4" onClick={this.readMsg}><Link to='/messenger' style={linkStyle}>
                       <span className="nav-note"
-                            style = {unread_messages.length && _curl !== 'messanger' ? navNoteExistStyle : navNoteNoneStyle}>&#9679;</span>
+                            style = {unread_messages.length && tab !== '4' ? navNoteExistStyle : navNoteNoneStyle}>&#9679;</span>
                       <Icon type="message" />Messenger</Link></Menu.Item>
                   <Menu.Item key="5" onClick={this.readNotes}><Link to='/notifications' style={linkStyle}>
                       <span className="nav-note"
-                            style = {unread_notes.length && _curl !== 'notifications' ? navNoteExistStyle : navNoteNoneStyle}>&#9679;</span>
+                            style = {unread_notes.length && tab !== '5' ? navNoteExistStyle : navNoteNoneStyle}>&#9679;</span>
                       <Icon type="notification" /> Notifications</Link></Menu.Item>
                   <Menu.Item key="6"><Link to='/' onClick={this.logout} style={linkStyle}>
                       <Icon type="logout" />Logout</Link></Menu.Item>
