@@ -25,3 +25,4 @@ export const FETCH_HISTORY = 'FETCH_HISTORY';
 export const SET_NOTE = 'SET_NOTE';
 export const CLEAN_NOTES = 'CLEAN_NOTES';
 export const CLEAN_CHAT_NOTES = 'CLEAN_CHAT_NOTES';
+export const GET_MATCH_USERS = 'GET_MATCH_USERS';
