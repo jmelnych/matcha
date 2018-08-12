@@ -20,7 +20,6 @@ class Messenger extends Component {
         this.props.fetchMatchUsers();
         socket.on('status', (data) => {
             this.props.updateChatStatus(data);
-            console.log('comp Did Mount');
         });
     };
 

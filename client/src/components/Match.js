@@ -30,15 +30,14 @@ class Match extends Component {
     };
 
     render() {
-        let {matches} = this.props;
-        console.log(matches);
+        let {matches} = this.props || [];
+        let totalLength = matches.length;
         matches = matches.slice(this.state.rangeL, this.state.rangeU);
         return (
-            <div className="container-flex top">
-                <div className="container-right">
+            <div className="container-center top">
                     <PeopleUIResults users={matches}/>
-                    <SearchPagination handleChangePage={this.handleChangePage}/>
-                </div>
+                    <SearchPagination quantity={totalLength}
+                                      handleChangePage={this.handleChangePage}/>
             </div>
         );
     };

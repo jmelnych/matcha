@@ -67,8 +67,12 @@
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(0,0,0,.15);
     cursor: pointer;
-
 }
+
+.match{
+    border: 1px solid red;
+}
+
 .user-snippet * {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
