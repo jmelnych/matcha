@@ -1,26 +1,19 @@
 import React, { Component } from 'react'
 import { Pagination } from 'antd'
-import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 
-class SearchPagination extends Component {
-render() {
+const SearchPagination = (props) => {
+{
     let step = 9;
-    let usersQ = this.props.users.length;
+    let usersQ = props.quantity;
     return (
       <div className="pagination">
           <Pagination hideOnSinglePage={true} defaultPageSize={step}
                       defaultCurrent={1} pageSize={step} total={usersQ}
-          onChange={this.props.handleChangePage}/>
+          onChange={props.handleChangePage}/>
       </div>
     );
   }
-};
-
-function mapStateToProps({users}) {
-    return {
-        users
-    }
 };
 
 SearchPagination.propTypes = {
@@ -28,4 +21,4 @@ SearchPagination.propTypes = {
   handleChangePage: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps)(SearchPagination);
+export default SearchPagination;

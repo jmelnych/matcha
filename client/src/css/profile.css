@@ -136,8 +136,13 @@ span.distance{
   text-align: center !important;
 }
 
+ul.list-wrap{
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .profile-main-info-list li{
-  /*display: flex;*/
+  display: flex;
   position: relative;
   padding: 10px;
   color: rgba(0,21,41, 1);

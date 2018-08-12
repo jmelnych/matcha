@@ -25,14 +25,16 @@ class Search extends Component {
 
     };
 render() {
-    let {users} = this.props;
+    let {users} = this.props || [];
+    let totalLength = users.length;
     users = users.slice(this.state.rangeL, this.state.rangeU);
     return (
       <div className="container-flex top">
           <SearchFilter/>
           <div className="container-right">
                 <PeopleUIResults users={users}/>
-              <SearchPagination handleChangePage={this.handleChangePage}/>
+              <SearchPagination quantity={totalLength}
+                                handleChangePage={this.handleChangePage}/>
           </div>
       </div>
     );

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
+import { getMatchUsers} from '../actions/searchActions'
 import SearchPagination from './Search/SearchPagination'
-import MatchFilter from './MatchFilter'
 import PeopleUIResults from './Search/PeopleUIResults'
 import PropTypes from 'prop-types'
 
@@ -11,6 +11,10 @@ class Match extends Component {
         page: 1,
         rangeL: 0,
         rangeU: 9
+    };
+
+    componentDidMount() {
+        this.props.getMatchUsers();
     };
 
     handleChangePage = (page) => {
@@ -26,29 +30,35 @@ class Match extends Component {
     };
 
     render() {
-        let {users} = this.props;
-        users = users.slice(this.state.rangeL, this.state.rangeU);
+        let {matches} = this.props || [];
+        let totalLength = matches.length;
+        matches = matches.slice(this.state.rangeL, this.state.rangeU);
         return (
-            <div className="container-flex top">
-                <MatchFilter/>
-                <div className="container-right">
-                    <PeopleUIResults users={users}/>
-                    <SearchPagination handleChangePage={this.handleChangePage}/>
-                </div>
+            <div className="container-center top">
+                    <PeopleUIResults users={matches}/>
+                    <SearchPagination quantity={totalLength}
+                                      handleChangePage={this.handleChangePage}/>
             </div>
         );
     };
 }
 
-function mapStateToProps({users}) {
-    //TODO: map not users, but perfect matches
+function mapStateToProps({matches}) {
     return {
-        users
+        matches
     }
 }
 
+function mapDispatchToProps(dispatch) {
+    return {
+        getMatchUsers: () => dispatch(getMatchUsers())
+    }
+
+};
+
 Match.propTypes = {
-    users: PropTypes.array //TODO: prop types not users, but perfect matches
+    matches: PropTypes.array,
+    getMatchUsers: PropTypes.func.isRequired
 }
 
-export default connect(mapStateToProps)(Match);
+export default connect(mapStateToProps, mapDispatchToProps)(Match);

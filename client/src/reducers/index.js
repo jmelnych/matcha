@@ -9,6 +9,7 @@ import chat from './chatReducer'
 import otherUser from './otherUser'
 import matchUsers from './matchUsersReducer'
 import history from './historyReducer'
+import matches from './matchReducer'
 
 export default combineReducers({
     users,
@@ -20,5 +21,6 @@ export default combineReducers({
     chat,
     otherUser,
     matchUsers,
-    history
+    history,
+    matches
 });

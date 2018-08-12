@@ -7,6 +7,8 @@ import ProfileWritePost from './ProfileWritePost'
 import ProfileUserInterests from './ProfileUserInterests'
 import ProfileFeedPosts from './ProfileFeedPosts'
 import ProfileUserTitleUI from './ProfileUI/ProfileUserTitleUI'
+import ProfileUserFriends from './ProfileUserFriends'
+import ProfileUserSuggestions from './ProfileUserSuggestions'
 import PropTypes from 'prop-types'
 
 class Profile extends Component {
@@ -26,32 +28,10 @@ class Profile extends Component {
               <ProfileUserInfo/>
               <ProfileUserPhotos/>
               <ProfileUserInterests/>
-              <div className="profile-main-info-list">
-                  <h3>Friends</h3>
-                  <ul>
-                      <li>
-                          <p>friend</p>
-                      </li>
-                      <li>
-                          <p>friend</p>
-                      </li>
-                      <li>
-                          <p>friend</p>
-                      </li>
-                      <li>
-                          <p>friend</p>
-                      </li>
-                      <li>
-                          <p>friend</p>
-                      </li>
-                  </ul>
-              </div>
+              <ProfileUserFriends/>
 
-              <div className="profile-main-info-list">
-                  <h3>Suggestions</h3>
-                  <ul>
-                      <li></li>
-                  </ul>
+              <div className="profile-main-info">
+                  <ProfileUserSuggestions/>
               </div>
           </div>
 
