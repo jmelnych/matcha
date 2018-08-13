@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import EditProfileUserHead from './EditProfile/EditProfileUserHead'
 import EditProfileUserAvatar from './EditProfile/EditProfileUserAvatar'
 import {connect} from 'react-redux'
-import ProfileUserGenderIcon from './ProfileUI/ProfileUserGenderIcon'
+import ProfileUserGenderIcon from '../UI/ProfileUserGenderIcon'
 
 
 class ProfileHead extends Component {

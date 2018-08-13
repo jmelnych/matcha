@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import {Popconfirm, message} from 'antd'
 import {connect} from 'react-redux'
-import ProfileUserGenderIcon from './ProfileUI/ProfileUserGenderIcon'
+import ProfileUserGenderIcon from '../UI/ProfileUserGenderIcon'
 import LikeButtonStatus from './LikeButtonStatus'
 import {fakeNotification, banUser} from '../../actions/userActions'
-import UserStatus from '../Messenger/MessengerUI/UserStatus'
+import UserStatus from '../UI/UserStatus'
 import PropTypes from 'prop-types'
 
 class OtherUserProfileHead extends Component {

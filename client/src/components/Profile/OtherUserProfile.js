@@ -5,7 +5,7 @@ import OtherUserProfileHead from './OtherUserProfileHead'
 import OtherUserProfilePhotos from './OtherUserProfilePhotos'
 import OtherUserProfileInterests from './OtherUserProfileInterests'
 import OtherUserProfileFeedPosts from './OtherUserProfileFeedPosts'
-import ProfileUserTitleUI from './ProfileUI/ProfileUserTitleUI'
+import ProfileUserTitleUI from '../UI/ProfileUserTitle'
 import {getOtherUser, seeNotify} from '../../actions/userActions'
 import PropTypes from 'prop-types'
 
@@ -45,7 +45,7 @@ class OtherUserProfile extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-    return{
+    return {
         getOtherUser: (id) => dispatch(getOtherUser(id)),
         seeNotify: (id) => dispatch(seeNotify(id))
     }

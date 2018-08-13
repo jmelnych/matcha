@@ -4,7 +4,7 @@ import {Modal} from 'antd'
 import EditProfileUserTabs from './EditProfile/EditProfileUserTabs'
 import ProfileUserLocation from './ProfileUserLocation'
 import {connect} from 'react-redux'
-import ProfileUserInfoUI from './ProfileUI/ProfileUserInfoUI'
+import ProfileUserInfoUI from '../UI/ProfileUserInfo'
 import PropTypes from 'prop-types'
 
 class ProfileUserInfo extends Component {

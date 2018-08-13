@@ -4,7 +4,7 @@ import { socket } from '../Root'
 import {connect} from 'react-redux'
 import { addChatMsg, receiveChatMsg, getMessageHistory } from '../../actions/chatActions'
 import moment from 'moment'
-import ChatUserAvatar from "./MessengerUI/ChatUserAvatar";
+import ChatUserAvatar from "../UI/UserAvatar";
 import PropTypes from 'prop-types'
 
 const { TextArea } = Input;

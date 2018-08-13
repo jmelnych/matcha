@@ -3,7 +3,7 @@ import Ionicon from 'react-ionicons'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 
-const ProfileUserInfoUI = (props) => {
+const ProfileUserInfo = (props) => {
     const ionicStyle = {
         fill: '#001529',
         marginBottom: '-5px',
@@ -45,9 +45,9 @@ const ProfileUserInfoUI = (props) => {
     );
 };
 
-ProfileUserInfoUI.propTypes = {
+ProfileUserInfo.propTypes = {
     user: PropTypes.object.isRequired,
     ouIndicator: PropTypes.bool
 }
 
-export default ProfileUserInfoUI;
+export default ProfileUserInfo;

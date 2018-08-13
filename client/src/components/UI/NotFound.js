@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
 
-class NotFound extends Component {
-render() {
+const NotFound = () => {
     const linkStyle = {
         textDecoration: 'none',
         color: 'white'
@@ -17,6 +16,6 @@ render() {
           </div>
       </div>
     );
-  }
-}
+  };
+
 export default NotFound;

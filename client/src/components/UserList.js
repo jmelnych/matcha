@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from 'moment'
-import ChatUserAvatar from './Messenger/MessengerUI/ChatUserAvatar'
-import UserStatus from './Messenger/MessengerUI/UserStatus'
+import ChatUserAvatar from './UI/UserAvatar'
+import UserStatus from './UI/UserStatus'
 import {Link} from 'react-router-dom'
 
 const UserList = (props) => {

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import SearchFilter from './SearchFilter'
-import SearchPagination from './SearchPagination'
-import PeopleUIResults from './PeopleUIResults'
+import PagePagination from '../UI/PagePagination'
+import PeopleListResults from '../UI/PeopleListResults'
 import PropTypes from 'prop-types'
 
 
@@ -26,14 +26,14 @@ class Search extends Component {
     };
 render() {
     let {users} = this.props || [];
-    let totalLength = users.length;
+    const totalLength = users.length;
     users = users.slice(this.state.rangeL, this.state.rangeU);
     return (
       <div className="container-flex top">
           <SearchFilter/>
           <div className="container-right">
-                <PeopleUIResults users={users}/>
-              <SearchPagination quantity={totalLength}
+                <PeopleListResults users={users}/>
+              <PagePagination quantity={totalLength}
                                 handleChangePage={this.handleChangePage}/>
           </div>
       </div>

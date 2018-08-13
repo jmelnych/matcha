@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { Pagination } from 'antd'
 import PropTypes from 'prop-types'
 
-const SearchPagination = (props) => {
-{
+const PagePagination = (props) => {
     let step = 9;
     let usersQ = props.quantity;
     return (
@@ -13,12 +12,11 @@ const SearchPagination = (props) => {
           onChange={props.handleChangePage}/>
       </div>
     );
-  }
 };
 
-SearchPagination.propTypes = {
+PagePagination.propTypes = {
   users: PropTypes.array,
   handleChangePage: PropTypes.func.isRequired
 };
 
-export default SearchPagination;
+export default PagePagination;

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { getMatchUsers} from '../actions/searchActions'
-import SearchPagination from './Search/SearchPagination'
-import PeopleUIResults from './Search/PeopleUIResults'
+import PagePagination from './UI/PagePagination'
+import PeopleUIResults from './UI/PeopleListResults'
 import PropTypes from 'prop-types'
 
 class Match extends Component {
@@ -36,7 +36,7 @@ class Match extends Component {
         return (
             <div className="container-center top">
                     <PeopleUIResults users={matches}/>
-                    <SearchPagination quantity={totalLength}
+                    <PagePagination quantity={totalLength}
                                       handleChangePage={this.handleChangePage}/>
             </div>
         );

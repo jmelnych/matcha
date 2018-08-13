@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import Ionicon from 'react-ionicons'
-import ProfileUserInfoUI from './ProfileUI/ProfileUserInfoUI'
+import ProfileUserInfoUI from '../UI/ProfileUserInfo'
 import PropTypes from 'prop-types'
 
 class OtherUserProfileInfo extends Component {

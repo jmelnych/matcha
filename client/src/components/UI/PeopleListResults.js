@@ -1,9 +1,9 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import UserStat from '../Messenger/MessengerUI/UserStatus'
+import UserStat from './UserStatus'
 import PropTypes from 'prop-types'
 
-const PeopleUIResults = (props) => {
+const PeopleListResults = (props) => {
     const users = props.users;
     let src;
     return (
@@ -34,8 +34,8 @@ const PeopleUIResults = (props) => {
     )
 };
 
-PeopleUIResults.propTypes = {
+PeopleListResults.propTypes = {
     users: PropTypes.array.isRequired
 }
 
-export default PeopleUIResults;
+export default PeopleListResults;

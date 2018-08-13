@@ -3,9 +3,28 @@ import {connect} from 'react-redux';
 import {fetchHistory} from '../actions/historyActions'
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import UserAvatar from './Messenger/MessengerUI/ChatUserAvatar'
+import PagePagination from './UI/PagePagination'
+import UserAvatar from './UI/UserAvatar'
 
 class Notifications extends Component {
+    state = {
+        page: 1,
+        rangeL: 0,
+        rangeU: 8
+    };
+
+    handleChangePage = (page) => {
+        let step = 8;
+        let rangeL = (page - 1) * step;
+        let rangeU = rangeL + step;
+        this.setState({
+            page,
+            rangeL,
+            rangeU
+        });
+
+    };
+
     componentDidMount(){
         this.props.fetchHistory();
     }
@@ -36,7 +55,9 @@ class Notifications extends Component {
     };
 
 render() {
-        const {history} = this.props;
+        let {history} = this.props || [];
+        const totalLength = history.length;
+        history = history.slice(this.state.rangeL, this.state.rangeU);
     return (
       <div className="container-center top">
           {history.map(activity => (
@@ -47,6 +68,8 @@ render() {
                   <div className="time">{moment(activity.added).fromNow()}</div>
               </article>
           ))}
+          <PagePagination quantity={totalLength}
+                          handleChangePage={this.handleChangePage}/>
       </div>
     );
   }

@@ -7,8 +7,8 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import { socket } from '../Root'
 import {updateChatStatus} from '../../actions/chatActions'
-import ChatUserAvatar from './MessengerUI/ChatUserAvatar'
-import UserStatus from './MessengerUI/UserStatus'
+import ChatUserAvatar from '../UI/UserAvatar'
+import UserStatus from '../UI/UserStatus'
 
 const Search = Input.Search;
 

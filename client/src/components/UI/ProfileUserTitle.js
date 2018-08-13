@@ -2,7 +2,7 @@ import React from 'react'
 import capitalize from 'lodash/capitalize'
 import PropTypes from 'prop-types'
 
-const ProfileUserTitleUI = (props) => {
+const ProfileUserTitle = (props) => {
     return (
         <div className="profile-user-title">
             <h1>{capitalize(props.user.firstname)} {capitalize(props.user.lastname)}<small>
@@ -13,8 +13,8 @@ const ProfileUserTitleUI = (props) => {
     )
 };
 
-ProfileUserTitleUI.propTypes = {
+ProfileUserTitle.propTypes = {
     user: PropTypes.object.isRequired
 }
 
-export default ProfileUserTitleUI;
+export default ProfileUserTitle;
