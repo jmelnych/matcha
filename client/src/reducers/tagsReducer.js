@@ -7,7 +7,10 @@ export default function (state = initialState, action) {
         case GET_TAGS:
             return action.payload;
         case ADD_TAGS:
-            return state.concat(action.payload);
+            if(!action.payload.errno){
+                return state.concat(action.payload);
+            }
+            return state;
         default:
             return state;
     }

@@ -7,8 +7,10 @@ import PropTypes from 'prop-types'
 
 const FormItem = Form.Item;
 
-let uuid = 0;
 class ProfileUserAddTag extends Component {
+    state = {
+        uuid: 0
+    };
     componentDidMount() {
         this.setInitialValues();
     };
@@ -31,8 +33,8 @@ class ProfileUserAddTag extends Component {
         const { form } = this.props;
         // can use data-binding to get
         const keys = form.getFieldValue('keys');
-        const nextKeys = keys.concat(uuid);
-        uuid++;
+        const nextKeys = keys.concat(this.state.uuid);
+        this.state.uuid++;
         // can use data-binding to set
         // important! notify form to detect changes
         form.setFieldsValue({
@@ -89,6 +91,9 @@ class ProfileUserAddTag extends Component {
                 /* if no duplicates, submit array to save in db */
                 const newTags = {names: newTagsLower};
                 this.props.addTags(newTags);
+                this.setState({
+                    uid: 0
+                });
                 message.success(`Tags successfully uploaded`);
                 this.setInitialValues();
                 this.props.closeOnSubmit();
@@ -161,7 +166,7 @@ ProfileUserAddTag.propTypes = {
     tags: PropTypes.array.isRequired,
     addTags: PropTypes.func.isRequired,
     closeOnSubmit: PropTypes.func.isRequired
-}
+};
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(ProfileUserAddTag));
