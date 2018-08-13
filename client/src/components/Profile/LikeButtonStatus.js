@@ -113,7 +113,6 @@ class LikeButtonStatus extends Component {
     like = () => {
         const {id} = this.props.info;
         const relationship = this.state.buttonClass;
-        console.log(relationship);
         if (relationship === 'no-likes-button' || relationship === 'broken-button') {
             this.props.likeUser(id);
             this.paintButton('i-like');

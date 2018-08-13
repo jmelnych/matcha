@@ -6,20 +6,24 @@ import { addChatMsg, receiveChatMsg, getMessageHistory } from '../../actions/cha
 import moment from 'moment'
 import ChatUserAvatar from "../UI/UserAvatar";
 import PropTypes from 'prop-types'
+import chatReducer from "../../reducers/chatReducer";
 
 const { TextArea } = Input;
 
 class MessengerChat extends Component {
     state = {
         input: '',
-        chatWith: {}
+        chatWith: {},
+        height: 0
     };
     componentDidMount(){
         const {receiveChatMsg} = this.props;
         if (socket) {
             socket.on('chat', (data) => {
                 receiveChatMsg(data);
+                this.scrollDown();
             });
+
         }
     };
     componentWillReceiveProps(nextProps){
@@ -32,6 +36,22 @@ class MessengerChat extends Component {
     }
 
 
+    componentWillUpdate(nextProps, nextState) {
+        console.log(this.state);
+        console.log('nextProps', nextProps);
+        console.log('nextState', nextState);
+        if (this.state.chatWith.id){
+            const chatContainer = document.querySelector('.chat-history');
+            if (this.state.height !== chatContainer.scrollHeight && this.state.input === '') {
+                this.setState({
+                    height: chatContainer.scrollHeight
+                })
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+
+        }
+    }
+
     sendMsg = () => {
         const {user, addChatMsg} = this.props;
         const data = {
@@ -43,10 +63,18 @@ class MessengerChat extends Component {
         };
         socket.emit('chat', data);
         addChatMsg(data);
-        //TODO: save msg to back
         this.setState({
             input: ''
         });
+        this.scrollDown();
+    };
+
+    scrollDown = () => {
+        const chatContainer = document.querySelector('.chat-history');
+        this.setState({
+            height: chatContainer.scrollHeight+200
+        });
+        chatContainer.scrollTop = chatContainer.scrollHeight+200;
     };
 
     updateText = (value) => {
