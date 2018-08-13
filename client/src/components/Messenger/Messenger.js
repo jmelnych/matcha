@@ -9,11 +9,13 @@ import { socket } from '../Root'
 import {updateChatStatus} from '../../actions/chatActions'
 import ChatUserAvatar from '../UI/UserAvatar'
 import UserStatus from '../UI/UserStatus'
+import escapeRegExp from 'escape-string-regexp';
 
 const Search = Input.Search;
 
 class Messenger extends Component {
     state = {
+        query: '',
       chatWith: {}
     };
     componentDidMount(){
@@ -27,19 +29,41 @@ class Messenger extends Component {
         this.setState({
           chatWith: user
       });
-
     };
+    updateQuery = (query) => {
+        this.setState({query: query.trim()})
+    };
+
+    clearQuery = () => {
+        this.setState({query: ''})
+    }
+
     render() {
         const {matchUsers} = this.props;
+        const {query} = this.state;
+        let showingContacts;
+        if (query) {
+            let matchesWithQuery = new RegExp(escapeRegExp(query), 'i');
+            showingContacts = matchUsers.filter(contact =>
+                matchesWithQuery.test(contact.firstname) ||  matchesWithQuery.test(contact.lastname))
+        } else {
+            showingContacts = matchUsers;
+        }
         return (
             <div className="container-no-wrap">
                 <div className="people-list-container">
                     <Search
                         placeholder="search"
-                        onSearch={value => console.log(value)}
+                        onChange={(event) => this.updateQuery(event.target.value)}
                         style={{ width: '90%' }}/>
+                    {showingContacts.length !== matchUsers.length && (
+                        <div className='showing-contacts'>
+                            <span>Now showing {showingContacts.length} of {matchUsers.length} total</span>
+                            <button onClick={this.clearQuery}>Show all</button>
+                        </div>
+                    )}
                     <ul className="people-list">
-                        {matchUsers.map((user) =>
+                        {showingContacts.map((user) =>
                             <li key={user.id} className="people-list-person" onClick={() => this.selectUser(user)}>
                                 <ChatUserAvatar user={user}/>
                                 <div className="people-list-person-about">

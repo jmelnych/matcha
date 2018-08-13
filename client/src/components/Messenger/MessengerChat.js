@@ -37,15 +37,12 @@ class MessengerChat extends Component {
 
 
     componentWillUpdate(nextProps, nextState) {
-        console.log(this.state);
-        console.log('nextProps', nextProps);
-        console.log('nextState', nextState);
         if (this.state.chatWith.id){
             const chatContainer = document.querySelector('.chat-history');
             if (this.state.height !== chatContainer.scrollHeight && this.state.input === '') {
                 this.setState({
                     height: chatContainer.scrollHeight
-                })
+                });
                 chatContainer.scrollTop = chatContainer.scrollHeight;
             }
 

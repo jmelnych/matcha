@@ -19,6 +19,23 @@
     width: 27%;
     min-width: 300px;
     color: white;
+    overflow-y: scroll;
+}
+
+.showing-contacts{
+    margin-top: 15px;
+}
+
+.showing-contacts button {
+    color: #00aaee;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: inherit;
+}
+
+ul.people-list li{
+    width: 230px;
 }
 
 .chat-container{
