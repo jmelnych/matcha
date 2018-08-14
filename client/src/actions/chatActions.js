@@ -1,5 +1,6 @@
 import {FETCH_MATCH_PEOPLE, SET_CHAT_HISTORY,
-    ADD_CHAT_MESSAGE, RECEIVE_CHAT_MESSAGE, UPDATE_USER_STATUS} from './types'
+    ADD_CHAT_MESSAGE, RECEIVE_CHAT_MESSAGE, UPDATE_USER_STATUS,
+    SET_CHAT_NOTE, SET_HISTORY_NOTE, CLEAN_CHAT_NOTES} from './types'
 import axios from 'axios'
 import {getBaseURL} from '../config'
 
@@ -43,4 +44,33 @@ export const updateChatStatus = data => dispatch => {
         type: UPDATE_USER_STATUS,
         payload: data
     })
-}
+};
+
+export const setNote = (data) => {
+    if (data.action === 'You have new message') {
+        return {
+            type: SET_CHAT_NOTE,
+            payload: data
+        }
+    } else {
+        return {
+            type: SET_HISTORY_NOTE,
+            payload: data
+
+        }
+    }
+};
+
+export const cleanChatNotes = (withId) => dispatch => {
+    axios.post('api/messages/read', id)
+        .then(() => dispatch({
+            type: CLEAN_CHAT_NOTES,
+            payload: data
+        }))
+};
+
+// export const cleanNotes = () => {
+//     return {
+//         type: CLEAN_NOTES
+//     }
+// }

@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import {Input} from 'antd'
 import {connect} from 'react-redux'
-import {fetchMatchUsers} from '../../actions/chatActions'
 import MessengerChat from './MessengerChat'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import { socket } from '../Root'
-import {updateChatStatus} from '../../actions/chatActions'
+import {fetchMatchUsers, updateChatStatus} from '../../actions/chatActions'
 import ChatUserAvatar from '../UI/UserAvatar'
 import UserStatus from '../UI/UserStatus'
 import escapeRegExp from 'escape-string-regexp'
@@ -25,6 +24,7 @@ class Messenger extends Component {
             this.props.updateChatStatus(data);
         });
     };
+
 
     selectUser = (user) => {
         this.setState({
@@ -66,7 +66,8 @@ class Messenger extends Component {
                     )}
                     <ul className="people-list">
                         {showingContacts.map((user) =>
-                            <li key={user.id} className="people-list-person" onClick={() => this.selectUser(user)}>
+                            <li key={user.id} className="people-list-person"
+                                onClick={() => this.selectUser(user)}>
                                 <ChatUserAvatar user={user}/>
                                 <div className="people-list-person-about">
                                     <div className="people-list-person-name">{`${user.firstname} ${user.lastname}`}</div>

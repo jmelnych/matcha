@@ -125,22 +125,3 @@ export const unlikeUser = (id) => dispatch => {
 export const banUser = (id) => dispatch => {
     return axios.post('api/profile/ban', {id: id})
 };
-
-export const setNote = (data) =>  {
-    return {
-       type: SET_NOTE,
-       payload: data
-    }
-};
-
-export const cleanMsg = () =>  {
-    return {
-        type: CLEAN_CHAT_NOTES
-    }
-};
-
-export const cleanNotes = () => {
-    return {
-        type: CLEAN_NOTES
-    }
-}

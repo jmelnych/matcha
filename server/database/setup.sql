@@ -82,6 +82,7 @@ CREATE TABLE messages
   author_id    INTEGER,
   recipient_id INTEGER,
   message      TEXT NOT NULL,
+  read         TINYINT(1)          DEFAULT 0 NOT NULL,
   added        DATETIME            DEFAULT (datetime('now','localtime'))
 );
 

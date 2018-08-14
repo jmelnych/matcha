@@ -3,17 +3,25 @@ import FlashMessagesList from './Flash/FlashMessagesList'
 import {Layout, Menu, Icon} from 'antd'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {logoutUser, setNote, cleanNotes, cleanMsg} from '../actions/userActions'
+import {logoutUser} from '../actions/userActions'
+import {getMessageHistory, setNote, cleanNotes} from '../actions/chatActions'
 import {socket} from "./Root";
 import PropTypes from 'prop-types'
 
 class HeaderNav extends Component {
     componentDidMount() {
         socket.on('notification', (data) => {
-            console.log('data from notification', data);
             this.props.setNote(data);
         });
     }
+
+    componentDidUpdate(prevProps){
+        if (this.props.user.user.id !== prevProps.user.user.id) {
+            const {id} = this.props.user.user;
+            this.props.getMessageHistory(id);
+        }
+    };
+
     logout = () => {
         this.props.logoutUser();
     };
@@ -22,13 +30,9 @@ class HeaderNav extends Component {
         this.props.cleanNotes();
     };
 
-    readMsg = () => {
-        this.props.cleanMsg();
-    };
-
     render() {
         const {Header} = Layout;
-        const {auth} = this.props;
+        const {auth} = this.props.user;
         const linkStyle = {
             textDecoration: 'none',
             zIndex: '2'
@@ -57,8 +61,8 @@ class HeaderNav extends Component {
                 tab = '5';
             }
         };
-        const unread_messages = this.props.unread_messages || [];
-        const unread_notes = this.props.unread_notes || [];
+        const unread_messages = this.props.chat.filter(message => message.read === 0) || [];
+        const unread_notes = [];
     return (
       <div>
           <label className="toggle-menu">☰ Menu</label>
@@ -77,7 +81,7 @@ class HeaderNav extends Component {
                   <Menu.Item key="3">
                       <Link to='/match' style={linkStyle}>
                           <Icon type="heart-o" />Match</Link></Menu.Item>
-                  <Menu.Item key="4" onClick={this.readMsg}><Link to='/messenger' style={linkStyle}>
+                  <Menu.Item key="4"><Link to='/messenger' style={linkStyle}>
                       <span className="nav-note"
                             style = {unread_messages.length && tab !== '4' ? navNoteExistStyle : navNoteNoneStyle}>&#9679;</span>
                       <Icon type="message" />Messenger</Link></Menu.Item>
@@ -96,15 +100,15 @@ class HeaderNav extends Component {
   }
 };
 
-function mapStateToProps({user}) {
-    return user;
+function mapStateToProps({user, chat}) {
+    return {user, chat};
 };
 
 HeaderNav.propTypes = {
     user: PropTypes.object,
     logoutUser: PropTypes.func.isRequired,
-    cleanMsg: PropTypes.func.isRequired,
+    cleanChatNotes: PropTypes.func.isRequired,
     cleanNotes: PropTypes.func.isRequired
 }
 
-export default connect(mapStateToProps, {logoutUser, setNote, cleanMsg, cleanNotes})(HeaderNav);
+export default connect(mapStateToProps, {logoutUser, setNote, cleanChatNotes, cleanNotes, getMessageHistory})(HeaderNav);

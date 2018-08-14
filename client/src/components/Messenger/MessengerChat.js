@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Input, Button } from 'antd'
 import { socket } from '../Root'
 import {connect} from 'react-redux'
-import { addChatMsg, receiveChatMsg, getMessageHistory } from '../../actions/chatActions'
+import { addChatMsg, receiveChatMsg, getMessageHistory, cleanChatNotes } from '../../actions/chatActions'
 import moment from 'moment'
 import ChatUserAvatar from "../UI/UserAvatar";
 import PropTypes from 'prop-types'
@@ -32,6 +32,7 @@ class MessengerChat extends Component {
             });
             this.props.getMessageHistory(this.state.chatWith.id);
         }
+
     }
 
 
@@ -44,7 +45,12 @@ class MessengerChat extends Component {
                 });
                 chatContainer.scrollTop = chatContainer.scrollHeight;
             }
-
+            const messages = this.props.chat.filter(message => chatWith.id === message.recipient_id
+                || chatWith.id === message.author_id);
+            let unread_messages = messages.filter(message => message.read === 0);
+            if (unread_messages.length) {
+                this.props.cleanChatNotes(chatWith.id);
+            }
         }
     }
 
@@ -142,7 +148,8 @@ function mapDispatchToProps(dispatch) {
     return {
         addChatMsg: (data) => dispatch(addChatMsg(data)),
         receiveChatMsg: (data) => dispatch(receiveChatMsg(data)),
-        getMessageHistory: (id) => dispatch(getMessageHistory(id))
+        getMessageHistory: (id) => dispatch(getMessageHistory(id)),
+        cleanChatNotes: (withId) => dispatch(cleanChatNotes(withId))
     }
 }
 
