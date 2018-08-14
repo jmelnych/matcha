@@ -242,7 +242,8 @@ AND users.id != ? AND users.activation = 1`, [id]);
                 me.age      = moment().diff(me.bday, 'years');
                 they        = prepareUsers(deleteDublicates(they), me);
                 promise = db.all(`SELECT * FROM history WHERE +
-                    (first_id = ? OR second_id = ?) AND \`action\` = 'match'`, [id, id]);
+                    (first_id = ? OR second_id = ?) AND
+                    (\`action\` = 'match' OR \`action\` = 'ban')`, [id, id]);
                 promise.then(matched => {
                     if (matched && matched.length) {
                         matched = matched.map(user => {
