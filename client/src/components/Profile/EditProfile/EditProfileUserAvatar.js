@@ -2,23 +2,12 @@ import React, { Component } from 'react'
 import {Upload, Button, message} from 'antd'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
+import {checkTypeSize} from '../../../helpers/checkTypeSize'
 
 function getBase64(img, callback) {
     const reader = new FileReader();
     reader.addEventListener('load', () => callback(reader.result));
     reader.readAsDataURL(img);
-}
-
-function checkTypeSize(file) {
-    const isJPG_PNG = file.type === 'image/jpeg' || 'image/png';
-    if (!isJPG_PNG) {
-        message.error('You can only upload JPG or PNG file');
-    }
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-        message.error('Image must smaller than 2MB');
-    }
-    return isJPG_PNG && isLt2M;
 }
 
 class EditProfileUserAvatar extends Component {
@@ -62,9 +51,11 @@ render() {
       <div className="profile-main-avatar-content">
           {imageUrl ? <img src={imageUrl} alt="avatar" /> : <img src={avatar} alt="avatar"/>}
           <Upload {...props}
-                  showUploadList={false} beforeUpload={checkTypeSize}
+                  showUploadList={false}
+                  beforeUpload={checkTypeSize}
                   onChange={this.handleChange}>
-              <Button type="primary" shape="circle" className="avatar-upload" icon={this.state.loading ? "loading" : "upload"} size="small" />
+              <Button type="primary" shape="circle" className="avatar-upload"
+                      icon={this.state.loading ? "loading" : "upload"} size="small" />
           </Upload>
       </div>
     );
@@ -78,6 +69,7 @@ function mapStateToProps({user}) {
 
 EditProfileUserAvatar.propTypes = {
     user: PropTypes.object.isRequired,
+    checkTypeSize: PropTypes.func
 
 };
 

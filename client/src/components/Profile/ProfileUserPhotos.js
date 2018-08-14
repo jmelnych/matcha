@@ -3,6 +3,7 @@ import { Upload, Icon, Modal, Popover } from 'antd'
 import {connect} from 'react-redux'
 import {getPhotos, removePhoto} from '../../actions/photosAction'
 import PropTypes from 'prop-types'
+import {checkTypeSize} from '../../helpers/checkTypeSize'
 
 class ProfileUserPhotos extends Component {
     state = {
@@ -52,7 +53,6 @@ class ProfileUserPhotos extends Component {
                 prevState.photos})
             );
         } else {
-            console.log(photo.fileList);
             this.setState({ photos: photo.fileList})
         }
     };
@@ -87,6 +87,7 @@ class ProfileUserPhotos extends Component {
                 <Popover placement="rightTop" title="Photo info" content={content}
                          trigger="hover"><h3>Photos</h3></Popover>
                 <Upload {...props}
+                    beforeUpload={checkTypeSize}
                     listType="picture-card"
                     fileList={photosRender}
                     onPreview={this.handlePreview}
@@ -118,7 +119,8 @@ function mapDispatchToProps(dispatch) {
 ProfileUserPhotos.propTypes = {
     getPhotos: PropTypes.func.isRequired,
     removePhoto: PropTypes.func.isRequired,
-    photos: PropTypes.array
+    photos: PropTypes.array,
+    checkTypeSize: PropTypes.func
 };
 
 
