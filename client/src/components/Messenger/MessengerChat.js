@@ -6,7 +6,6 @@ import { addChatMsg, receiveChatMsg, getMessageHistory } from '../../actions/cha
 import moment from 'moment'
 import ChatUserAvatar from "../UI/UserAvatar";
 import PropTypes from 'prop-types'
-import chatReducer from "../../reducers/chatReducer";
 
 const { TextArea } = Input;
 
@@ -36,7 +35,7 @@ class MessengerChat extends Component {
     }
 
 
-    componentWillUpdate(nextProps, nextState) {
+    componentWillUpdate() {
         if (this.state.chatWith.id){
             const chatContainer = document.querySelector('.chat-history');
             if (this.state.height !== chatContainer.scrollHeight && this.state.input === '') {

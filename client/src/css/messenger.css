@@ -160,6 +160,7 @@ figcaption .circle{
     border-radius: 7px;
     margin-bottom: 30px;
     width: 90%;
+    max-width: 465px;
     position: relative;
     text-align: left;
 }

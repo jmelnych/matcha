@@ -9,7 +9,8 @@ import { socket } from '../Root'
 import {updateChatStatus} from '../../actions/chatActions'
 import ChatUserAvatar from '../UI/UserAvatar'
 import UserStatus from '../UI/UserStatus'
-import escapeRegExp from 'escape-string-regexp';
+import escapeRegExp from 'escape-string-regexp'
+import orderBy from 'lodash/orderBy'
 
 const Search = Input.Search;
 
@@ -49,6 +50,7 @@ class Messenger extends Component {
         } else {
             showingContacts = matchUsers;
         }
+        showingContacts = orderBy(showingContacts, ['online'], ['desc']);
         return (
             <div className="container-no-wrap">
                 <div className="people-list-container">
