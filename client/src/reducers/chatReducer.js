@@ -29,7 +29,6 @@ export default function (state = initialState, action) {
                 all_messages: state.all_messages.concat(newMsg)
             };
         case RECEIVE_CHAT_MESSAGE:
-            console.log(action.payload);
             let newIncMsg = {
                     id: shortid.generate(),
                     author_id: action.payload.author_id,

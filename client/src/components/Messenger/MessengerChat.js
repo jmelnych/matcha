@@ -16,10 +16,13 @@ class MessengerChat extends Component {
         scrollAtBottom: false
     };
     componentDidMount(){
-        const {receiveChatMsg} = this.props;
+        const {receiveChatMsg, cleanChatNotes} = this.props;
         if (socket) {
             socket.on('chat', (data) => {
                 receiveChatMsg(data);
+                if (this.state.chatWith.id === data.author_id){
+                    cleanChatNotes(data.author_id);
+                }
             });
         }
     };
@@ -75,14 +78,8 @@ class MessengerChat extends Component {
 
     scrollDown = () => {
         if (this.state.chatWith.id) {
-            console.log('scrolling down actually');
             const chatContainer = document.querySelector('.chat-history');
-            console.log('before', chatContainer.scrollTop);
-            const height = chatContainer.scrollHeight;
-            console.log('height', height);
             chatContainer.scrollTop = chatContainer.scrollHeight;
-            console.log('after', chatContainer.scrollTop);
-
         }
     };
 
