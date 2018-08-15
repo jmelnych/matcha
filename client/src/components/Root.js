@@ -19,6 +19,8 @@ import OtherUserProfile from './Profile/OtherUserProfile'
 import Notifications from './Notifications'
 import openSocket from 'socket.io-client'
 import {getBaseURL} from '../config'
+import {getMessageHistory} from '../actions/chatActions'
+import {fetchHistory} from '../actions/historyActions'
 
 export const socket = openSocket.connect(getBaseURL());
 
@@ -27,10 +29,14 @@ class Root extends Component {
         this.props.isAuth();
     }
 
-    componentWillReceiveProps(newProps) {
-        if (newProps.user.id !== this.props.user.id){
-            const {id} = newProps.user;
+    componentDidUpdate(prevProps) {
+        if (prevProps.user.id !== this.props.user.id){
+            /* SETUP new socket connection */
+            const {id} = this.props.user;
             socket.emit('users', id);
+            /* GRAB chat messages */
+            this.props.getMessageHistory(id);
+            this.props.fetchHistory();
         }
     }
     render() {
@@ -62,12 +68,16 @@ function mapStateToProps({user}) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        isAuth: () => dispatch(getUser())
+        isAuth: () => dispatch(getUser()),
+        getMessageHistory: (id) => dispatch(getMessageHistory(id)),
+        fetchHistory: () => dispatch(fetchHistory())
     }
 };
 
 Root.propTypes = {
     getUser: PropTypes.func,
+    getMessageHistory: PropTypes.func,
+    fetchHistory: PropTypes.func,
     user: PropTypes.object
 };
 

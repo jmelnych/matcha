@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {getMatchUsers} from '../../actions/searchActions'
 import PropTypes from 'prop-types'
-import UserList from "../UserList";
+import UserList from "../UI/UserList";
 
 class ProfileUserSuggestions extends Component {
     componentDidMount(){

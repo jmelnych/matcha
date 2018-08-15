@@ -4,7 +4,7 @@ import {fetchMatchUsers} from '../../actions/chatActions'
 import PropTypes from 'prop-types'
 import { socket } from '../Root'
 import {updateChatStatus} from '../../actions/chatActions'
-import UserList from "../UserList";
+import UserList from "../UI/UserList";
 
 class ProfileUserFriends extends Component {
     componentDidMount(){

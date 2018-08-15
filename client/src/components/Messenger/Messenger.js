@@ -3,13 +3,11 @@ import {Input} from 'antd'
 import {connect} from 'react-redux'
 import MessengerChat from './MessengerChat'
 import PropTypes from 'prop-types'
-import moment from 'moment'
 import { socket } from '../Root'
 import {fetchMatchUsers, updateChatStatus} from '../../actions/chatActions'
-import ChatUserAvatar from '../UI/UserAvatar'
-import UserStatus from '../UI/UserStatus'
 import escapeRegExp from 'escape-string-regexp'
 import orderBy from 'lodash/orderBy'
+import ContactList from '../UI/ContactsList'
 
 const Search = Input.Search;
 
@@ -19,12 +17,12 @@ class Messenger extends Component {
       chatWith: {}
     };
     componentDidMount(){
-        this.props.fetchMatchUsers();
+        const {fetchMatchUsers, updateChatStatus} = this.props;
+        fetchMatchUsers();
         socket.on('status', (data) => {
-            this.props.updateChatStatus(data);
+            updateChatStatus(data);
         });
     };
-
 
     selectUser = (user) => {
         this.setState({
@@ -42,6 +40,8 @@ class Messenger extends Component {
     render() {
         const {matchUsers} = this.props;
         const {query} = this.state;
+        const unreadMsgs = this.props.unread;
+        console.log('unread msg,', unreadMsgs);
         let showingContacts;
         if (query) {
             let matchesWithQuery = new RegExp(escapeRegExp(query), 'i');
@@ -64,22 +64,7 @@ class Messenger extends Component {
                             <button onClick={this.clearQuery}>Show all</button>
                         </div>
                     )}
-                    <ul className="people-list">
-                        {showingContacts.map((user) =>
-                            <li key={user.id} className="people-list-person"
-                                onClick={() => this.selectUser(user)}>
-                                <ChatUserAvatar user={user}/>
-                                <div className="people-list-person-about">
-                                    <div className="people-list-person-name">{`${user.firstname} ${user.lastname}`}</div>
-                                    <div className="people-list-person-status">
-                                <UserStatus status={user.online}/>
-                                {user.online === 1 ? "online" :
-                                    `last seen ${moment(user.last_seen).fromNow()}`}
-                                    </div>
-                                </div>
-                            </li>
-                        )}
-                    </ul>
+                    <ContactList selectUser={this.selectUser} users={showingContacts} unreadMsgs={unreadMsgs}/>
                 </div>
                 <MessengerChat chatWith={this.state.chatWith}/>
             </div>
@@ -87,12 +72,25 @@ class Messenger extends Component {
     }
 };
 
-function mapStateToProps({matchUsers}) {
-    return {matchUsers}
+function mapStateToProps({matchUsers, chat}) {
+    return {
+        matchUsers,
+        unread: chat.unread
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        fetchMatchUsers: () => dispatch(fetchMatchUsers()),
+        receiveChatMsg: () => dispatch(receiveChatMsg()),
+        updateChatStatus: (data) => dispatch(updateChatStatus(data))
+    }
 }
 
 Messenger.propTypes = {
-    fetchMatchUsers: PropTypes.func.isRequired
+    fetchMatchUsers: PropTypes.func.isRequired,
+    updateChatStatus: PropTypes.func.isRequired,
+    unread: PropTypes.array.isRequired
 };
 
-export default connect(mapStateToProps, {fetchMatchUsers, updateChatStatus})(Messenger);
+export default connect(mapStateToProps, mapDispatchToProps)(Messenger);

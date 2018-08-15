@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Input, Button } from 'antd'
 import { socket } from '../Root'
 import {connect} from 'react-redux'
-import { addChatMsg, receiveChatMsg, getMessageHistory, cleanChatNotes } from '../../actions/chatActions'
+import { addChatMsg, getMessageHistory, cleanChatNotes, receiveChatMsg } from '../../actions/chatActions'
 import moment from 'moment'
 import ChatUserAvatar from "../UI/UserAvatar";
 import PropTypes from 'prop-types'
@@ -22,34 +22,28 @@ class MessengerChat extends Component {
                 receiveChatMsg(data);
                 this.scrollDown();
             });
-
         }
+
     };
     componentWillReceiveProps(nextProps){
         if (nextProps.chatWith.id !== this.state.chatWith.id){
             this.setState({
                 chatWith: nextProps.chatWith
             });
-            this.props.getMessageHistory(this.state.chatWith.id);
+            this.props.cleanChatNotes(nextProps.chatWith.id);
+            this.scrollDown();
         }
-
     }
-
 
     componentWillUpdate() {
         if (this.state.chatWith.id){
             const chatContainer = document.querySelector('.chat-history');
             if (this.state.height !== chatContainer.scrollHeight && this.state.input === '') {
+                console.log('will update');
                 this.setState({
                     height: chatContainer.scrollHeight
                 });
                 chatContainer.scrollTop = chatContainer.scrollHeight;
-            }
-            const messages = this.props.chat.filter(message => chatWith.id === message.recipient_id
-                || chatWith.id === message.author_id);
-            let unread_messages = messages.filter(message => message.read === 0);
-            if (unread_messages.length) {
-                this.props.cleanChatNotes(chatWith.id);
             }
         }
     }
@@ -72,11 +66,14 @@ class MessengerChat extends Component {
     };
 
     scrollDown = () => {
-        const chatContainer = document.querySelector('.chat-history');
-        this.setState({
-            height: chatContainer.scrollHeight+200
-        });
-        chatContainer.scrollTop = chatContainer.scrollHeight+200;
+        if (this.state.chatWith.id) {
+            console.log('scrolling down');
+            const chatContainer = document.querySelector('.chat-history');
+            this.setState({
+                height: chatContainer.scrollHeight + 200
+            });
+            chatContainer.scrollTop = chatContainer.scrollHeight + 200;
+        }
     };
 
     updateText = (value) => {
@@ -94,9 +91,13 @@ class MessengerChat extends Component {
 
 render() {
     const currentUserId = this.props.user.user.id;
+    let messages = [];
     const {chatWith} = this.state;
-    const messages = this.props.chat.filter(message => chatWith.id === message.recipient_id
-        || chatWith.id === message.author_id);
+    const chatAllMsg = this.props.chat;
+    if (chatWith.id) {
+        messages = chatAllMsg.filter(message => chatWith.id === message.recipient_id
+            || chatWith.id === message.author_id);
+    }
     const msgLength = messages.length;
     return (
         <div className="chat-container">
@@ -141,14 +142,17 @@ render() {
 };
 
 function mapStateToProps({user, chat}) {
-    return {user, chat};
+    return {
+        user,
+        chat: chat.all_messages
+    };
 };
 
 function mapDispatchToProps(dispatch) {
     return {
         addChatMsg: (data) => dispatch(addChatMsg(data)),
         receiveChatMsg: (data) => dispatch(receiveChatMsg(data)),
-        getMessageHistory: (id) => dispatch(getMessageHistory(id)),
+        getMessageHistory: () => dispatch(getMessageHistory()),
         cleanChatNotes: (withId) => dispatch(cleanChatNotes(withId))
     }
 }

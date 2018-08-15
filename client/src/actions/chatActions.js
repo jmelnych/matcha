@@ -1,6 +1,6 @@
 import {FETCH_MATCH_PEOPLE, SET_CHAT_HISTORY,
     ADD_CHAT_MESSAGE, RECEIVE_CHAT_MESSAGE, UPDATE_USER_STATUS,
-    SET_CHAT_NOTE, SET_HISTORY_NOTE, CLEAN_CHAT_NOTES} from './types'
+    SET_CHAT_NOTE, SET_HISTORY_NOTE, CLEAN_CHAT_NOTES, SET_UNREAD_MESSAGES} from './types'
 import axios from 'axios'
 import {getBaseURL} from '../config'
 
@@ -15,13 +15,21 @@ export const fetchMatchUsers = () => dispatch => {
         }))
 };
 
-export const getMessageHistory = id => dispatch => {
-  axios.post('api/messages/get', id)
+export const getMessageHistory = (id) => dispatch => {
+  axios.post('api/messages/get')
       .then(res => res.data)
-      .then(messages => dispatch({
-          type: SET_CHAT_HISTORY,
-          payload: messages
-      }))
+      .then(messages => {
+          dispatch({
+              type: SET_CHAT_HISTORY,
+              payload: messages
+          });
+          dispatch({
+              type: SET_UNREAD_MESSAGES,
+              payload: id
+          })
+      }
+    )
+
 };
 
 export const addChatMsg = data => dispatch => {
@@ -46,28 +54,30 @@ export const updateChatStatus = data => dispatch => {
     })
 };
 
-export const setNote = (data) => {
-    if (data.action === 'You have new message') {
-        return {
-            type: SET_CHAT_NOTE,
-            payload: data
-        }
-    } else {
-        return {
-            type: SET_HISTORY_NOTE,
-            payload: data
-
-        }
-    }
-};
-
-export const cleanChatNotes = (withId) => dispatch => {
-    axios.post('api/messages/read', id)
+export const cleanChatNotes = id => dispatch => {
+    console.log('action clean chat notes');
+    axios.post('api/messages/read', {id: id})
         .then(() => dispatch({
             type: CLEAN_CHAT_NOTES,
-            payload: data
+            payload: id
         }))
 };
+
+// export const setNote = (data) => {
+//     if (data.action === 'You have new message') {
+//         return {
+//             type: SET_CHAT_NOTE,
+//             payload: data
+//         }
+//     } else {
+//         return {
+//             type: SET_HISTORY_NOTE,
+//             payload: data
+//
+//         }
+//     }
+// };
+
 
 // export const cleanNotes = () => {
 //     return {

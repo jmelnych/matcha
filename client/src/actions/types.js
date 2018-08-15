@@ -27,3 +27,4 @@ export const SET_HISTORY_NOTE = 'SET_HISTORY_NOTE';
 export const CLEAN_CHAT_NOTES = 'CLEAN_CHAT_NOTES';
 export const CLEAN_NOTES = 'CLEAN_HISTORY_NOTES';
 export const GET_MATCH_USERS = 'GET_MATCH_USERS'; //suggestions
+export const SET_UNREAD_MESSAGES = 'SET_UNREAD_MESSAGES';

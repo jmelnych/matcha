@@ -141,7 +141,21 @@ figcaption .circle{
     background-color: rgb(255, 255, 255);
 }
 
+.new-message-notification{
+    position: absolute;
+    font-size: 11px;
+    right: 5px;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #1890ff;
+    background: #1890ff;
+    border-radius: 50%;
+}
 
+.people-list-person-about{
+    position: relative;
+}
 
 .message-data {
     margin-bottom: 15px;
