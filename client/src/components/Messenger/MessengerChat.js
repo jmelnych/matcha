@@ -13,38 +13,47 @@ class MessengerChat extends Component {
     state = {
         input: '',
         chatWith: {},
-        height: 0
+        scrollAtBottom: false
     };
     componentDidMount(){
         const {receiveChatMsg} = this.props;
         if (socket) {
             socket.on('chat', (data) => {
                 receiveChatMsg(data);
-                this.scrollDown();
             });
         }
-
     };
     componentWillReceiveProps(nextProps){
         if (nextProps.chatWith.id !== this.state.chatWith.id){
             this.setState({
                 chatWith: nextProps.chatWith
+            }, () => {
+                this.props.cleanChatNotes(nextProps.chatWith.id);
+                this.scrollDown();
             });
-            this.props.cleanChatNotes(nextProps.chatWith.id);
-            this.scrollDown();
         }
     }
 
-    componentWillUpdate() {
-        if (this.state.chatWith.id){
-            const chatContainer = document.querySelector('.chat-history');
-            if (this.state.height !== chatContainer.scrollHeight && this.state.input === '') {
-                console.log('will update');
+    componentWillUpdate(nextProps) {
+        if (nextProps.chatWith.id) {
+            let currentMsg = this.props.chat.filter(message => this.props.chatWith.id === message.recipient_id
+                || this.props.chatWith.id === message.author_id);
+            let newMessages = nextProps.chat.filter(message => nextProps.chatWith.id === message.recipient_id
+                || nextProps.chatWith.id === message.author_id);
+            if (currentMsg.length !== newMessages.length && document.querySelector('.chat-history')) {
+                const chatContainer = document.querySelector('.chat-history');
+                const scrollPos = chatContainer.scrollTop;
+                const scrollBottom = (chatContainer.scrollHeight - chatContainer.clientHeight);
                 this.setState({
-                    height: chatContainer.scrollHeight
+                    scrollAtBottom: (scrollBottom <= 0) || (scrollPos === scrollBottom)
                 });
-                chatContainer.scrollTop = chatContainer.scrollHeight;
             }
+        }
+    }
+
+    componentDidUpdate() {
+        if (this.state.scrollAtBottom) {
+            this.scrollDown();
         }
     }
 
@@ -62,17 +71,18 @@ class MessengerChat extends Component {
         this.setState({
             input: ''
         });
-        this.scrollDown();
     };
 
     scrollDown = () => {
         if (this.state.chatWith.id) {
-            console.log('scrolling down');
+            console.log('scrolling down actually');
             const chatContainer = document.querySelector('.chat-history');
-            this.setState({
-                height: chatContainer.scrollHeight + 200
-            });
-            chatContainer.scrollTop = chatContainer.scrollHeight + 200;
+            console.log('before', chatContainer.scrollTop);
+            const height = chatContainer.scrollHeight;
+            console.log('height', height);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            console.log('after', chatContainer.scrollTop);
+
         }
     };
 

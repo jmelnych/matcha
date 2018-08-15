@@ -55,7 +55,6 @@ export const updateChatStatus = data => dispatch => {
 };
 
 export const cleanChatNotes = id => dispatch => {
-    console.log('action clean chat notes');
     axios.post('api/messages/read', {id: id})
         .then(() => dispatch({
             type: CLEAN_CHAT_NOTES,

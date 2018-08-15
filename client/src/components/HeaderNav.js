@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
 class HeaderNav extends Component {
     componentDidMount() {
         socket.on('notification', (data) => {
-            this.props.setNote(data);
+            //this.props.setNote(data);TODO:listen to notes in root
         });
     }
 

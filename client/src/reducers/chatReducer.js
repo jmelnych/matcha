@@ -50,7 +50,6 @@ export default function (state = initialState, action) {
                 unread: state.all_messages.filter(message => message.read === 0 && message.author_id !== myId)
             };
         case CLEAN_CHAT_NOTES:
-            console.log('cleaning notes');
             return {
                 ...state,
                 unread: state.unread.filter(message => message.author_id !== action.payload)

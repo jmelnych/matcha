@@ -41,7 +41,6 @@ class Messenger extends Component {
         const {matchUsers} = this.props;
         const {query} = this.state;
         const unreadMsgs = this.props.unread;
-        console.log('unread msg,', unreadMsgs);
         let showingContacts;
         if (query) {
             let matchesWithQuery = new RegExp(escapeRegExp(query), 'i');
