@@ -9,15 +9,24 @@ module.exports = (req, res) => {
         res.send('Need User Id');
         return;
     }
-    let db      = req.app.get('db'),
-        promise = db.create('history',
-            'first_id, second_id, `action`',
-            [first_id, second_id, 'see']),
-        error   = (e) => {
+    let db                  = req.app.get('db'),
+        relationshipHistory = req.app.get('relationshipHistory'),
+        promise             = db.getHistory(first_id, second_id, true),
+        error               = (e) => {
             console.log(e);
             res.send(e);
         };
-    let mysocket =  req.app.get('socket');
-    mysocket.broadcastNote(second_id, 'Your page have been viewed');
-    promise.then(() => res.send('I see you')).catch(error);
+    promise.then((response) => {
+        let mysocket = req.app.get('socket'),
+            banMe    = relationshipHistory(response, 'ban', first_id);
+        if (banMe) {
+            mysocket.broadcastNote(second_id, 'Your page have been viewed');
+            promise = db.create('history', 'first_id, second_id, `action`', [first_id, second_id, 'see']);
+            promise.then(() => {
+                res.send('I see you');
+            }).catch(error);
+        } else {
+            res.send("Banned user can't generate view event");
+        }
+    }).catch(error);
 };
