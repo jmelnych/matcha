@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {fetchHistory} from '../actions/historyActions'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import PagePagination from './UI/PagePagination'
 import UserAvatar from './UI/UserAvatar'
+import {cleanHistoryNotes} from '../actions/historyActions'
 
 class Notifications extends Component {
+    componentDidMount(){
+        this.props.cleanHistoryNotes();
+    };
+
     state = {
         page: 1,
         rangeL: 0,
@@ -25,10 +29,6 @@ class Notifications extends Component {
 
     };
 
-    componentDidMount(){
-        this.props.fetchHistory();
-    }
-
     textForActivity = (action) => {
         switch (action) {
             case "I see":
@@ -43,7 +43,8 @@ class Notifications extends Component {
                 return "You liked this user";
             case "like Me":
                 return "The user liked you";
-            case "I match" || "match":
+            case "I match":
+            case "match Me":
                 return "Congrats! You became a match with the user";
             case "I ban":
                 return "You banned the user";
@@ -55,7 +56,7 @@ class Notifications extends Component {
     };
 
 render() {
-        let {history} = this.props || [];
+        let history = this.props.history.all_history || [];
         const totalLength = history.length;
         history = history.slice(this.state.rangeL, this.state.rangeU);
     return (
@@ -77,7 +78,7 @@ render() {
 
 function mapDispatchToProps(dispatch) {
     return{
-        fetchHistory: () => dispatch(fetchHistory())
+        cleanHistoryNotes: () => dispatch(cleanHistoryNotes())
     }
 };
 
@@ -86,7 +87,7 @@ function mapStateToProps({history}) {
 }
 
 Notifications.propTypes = {
-    fetchHistory: PropTypes.func.isRequired
+    cleanHistoryNotes: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notifications);

@@ -20,9 +20,9 @@ module.exports = (req, res) => {
         let mysocket = req.app.get('socket'),
             banMe    = relationshipHistory(response, 'ban', first_id);
         if (banMe) {
-            mysocket.broadcastNote(second_id, 'Your page have been viewed');
             promise = db.create('history', 'first_id, second_id, `action`', [first_id, second_id, 'see']);
             promise.then(() => {
+                mysocket.broadcastNote(second_id, 'Your page have been viewed');
                 res.send('I see you');
             }).catch(error);
         } else {

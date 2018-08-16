@@ -23,4 +23,7 @@ router.post('/logout', require('./logout'));
 
 router.post('/get-matches', require('./getMatches'));
 
+router.post('/read-history', require('./readHistory'));
+
+
 export default router;

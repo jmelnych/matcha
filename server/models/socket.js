@@ -31,6 +31,7 @@ module.exports = class Socket {
     }
 
     broadcastNote(id, action){
+        console.log('in socket, broadcast note to', id, action);
         let recipientSocket = this.getSocketId(id);
         this.sckt.broadcast.to(recipientSocket).emit('notification', {action});
     }
@@ -43,14 +44,15 @@ module.exports = class Socket {
             this._connectedUsers.push({id, socket_id});
             this.saveStatusOnline(id);
         }
+        console.log('all users now', this._connectedUsers);
     }
 
     broadcastChat(socket, data){
         let recipientSocket = this.getSocketId(data.recipient_id);
         socket.broadcast.to(recipientSocket).emit('chat', data);
-        console.log('sending data to', recipientSocket, 'with uid', data.recipient_id);
+        console.log('sending chat data to', recipientSocket, 'with uid', data.recipient_id);
         //for some reason, not all users get msg if (this.sckt is used, this is why socket passed in this fnc);
-        this.broadcastNote(data.recipient_id, 'You have new message');
+        // this.broadcastNote(data.recipient_id, 'You have new message');
     }
 
     disconnectUser(socket_id){

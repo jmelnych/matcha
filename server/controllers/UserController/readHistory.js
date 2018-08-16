@@ -1,10 +1,10 @@
 module.exports = (req, res) => {
-    let {id} = req.body;
-    let db = req.app.get('db'),
-        promise = db.run(`UPDATE messages
+    let id = req.session.id,
+    db = req.app.get('db'),
+        promise = db.run(`UPDATE history
                         SET read = 1
                         WHERE
-                        recipient_id = ? AND author_id = ?`, [req.session.id, id]);
+                        second_id = ?`, id);
     promise.then(() => {
         res.send('success');
     }).catch(e => res.rend(e));

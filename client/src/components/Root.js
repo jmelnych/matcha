@@ -19,24 +19,37 @@ import OtherUserProfile from './Profile/OtherUserProfile'
 import Notifications from './Notifications'
 import openSocket from 'socket.io-client'
 import {getBaseURL} from '../config'
-import {getMessageHistory} from '../actions/chatActions'
-import {fetchHistory} from '../actions/historyActions'
+import {getMessageHistory, receiveChatMsg} from '../actions/chatActions'
+import {fetchHistory, receiveHistoryNote} from '../actions/historyActions'
 
 export const socket = openSocket.connect(getBaseURL());
 
 class Root extends Component {
+    constructor(props){
+        super(props);
+        const {receiveChatMsg, receiveHistoryNote} = this.props;
+        /* LISTEN for new incoming chat messages */
+        socket.on('chat', (data) => {
+            receiveChatMsg(data);
+            /* LISTEN for new history notifications */
+            socket.on('notification', (data) => {
+                console.log('incoming notification', data);
+                receiveHistoryNote(data);
+            });
+        });
+    }
     componentDidMount() {
         this.props.isAuth();
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.user.id !== this.props.user.id){
+        if (prevProps.user.id !== this.props.user.id && this.props.user.id){
             /* SETUP new socket connection */
             const {id} = this.props.user;
             socket.emit('users', id);
             /* GRAB chat messages */
             this.props.getMessageHistory(id);
-            this.props.fetchHistory();
+            this.props.fetchHistory(id);
         }
     }
     render() {
@@ -70,7 +83,9 @@ function mapDispatchToProps(dispatch) {
     return {
         isAuth: () => dispatch(getUser()),
         getMessageHistory: (id) => dispatch(getMessageHistory(id)),
-        fetchHistory: () => dispatch(fetchHistory())
+        fetchHistory: (id) => dispatch(fetchHistory(id)),
+        receiveHistoryNote: (data) => dispatch(receiveHistoryNote(data)),
+        receiveChatMsg: (data) => dispatch(receiveChatMsg(data))
     }
 };
 

@@ -9,6 +9,7 @@ module.exports = (req, res) => {
                                  history.first_id,
                                  history.second_id,
                                  history.action,
+                                 history.read,
                                  history.added,
                                  users.id as user_id,
                                  users.firstname,
@@ -26,7 +27,6 @@ module.exports = (req, res) => {
                 row.action = row.first_id === id ?
                     'I ' + row.action : row.action + ' Me';
                 delete row.first_id;
-                delete row.second_id;
                 return row;
             });
             res.send(history);

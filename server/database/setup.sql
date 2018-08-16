@@ -93,6 +93,7 @@ CREATE TABLE history
   second_id INTEGER,
   `action`  VARCHAR(8) NOT NULL
     CHECK (`action` IN ('see', 'like', 'match', 'ban', 'break up', 'fake')),
+  read         TINYINT(1)          DEFAULT 0 NOT NULL,
   added     DATETIME            DEFAULT (datetime('now','localtime'))
 );
 

@@ -4,23 +4,11 @@ import {Layout, Menu, Icon} from 'antd'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logoutUser} from '../actions/userActions'
-import {setNote} from '../actions/chatActions'
-import {socket} from "./Root";
 import PropTypes from 'prop-types'
 
 class HeaderNav extends Component {
-    componentDidMount() {
-        socket.on('notification', (data) => {
-            //this.props.setNote(data);TODO:listen to notes in root
-        });
-    }
-
     logout = () => {
         this.props.logoutUser();
-    };
-
-    readNotes = () => {
-        this.props.cleanNotes();
     };
 
     render() {
@@ -54,8 +42,8 @@ class HeaderNav extends Component {
                 tab = '5';
             }
         };
-        const unreadMsg = this.props.chat.unread || [];
-        const unreadNotes = []; //TODO: grab notes from my store
+        const unreadMsg = this.props.chatUnread || [];
+        const unreadNotes = this.props.historyUnread || [];
     return (
       <div>
           <label className="toggle-menu">☰ Menu</label>
@@ -78,7 +66,7 @@ class HeaderNav extends Component {
                       <span className="nav-note"
                             style = {unreadMsg.length && tab !== '4' ? navNoteExistStyle : navNoteNoneStyle}>&#9679;</span>
                       <Icon type="message" />Messenger</Link></Menu.Item>
-                  <Menu.Item key="5" onClick={this.readNotes}><Link to='/notifications' style={linkStyle}>
+                  <Menu.Item key="5"><Link to='/notifications' style={linkStyle}>
                       <span className="nav-note"
                             style = {unreadNotes.length && tab !== '5' ? navNoteExistStyle : navNoteNoneStyle}>&#9679;</span>
                       <Icon type="notification" /> Notifications</Link></Menu.Item>
@@ -93,13 +81,17 @@ class HeaderNav extends Component {
   }
 };
 
-function mapStateToProps({user, chat}) { //TODO: grab notes from my store
-    return {user, chat};
+function mapStateToProps({user, chat, history}) {
+    return {user,
+            chatUnread: chat.unread,
+            historyUnread: history.unread};
 };
 
 HeaderNav.propTypes = {
     user: PropTypes.object,
-    logoutUser: PropTypes.func.isRequired
+    chatUnread: PropTypes.array,
+    historyUnread: PropTypes.array,
+    logoutUser: PropTypes.func
 };
 
-export default connect(mapStateToProps, {logoutUser, setNote})(HeaderNav);
+export default connect(mapStateToProps, {logoutUser})(HeaderNav);

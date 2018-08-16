@@ -1,6 +1,6 @@
 import {FETCH_MATCH_PEOPLE, SET_CHAT_HISTORY,
     ADD_CHAT_MESSAGE, RECEIVE_CHAT_MESSAGE, UPDATE_USER_STATUS,
-    SET_CHAT_NOTE, SET_HISTORY_NOTE, CLEAN_CHAT_NOTES, SET_UNREAD_MESSAGES} from './types'
+    SET_CHAT_NOTE, CLEAN_CHAT_NOTES, SET_UNREAD_MESSAGES} from './types'
 import axios from 'axios'
 import {getBaseURL} from '../config'
 
@@ -27,9 +27,7 @@ export const getMessageHistory = (id) => dispatch => {
               type: SET_UNREAD_MESSAGES,
               payload: id
           })
-      }
-    )
-
+      })
 };
 
 export const addChatMsg = data => dispatch => {
@@ -40,18 +38,19 @@ export const addChatMsg = data => dispatch => {
         }))
 };
 
-export const receiveChatMsg = data => dispatch => {
-    dispatch({
+export const receiveChatMsg = data => {
+    return {
         type: RECEIVE_CHAT_MESSAGE,
         payload: data
-    })
+    }
+
 };
 
-export const updateChatStatus = data => dispatch => {
-    dispatch({
+export const updateChatStatus = data =>  {
+    return {
         type: UPDATE_USER_STATUS,
         payload: data
-    })
+    }
 };
 
 export const cleanChatNotes = id => dispatch => {
@@ -62,24 +61,4 @@ export const cleanChatNotes = id => dispatch => {
         }))
 };
 
-// export const setNote = (data) => {
-//     if (data.action === 'You have new message') {
-//         return {
-//             type: SET_CHAT_NOTE,
-//             payload: data
-//         }
-//     } else {
-//         return {
-//             type: SET_HISTORY_NOTE,
-//             payload: data
-//
-//         }
-//     }
-// };
 
-
-// export const cleanNotes = () => {
-//     return {
-//         type: CLEAN_NOTES
-//     }
-// }

@@ -10,7 +10,7 @@ const UserList = (props) => {
             `last seen ${moment(user.last_seen).fromNow()}`;
     };
 
-    const {list} = props;
+    const {list} = props || [];
     return (
         <ul className="list-wrap">
             {list.map((user) =>

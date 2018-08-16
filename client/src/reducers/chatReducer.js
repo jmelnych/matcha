@@ -1,6 +1,6 @@
 import shortid from 'shortid'
 import {SET_CHAT_HISTORY, ADD_CHAT_MESSAGE, RECEIVE_CHAT_MESSAGE,
-    SET_HISTORY_NOTE, SET_CHAT_NOTE, SET_UNREAD_MESSAGES, CLEAN_CHAT_NOTES
+    SET_UNREAD_MESSAGES, CLEAN_CHAT_NOTES
     } from "../actions/types"
 
 const initialState = {
@@ -53,13 +53,6 @@ export default function (state = initialState, action) {
                 ...state,
                 unread: state.unread.filter(message => message.author_id !== action.payload)
             };
-        // case SET_CHAT_NOTE:
-        //         return [...state, action.payload];
-        // case CLEAN_NOTES:
-        //     return {
-        //         ...state,
-        //         unread_notes: state.unread_notes.slice(0, 0)
-        //     };
         default:
             return state;
     }
