@@ -18,8 +18,8 @@ module.exports = (req, res) => {
         };
     promise.then((response) => {
         let mysocket = req.app.get('socket'),
-            banMe    = relationshipHistory(response, 'ban', first_id);
-        if (banMe) {
+            Iban     = relationshipHistory(response, 'ban', second_id);
+        if (Iban === false) {
             promise = db.create('history', 'first_id, second_id, `action`', [first_id, second_id, 'see']);
             promise.then(() => {
                 mysocket.broadcastNote(second_id, 'Your page have been viewed');
