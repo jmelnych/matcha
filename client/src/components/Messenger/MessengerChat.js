@@ -15,14 +15,6 @@ class MessengerChat extends Component {
         chatWith: {},
         scrollAtBottom: false
     };
-    componentDidMount(){
-        const {cleanChatNotes} = this.props;
-        /* clean messages on opening chat with the person */
-        if (this.state.chatWith.id){
-            //TODO: clean in case there are any unread msgs
-            cleanChatNotes(this.state.chatWith.id);
-        }
-    };
 
     componentWillReceiveProps(nextProps){
         if (nextProps.chatWith.id !== this.state.chatWith.id){
