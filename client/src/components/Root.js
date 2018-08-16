@@ -30,12 +30,13 @@ class Root extends Component {
         const {receiveChatMsg, receiveHistoryNote} = this.props;
         /* LISTEN for new incoming chat messages */
         socket.on('chat', (data) => {
+            console.log('root chat listener', data);
             receiveChatMsg(data);
-            /* LISTEN for new history notifications */
-            socket.on('notification', (data) => {
-                console.log('incoming notification', data);
-                receiveHistoryNote(data);
-            });
+        });
+        /* LISTEN for new history notifications */
+        socket.on('notification', (data) => {
+            console.log('incoming notification', data);
+            receiveHistoryNote(data);
         });
     }
     componentDidMount() {
@@ -60,13 +61,13 @@ class Root extends Component {
                 <HeaderNav/>
                 <Switch>
                     <Route exact path='/' component={this.props.auth ? Profile : Home}/>
-                    <Route exact path='/search' component={Search}/> //TODO: handle /search/
-                    <Route exact path='/match' component={Match}/>
-                    <Route exact path='/messenger' component={Messenger}/>
+                    <Route exact path='/search' component={this.props.auth ? Search : NotFound}/>
+                    <Route exact path='/match' component={this.props.auth ? Match : NotFound}/>
+                    <Route exact path='/messenger' component={this.props.auth ? Messenger : NotFound}/>
                     <Route exact path='/activate/:token' component={Activation} />
                     <Route exact path='/password/:token' component={SetPassword} />
-                    <Route exact path='/user/:id' component={OtherUserProfile} />
-                    <Route exact path='/notifications' component={Notifications} />
+                    <Route exact path='/user/:id' component={this.props.auth ? OtherUserProfile : NotFound} />
+                    <Route exact path='/notifications' component={this.props.auth ? Notifications : NotFound} />
                     <Route component={NotFound}/>
                 </Switch>
                 <Footer>&copy; by imelnych & pkolomiy</Footer>
