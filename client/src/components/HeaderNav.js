@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logoutUser} from '../actions/userActions'
 import PropTypes from 'prop-types'
+import {socket} from "./Root";
 
 class HeaderNav extends Component {
     logout = () => {
@@ -70,8 +71,8 @@ class HeaderNav extends Component {
                       <span className="nav-note"
                             style = {unreadNotes.length && tab !== '5' ? navNoteExistStyle : navNoteNoneStyle}>&#9679;</span>
                       <Icon type="notification" /> Notifications</Link></Menu.Item>
-                  <Menu.Item key="6"><Link to='/' onClick={this.logout} style={linkStyle}>
-                      <Icon type="logout" />Logout</Link></Menu.Item>
+                  <Menu.Item key="6" onClick={this.logout} style={linkStyle}>
+                      <Icon type="logout" />Logout</Menu.Item>
               </Menu>
               }
           </Header>

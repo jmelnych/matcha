@@ -14,6 +14,7 @@ module.exports = class Socket {
                 this.broadcastChat(socket, data);
             });
             socket.on('disconnect', () => {
+                console.log('test dic');
                 this.disconnectUser(socket.id);
             });
             this.sckt = socket;
@@ -64,6 +65,12 @@ module.exports = class Socket {
         }
         this._connectedUsers = this._connectedUsers.filter(user => user.socket_id !== socket_id);
         console.log('remaining users', this._connectedUsers);
+    }
+
+    logoutDisconnectUser(id){
+        console.log('user id', id);
+        let recipientSocket = this.getSocketId(id);
+        this.disconnectUser(recipientSocket);
     }
 
     saveStatusOnline(id){

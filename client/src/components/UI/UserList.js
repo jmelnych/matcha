@@ -11,6 +11,7 @@ const UserList = (props) => {
     };
 
     const list = props.list || [];
+    console.log(list);
     return (
         <ul className="list-wrap">
             {list.map((user) =>

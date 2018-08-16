@@ -3,8 +3,8 @@ import { Input, Button } from 'antd'
 import { socket } from '../Root'
 import {connect} from 'react-redux'
 import { addChatMsg, cleanChatNotes, receiveChatMsg } from '../../actions/chatActions'
-import moment from 'moment'
 import ChatUserAvatar from "../UI/UserAvatar";
+import MessagesList from '../UI/MessagesList'
 import PropTypes from 'prop-types'
 
 const { TextArea } = Input;
@@ -115,20 +115,7 @@ render() {
                     </div>
                 </div>
                 <div className="chat-history">
-
-                <ul className="chat-history-list">
-            {messages.map(message =>
-                <li key={message.id} className="history-list-message">
-                <div className="message-data">
-                <span className="message-data-name">{currentUserId !== message.author_id ? `${chatWith.username}`
-                    : 'me'} </span>
-                <span className="message-data-time">{moment(message.added).fromNow()}</span>
-                </div>
-                <div className={"message " + (currentUserId !== message.author_id ? "other-message float-right"
-                : "my-message")}>{message.message}</div>
-                </li>
-                )}
-                </ul>
+                <MessagesList messages={messages} currentUserId={currentUserId} username={chatWith.username}/>
             </div>
             <div className="chat-message">
             <TextArea value={this.state.input} rows={1} placeholder ="Type your message"
