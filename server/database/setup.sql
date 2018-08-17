@@ -398,5 +398,4 @@ VALUES (1, 2, 'match'),
        (1, 7, 'match'),
        (1, 8, 'match'),
        (1, 9, 'match'),
-       (1, 10, 'match'),
-       (1, 11, 'match');
+       (1, 10, 'match');
