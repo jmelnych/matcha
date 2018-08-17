@@ -104,8 +104,8 @@ render() {
               <Form.Item {...formItemLayout} label='Preferences'> {
                   getFieldDecorator('preference')(
                   <Select >
-                      <Select.Option value="men">Men</Select.Option>
-                      <Select.Option value="women">Women</Select.Option>
+                      <Select.Option value="male">Men</Select.Option>
+                      <Select.Option value="female">Women</Select.Option>
                       <Select.Option value="both">Men and Women</Select.Option>
                   </Select>)}
               </Form.Item>
