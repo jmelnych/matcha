@@ -189,6 +189,7 @@ VALUES ('Alternative Music'),
        ('Oracle'),
        ('Redis'),
        ('Cassandra');
+
 INSERT INTO users (email, username, firstname, lastname, password, activation, gender, preference, personality, bday, location, avatar)
 VALUES
        ('test@mail.com', 'user', 'Test', 'User', 'sha1$6ccf8120$1$6565287932415fe3adca37dbaada1c3d64409f94', 1, 'male', 'both', 'ISFP', '1996-01-30T00:00:00+02:00', '{"city":"Kiev","country":"Ukraine","lat":50.4547,"lng":30.5238}', 'smile.jpg'),
@@ -387,3 +388,15 @@ VALUES
        ('oprah@mail.com', 'user', 'Oprah','William', 'sha1$6ccf8120$1$6565287932415fe3adca37dbaada1c3d64409f94', 1, 'female', 'male', 'INTP', '1985-09-01T00:00:00+02:00', '{"city":"Kiev","country":"Ukraine","lat":50.4547,"lng":30.5238}', 'women/woman99.jpg');
 
 -- all users password = '1'
+
+INSERT INTO history (first_id, second_id, action)
+VALUES (1, 2, 'match'),
+       (1, 3, 'match'),
+       (1, 4, 'match'),
+       (1, 5, 'match'),
+       (1, 6, 'match'),
+       (1, 7, 'match'),
+       (1, 8, 'match'),
+       (1, 9, 'match'),
+       (1, 10, 'match'),
+       (1, 11, 'match');
