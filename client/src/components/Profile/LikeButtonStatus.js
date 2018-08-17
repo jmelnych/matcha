@@ -3,6 +3,7 @@ import {likeUser, unlikeUser} from '../../actions/userActions'
 import {connect} from 'react-redux'
 import {Button, Popover, Popconfirm} from 'antd'
 import PropTypes from 'prop-types'
+import { socket } from '../Root'
 
 class LikeButtonStatus extends Component {
     state = {
@@ -96,7 +97,7 @@ class LikeButtonStatus extends Component {
             });
             return;
         }
-        const relatStatus = props.relationship;
+        const relatStatus = props.otherUser.relationship;
         if (relatStatus.includes('I like')) {
             this.paintButton('i-like');
         } else if (relatStatus.includes('like Me')) {
@@ -111,19 +112,49 @@ class LikeButtonStatus extends Component {
     };
 
     like = () => {
-        const {id} = this.props.info;
+        const {id} = this.props.otherUser.info;
         const relationship = this.state.buttonClass;
         if (relationship === 'no-likes-button' || relationship === 'broken-button') {
             this.props.likeUser(id);
+            const data = {
+                recipient_id: id,
+                action: 'like Me',
+                added: new Date(),
+                author_id: this.props.currentUser.id,
+                firstname: this.props.currentUser.firstname,
+                lastname: this.props.currentUser.lastname,
+                avatar: this.props.currentUser.avatar
+            };
+            socket.emit('notification', data);
             this.paintButton('i-like');
         } else if (relationship === 'i-liked-button'){
             this.props.unlikeUser(id);
             this.paintButton();
         } else if ( relationship === 'me-liked-button') {
             this.props.likeUser(id);
+            const data = {
+                recipient_id: id,
+                action: 'match Me',
+                added: new Date(),
+                author_id: this.props.currentUser.id,
+                firstname: this.props.currentUser.firstname,
+                lastname: this.props.currentUser.lastname,
+                avatar: this.props.currentUser.avatar
+            };
+            socket.emit('notification', data);
             this.paintButton('match');
         } else if (relationship === 'match-button') {
             this.props.unlikeUser(id);
+            const data = {
+                recipient_id: id,
+                action: 'break up Me',
+                added: new Date(),
+                author_id: this.props.currentUser.id,
+                firstname: this.props.currentUser.firstname,
+                lastname: this.props.currentUser.lastname,
+                avatar: this.props.currentUser.avatar
+            };
+            socket.emit('notification', data);
             this.paintButton('broken');
         }
     };
@@ -162,8 +193,11 @@ render() {
     );
   }
 }
-function mapStateToProps({otherUser}){
-    return otherUser.user;
+function mapStateToProps({otherUser, user}){
+    return {
+        otherUser: otherUser.user,
+        currentUser: user.user
+    };
 };
 
 function mapDispatchToProps(dispatch) {

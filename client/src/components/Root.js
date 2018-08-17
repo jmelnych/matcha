@@ -30,12 +30,12 @@ class Root extends Component {
         const {receiveChatMsg, receiveHistoryNote} = this.props;
         /* LISTEN for new incoming chat messages */
         socket.on('chat', (data) => {
-            console.log('root chat listener', data);
+            //console.log('root chat listener', data);
             receiveChatMsg(data);
         });
         /* LISTEN for new history notifications */
         socket.on('notification', (data) => {
-            console.log('incoming notification', data);
+            //console.log('root incoming notification', data);
             receiveHistoryNote(data);
         });
     }
@@ -56,7 +56,6 @@ class Root extends Component {
     render() {
         const {Footer} = Layout;
         return (
-            //TODO: render pages only when user logged  in
             <Layout className="App">
                 <HeaderNav/>
                 <Switch>

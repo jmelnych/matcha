@@ -5,7 +5,6 @@ module.exports = class Socket {
         this.db = db;
         this.io = socket(server);
         this._connectedUsers = [];
-        this.sckt = null;
         this.io.on('connection', (socket) => {
             socket.on('users', id => {
                 this.addConnectedUser(socket.id, id);
@@ -13,17 +12,18 @@ module.exports = class Socket {
             socket.on('chat', (data) => {
                 this.broadcastChat(socket, data);
             });
+            socket.on('notification', (data) => {
+               this.broadcastNotification(socket, data);
+            });
             socket.on('disconnect', () => {
-                console.log('test dic');
                 this.disconnectUser(socket.id);
             });
-            this.sckt = socket;
         });
     };
 
     getSocketId(id){
         let recipient, recipientSocket;
-        recipient = this._connectedUsers.filter(user => user.id === id);
+        recipient = this._connectedUsers.filter(user => user.id === Number(id));
         if (recipient.length) {
             recipientSocket = recipient[0].socket_id;
             return recipientSocket;
@@ -31,10 +31,16 @@ module.exports = class Socket {
         return false;
     }
 
-    broadcastNote(id, action){
-        console.log('in socket, broadcast note to', id, action);
-        let recipientSocket = this.getSocketId(id);
-        this.sckt.broadcast.to(recipientSocket).emit('notification', {action});
+    broadcastChat(socket, data){
+        let recipientSocket = this.getSocketId(data.recipient_id);
+        console.log('sending chat data to', recipientSocket, 'with uid', data.recipient_id);
+        socket.broadcast.to(recipientSocket).emit('chat', data);
+    }
+
+    broadcastNotification(socket, data){
+        let recipientSocket = this.getSocketId(data.recipient_id);
+        console.log('sending chat data to', recipientSocket, 'with uid', data.recipient_id);
+        socket.broadcast.to(recipientSocket).emit('notification', data);
     }
 
     addConnectedUser(socket_id, id){
@@ -45,15 +51,7 @@ module.exports = class Socket {
             this._connectedUsers.push({id, socket_id});
             this.saveStatusOnline(id);
         }
-        console.log('all users now', this._connectedUsers);
-    }
-
-    broadcastChat(socket, data){
-        let recipientSocket = this.getSocketId(data.recipient_id);
-        socket.broadcast.to(recipientSocket).emit('chat', data);
-        console.log('sending chat data to', recipientSocket, 'with uid', data.recipient_id);
-        //for some reason, not all users get msg if (this.sckt is used, this is why socket passed in this fnc);
-        // this.broadcastNote(data.recipient_id, 'You have new message');
+        console.log('all users now connected', this._connectedUsers);
     }
 
     disconnectUser(socket_id){
@@ -64,11 +62,11 @@ module.exports = class Socket {
             this.saveStatusOffline(id);
         }
         this._connectedUsers = this._connectedUsers.filter(user => user.socket_id !== socket_id);
-        console.log('remaining users', this._connectedUsers);
+        console.log('remaining users after disconnect', this._connectedUsers);
     }
 
     logoutDisconnectUser(id){
-        console.log('user id', id);
+        console.log('logout user id', id);
         let recipientSocket = this.getSocketId(id);
         this.disconnectUser(recipientSocket);
     }

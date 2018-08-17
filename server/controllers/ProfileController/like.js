@@ -10,7 +10,6 @@ module.exports = (req, res) => {
         return;
     }
     let db                  = req.app.get('db'),
-        mysocket            =  req.app.get('socket'),
         relationshipHistory = req.app.get('relationshipHistory'),
         promise             = db.getHistory(first_id, second_id, true),
         error               = (e) => {
@@ -48,10 +47,8 @@ module.exports = (req, res) => {
 
         if (!Ilike && !likeMe && !match && !ban) {
             make('like');
-            mysocket.broadcastNote(second_id, 'Your profile liked another user');
         } else if (!Ilike && likeMe) {
             make('match');
-            mysocket.broadcastNote(second_id, 'You have a new match!');
         } else {
             res.send('No');
         }

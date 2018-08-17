@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import PagePagination from './UI/PagePagination'
 import UserAvatar from './UI/UserAvatar'
 import {cleanHistoryNotes} from '../actions/historyActions'
+import orderBy from 'lodash/orderBy'
 
 class Notifications extends Component {
     componentDidMount(){
@@ -56,9 +57,10 @@ class Notifications extends Component {
     };
 
 render() {
-        let history = this.props.history.all_history || [];
-        const totalLength = history.length;
-        history = history.slice(this.state.rangeL, this.state.rangeU);
+    let history = this.props.history.all_history || [];
+    history = orderBy(history, ['added'], ['desc']);
+    const totalLength = history.length;
+    history = history.slice(this.state.rangeL, this.state.rangeU);
     return (
       <div className="container-center top">
           {history.map(activity => (

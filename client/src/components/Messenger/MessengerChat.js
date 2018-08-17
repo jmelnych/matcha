@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Input, Button } from 'antd'
 import { socket } from '../Root'
 import {connect} from 'react-redux'
-import { addChatMsg, cleanChatNotes, receiveChatMsg } from '../../actions/chatActions'
+import { addChatMsg, cleanChatNotes } from '../../actions/chatActions'
 import ChatUserAvatar from "../UI/UserAvatar";
 import MessagesList from '../UI/MessagesList'
 import PropTypes from 'prop-types'
@@ -116,12 +116,12 @@ render() {
                 </div>
                 <div className="chat-history">
                 <MessagesList messages={messages} currentUserId={currentUserId} username={chatWith.username}/>
-            </div>
-            <div className="chat-message">
-            <TextArea value={this.state.input} rows={1} placeholder ="Type your message"
-            onKeyDown={this.onEnterPress} onChange={(e) => this.updateText(e.target.value)}/>
-            <Button onClick={this.sendMsg} className="center-button-chat" type="primary">Send</Button>
-            </div>
+                </div>
+                <div className="chat-message">
+                <TextArea value={this.state.input} rows={1} placeholder ="Type your message"
+                onKeyDown={this.onEnterPress} onChange={(e) => this.updateText(e.target.value)}/>
+                <Button onClick={this.sendMsg} className="center-button-chat" type="primary">Send</Button>
+                </div>
         </div>
         )}
         </div>
@@ -139,7 +139,6 @@ function mapStateToProps({user, chat}) {
 function mapDispatchToProps(dispatch) {
     return {
         addChatMsg: (data) => dispatch(addChatMsg(data)),
-        receiveChatMsg: (data) => dispatch(receiveChatMsg(data)),
         cleanChatNotes: (withId) => dispatch(cleanChatNotes(withId))
     }
 }
@@ -147,7 +146,6 @@ function mapDispatchToProps(dispatch) {
 MessengerChat.propTypes = {
     user: PropTypes.object,
     chat: PropTypes.array,
-    addChatMsg: PropTypes.func.isRequired,
-    receiveChatMsg: PropTypes.func.isRequired
+    addChatMsg: PropTypes.func.isRequired
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MessengerChat);

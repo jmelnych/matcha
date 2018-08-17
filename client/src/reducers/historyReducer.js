@@ -24,14 +24,14 @@ export default function (state = initialState, action) {
             let newHistory = {
                 history_id: shortid.generate(),
                 second_id: 1,
-                action: action.payload,
+                action: action.payload.action,
                 read: 0,
-                added: new Date(),
-                user_id: 1,
-                firstname: 'John',
-                lastname: 'Doe',
-                avatar: "default.png"
-            }
+                added: action.payload.added,
+                user_id: action.payload.author_id,
+                firstname: action.payload.firstname,
+                lastname: action.payload.lastname,
+                avatar: action.payload.avatar
+            };
             return {
                 ...state,
                 all_history: state.all_history.concat(newHistory),

@@ -8,21 +8,32 @@ import OtherUserProfileFeedPosts from './OtherUserProfileFeedPosts'
 import ProfileUserTitleUI from '../UI/ProfileUserTitle'
 import {getOtherUser, seeNotify} from '../../actions/userActions'
 import PropTypes from 'prop-types'
+import { socket } from '../Root'
 
 class OtherUserProfile extends Component {
     componentDidMount() {
         const {id} = this.props.match.params;
         this.props.getOtherUser(id);
         this.props.seeNotify(id);
+        const data = {
+            recipient_id: id,
+            action: 'see Me',
+            added: new Date(),
+            author_id: this.props.currentUser.id,
+            firstname: this.props.currentUser.firstname,
+            lastname: this.props.currentUser.lastname,
+            avatar: this.props.currentUser.avatar
+        };
+        socket.emit('notification', data);
     };
 
     render() {
         const posts = this.props.posts || [];
-        const user = this.props.info || {firstname: 'John', lastname: 'Doe', username: 'johndoe'};
+        const otherUser = this.props.otherUser || {firstname: 'John', lastname: 'Doe', username: 'johndoe'};
         return (<div>
                 <OtherUserProfileHead/>
                 <div className="profile-main">
-                    <ProfileUserTitleUI user={user}/>
+                    <ProfileUserTitleUI user={otherUser}/>
                     <div className="container-flex-center">
                         {!!posts.length && (<div className="profile-main-feed">
                             <h3>Posts</h3>
@@ -51,8 +62,11 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-function mapStateToProps({otherUser}){
-    return otherUser.user;
+function mapStateToProps({otherUser, user}){
+    return {
+        otherUser: otherUser.user.info,
+        currentUser: user.user
+    };
 }
 
 OtherUserProfile.propTypes = {

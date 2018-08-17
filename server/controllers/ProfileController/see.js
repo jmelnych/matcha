@@ -17,12 +17,10 @@ module.exports = (req, res) => {
             res.send(e);
         };
     promise.then((response) => {
-        let mysocket = req.app.get('socket'),
-            Iban     = relationshipHistory(response, 'ban', second_id);
+        let Iban     = relationshipHistory(response, 'ban', second_id);
         if (Iban === false) {
             promise = db.create('history', 'first_id, second_id, `action`', [first_id, second_id, 'see']);
             promise.then(() => {
-                mysocket.broadcastNote(second_id, 'Your page have been viewed');
                 res.send('I see you');
             }).catch(error);
         } else {
