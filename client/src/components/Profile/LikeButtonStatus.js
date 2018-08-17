@@ -12,7 +12,8 @@ class LikeButtonStatus extends Component {
         brokenHeart: false,
         popConfirmText: '',
         iDidBan: false,
-        banMe: false
+        banMe: false,
+        forbidToLike: false
     };
 
     paintButton = (status) => {
@@ -97,6 +98,11 @@ class LikeButtonStatus extends Component {
             });
             return;
         }
+        if (props.otherUser.info.avatar === 'default.png') {
+            this.setState({
+                forbidToLike: true
+            })
+        }
         const relatStatus = props.otherUser.relationship;
         if (relatStatus.includes('I like')) {
             this.paintButton('i-like');
@@ -177,20 +183,36 @@ class LikeButtonStatus extends Component {
         return (this.state.iDidBan || this.state.banMe);
     };
 
+    ForbiddenToLike = () => {
+       return this.state.forbidToLike;
+    };
+
 render() {
-    return (
-        <Popover className="pop-relationship" placement="top" title="Your relationship status"
-                 content={this.state.popOverText} trigger="hover">
-            {this.state.buttonClass === 'match-button' ? (
-                <Popconfirm title={this.state.popConfirmText} placement="bottom"
-                            onConfirm={this.like} onCancel={this.cancel} okText="Yes" cancelText="No">
-                    <Button className={`like-button ${this.state.buttonClass}`} disabled={this.isBanned()}
-                            icon={this.checkIcon()}/></Popconfirm>
-            ) : (<Button className={`like-button ${this.state.buttonClass}`} onClick={this.like}
-                        disabled={this.isBanned()}
-                        icon={this.checkIcon()}/>)}
-        </Popover>
-    );
+    if (this.state.forbidToLike) {
+        return (
+            <Popover className="pop-relationship" placement="top" title="Your relationship status"
+                     content="You cannot like the user with default avatar" trigger="hover">
+            <Button className={`like-button no-likes-button`}
+                           disabled={true}
+                           icon="heart"/>
+            </Popover>
+            )
+    } else {
+        return (
+            <Popover className="pop-relationship" placement="top" title="Your relationship status"
+                     content={this.state.popOverText} trigger="hover">
+                {this.state.buttonClass === 'match-button' ? (
+                    <Popconfirm title={this.state.popConfirmText} placement="bottom"
+                                onConfirm={this.like} onCancel={this.cancel} okText="Yes" cancelText="No">
+                        <Button className={`like-button ${this.state.buttonClass}`} disabled={this.isBanned()}
+                                icon={this.checkIcon()}/></Popconfirm>
+                ) : (<Button className={`like-button ${this.state.buttonClass}`} onClick={this.like}
+                            disabled={this.isBanned()}
+                            icon={this.checkIcon()}/>)}
+            </Popover>
+        );
+
+    }
   }
 }
 function mapStateToProps({otherUser, user}){
