@@ -142,7 +142,6 @@ ul.list-wrap{
 }
 
 .profile-main-info-list li{
-  display: flex;
   position: relative;
   padding: 10px;
   color: rgba(0,21,41, 1);
@@ -486,11 +485,15 @@ h4{
   }
   .profile-post-area{
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
   }
   .post-button {
     position: relative;
     width: 100px;
-    margin: 20px 0 0 0;
+    right: 0;
+    margin: 0 0 20px;
   }
 }
 

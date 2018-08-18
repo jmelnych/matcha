@@ -1,10 +1,6 @@
 const hash = require('password-hash');
 
 module.exports = (req, res) => {
-    if (req.session.id === undefined) {
-        res.send('Need login');
-        return;
-    }
     let {token, password} = req.body,
         db                = req.app.get('db'),
         error             = (e) => {
@@ -16,6 +12,8 @@ module.exports = (req, res) => {
             db.getByUnique('users', 'id', req.session.id);
 
     promise.then((response) => {
+        console.log('body', req.body);
+        console.log('resp', response);
         if (!response || !response.activation || !password) {
             res.send('404');
         } else if (!token) {

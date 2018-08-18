@@ -27,10 +27,15 @@
 
 @media all and (max-width: 586px){
     .notification-plate{
+        height: 125px;
         width: 300px;
+        padding: 15px;
     }
-    .notification-plate .time{
-        left: 10%;
+    .notification-plate .time {
+        left : 10%;
+    }
+    .avatar, .activity, .other-user {
+        margin-top: 25px;
     }
 }
 
