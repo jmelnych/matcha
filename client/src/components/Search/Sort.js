@@ -1,27 +1,30 @@
 import React, { Component } from 'react'
-import { Radio } from 'antd'
+import {Select} from 'antd'
 import PropTypes from 'prop-types'
 
 
 class Sort extends Component {
 render() {
-    const RadioButton = Radio.Button;
-    const RadioGroup = Radio.Group;
     return (
         <div className="sort-container">
             <span className="search-sort-title">Sort by </span>
-            <RadioGroup onChange={this.props.handleSort} defaultValue="rating">
-                <RadioButton value="rating">Rating</RadioButton>
-                <RadioButton value="age">Age</RadioButton>
-                <RadioButton value="radius">Distance</RadioButton>
-            </RadioGroup>
+            <Select onChange={this.props.handleSortType} defaultValue="rating">
+                <Select.Option value="rating">Rating</Select.Option>
+                <Select.Option value="age">Age</Select.Option>
+                <Select.Option value="radius">Distance</Select.Option>
+            </Select>
+            <Select onChange={this.props.handleSortDirection} defaultValue="asc">
+                <Select.Option value="asc">↑</Select.Option>
+                <Select.Option value="desc">↓</Select.Option>
+            </Select>
         </div>
     );
   }
 }
 
 Sort.propTypes = {
-    handleSort: PropTypes.func.isRequired
+    handleSortType: PropTypes.func.isRequired,
+    handleSortDirection: PropTypes.func.isRequired
 };
 
 export default Sort;

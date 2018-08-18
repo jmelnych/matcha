@@ -15,7 +15,7 @@ class SearchFilter extends Component {
             tags: [],
             age: [17, 80],
             radius: null,
-            order: {'rating': 'desc'}
+            order: {'rating': 'asc'}
         },
         inputVisible: false
     };
@@ -76,12 +76,26 @@ class SearchFilter extends Component {
         }), () => this.filterUsers());
     };
 
-    onChangeSort = (e) => {
-        let sortBy = e.target.value;
+    onChangeSortType = (value) => {
+        console.log('type', value);
+        let sortBy = value;
+        let direction = Object.keys(this.state.filters.order)[0],
+            order = this.state.filters.order;
         this.setState(prevState => ({
             filters: {
                 ...prevState.filters,
-                order: {[sortBy]: 'desc'}
+                order: {[sortBy]: order[direction]}
+            },
+        }), () => this.filterUsers());
+    };
+
+    onChangeSortDirection = (value) => {
+        console.log('dir', value);
+        let sortBy = Object.keys(this.state.filters.order)[0];
+        this.setState(prevState => ({
+            filters: {
+                ...prevState.filters,
+                order: {[sortBy]: value}
             },
         }), () => this.filterUsers());
     };
@@ -98,7 +112,9 @@ render() {
     return (
         <div className="container-nav">
             <h3>Sort results</h3>
-            <Sort handleSort={this.onChangeSort}/>
+            <Sort handleSortType={this.onChangeSortType}
+                  handleSortDirection={this.onChangeSortDirection}
+            />
             <h3>Filter results</h3>
             <div className="filter-block">
                 <span className="filter-title">Gender</span>
