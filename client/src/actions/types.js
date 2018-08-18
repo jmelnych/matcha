@@ -28,3 +28,4 @@ export const CLEAN_HISTORY_NOTES = 'CLEAN_HISTORY_NOTES';
 export const GET_MATCH_USERS = 'GET_MATCH_USERS'; //suggestions
 export const SET_UNREAD_MESSAGES = 'SET_UNREAD_MESSAGES';
 export const SET_UNREAD_HISTORY = 'SET_UNREAD_HISTORY';
+export const ADD_PHOTO = 'ADD_PHOTO';

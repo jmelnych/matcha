@@ -1,4 +1,4 @@
-import {GET_PHOTOS} from "../actions/types";
+import {GET_PHOTOS, ADD_PHOTO} from "../actions/types";
 
 const initialState = [];
 
@@ -9,6 +9,8 @@ export default function (state = initialState, action){
             return action.payload
             }
             return state;
+        case ADD_PHOTO:
+            return state.concat(action.payload)
         default:
             return state
     }

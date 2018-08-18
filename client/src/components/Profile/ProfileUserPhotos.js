@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Upload, Icon, Modal, Popover } from 'antd'
 import {connect} from 'react-redux'
-import {getPhotos, removePhoto} from '../../actions/photosAction'
+import {getPhotos, removePhoto, addPhoto} from '../../actions/photosAction'
 import PropTypes from 'prop-types'
 import {checkTypeSize} from '../../helpers/checkTypeSize'
 
@@ -10,11 +10,15 @@ class ProfileUserPhotos extends Component {
         previewVisible: false,
         previewImage: '',
         photos: [],
-        newFileName: ''
+        oldFileName: ''
     };
 
     componentDidMount() {
+        //console.log('componentDidMo');
         this.props.getPhotos();
+        // this.state.photos.map(photo => {
+        //     require(`../../img/photos/${photo}`);
+        // })
     };
 
     componentDidUpdate(prevProps, prevState){
@@ -24,6 +28,7 @@ class ProfileUserPhotos extends Component {
         if (photos.length > this.state.photos.length) {
         console.log('photos > than state');
             photos.map((photo, index) => {
+                console.log('requesting photos', photo);
                 let src = require(`../../img/photos/${photo}`);
                 let photoObj = {
                     uid: index,
@@ -32,7 +37,6 @@ class ProfileUserPhotos extends Component {
                     name: photo
                 };
                 if (photo.response){
-                    console.log('phtoto respo', photo.response);
                     photoObj.name = photo.response
                 }
                 generatedPhotos.push(photoObj);
@@ -54,7 +58,6 @@ class ProfileUserPhotos extends Component {
 
     handleChange = (photo) => {
         if(photo.file.status === 'removed') {
-            console.log('photot to delet', photo);
             this.props.removePhoto(photo.file.name);
             this.setState(prevState => ({
                 photos:
@@ -62,7 +65,7 @@ class ProfileUserPhotos extends Component {
             );
         } else {
             this.setState({ photos: photo.fileList,
-            newFileName: photo.file.response})
+            oldFileName: photo.file.name})
             if (photo.file.response){
                 this.updateName(photo.file.response);
             }
@@ -70,12 +73,13 @@ class ProfileUserPhotos extends Component {
     };
 
     updateName = (name) => {
-        const donePhotos = this.state.photos.filter(photo => photo.status === 'done');
+        const donePhotos = this.state.photos.filter(photo => photo.status === 'done' && !photo.response);
         const newPhoto = this.state.photos.filter(photo => photo.response);
         newPhoto[0].name = name;
         newPhoto[0].response = null;
+        this.props.addPhoto({'filename': name});
         this.setState({
-            photos: [...donePhotos, newPhoto]
+            photos: [...donePhotos, newPhoto[0]]
         })
     }
 
@@ -135,7 +139,8 @@ function mapStateToProps({photos}) {
 function mapDispatchToProps(dispatch) {
     return {
         getPhotos: () => dispatch(getPhotos()),
-        removePhoto: (name) => dispatch(removePhoto(name))
+        removePhoto: (name) => dispatch(removePhoto(name)),
+        addPhoto: (obj) => dispatch(addPhoto(obj))
     }
 }
 
