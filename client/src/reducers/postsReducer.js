@@ -7,7 +7,10 @@ export default function (state = initialState, action){
         case ADD_POST:
             return [...state, action.payload];
         case GET_POSTS:
-            return action.payload;
+            if (typeof(action.payload === 'object')){
+                return action.payload;
+            }
+            return state;
         case UPDATE_POST:
             let updatePost = state.filter(post => post.id === action.payload.id);
             let updatePostObj = updatePost[0];

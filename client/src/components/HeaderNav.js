@@ -11,6 +11,13 @@ class HeaderNav extends Component {
         this.props.logoutUser();
     };
 
+    toggleBurgerMenu = () => {
+        const inputToggle = document.querySelector('input.toggle-menu');
+        if (inputToggle.checked) {
+            document.querySelector('input.toggle-menu').checked = false;
+        }
+    };
+
     render() {
         const {Header} = Layout;
         const {auth} = this.props.user;
@@ -42,6 +49,7 @@ class HeaderNav extends Component {
                 tab = '5';
             }
         };
+
         const unreadMsg = this.props.chatUnread || [];
         const unreadNotes = this.props.historyUnread || [];
     return (
@@ -55,18 +63,18 @@ class HeaderNav extends Component {
                   mode="horizontal"
                   defaultSelectedKeys={[tab]}
                   style={{ lineHeight: '64px' }}>
-                  <Menu.Item key="1"><Link to='/' style={linkStyle}>
+                  <Menu.Item key="1"><Link to='/' onClick={this.toggleBurgerMenu} style={linkStyle}>
                       <Icon type="home" />Home</Link></Menu.Item>
-                  <Menu.Item key="2"><Link to='/search' style={linkStyle}>
-                      <Icon type="search" />Search</Link></Menu.Item>
+                  <Menu.Item key="2" onClick={this.toggleBurgerMenu}><Link to='/search' style={linkStyle}>
+                      <Icon type="search"/>Search</Link></Menu.Item>
                   <Menu.Item key="3">
-                      <Link to='/match' style={linkStyle}>
+                      <Link to='/match' onClick={this.toggleBurgerMenu} style={linkStyle}>
                           <Icon type="heart-o" />Match</Link></Menu.Item>
-                  <Menu.Item key="4"><Link to='/messenger' style={linkStyle}>
+                  <Menu.Item key="4"><Link to='/messenger' onClick={this.toggleBurgerMenu} style={linkStyle}>
                       <span className="nav-note"
                             style = {unreadMsg.length && tab !== '4' ? navNoteExistStyle : navNoteNoneStyle}>&#9679;</span>
                       <Icon type="message" />Messenger</Link></Menu.Item>
-                  <Menu.Item key="5"><Link to='/notifications' style={linkStyle}>
+                  <Menu.Item key="5"><Link to='/notifications' onClick={this.toggleBurgerMenu} style={linkStyle}>
                       <span className="nav-note"
                             style = {unreadNotes.length && tab !== '5' ? navNoteExistStyle : navNoteNoneStyle}>&#9679;</span>
                       <Icon type="notification" /> Notifications</Link></Menu.Item>
