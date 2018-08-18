@@ -5,9 +5,7 @@ const initialState = [];
 export default function (state = initialState, action) {
     switch(action.type){
         case FETCH_MATCH_PEOPLE:
-            console.log('action payload before if', action.payload);
             if (typeof (action.payload) === 'object'){
-                console.log('i am object');
                 return action.payload;
             }
             return state;

@@ -8,7 +8,7 @@ const PagePagination = (props) => {
     return (
       <div className="pagination">
           <Pagination hideOnSinglePage={true} defaultPageSize={step}
-                      defaultCurrent={1} pageSize={step} total={usersQ}
+                      defaultCurrent={1} total={usersQ}
           onChange={props.handleChangePage}/>
       </div>
     );

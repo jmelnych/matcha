@@ -34,7 +34,8 @@ render() {
           <div className="container-right">
                 <PeopleListResults users={users}/>
               <PagePagination quantity={totalLength}
-                                handleChangePage={this.handleChangePage}/>
+                    currentPage={this.state.page}
+                  handleChangePage={this.handleChangePage}/>
           </div>
       </div>
     );
