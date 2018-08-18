@@ -14,7 +14,7 @@ class SearchFilter extends Component {
             rating: [0, 42],
             tags: [],
             age: [17, 80],
-            radius: 100,
+            radius: null,
             order: {'rating': 'desc'}
         },
         inputVisible: false

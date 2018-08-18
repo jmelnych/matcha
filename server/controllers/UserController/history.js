@@ -31,7 +31,7 @@ module.exports = (req, res) => {
             });
             res.send(history);
         } else {
-            res.send('Empty');
+            res.send([]);
         }
     }).catch(error => {
         console.log(error);

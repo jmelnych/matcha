@@ -11,7 +11,7 @@ export const decodeLocation = (lat, lng) => {
                     addressComponents.map(compo => {
                         if (compo.types){
                             compo.types.map(type => {
-                                if (type === 'locality'){
+                                if (type === 'locality' || (city === '' && type === 'administrative_area_level_1')){
                                     city = compo.long_name;
                                 }
                                 if (type === 'country') {
