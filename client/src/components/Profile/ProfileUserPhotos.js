@@ -9,17 +9,20 @@ class ProfileUserPhotos extends Component {
     state = {
         previewVisible: false,
         previewImage: '',
-        photos: []
+        photos: [],
+        newFileName: ''
     };
 
     componentDidMount() {
         this.props.getPhotos();
     };
 
-    componentDidUpdate(){
+    componentDidUpdate(prevProps, prevState){
         const photos = this.props.photos;
         const generatedPhotos = [];
+        console.log('this state', this.state.photos);
         if (photos.length > this.state.photos.length) {
+        console.log('photos > than state');
             photos.map((photo, index) => {
                 let src = require(`../../img/photos/${photo}`);
                 let photoObj = {
@@ -28,6 +31,10 @@ class ProfileUserPhotos extends Component {
                     url: src,
                     name: photo
                 };
+                if (photo.response){
+                    console.log('phtoto respo', photo.response);
+                    photoObj.name = photo.response
+                }
                 generatedPhotos.push(photoObj);
             });
             this.setState({
@@ -47,15 +54,31 @@ class ProfileUserPhotos extends Component {
 
     handleChange = (photo) => {
         if(photo.file.status === 'removed') {
+            console.log('photot to delet', photo);
             this.props.removePhoto(photo.file.name);
             this.setState(prevState => ({
                 photos:
                 prevState.photos})
             );
         } else {
-            this.setState({ photos: photo.fileList})
+            this.setState({ photos: photo.fileList,
+            newFileName: photo.file.response})
+            if (photo.file.response){
+                this.updateName(photo.file.response);
+            }
         }
     };
+
+    updateName = (name) => {
+        const donePhotos = this.state.photos.filter(photo => photo.status === 'done');
+        const newPhoto = this.state.photos.filter(photo => photo.response);
+        newPhoto[0].name = name;
+        newPhoto[0].response = null;
+        this.setState({
+            photos: [...donePhotos, newPhoto]
+        })
+    }
+
 
     render() {
         const { previewVisible, previewImage } = this.state;

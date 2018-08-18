@@ -23,7 +23,7 @@ module.exports = (req, res) => {
                 promise    = db.getByUnique('users', 'id', id),
                 savePhoto = () => {
                     promise = db.create('photos', 'filename, user_id', [filename, id]);
-                    promise.then(() => res.send('Photo saved')).catch(error);
+                    promise.then(() => res.send(filename)).catch(error);
                 };
             promise.then((user) => {
                 if (user.rating < 42) {
