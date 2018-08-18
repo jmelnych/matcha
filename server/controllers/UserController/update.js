@@ -10,6 +10,7 @@ module.exports = (req, res) => {
             'personality', 'occupancy', 'age', 'rating', 'bio', 'location'
         ]);
     if (data.location) {
+        req.session.location = data.location;
         data.location = JSON.stringify(data.location);
     }
     if (Object.keys(data).length) {
