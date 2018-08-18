@@ -260,7 +260,7 @@ AND users.id != ? AND users.activation = 1`, [id]);
                     ratingMatch(they);
                     matchSorting(they);
 
-                    res.send(they);
+                    res.send(they.slice(0, 42));
                 }).catch(error);
             }).catch(error);
         } else {
