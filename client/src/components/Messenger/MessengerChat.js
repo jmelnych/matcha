@@ -16,20 +16,8 @@ class MessengerChat extends Component {
         scrollAtBottom: false
     };
 
-    componentWillReceiveProps(nextProps){
-        if (nextProps.chatWith.id !== this.state.chatWith.id){
-            this.setState({
-                chatWith: nextProps.chatWith
-            }, () => {
-                this.props.cleanChatNotes(nextProps.chatWith.id);
-                this.scrollDown();
-            });
-        }
-    }
-
     componentWillUpdate(nextProps) {
         if (nextProps.chatWith.id) {
-            //TODO: think about, maybe add method that will grab messages only with current user and substitute currentMsg, so to have access in render method as well
             let currentMsg = this.props.chat.filter(message => this.props.chatWith.id === message.recipient_id
                 || this.props.chatWith.id === message.author_id);
             let newMessages = nextProps.chat.filter(message => nextProps.chatWith.id === message.recipient_id
@@ -48,11 +36,49 @@ class MessengerChat extends Component {
             }
         }
     }
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
+        if (prevProps.chatWith.id !== this.props.chatWith.id){
+            this.setState({
+                chatWith: this.props.chatWith
+            }, () => {
+                this.props.cleanChatNotes(this.props.chatWith.id);
+                this.scrollDown();
+            });
+        }
         if (this.state.scrollAtBottom) {
             this.scrollDown();
         }
     }
+
+        //componentDidUpdate(prevProps) {
+        //     if (prevProps.chatWith.id !== this.props.chatWith.id){
+        //         this.setState({
+        //             chatWith: this.props.chatWith
+        //         }, () => {
+        //             this.props.cleanChatNotes(this.props.chatWith.id);
+        //             this.scrollDown();
+        //         });
+        //         let prevMessages = prevProps.chat.filter(message => prevProps.chatWith.id === message.recipient_id
+        //             || prevProps.chatWith.id === message.author_id);
+        //         let newMessages = this.props.chat.filter(message => this.props.chatWith.id === message.recipient_id
+        //             || this.props.chatWith.id === message.author_id);
+        //         if (prevMessages.length !== newMessages.length && document.querySelector('.chat-history')) {
+        //             const chatContainer = document.querySelector('.chat-history');
+        //             const scrollPos = chatContainer.scrollTop;
+        //             const scrollBottom = (chatContainer.scrollHeight - chatContainer.clientHeight);
+        //             this.setState({
+        //                 scrollAtBottom: (scrollBottom <= 0) || (scrollPos === scrollBottom)
+        //             });
+        //             const {cleanChatNotes} = this.props;
+        //             if (this.state.chatWith.id){
+        //                 cleanChatNotes(this.state.chatWith.id);
+        //             }
+        //         }
+        //     }
+        //     if (this.state.scrollAtBottom) {
+        //         this.scrollDown();
+        //     }
+        // }
 
     sendMsg = () => {
         const {user, addChatMsg} = this.props;

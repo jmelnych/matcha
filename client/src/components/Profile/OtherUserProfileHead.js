@@ -30,17 +30,19 @@ class OtherUserProfileHead extends Component {
         })
     };
 
-    componentWillReceiveProps(props){
-        const relatStatus = props.relationship;
-        if (relatStatus.includes('I ban')) {
-            this.setState({
-                iDidBan: true
-            })
-        }
-        if (relatStatus.includes('ban Me')) {
-            this.setState({
-                banMe: true
-            })
+    componentDidUpdate(prevProps) {
+        if (prevProps.relationship !== this.props.relationship){
+            const relatStatus = this.props.relationship;
+            if (relatStatus.includes('I ban')) {
+                this.setState({
+                    iDidBan: true
+                })
+            }
+            if (relatStatus.includes('ban Me')) {
+                this.setState({
+                    banMe: true
+                })
+            }
         }
     }
 render() {

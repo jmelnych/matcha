@@ -10,7 +10,6 @@ class ProfileUserSuggestions extends Component {
     };
     render() {
         const {matches} = this.props;
-        console.log(matches);
         return (
             <div className="profile-main-info-list">
                 <h3>Suggestions</h3>

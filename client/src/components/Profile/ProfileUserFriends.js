@@ -15,7 +15,6 @@ class ProfileUserFriends extends Component {
     };
 render() {
     const {matchUsers} = this.props;
-    console.log(matchUsers);
     return (
         <div className="profile-main-info-list">
             <h3>Matches</h3>

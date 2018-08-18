@@ -83,39 +83,43 @@ class LikeButtonStatus extends Component {
         })
     };
 
-    componentWillReceiveProps(props) {
-        if (props.ban) {
-            this.paintButton('i-ban');
-            this.setState({
-                iDidBan: true
-            });
-            return;
+
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.ban !== this.props.ban) {
+            if (this.props.ban) {
+                this.paintButton('i-ban');
+                this.setState({
+                    iDidBan: true
+                });
+                return;
+            }
+            if (this.props.banMe){
+                this.paintButton('ban-me');
+                this.setState({
+                    banMe: true
+                });
+                return;
+            }
+            if (this.props.otherUser.info.avatar === 'default.png') {
+                this.setState({
+                    forbidToLike: true
+                })
+            }
+            const relatStatus = this.props.otherUser.relationship;
+            if (relatStatus.includes('I like')) {
+                this.paintButton('i-like');
+            } else if (relatStatus.includes('like Me')) {
+                this.paintButton('me-like');
+            } else if (relatStatus.includes('match')) {
+                this.paintButton('match');
+            } else if (relatStatus.includes('broken')) {
+                this.paintButton('broken');
+            } else {
+                this.paintButton('');
+            }
         }
-        if (props.banMe){
-            this.paintButton('ban-me');
-            this.setState({
-                banMe: true
-            });
-            return;
-        }
-        if (props.otherUser.info.avatar === 'default.png') {
-            this.setState({
-                forbidToLike: true
-            })
-        }
-        const relatStatus = props.otherUser.relationship;
-        if (relatStatus.includes('I like')) {
-            this.paintButton('i-like');
-        } else if (relatStatus.includes('like Me')) {
-            this.paintButton('me-like');
-        } else if (relatStatus.includes('match')) {
-            this.paintButton('match');
-        } else if (relatStatus.includes('broken')) {
-            this.paintButton('broken');
-        } else {
-            this.paintButton('');
-        }
-    };
+    }
 
     like = () => {
         const {id} = this.props.otherUser.info;
@@ -183,9 +187,6 @@ class LikeButtonStatus extends Component {
         return (this.state.iDidBan || this.state.banMe);
     };
 
-    ForbiddenToLike = () => {
-       return this.state.forbidToLike;
-    };
 
 render() {
     if (this.state.forbidToLike) {

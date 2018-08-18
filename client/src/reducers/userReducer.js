@@ -50,10 +50,13 @@ export default function (state = initialState, action) {
             };
             return state;
         case GET_USER_TAGS:
-            return {
-                ...state,
-                user_tags: action.payload
-            };
+            if (typeof (action.payload) === 'object'){
+                return {
+                    ...state,
+                    user_tags: action.payload
+                };
+            }
+           return state;
         case SAVE_USER_TAG:
             return {
                 ...state,

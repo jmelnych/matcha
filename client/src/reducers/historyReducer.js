@@ -10,10 +10,13 @@ const initialState = {
 export default function (state = initialState, action) {
     switch (action.type){
         case FETCH_HISTORY:
-            return {
-                ...state,
-                all_history: action.payload
-            };
+            if (typeof (action.payload) === 'object'){
+                return {
+                    ...state,
+                    all_history: action.payload
+                };
+            }
+            return state;
         case SET_UNREAD_HISTORY:
             const myId = action.payload;
             return {
