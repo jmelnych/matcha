@@ -54,8 +54,8 @@ class HeaderNav extends Component {
         const unreadNotes = this.props.historyUnread || [];
     return (
       <div>
-          <label className="toggle-menu">☰ Menu</label>
-          <input type="checkbox" name="toggle" id="menu" className="toggle-menu"/>
+          <label className="toggle-menu"> {auth ? '☰ Menu': ''}</label>
+          {auth && <input type="checkbox" name="toggle" id="menu" className="toggle-menu"/>}
           <Header>
               {auth &&
               <Menu

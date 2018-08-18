@@ -9,37 +9,30 @@ class ProfileUserPhotos extends Component {
     state = {
         previewVisible: false,
         previewImage: '',
-        photos: [],
-        oldFileName: ''
+        photos: []
     };
 
     componentDidMount() {
-        //console.log('componentDidMo');
         this.props.getPhotos();
-        // this.state.photos.map(photo => {
-        //     require(`../../img/photos/${photo}`);
-        // })
     };
 
     componentDidUpdate(prevProps, prevState){
         const photos = this.props.photos;
         const generatedPhotos = [];
-        console.log('this state', this.state.photos);
         if (photos.length > this.state.photos.length) {
-        console.log('photos > than state');
             photos.map((photo, index) => {
                 console.log('requesting photos', photo);
                 let src = require(`../../img/photos/${photo}`);
-                let photoObj = {
-                    uid: index,
-                    status: 'done',
-                    url: src,
-                    name: photo
-                };
-                if (photo.response){
-                    photoObj.name = photo.response
+                console.log(src);
+                if (src) {
+                    let photoObj = {
+                        uid: index,
+                        status: 'done',
+                        url: src,
+                        name: photo
+                    };
+                    generatedPhotos.push(photoObj);
                 }
-                generatedPhotos.push(photoObj);
             });
             this.setState({
                 photos: generatedPhotos
@@ -64,8 +57,7 @@ class ProfileUserPhotos extends Component {
                 prevState.photos})
             );
         } else {
-            this.setState({ photos: photo.fileList,
-            oldFileName: photo.file.name})
+            this.setState({ photos: photo.fileList})
             if (photo.file.response){
                 this.updateName(photo.file.response);
             }
@@ -77,7 +69,7 @@ class ProfileUserPhotos extends Component {
         const newPhoto = this.state.photos.filter(photo => photo.response);
         newPhoto[0].name = name;
         newPhoto[0].response = null;
-        this.props.addPhoto({'filename': name});
+        //this.props.addPhoto({'filename': name});
         this.setState({
             photos: [...donePhotos, newPhoto[0]]
         })
