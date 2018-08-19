@@ -59,12 +59,14 @@ class SearchFilter extends Component {
     };
 
     onChangeLocation = (value) => {
-        this.setState(prevState => ({
-            filters: {
-                ...prevState.filters,
-                radius: value
-            },
-        }), () => this.filterUsers());
+        if (value > 1 && value < 801) {
+            this.setState(prevState => ({
+                filters: {
+                    ...prevState.filters,
+                    radius: value
+                },
+            }), () => this.filterUsers());
+        }
     };
 
     onChangeTags = (value) => {
@@ -102,6 +104,12 @@ class SearchFilter extends Component {
 
     handleDisabledChange = (value) => {
         this.setState({ locationSliderDisabled: value });
+        this.setState(prevState => ({
+            filters: {
+                ...prevState.filters,
+                radius: value === false ? 100 : null
+            },
+        }), () => this.filterUsers());
     };
 
     formatterLocation = (value) => `${value}km`;
@@ -155,7 +163,7 @@ render() {
                     </Col>
                     <Col span={2}>
                         <InputNumber
-                            min={0}
+                            min={1}
                             max={800}
                             style={{ marginLeft: 16 }}
                             value={this.state.filters.radius}
