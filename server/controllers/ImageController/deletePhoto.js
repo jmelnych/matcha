@@ -2,18 +2,18 @@ const fs = require('fs');
 
 module.exports = (req, res) => {
     let id     = req.session.id,
+        rootDir = req.app.get('rootDir') + '/client/src/img/photos/',
         {name} = req.body;
     if (id === undefined) {
         res.send('Need login');
         return;
     }
-    if (!name) {
+    if (!name || !fs.existsSync(`${rootDir}${name}`)) {
         res.send('Need Photo Name');
         return;
     }
 
     let db      = req.app.get('db'),
-        rootDir = req.app.get('rootDir'),
         promise = db.delete('photos', ['filename', 'user_id'], [name, id]),
         error   = (e) => {
             console.log('error: ', e);
@@ -22,7 +22,7 @@ module.exports = (req, res) => {
 
     promise.then((response) => {
         if (response) {
-            fs.unlink(`${rootDir}/client/src/img/photos/${name}`);
+            fs.unlink(`${rootDir}${name}`);
             promise = db.getByUnique('users', 'id', id);
             promise.then((user) => {
                 if (user.rating > 0) {

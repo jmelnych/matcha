@@ -125,12 +125,10 @@ render() {
         messages = chatAllMsg.filter(message => chatWith.id === message.recipient_id
             || chatWith.id === message.author_id);
     }
-    const msgLength = messages.length;
-    return (
-        <div className="chat-container">
-            {!chatWith.id && (<div className="choose-chat">Choose a user to start a chat</div>)}
-            { chatWith.id && (
-                <div>
+    let chatContainer;
+    if (chatWith.id) {
+        chatContainer = (
+            <div className="chat-container">
                 <div className="chat-header">
                     <ChatUserAvatar user={chatWith}/>
                     <div className="chat-header-about">
@@ -141,19 +139,26 @@ render() {
                     </div>
                 </div>
                 <div className="chat-history">
-                <MessagesList messages={messages} currentUserId={currentUserId} username={chatWith.username}/>
+                    <MessagesList messages={messages} currentUserId={currentUserId} username={chatWith.username}/>
                 </div>
                 <div className="chat-message">
-                <TextArea value={this.state.input} rows={1} placeholder ="Type your message"
-                onKeyDown={this.onEnterPress} onChange={(e) => this.updateText(e.target.value)}/>
-                <Button onClick={this.sendMsg} className="center-button-chat" type="primary">Send</Button>
+                    <TextArea value={this.state.input} rows={1} placeholder ="Type your message"
+                              onKeyDown={this.onEnterPress} onChange={(e) => this.updateText(e.target.value)}/>
+                    <Button onClick={this.sendMsg} className="center-button-chat" type="primary">Send</Button>
                 </div>
-        </div>
-        )}
-        </div>
-    );
+            </div>
+        );
+    } else {
+        chatContainer = (
+            <div className="chat-container">
+                <div className="choose-chat">Choose a user to start a chat</div>
+            </div>
+        );
+    }
+    const msgLength = messages.length;
+    return chatContainer;
   }
-};
+}
 
 function mapStateToProps({user, chat}) {
     return {

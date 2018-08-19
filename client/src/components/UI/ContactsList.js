@@ -18,13 +18,14 @@ const ContactList = (props) => {
                 onClick={() => props.selectUser(user)}>
                 <UserAvatar user={user}/>
                 <div className="people-list-person-about">
-                    {checkUnread(user.id) !== 0 &&
-                    (<span className="new-message-notification">{checkUnread(user.id)}</span>)}
+                    {checkUnread(user.id) !== 0 ?
+                    (<span className="new-message-notification">{checkUnread(user.id)}</span>)
+                    : (<span className="message-notification">{}</span>)}
                     <div className="people-list-person-name">{`${user.firstname} ${user.lastname}`}</div>
                     <div className="people-list-person-status">
                         <UserStatus status={user.online}/>
-                        {user.online === 1 ? "online" :
-                            `last seen ${moment(user.last_seen).fromNow()}`}
+                        <span className="status">{user.online === 1 ? "online" :
+                            `last seen ${moment(user.last_seen).fromNow()}`}</span>
                     </div>
                 </div>
             </li>

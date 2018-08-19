@@ -9,6 +9,7 @@
     max-width: 1600px;
     margin: 0 auto;
     flex-wrap: nowrap;
+    justify-content: center;
 }
 
 .people-list-container{
@@ -39,6 +40,8 @@ ul.people-list li{
 }
 
 .chat-container{
+    display: flex;
+    flex-direction: column;
     min-width: 530px;
     box-shadow: 0 0 20px rgba(0,0,0,.15);
     border-top-right-radius: 5px;
@@ -130,6 +133,7 @@ figcaption .circle{
 }
 
 .chat-history {
+    flex: 1;
     padding: 30px 30px 20px;
     border-bottom: 2px solid white;
     overflow-y: scroll;
@@ -181,7 +185,7 @@ figcaption .circle{
 
 .message:after {
      bottom: 100%;
-     left: 7%;
+     left: 18px;
      border: solid transparent;
      content: " ";
      height: 0;
@@ -207,12 +211,13 @@ figcaption .circle{
 
 .other-message:after {
     border-bottom-color: rgba(35, 116, 255, 0.58);
-    left: 93%;
+    right: 8px;
+    left: auto;
 }
 
 .chat-message{
-    width: 90%;
-    margin: 0 auto;
+    width: 95%;
+    margin: 10px;
 }
 
 .center-button-chat{
@@ -227,19 +232,98 @@ figcaption .circle{
 }
 
 @media screen and (max-width: 586px) {
+    .choose-chat {
+        font-size: 15px;
+    }
+    .chat-header .avatar {
+        display: none;
+    }
+    .chat-header-with {
+        font-size: 14px;
+    }
+    .chat-header-num-messages {
+        font-size: 12px;
+    }
     .chat-container {
-        min-width: 250px;
+        min-width: 190px;
+        width: 100%;
     }
     .people-list-container{
-        padding: 20px 3px;
+        padding: 20px 0;
         min-width: 130px;
     }
-    .people-list-person-about{
+}
+
+@media (max-height: 700px) {
+    .people-list-container, .chat-container{
         margin: 0;
-        padding: 0;
+        border-radius: 0;
+        height: calc(100vh - 65px - 45px);
     }
-    .chat-avatar{
+    .chat-history {
+        padding: 30px 30px 20px;
+        border-bottom: 2px solid white;
+        overflow-y: scroll;
+        height: calc(100vh - 70px - 80px - 200px);
+    }
+    .chat-header .avatar {
         display: none;
+    }
+    .choose-chat {
+        font-size: 15px;
+    }
+    .chat-header {
+        padding: 5px;
+        border-bottom: #001529 solid 1px;
+    }
+    .chat-message, .chat-header-about {
+        display: flex;
+    }
+    .center-button-chat {
+        margin: 0;
+        margin-left: 10px;
+    }
+    .chat-header-about {
+        width: 100%;
+        justify-content: space-evenly;
+    }
+    .ant-layout-footer {
+        height: 40px;
+        width: 100%;
+        padding: 10px 0;
+    }
+}
+
+@media (max-width: 900px) {
+    .chat-avatar{
+        width: 50px;
+        height: 50px;
+    }
+    .people-list-container ul.people-list li {
+        width: auto;
+    }
+    .status, .people-list-container .people-list-person-name{
+        display: none;
+    }
+    .people-list-container .people-list-person, .people-list-container .circle,
+    .new-message-notification, .message-notification {
+        position: relative;
+    }
+    .new-message-notification, .message-notification {
+        height: 18px;
+        left: 20px;
+    }
+    .people-list-container .circle {
+        right: 20px;
+    }
+    .people-list-container .people-list-person-about {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
     }
 }
 
@@ -248,22 +332,15 @@ figcaption .circle{
         min-width: 400px;
     }
     .people-list-container{
-        padding: 20px 5px;
+        padding: 20px 0;
         min-width: 150px;
-    }
-    .chat-avatar{
-        display: none;
     }
 }
 
 @media (min-width: 769px) and (max-width: 900px) {
     .people-list-container{
-        padding: 20px 5px;
+        padding: 20px 0;
         min-width: 240px;
-    }
-    .chat-avatar{
-        width: 50px;
-        height: 50px;
     }
 }
 
@@ -271,7 +348,6 @@ figcaption .circle{
     .chat-container {
         min-width: 730px;
     }
-
 }
 
 

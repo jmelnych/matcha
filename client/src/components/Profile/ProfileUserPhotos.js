@@ -18,14 +18,11 @@ class ProfileUserPhotos extends Component {
 
     componentDidUpdate(prevProps, prevState){
         let photos = this.props.photos;
-        console.log('thisstateph', this.state.photos);
-        console.log('photos', photos);
         const generatedPhotos = [];
         if (photos.length > this.state.photos.length) {
-            //photos = photos.filter(photo => photo.status !== 'removed');
             photos.map((photo, index) => {
                 let src;
-                console.log('requesting photos', photo);
+                // console.log('requesting photos', photo);
                 try {
                     src = require(`../../img/photos/${photo}`) ;
                     let photoObj = {
@@ -118,21 +115,21 @@ class ProfileUserPhotos extends Component {
             || photo.status === 'uploading');
         return (
             <div className="profile-main-info-list">
-            <div className="clearfix">
-                <Popover placement="rightTop" title="Photo info" content={content}
-                         trigger="hover"><h3>Photos</h3></Popover>
-                <Upload {...props}
-                    beforeUpload={checkTypeSize}
-                    listType="picture-card"
-                    fileList={photosRender}
-                    onPreview={this.handlePreview}
-                    onChange={this.handleChange}>
-                    {photosRender.length >= 4 ? null : uploadButton}
-                </Upload>
-                <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
-                    <img alt="example" style={{ width: '100%' }} src={previewImage} />
-                </Modal>
-            </div>
+                <div className="clearfix">
+                    <Popover placement="rightTop" title="Photo info" content={content}
+                             trigger="hover"><h3>Photos</h3></Popover>
+                    <Upload {...props}
+                            beforeUpload={checkTypeSize}
+                            listType="picture-card"
+                            fileList={photosRender}
+                            onPreview={this.handlePreview}
+                            onChange={this.handleChange}>
+                        {photosRender.length >= 4 ? null : uploadButton}
+                    </Upload>
+                    <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
+                        <img alt="example" style={{ width: '100%' }} src={previewImage} />
+                    </Modal>
+                </div>
             </div>
         );
     }
