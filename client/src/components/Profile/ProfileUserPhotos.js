@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {getPhotos, removePhoto, addPhoto} from '../../actions/photosAction'
 import PropTypes from 'prop-types'
 import {checkTypeSize} from '../../helpers/checkTypeSize'
+import {getBaseURL} from '../../config'
 
 class ProfileUserPhotos extends Component {
     state = {
@@ -17,10 +18,9 @@ class ProfileUserPhotos extends Component {
     };
 
     componentDidUpdate(prevProps, prevState){
-        let photos = this.props.photos;
-        console.log('this.props.photos', photos);
-        const generatedPhotos = [];
+        let photos = this.props.photos || [];
         if (photos.length > this.state.photos.length) {
+            const generatedPhotos = [];
             this.props.photos.map((photo, index) => {
                 let src;
                 // console.log('requesting photos', photo);
@@ -42,18 +42,18 @@ class ProfileUserPhotos extends Component {
                         name: photo
                     };
                     generatedPhotos.push(photoObj);
-                    //temp solution
-                    //window.location.href = '/';
                 }
-
-
             });
-            console.log('generatedPhotos', generatedPhotos);
             this.setState({
                 photos: generatedPhotos
             })
         }
     };
+
+    // componentDidUpdate (prevProps, prevState) {
+    //     const photos = this.props.photos;
+    //     const baseURL = getBaseURL();
+    // }
 
     handleCancel = () => this.setState({ previewVisible: false });
 
@@ -116,6 +116,7 @@ class ProfileUserPhotos extends Component {
         console.log('photos', photos);
         let photosRender = photos.filter(photo => photo.status === 'done'
             || photo.status === 'uploading');
+
         return (
             <div className="profile-main-info-list">
                 <div className="clearfix">
@@ -133,6 +134,7 @@ class ProfileUserPhotos extends Component {
                         <img alt="example" style={{ width: '100%' }} src={previewImage} />
                     </Modal>
                 </div>
+
             </div>
         );
     }

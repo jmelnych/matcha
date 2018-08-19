@@ -66,6 +66,9 @@ app.use('/api/posts/', posts);
 app.use('/api/profile/', profile);
 app.use('/api/messages/', messages);
 
+/* */
+app.use(express.static(path.join(__dirname, "/public")));
+
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, './index.html'));
 });

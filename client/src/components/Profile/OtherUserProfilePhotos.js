@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Upload, Modal } from 'antd'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
+import {getBaseURL} from "../../config";
 
 class OtherUserProfilePhotos extends Component {
     state = {
@@ -10,23 +11,26 @@ class OtherUserProfilePhotos extends Component {
         photos: []
     };
 
-    componentDidMount(){
+    componentDidUpdate(prevProps, prevState){
         const photos = this.props.photos || [];
-        const generatedPhotos = [];
-        photos.map((photo, index) => {
-            let src = require(`../../img/photos/${photo.filename}`);
-            let photoObj = {
-                uid: index,
-                status: 'done',
-                url: src,
-                name: photo.filename
-            };
-            generatedPhotos.push(photoObj);
-        });
-        this.setState({
-            photos: generatedPhotos
-        })
-    };
+        if (prevState.photos.length < photos.length){
+            const generatedPhotos = [];
+            const baseURL = getBaseURL();
+            photos.map((photo, index) => {
+                    let src = `${baseURL}/photos/${photo.filename}`;
+                    let photoObj = {
+                        uid: index,
+                        status: 'done',
+                        url: src,
+                        name: photo.filename
+                    };
+                    generatedPhotos.push(photoObj);
+            });
+            this.setState({
+                photos: generatedPhotos
+            })
+        }
+    }
 
     handleCancel = () => this.setState({ previewVisible: false });
 
@@ -39,7 +43,7 @@ class OtherUserProfilePhotos extends Component {
 
     render() {
         const { previewVisible, previewImage } = this.state;
-
+        console.log(this.state.photos);
         return (
             <div className="profile-main-info-list">
                 <div className="clearfix">
