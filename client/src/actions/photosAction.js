@@ -1,4 +1,4 @@
-import {GET_PHOTOS, ADD_PHOTO} from './types'
+import {GET_PHOTOS, ADD_PHOTO, DELETE_PHOTO} from './types'
 import axios from 'axios'
 
 export const getPhotos = () => dispatch => {
@@ -12,6 +12,10 @@ export const getPhotos = () => dispatch => {
 
 export const removePhoto = (name) => dispatch => {
     return axios.post('api/image/delete-photo', {name: name})
+        .then(() => dispatch({
+            type: DELETE_PHOTO,
+            payload: name
+        }))
 };
 
 export const addPhoto = (photo) => {

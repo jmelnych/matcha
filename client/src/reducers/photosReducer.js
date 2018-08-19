@@ -1,4 +1,4 @@
-import {GET_PHOTOS, ADD_PHOTO} from "../actions/types";
+import {GET_PHOTOS, ADD_PHOTO, DELETE_PHOTO} from "../actions/types";
 
 const initialState = [];
 
@@ -11,6 +11,8 @@ export default function (state = initialState, action){
             return state;
         case ADD_PHOTO:
             return state.concat(action.payload)
+        case DELETE_PHOTO:
+            return state.filter(photo => photo.filename !== action.payload)
         default:
             return state
     }

@@ -17,14 +17,17 @@ class ProfileUserPhotos extends Component {
     };
 
     componentDidUpdate(prevProps, prevState){
-        const photos = this.props.photos;
+        let photos = this.props.photos;
+        console.log('thisstateph', this.state.photos);
+        console.log('photos', photos);
         const generatedPhotos = [];
         if (photos.length > this.state.photos.length) {
+            //photos = photos.filter(photo => photo.status !== 'removed');
             photos.map((photo, index) => {
+                let src;
                 console.log('requesting photos', photo);
-                let src = require(`../../img/photos/${photo}`);
-                console.log(src);
-                if (src) {
+                try {
+                    src = require(`../../img/photos/${photo}`) ;
                     let photoObj = {
                         uid: index,
                         status: 'done',
@@ -32,7 +35,20 @@ class ProfileUserPhotos extends Component {
                         name: photo
                     };
                     generatedPhotos.push(photoObj);
+                } catch(e) {
+                    console.log(e);
+                    let photoObj = {
+                        uid: index,
+                        status: 'done',
+                        url: this.state.thumbUrl,
+                        name: photo
+                    };
+                    generatedPhotos.push(photoObj);
+                    //temp solution
+                    window.location.href = '/';
                 }
+
+
             });
             this.setState({
                 photos: generatedPhotos
@@ -45,7 +61,7 @@ class ProfileUserPhotos extends Component {
     handlePreview = (file) => {
         this.setState({
             previewImage: file.url || file.thumbUrl,
-            previewVisible: true,
+            previewVisible: true
         });
     };
 
@@ -69,10 +85,10 @@ class ProfileUserPhotos extends Component {
         const newPhoto = this.state.photos.filter(photo => photo.response);
         newPhoto[0].name = name;
         newPhoto[0].response = null;
-        //this.props.addPhoto({'filename': name});
+        this.props.addPhoto({'filename': name});
         this.setState({
             photos: [...donePhotos, newPhoto[0]]
-        })
+        });
     }
 
 
