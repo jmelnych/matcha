@@ -138,6 +138,11 @@ class LikeButtonStatus extends Component {
             });
             return;
         }
+        if (props.otherUser.info.avatar === 'default.png' || props.currentUser.avatar === 'default.png') {
+            this.setState({
+                forbidToLike: true
+            })
+        }
         const relatStatus = props.otherUser.relationship;
         if (relatStatus.includes('I like')) {
             this.paintButton('i-like');
@@ -220,10 +225,11 @@ class LikeButtonStatus extends Component {
 
 
 render() {
+    console.log('this.state.forbidToLike', this.state.forbidToLike);
     if (this.state.forbidToLike) {
         return (
             <Popover className="pop-relationship" placement="top" title="Your relationship status"
-                     content="You cannot like the user with default avatar" trigger="hover">
+                     content="You cannot like the user with default avatar or if you have default avatar" trigger="hover">
             <Button className={`like-button no-likes-button`}
                            disabled={true}
                            icon="heart"/>
