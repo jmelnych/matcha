@@ -30,3 +30,6 @@ export const SET_UNREAD_MESSAGES = 'SET_UNREAD_MESSAGES';
 export const SET_UNREAD_HISTORY = 'SET_UNREAD_HISTORY';
 export const ADD_PHOTO = 'ADD_PHOTO';
 export const DELETE_PHOTO = 'DELETE_PHOTO';
+export const CLEAR_PHOTOS = 'CLEAR_PHOTOS';
+export const CLEAR_TAGS = 'CLEAR_TAGS';
+export const CLEAR_POSTS = 'CLEAR_POSTS';

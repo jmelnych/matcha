@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Input, Button } from 'antd'
+import { Input, Button, message } from 'antd'
 import { socket } from '../Root'
 import {connect} from 'react-redux'
 import { addChatMsg, cleanChatNotes } from '../../actions/chatActions'
@@ -82,18 +82,25 @@ class MessengerChat extends Component {
 
     sendMsg = () => {
         const {user, addChatMsg} = this.props;
-        const data = {
-            recipient_id: this.state.chatWith.id,
-            author_id: user.user.id,
-            message: this.state.input,
-            added: new Date()
+        console.log('this state input', this.state.input);
 
-        };
-        socket.emit('chat', data);
-        addChatMsg(data);
-        this.setState({
-            input: ''
-        });
+        if (!!this.state.input.trim()){
+            const data = {
+                recipient_id: this.state.chatWith.id,
+                author_id: user.user.id,
+                message: this.state.input,
+                added: new Date()
+
+            };
+            socket.emit('chat', data);
+            addChatMsg(data);
+            this.setState({
+                input: ''
+            });
+        } else {
+            console.log(this.state.input);
+            message.error(`Message cannot be empty`);
+        }
     };
 
     scrollDown = () => {

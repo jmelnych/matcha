@@ -25,7 +25,7 @@ class ProfileWritePost extends Component {
             title: this.state.title.trim(),
             post: this.state.post.trim()
         };
-        if (newPost.post && newPost.title){
+        if (!!newPost.post && !!newPost.title){
             this.props.addPost(newPost);
             this.setState({
                 post: '',

@@ -1,4 +1,4 @@
-import {GET_TAGS, ADD_TAGS} from "../actions/types"
+import {GET_TAGS, ADD_TAGS, CLEAR_TAGS} from "../actions/types"
 
 const initialState = [];
 
@@ -11,6 +11,8 @@ export default function (state = initialState, action) {
                 return state.concat(action.payload);
             }
             return state;
+        case CLEAR_TAGS:
+            return state.slice(0,0);
         default:
             return state;
     }

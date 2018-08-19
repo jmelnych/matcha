@@ -1,4 +1,4 @@
-import {ADD_POST, GET_POSTS, UPDATE_POST, DELETE_POST} from "../actions/types";
+import {ADD_POST, GET_POSTS, UPDATE_POST, DELETE_POST, CLEAR_POSTS} from "../actions/types";
 
 const initialState = [];
 
@@ -20,6 +20,8 @@ export default function (state = initialState, action){
             return state.filter(post => post.id !== action.payload.id).concat(updatePostObj);
         case DELETE_POST:
             return state.filter(post => post.id !== action.payload);
+        case CLEAR_POSTS:
+            return state.slice(0,0);
         default:
             return state
     }

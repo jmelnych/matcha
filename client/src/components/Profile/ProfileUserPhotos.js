@@ -18,9 +18,10 @@ class ProfileUserPhotos extends Component {
 
     componentDidUpdate(prevProps, prevState){
         let photos = this.props.photos;
+        console.log('this.props.photos', photos);
         const generatedPhotos = [];
         if (photos.length > this.state.photos.length) {
-            photos.map((photo, index) => {
+            this.props.photos.map((photo, index) => {
                 let src;
                 // console.log('requesting photos', photo);
                 try {
@@ -37,16 +38,17 @@ class ProfileUserPhotos extends Component {
                     let photoObj = {
                         uid: index,
                         status: 'done',
-                        url: this.state.thumbUrl,
+                        url: 'none',
                         name: photo
                     };
                     generatedPhotos.push(photoObj);
                     //temp solution
-                    window.location.href = '/';
+                    //window.location.href = '/';
                 }
 
 
             });
+            console.log('generatedPhotos', generatedPhotos);
             this.setState({
                 photos: generatedPhotos
             })
@@ -111,6 +113,7 @@ class ProfileUserPhotos extends Component {
         };
 
         let photos = this.state.photos || [];
+        console.log('photos', photos);
         let photosRender = photos.filter(photo => photo.status === 'done'
             || photo.status === 'uploading');
         return (

@@ -1,5 +1,6 @@
 import {GET_USER, UPDATE_USER, GET_USER_TAGS, SAVE_USER_TAG,
-    DELETE_USER_TAG, LOGOUT_USER, UPDATE_USER_LOCATION, GET_OTHER_USER} from './types'
+    DELETE_USER_TAG, LOGOUT_USER, UPDATE_USER_LOCATION, GET_OTHER_USER, CLEAR_PHOTOS,
+    CLEAR_TAGS, CLEAR_POSTS} from './types'
 import axios from 'axios'
 import {getBaseURL} from '../config'
 
@@ -63,12 +64,24 @@ export const updateUser = (data) => dispatch => {
 };
 
 export const logoutUser = () => dispatch => {
+    dispatch({
+        type: CLEAR_PHOTOS
+    });
+    dispatch({
+        type: CLEAR_TAGS
+    });
+    dispatch({
+        type: CLEAR_POSTS
+    });
     axios.post('api/users/logout')
         .then(res => res.data)
-        .then(user => dispatch({
-            type: LOGOUT_USER,
-            payload: user
-        }))
+        .then(user =>
+            dispatch({
+                type: LOGOUT_USER,
+                payload: user
+            }),
+
+        )
 };
 
 export const getUserTags = () => dispatch => {
