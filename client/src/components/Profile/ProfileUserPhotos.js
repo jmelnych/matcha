@@ -17,11 +17,12 @@ class ProfileUserPhotos extends Component {
     };
 
     componentDidUpdate(prevProps, prevState){
+        console.log('updated, stat now', this.state.photos);
         const photos = this.props.photos;
         const generatedPhotos = [];
         if (photos.length > this.state.photos.length) {
             photos.map((photo, index) => {
-                console.log('requesting photos', photo);
+                //console.log('requesting photos', photo);
                 let src = require(`../../img/photos/${photo}`);
                 console.log(src);
                 if (src) {
@@ -69,6 +70,9 @@ class ProfileUserPhotos extends Component {
         const newPhoto = this.state.photos.filter(photo => photo.response);
         newPhoto[0].name = name;
         newPhoto[0].response = null;
+        newPhoto[0].url = newPhoto[0].thumbUrl;
+        console.log('newPhoto', newPhoto[0]);
+        console.log('thumbUrl', newPhoto[0].thumbUrl);
         //this.props.addPhoto({'filename': name});
         this.setState({
             photos: [...donePhotos, newPhoto[0]]
