@@ -13,6 +13,6 @@ module.exports = (users, session, radius = null) => {
                 user.location.lng
             );
         }
-        return !(radius && user.distance > radius);
+        return !(radius !== null && user.distance > radius);
     });
 };
