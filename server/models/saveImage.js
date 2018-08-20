@@ -4,7 +4,7 @@ module.exports = {
     image : {
         storage: multer.diskStorage({
             destination: function(req, file, next) {
-                next(null, `./client/src/img/${file.fieldname}s`);
+                next(null, `./server/public/${file.fieldname}s`);
             },
             filename: function(req, file, next) {
                 const ext = file.mimetype.split('/')[1];

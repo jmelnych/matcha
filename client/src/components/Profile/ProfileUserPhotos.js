@@ -23,12 +23,12 @@ class ProfileUserPhotos extends Component {
             const generatedPhotos = [];
             const baseURL = getBaseURL();
             photos.map((photo, index) => {
-                let src = `${baseURL}/photos/${photo}`;
+                let src = `${baseURL}/photos/${photo.filename}`;
                 let photoObj = {
                     uid: index,
                     status: 'done',
                     url: src,
-                    name: photo
+                    name: photo.filename
                 };
                 generatedPhotos.push(photoObj);
             });
@@ -124,7 +124,7 @@ class ProfileUserPhotos extends Component {
 
 function mapStateToProps({photos}) {
     return {
-        photos: photos.map((photo) => photo.filename)
+        photos: photos
     }
 }
 

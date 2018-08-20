@@ -2,7 +2,7 @@ const fs = require('fs');
 
 module.exports = (req, res) => {
     let id     = req.session.id,
-        rootDir = req.app.get('rootDir') + '/client/src/img/photos/',
+        rootDir = req.app.get('rootDir') + '/server/public/photos/',
         {name} = req.body;
     if (id === undefined) {
         res.send('Need login');
