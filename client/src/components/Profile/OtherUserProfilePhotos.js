@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Upload, Modal } from 'antd'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import {getBaseURL} from "../../config";
+import {getBaseURL} from '../../config'
 
 class OtherUserProfilePhotos extends Component {
     state = {
@@ -17,12 +17,12 @@ class OtherUserProfilePhotos extends Component {
             const generatedPhotos = [];
             const baseURL = getBaseURL();
             photos.map((photo, index) => {
-                    let src = `${baseURL}/photos/${photo.filename}`;
+                    let src = `${baseURL()}/photos/${photo}`;
                     let photoObj = {
                         uid: index,
                         status: 'done',
                         url: src,
-                        name: photo.filename
+                        name: photo
                     };
                     generatedPhotos.push(photoObj);
             });
@@ -43,7 +43,6 @@ class OtherUserProfilePhotos extends Component {
 
     render() {
         const { previewVisible, previewImage } = this.state;
-        console.log(this.state.photos);
         return (
             <div className="profile-main-info-list">
                 <div className="clearfix">
@@ -72,7 +71,9 @@ class OtherUserProfilePhotos extends Component {
 }
 
 function mapStateToProps({otherUser}){
-    return otherUser.user;
+    return {
+        photos: otherUser.user.photos.map((photo) => photo.filename)
+    }
 };
 
 OtherUserProfilePhotos.propTypes = {

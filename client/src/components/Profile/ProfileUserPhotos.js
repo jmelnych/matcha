@@ -18,42 +18,25 @@ class ProfileUserPhotos extends Component {
     };
 
     componentDidUpdate(prevProps, prevState){
-        let photos = this.props.photos || [];
-        if (photos.length > this.state.photos.length) {
+        const photos = this.props.photos || [];
+        if (prevState.photos.length < photos.length){
             const generatedPhotos = [];
-            this.props.photos.map((photo, index) => {
-                let src;
-                // console.log('requesting photos', photo);
-                try {
-                    src = require(`../../img/photos/${photo}`) ;
-                    let photoObj = {
-                        uid: index,
-                        status: 'done',
-                        url: src,
-                        name: photo
-                    };
-                    generatedPhotos.push(photoObj);
-                } catch(e) {
-                    console.log(e);
-                    let photoObj = {
-                        uid: index,
-                        status: 'done',
-                        url: 'none',
-                        name: photo
-                    };
-                    generatedPhotos.push(photoObj);
-                }
+            const baseURL = getBaseURL();
+            photos.map((photo, index) => {
+                let src = `${baseURL}/photos/${photo}`;
+                let photoObj = {
+                    uid: index,
+                    status: 'done',
+                    url: src,
+                    name: photo
+                };
+                generatedPhotos.push(photoObj);
             });
             this.setState({
                 photos: generatedPhotos
             })
         }
-    };
-
-    // componentDidUpdate (prevProps, prevState) {
-    //     const photos = this.props.photos;
-    //     const baseURL = getBaseURL();
-    // }
+    }
 
     handleCancel = () => this.setState({ previewVisible: false });
 
@@ -113,7 +96,6 @@ class ProfileUserPhotos extends Component {
         };
 
         let photos = this.state.photos || [];
-        console.log('photos', photos);
         let photosRender = photos.filter(photo => photo.status === 'done'
             || photo.status === 'uploading');
 

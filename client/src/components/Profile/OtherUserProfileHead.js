@@ -6,6 +6,7 @@ import LikeButtonStatus from './LikeButtonStatus'
 import {fakeNotification, banUser} from '../../actions/userActions'
 import UserStatus from '../UI/UserStatus'
 import PropTypes from 'prop-types'
+import {getBaseURL} from "../../config";
 
 class OtherUserProfileHead extends Component {
     state = {
@@ -46,10 +47,9 @@ class OtherUserProfileHead extends Component {
         }
     }
 render() {
+        const baseURL = getBaseURL();
     const user = this.props.info ||
         {avatar: 'default.png', gender: 'male', rating: 0, age: 18, location: {city:'Kiev', country: 'Ukraine'}};
-    const av_name = user.avatar;
-    const avatar = require(`../../img/avatars/${av_name}`);
     return (
         <div className="profile-main-header">
             <div className="profile-main-avatar">
@@ -64,7 +64,7 @@ render() {
                     </Popconfirm>
                     <div className="profile-main-avatar-content">
                         <UserStatus status={user.online}/>
-                        <img src={avatar} alt="avatar"/>
+                        <img src={`${baseURL}/avatars/${user.avatar}`} alt="avatar"/>
                     </div>
                     <figcaption>
                         <p className="figcaption-text">Rating: {user.rating}</p>

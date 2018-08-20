@@ -3,6 +3,7 @@ import {Upload, Button, message} from 'antd'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {checkTypeSize} from '../../../helpers/checkTypeSize'
+import {getBaseURL} from '../../../config';
 
 function getBase64(img, callback) {
     const reader = new FileReader();
@@ -37,8 +38,6 @@ class EditProfileUserAvatar extends Component {
 render() {
     const imageUrl = this.state.imageUrl;
     const {user} = this.props;
-    const av_name = user.avatar || 'default.png';
-    const avatar = require(`../../../img/avatars/${av_name}`);
     const props = {
         name: 'avatar',
         action: 'api/image/save-avatar',
@@ -49,7 +48,8 @@ render() {
 
     return (
       <div className="profile-main-avatar-content">
-          {imageUrl ? <img src={imageUrl} alt="avatar" /> : <img src={avatar} alt="avatar"/>}
+          <img src={imageUrl ? imageUrl :
+              `${getBaseURL()}/avatars/${user.avatar}`} alt="avatar" />
           <Upload {...props}
                   showUploadList={false}
                   beforeUpload={checkTypeSize}
