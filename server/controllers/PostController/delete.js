@@ -1,17 +1,16 @@
 module.exports = (req, res) => {
-    let user_id   = req.session.id,
-        {post_id} = req.body;
+    let user_id = req.session.id,
+        {id}    = req.body;
     if (user_id === undefined) {
         res.send('Need login');
         return;
     }
-    if (!post_id) {
+    if (!id) {
         res.send('Need Post Id');
         return;
     }
-
     let db      = req.app.get('db'),
-        promise = db.delete('posts', ['id', 'user_id'], [post_id, user_id]),
+        promise = db.delete('posts', ['id', 'user_id'], [id, user_id]),
         error   = (e) => {
             console.log(e);
             res.send(e);
