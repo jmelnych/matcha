@@ -151,7 +151,7 @@ render() {
                         onAfterChange={this.onChangeAge}/>
             </div>
             <div className="filter-block">
-                <span className="filter-title">Location, km</span>
+                <span className="filter-title">Location, km (max 800km)</span>
                 <Row>
                     <Col span={17}>
                         <Slider value={this.state.filters.radius}
