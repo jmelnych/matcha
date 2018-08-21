@@ -11,6 +11,7 @@ const ProfileUserInfo = (props) => {
     };
     const user = props.user;
     const ouIndicator = props.ouIndicator;
+    const preference = {both: 'Men and Women', male: 'Men', female: 'Women'};
     return (
         <div>
             <li><Ionicon icon="ios-contact-outline" style={ionicStyle}/>
@@ -23,8 +24,7 @@ const ProfileUserInfo = (props) => {
             }
             <li><Ionicon icon="ios-heart-outline" style={ionicStyle}/>
                 <span className="text-secondary">Preferences: </span>
-                <span className={ouIndicator ? "non-editable" : "editable"}>{user.preference === 'both' ? 'Men and Women':
-                    user.preference.charAt(0).toUpperCase() + user.preference.substr(1)}</span></li>
+                <span className={ouIndicator ? "non-editable" : "editable"}>{preference[user.preference]}</span></li>
             {(user.personality) &&<li><Ionicon icon="ios-body-outline" style={ionicStyle}/>
                 <span className="text-secondary">Personality type: </span>
                 <span className={ouIndicator ? "non-editable" : "editable"}>{user.personality}</span></li>
