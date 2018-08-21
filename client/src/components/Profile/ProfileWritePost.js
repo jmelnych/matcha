@@ -54,10 +54,10 @@ render() {
         {(allowTextArea) &&
         <div className="profile-post-area">
             <div className="post-textarea">
-                <TextArea className="transparent title" placeholder="Title"
+                <TextArea className="transparent title" placeholder="Title" maxLength="200"
                           rows={1} onChange={(e) => this.updateTitle(e.target.value)}
                 value={this.state.title}/>
-                <TextArea className="transparent" placeholder="What's on your mind?"
+                <TextArea className="transparent" placeholder="What's on your mind?" maxLength="2000"
                           rows={1} onChange={(e) => this.updateText(e.target.value)}
                           value={this.state.post}/>
             </div>
