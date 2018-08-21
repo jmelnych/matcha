@@ -70,7 +70,8 @@ render() {
               <Form.Item {...formItemLayout} label='Username'> {
                   getFieldDecorator('username', {
                       rules: [{required: true, message: 'Please input your username'},
-                          {min: 2, message:'Username name is too short'}]
+                          {min: 2, message:'Username is too short'},
+                          {max: 20, message:'Username is too long'}]
                   })(<Input  name='username'/>)
               }
               </Form.Item>

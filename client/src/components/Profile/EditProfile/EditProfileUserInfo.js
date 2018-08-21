@@ -97,20 +97,23 @@ class EditProfileUserInfo extends Component {
               <Form.Item {...formItemLayout} label='First name'> {
                   getFieldDecorator('firstname', {
                       rules: [{required: true, message: 'Please input your first name'},
-                          {min: 2, message:'First name is too short'}]
+                          {min: 2, message:'First name is too short'},
+                          {max: 30, message:'First name is too long'}]
                   })(<Input  name='firstname'/>)
               }
               </Form.Item>
               <Form.Item {...formItemLayout} label='Last name'> {
                   getFieldDecorator('lastname', {
                       rules: [{required: true, message: 'Please input your last name'},
-                             {min: 2, message:'Last name is too short'}]
+                             {min: 2, message:'Last name is too short'},
+                             {max: 50, message:'Last name is too long'}]
                   })(<Input name='lastname'/>)
               }
               </Form.Item>
               <Form.Item {...formItemLayout} label='Occupancy'> {
                   getFieldDecorator('occupancy', {
-                      rules: [{min: 2, message: 'Your occupation is too short, please, develop'}]
+                      rules: [{min: 2, message: 'Your occupation is too short'},
+                          {max: 100, message: 'Your occupation is too long'}]
                   })
                   (<Input name='occupancy'/>)
               }

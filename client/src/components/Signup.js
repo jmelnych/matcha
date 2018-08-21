@@ -133,21 +133,24 @@ class Signup extends Component {
                     <Form.Item {...formItemLayout} label='Username' hasFeedback> {
                         getFieldDecorator('username', {
                             rules: [{required: true, message: 'Please input your Username'},
-                                    {min: 2, message:'Username is too short'}]
+                                {min: 2, message:'Username is too short'},
+                                {max: 20, message:'Username is too long'}]
                         })(<Input name='username'/>)
                     }
                     </Form.Item>
                     <Form.Item {...formItemLayout} label='First name' hasFeedback> {
                         getFieldDecorator('firstname', {
                             rules: [{required: true, message: 'Please input your first name'},
-                                    {min: 2, message:'First name is too short'}]
+                                {min: 2, message:'First name is too short'},
+                                {max: 30, message:'First name is too long'}]
                         })(<Input name='firstname'/>)
                     }
                     </Form.Item>
                     <Form.Item {...formItemLayout} label='Last name' hasFeedback> {
                         getFieldDecorator('lastname', {
                             rules: [{required: true, message: 'Please input your last name'},
-                                    {min: 2, message:'Last name is too short'}]
+                                {min: 2, message:'Last name is too short'},
+                                {max: 50, message:'Last name is too long'}]
                         })(<Input name='lastname'/>)
                     }
                     </Form.Item>
