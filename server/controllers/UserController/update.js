@@ -3,10 +3,11 @@ module.exports = (req, res) => {
         res.send('Need login');
         return;
     }
+    console.log(req.body);
     let filterObject = req.app.get('filterObject'),
         db           = req.app.get('db'),
         data         = filterObject(req.body.data, [
-            'username', 'firstname', 'lastname', 'gender', 'preference',
+            'username', 'firstname', 'lastname', 'email', 'gender', 'preference',
             'personality', 'occupancy', 'age', 'rating', 'bio', 'location'
         ]);
     if (data.location) {
