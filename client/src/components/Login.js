@@ -95,7 +95,7 @@ class Login extends Component {
                     }
                     <a onClick={() => this.toggleResendPassword()}>Forgot your password?</a>
                     </Form.Item>
-                    {(this.state.showResendLink) ? <p>Didn't get a link?
+                    {(this.state.showResendLink) ? <p>Didn't get a link? <br/>
                         <a onClick={() => this.toggleResend()}>Get it once again</a></p>: ''}
                     <Button className="App-button" type='primary' htmlType='submit'>Login</Button>
                 </Form>
