@@ -31,6 +31,8 @@ class EditProfileUserInfo extends Component {
                     newUserInfo.personality = values.personality;
                 } if (values.occupancy !== user.occupancy) {
                     newUserInfo.occupancy = values.occupancy;
+                } if (values.bday !== user.bday) {
+                    newUserInfo.bday = values.bday;
                 } if (values.bio !== user.bio) {
                     newUserInfo.bio = values.bio;
                 }
@@ -57,7 +59,19 @@ class EditProfileUserInfo extends Component {
         });
     };
 
-render() {
+    validateAge = (rule, value, callback) => {
+        if (value) {
+            const date = moment(value._d);
+            const age = moment().diff(date, 'years');
+            if (age < 17) {
+                callback('You must be at least 17 years old');
+            } else {
+                callback();
+            }
+        }
+    };
+
+    render() {
     const {getFieldDecorator} = this.props.form;
     const formItemLayout      = {
         labelCol: {
@@ -136,7 +150,8 @@ render() {
               </Form.Item>
               <Form.Item {...formItemLayout} label='Birth day'> {
                   getFieldDecorator('bday',  {
-                      rules:[{required: true, message: 'Please indicate your birth day'}]
+                      rules:[{required: true, message: 'Please indicate your birth day'},
+                          {validator: this.validateAge}]
                   })(
                       <DatePicker format={dateFormat} />
                   )

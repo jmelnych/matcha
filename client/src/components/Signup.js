@@ -105,8 +105,7 @@ class Signup extends Component {
                 callback();
             }
         }
-
-    }
+    };
 
     render() {
         const {getFieldDecorator} = this.props.form;
@@ -198,7 +197,7 @@ Signup.propTypes = {
     createUser: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
     toggle: PropTypes.func.isRequired
-}
+};
 
 
 export default connect(null, {createUser, addFlashMessage})(Form.create()(Signup));
