@@ -181,6 +181,7 @@ figcaption .circle{
     max-width: 465px;
     position: relative;
     text-align: left;
+    word-break: break-all;
 }
 
 .message:after {

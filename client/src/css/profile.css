@@ -564,7 +564,10 @@ h4{
   .profile-main-info {
     width: 100%;
   }
-
+  .ant-btn-circle.ant-btn-sm {
+    top: -40px;
+    right: -60px;
+  }
   .wrapper .like-button, .wrapper .ant-btn-icon-only{
     width: 90px;
     height: 90px;
