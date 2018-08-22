@@ -31,7 +31,12 @@ module.exports = (req, res) => {
                                 if (user.rating > 0) {
                                     user.rating--;
                                     promise = db.update('users', 'rating', user.rating, 'id', second_id);
-                                    promise.then(() => res.send(action)).catch(error);
+                                    promise.then(() => {
+                                        promise = db.run(`UPDATE messages SET read = 1
+                                                          WHERE recipient_id = ? AND author_id = ?`,
+                                            [second_id, first_id]);
+                                        promise.then(() => res.send(action)).catch(error);
+                                    }).catch(error);
                                 } else {
                                     res.send(action);
                                 }

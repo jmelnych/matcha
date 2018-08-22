@@ -25,7 +25,12 @@ module.exports = (req, res) => {
                     promise = db.deleteFromHistory(['like', 'match', 'break up'], [first_id, second_id, first_id, second_id]);
                     promise.then(() => {
                         promise = db.create('history', 'first_id, second_id, `action`', [first_id, second_id, action]);
-                        promise.then(() => res.send(action)).catch(error);
+                        promise.then(() => {
+                        promise = db.run(`UPDATE messages SET read = 1
+                                          WHERE recipient_id = ? AND author_id = ?`,
+                            [second_id, first_id]);
+                            promise.then(() => res.send(action)).catch(error);
+                        }).catch(error);
                     }).catch(error);
                 }
             },
