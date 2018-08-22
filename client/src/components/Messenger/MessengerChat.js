@@ -50,39 +50,8 @@ class MessengerChat extends Component {
         }
     }
 
-        //componentDidUpdate(prevProps) {
-        //     if (prevProps.chatWith.id !== this.props.chatWith.id){
-        //         this.setState({
-        //             chatWith: this.props.chatWith
-        //         }, () => {
-        //             this.props.cleanChatNotes(this.props.chatWith.id);
-        //             this.scrollDown();
-        //         });
-        //         let prevMessages = prevProps.chat.filter(message => prevProps.chatWith.id === message.recipient_id
-        //             || prevProps.chatWith.id === message.author_id);
-        //         let newMessages = this.props.chat.filter(message => this.props.chatWith.id === message.recipient_id
-        //             || this.props.chatWith.id === message.author_id);
-        //         if (prevMessages.length !== newMessages.length && document.querySelector('.chat-history')) {
-        //             const chatContainer = document.querySelector('.chat-history');
-        //             const scrollPos = chatContainer.scrollTop;
-        //             const scrollBottom = (chatContainer.scrollHeight - chatContainer.clientHeight);
-        //             this.setState({
-        //                 scrollAtBottom: (scrollBottom <= 0) || (scrollPos === scrollBottom)
-        //             });
-        //             const {cleanChatNotes} = this.props;
-        //             if (this.state.chatWith.id){
-        //                 cleanChatNotes(this.state.chatWith.id);
-        //             }
-        //         }
-        //     }
-        //     if (this.state.scrollAtBottom) {
-        //         this.scrollDown();
-        //     }
-        // }
-
     sendMsg = () => {
         const {user, addChatMsg} = this.props;
-        console.log('this state input', this.state.input);
 
         if (!!this.state.input.trim()){
             const data = {
@@ -98,7 +67,6 @@ class MessengerChat extends Component {
                 input: ''
             });
         } else {
-            console.log(this.state.input);
             message.error(`Message cannot be empty`);
         }
     };
@@ -149,7 +117,7 @@ render() {
                     <MessagesList messages={messages} currentUserId={currentUserId} username={chatWith.username}/>
                 </div>
                 <div className="chat-message">
-                    <TextArea value={this.state.input} rows={1} placeholder ="Type your message"
+                    <TextArea value={this.state.input} rows={1} placeholder ="Type your message" maxLength="2000"
                               onKeyDown={this.onEnterPress} onChange={(e) => this.updateText(e.target.value)}/>
                     <Button onClick={this.sendMsg} className="center-button-chat" type="primary">Send</Button>
                 </div>
@@ -172,7 +140,7 @@ function mapStateToProps({user, chat}) {
         user,
         chat: chat.all_messages
     };
-};
+}
 
 function mapDispatchToProps(dispatch) {
     return {
@@ -185,5 +153,5 @@ MessengerChat.propTypes = {
     user: PropTypes.object,
     chat: PropTypes.array,
     addChatMsg: PropTypes.func.isRequired
-}
+};
 export default connect(mapStateToProps, mapDispatchToProps)(MessengerChat);

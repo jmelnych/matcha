@@ -23,7 +23,6 @@ class EditProfileFeedPost extends Component {
         e.preventDefault();
         form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                //console.log('Received values of form editing: ', values);
                 let updatedPost = {};
                 updatedPost.id = currentPost.id;
                 if (values.title !== currentPost.title) {

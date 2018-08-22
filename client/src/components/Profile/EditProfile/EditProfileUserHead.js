@@ -25,7 +25,6 @@ class EditProfileUserHead extends Component {
         e.preventDefault();
         form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                //console.log('Received values of form editing: ', values);
                 let newUserInfo = {};
                 if (values.username !== user.username) {
                     newUserInfo.username = values.username;

@@ -83,46 +83,6 @@ class LikeButtonStatus extends Component {
         })
     };
 
-
-
-    // componentDidUpdate(prevProps) {
-    //     console.log(this.props);
-    //     if (prevProps.ban !== this.props.ban) {
-    //         if (this.props.ban) {
-    //             this.paintButton('i-ban');
-    //             this.setState({
-    //                 iDidBan: true
-    //             });
-    //             return;
-    //         }
-    //         if (this.props.banMe){
-    //             this.paintButton('ban-me');
-    //             this.setState({
-    //                 banMe: true
-    //             });
-    //             return;
-    //         }
-    //         if (this.props.otherUser.info.avatar === 'default.png') {
-    //             this.setState({
-    //                 forbidToLike: true
-    //             })
-    //         }
-    //         const relatStatus = this.props.otherUser.relationship;
-    //         console.log(relatStatus);
-    //         if (relatStatus.includes('I like')) {
-    //             this.paintButton('i-like');
-    //         } else if (relatStatus.includes('like Me')) {
-    //             this.paintButton('me-like');
-    //         } else if (relatStatus.includes('match')) {
-    //             this.paintButton('match');
-    //         } else if (relatStatus.includes('broken')) {
-    //             this.paintButton('broken');
-    //         } else {
-    //             this.paintButton('');
-    //         }
-    //     }
-    // }
-
     componentWillReceiveProps(props) {
         if (props.ban) {
             this.paintButton('i-ban');

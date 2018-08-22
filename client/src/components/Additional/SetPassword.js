@@ -56,7 +56,6 @@ class SetPassword extends Component {
 
     validateComplex = (rule, value, callback) => {
         const pattern = /^(?=.*\d)(?=.*[a-z])\w{6,}$/;
-        //console.log(pattern.test(value));
         if (value) {
             if (pattern.test(value)) {
                 callback();

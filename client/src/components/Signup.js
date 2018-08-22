@@ -37,7 +37,6 @@ class Signup extends Component {
         form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 values.bday = moment(values.bday._d).format('L');
-                //console.log('Received values of form: ', values);
                 createUser(values).then(
                     (res) => {
                         if (res.data === 'Mail has been sent'){
@@ -73,7 +72,6 @@ class Signup extends Component {
 
     validateComplex = (rule, value, callback) => {
         const pattern = /^(?=.*\d)(?=.*[a-z])\w{6,}$/;
-        //console.log(pattern.test(value));
         if (value) {
             if (pattern.test(value)) {
                 callback();

@@ -79,7 +79,6 @@ class SearchFilter extends Component {
     };
 
     onChangeSortType = (value) => {
-        console.log('type', value);
         let sortBy = value;
         let direction = Object.keys(this.state.filters.order)[0],
             order = this.state.filters.order;
@@ -92,7 +91,6 @@ class SearchFilter extends Component {
     };
 
     onChangeSortDirection = (value) => {
-        console.log('dir', value);
         let sortBy = Object.keys(this.state.filters.order)[0];
         this.setState(prevState => ({
             filters: {
