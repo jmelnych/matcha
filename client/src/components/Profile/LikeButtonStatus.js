@@ -225,7 +225,6 @@ class LikeButtonStatus extends Component {
 
 
 render() {
-    console.log('this.state.forbidToLike', this.state.forbidToLike);
     if (this.state.forbidToLike) {
         return (
             <Popover className="pop-relationship" placement="top" title="Your relationship status"

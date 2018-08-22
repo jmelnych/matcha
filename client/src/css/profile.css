@@ -6,7 +6,7 @@ ul {
 
 .wrapper{
   max-width: 1600px;
-  margin: 0;
+  margin: 0 auto;
   display: flex;
   align-items: center;
 }
@@ -588,7 +588,33 @@ h4{
   }
 }
 
-@media (min-width: 901px) and (max-width: 1200px){
+@media screen and (max-width: 968px) {
+  .wrapper{
+    margin: 0;
+  }
+  .profile-main-avatar figcaption {
+    min-width: 360px;
+    margin: 0;
+  }
+  .profile-main-avatar-content {
+    min-width: 180px;
+    width: 180px;
+  }
+  .profile-main-avatar-content .circle {
+    bottom: 10px;
+    left: 30px;
+  }
+}
+
+@media (min-width: 969px) and (max-width: 1200px){
+  .profile-main-avatar-content {
+    min-width: 200px;
+    width: 200px;
+  }
+  .profile-main-avatar-content .circle {
+    bottom: 10px;
+    left: 40px;
+  }
   .profile-main-avatar figcaption {
     min-width: 360px;
     margin: 0;
