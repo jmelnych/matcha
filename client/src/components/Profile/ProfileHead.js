@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Ionicon from 'react-ionicons'
 import {Modal} from 'antd'
 import PropTypes from 'prop-types'
-import EditProfileUserHead from './EditProfile/EditProfileUserHead'
+import EditProfileUserTabs from './EditProfile/EditProfileUserTabs'
 import EditProfileUserAvatar from './EditProfile/EditProfileUserAvatar'
 import {connect} from 'react-redux'
 import ProfileUserGenderIcon from '../UI/ProfileUserGenderIcon'
@@ -73,7 +73,7 @@ class ProfileHead extends Component {
                      confirmLoading={confirmLoading}
                      footer={null}>
                   {ModalText ? <p>{ModalText}</p> :
-                      <EditProfileUserHead closeOnSubmit={this.handleOk}/>
+                      <EditProfileUserTabs closeOnSubmit={this.handleOk}/>
                   }
               </Modal>
         </div>
