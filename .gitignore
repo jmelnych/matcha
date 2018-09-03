@@ -3,5 +3,5 @@
 node_modules
 package-lock.json
 server/database/matcha.db
-client/src/img/avatars
-client/src/img/photos
+readme_pics
+
