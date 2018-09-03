@@ -1,6 +1,6 @@
 # Matcha
 
-##Project overview
+## Project overview
 
 Project of school 42: web site allowing a user to register, fill his/her profile with
 photos, gender preferences, interests, set the location (country and city), or it will be
@@ -11,7 +11,7 @@ for him/her based on preferences, 'fame' rating, interests and a type of persona
 (according to Myers Briggs test).
 
 ## Mandatory part
-###Registration and Signing-in
+### Registration and Signing-in
 The app must allow a user to register asking at least an email address, a username, a last
 name, a first name and a password that is somehow protected. After the registration, an
 e-mail with an unique link must be sent to the registered user to verify his account.
@@ -71,7 +71,7 @@ location, “fame rating” and tags
 
 The list is filterable by age, localization, “fame rating” and common tags.
 
-###Profile of other users
+### Profile of other users
 A user must be able to consult the profile of other users. Profiles must contain all the
 information available about them, (except for the personal details, like email address).
 When a user consults a profile, it must appear in his/her visit history.
