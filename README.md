@@ -88,11 +88,11 @@ won’t generate additional notifications.
 A user can clearly see if the consulted profile is connected or “like” his/her profile and
 must be able to “unlike” or be disconnected from that profile.
 
-###Chat
+### Chat
 When two users are connected, they must be able to “chat” in real time. The user must be able to see from any page if
 a new message is received.
 
-###Notifications
+### Notifications
 A user must be notified in real time6 of the following events:
 
 * The user received a “like”
