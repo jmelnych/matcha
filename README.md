@@ -107,4 +107,5 @@ A user must be able to see, from any page that a notification hasn’t been read
 
 This app requires npm to build, if Node and npm are not installed on your device, you  [here](https://docs.npmjs.com/getting-started/installing-node)
 1. Clone git repo
-2. cd into cloned repository and run `npm install`. This will open app in http://localhost:5000
+2. Go to server/database and run `sqlite3 matcha.db < setup.sql` to setup database
+3. cd back to root of repository and run `npm install`. This will open app in http://localhost:5000
