@@ -19,7 +19,7 @@ The user must then be able to connect with his/her username and password. He/She
 must be able to receive an email allowing him/her to re-initialize his/her password should
 the first one be forgotten and disconnect with 1 click from any pages on the site.
 
-![signup](readme_pics/signup.png)
+![signup](readme_pics/signup.jpg)
 
 
 ### User profile
@@ -28,8 +28,6 @@ Once connected, a user must fill his or her profile, adding/changing the followi
 * Biography
 * List of interests with tags (ex: #vegan, #geek, #piercing etc...). These tags must be reusable
 * Pictures, max 5, including 1 as profile picture
-
-![profile](readme_pics/header.png)
 
 At any time, the user is be able to modify these information, as well as the last
 name, first name and email address.
@@ -42,7 +40,7 @@ not as precise as the allowed method).
 * The user is be able to modify his/her GPS position in his/her profile.
 * User may post up to 5 entries about whatever she/he wants.
 
-![profile_more](readme_pics/profile.png)
+![profile_more](readme_pics/profile.jpg)
    
 ### Browsing
 The user must be able to easily get a list of suggestions that match his/her profile.
@@ -54,7 +52,7 @@ The user must be able to easily get a list of suggestions that match his/her pro
 * People from the same geographical area shown in priority
 * Compatibility of personality type (if filled)
 
-![search](readme_pics/search.png)
+![search](readme_pics/search.jpg)
 
 The user is be able to run an advanced research selecting one or a few criterias such
 as:
