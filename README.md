@@ -4,7 +4,7 @@
 
 Project of school 42: web site allowing a user to register, fill his/her profile with
 photos, gender preferences, interests, set the location (country and city), or it will be
-updated automatically if the user allow to track his/her geo location.
+     Updated: 2019/09/09 10:24:23 by pkolomiy         ###   ########.fr         
 The user is able to search and look into the profile of other users, like them and chat with those that “liked” back.
 On the 'match' page, the user will see only the users that are considered to be the perfect match
 for him/her based on preferences, 'fame' rating, interests and a type of personality
@@ -100,11 +100,11 @@ A user must be notified in real time6 of the following events:
 * A connected user “unliked” you
 
 A user must be able to see, from any page that a notification hasn’t been read.
-    
+
 ## Getting started
 
-This app requires npm to build, if Node and npm are not installed on your device, you  [here](https://docs.npmjs.com/getting-started/installing-node)
-1. Clone git repo
-2. Go to server/database and run `sqlite3 matcha.db < setup.sql` to setup database
-3. cd back to root of repository and run `npm install`.
-4. After installation run `npm server`. This will open app in http://localhost:5000
+This app requires npm to build, if Node and npm are not installed on your device, go [here](https://docs.npmjs.com/getting-started/installing-node)
+1. Clone git repository.
+2. First run `sqlite3 server/database/matcha.db < server/database/setup.sql` to setup database.
+3. Then run `npm install`.
+4. After installation run `npm run server`. And open `http://localhost:5000` url in browser.
